@@ -13,6 +13,11 @@ const Features = () => {
         </CardSection>
         <CardSection>
           <ButtonImage
+            uri="https://openclipart.org/image/2400px/svg_to_png/297225/publicdomainq-ball.png"
+          />
+        </CardSection>
+        <CardSection>
+          <ButtonImage
             uri="http://suttersmillsuffern.com/wp-content/uploads/2015/01/football-clip-art-football-clip-art-5-e1346675278471-350x350.png"
             buttonText="Football"
           />
