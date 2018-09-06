@@ -1,18 +1,16 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-const ButtonImage = ({ onPress, uri, buttonText, style }) =>
-{
+const ButtonImage = ({ onPress, uri, buttonText, picStyle, flexStyle }) => {
   const { buttonStyle, imageStyle, textStyle, viewStyle } = styles;
 
-  return(
+  return (
     <TouchableOpacity onPress={onPress} style={buttonStyle}>
-      <View style={viewStyle}>
+      <View style={[viewStyle, flexStyle]}>
         <Image
-          style={[imageStyle, style]}
-          source={{ uri: uri }}
+          style={[imageStyle, picStyle]}
+          source={{ uri }}
         />
-        <Text>        </Text>
         <Text style={textStyle}>{buttonText}</Text>
       </View>
     </TouchableOpacity>
@@ -22,11 +20,11 @@ const ButtonImage = ({ onPress, uri, buttonText, style }) =>
 const styles = {
   buttonStyle: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#F8F8F8',
 
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#ffffff',
+    borderColor: '#F8F8F8',
 
     marginLeft: 5,
     marginRight: 5
