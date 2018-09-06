@@ -6,6 +6,8 @@ import ScoreCard from './components/ScoreCard';
 import AnnounceCardAllText from './components/AnnounceCardAllText';
 import AnnounceCardImage from './components/AnnounceCardImage';
 
+Lmao
+
 class App extends Component {
   render() {
     return (

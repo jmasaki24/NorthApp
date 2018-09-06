@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardSection, ButtonImage } from './common';
 
-const features = () => {
+const Features = () => {
     return (
       <Card>
         <CardSection>
@@ -27,4 +27,4 @@ const features = () => {
     );
 };
 
-export default features;
+export default Features;
