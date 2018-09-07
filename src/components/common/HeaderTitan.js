@@ -8,7 +8,7 @@ class HeaderTitan extends Component {
       <View style={viewStyle}>
         <Image
           style={imageStyle}
-          source={{ uri: "https://schoolassets.s3.amazonaws.com/logos/21551/21551.png" }}
+          source={{ uri: 'https://schoolassets.s3.amazonaws.com/logos/21551/21551.png' }}
         />
       </View>
     );
