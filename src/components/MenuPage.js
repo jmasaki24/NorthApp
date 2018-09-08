@@ -1,29 +1,38 @@
 import React, { Component } from 'react';
-import { ListView, Text, } from 'react-native';
-import { Card, CardSection, Button } from './common';
+import { View, } from 'react-native';
+import { CardSection, Button } from './common';
 
 class MenuPage extends Component {
   render() {
-    return(
-      <ListView>
-        <Card>
+    return (
+      <View>
+        <CardSection>
           <Button> Home </Button>
-        </Card>
-        <Card>
+        </CardSection>
+        <CardSection>
           <Button> Athletics </Button>
-        </Card>
-        <Card>
+        </CardSection>
+        <CardSection>
           <Button> X2 Aspen </Button>
-        </Card>
-        <Card>
+        </CardSection>
+        <CardSection>
           <Button> Store </Button>
-        </Card>
-        <Card>
+        </CardSection>
+        <CardSection>
           <Button> Contact Us </Button>
-        </Card>
-      </ListView>
+        </CardSection>
+      </View>
     );
   }
 }
+//need to fix button.js to be more...versatile
+// or just not use button.js for menupage
+/*const styles = {
+  ListItem: {
+    borderColor: 'black',
+    fontColor: 'black',
+    fontSize: '14',
+  }
+}*/
 
 export default MenuPage;

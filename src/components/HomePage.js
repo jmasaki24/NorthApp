@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import { HeaderTitan, Footer, ButtonImage } from './common';
+import { View, ScrollView, } from 'react-native';
+import { Footer, ButtonImage } from './common';
 //import Features from './components/features';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
@@ -14,7 +14,6 @@ class HomePage extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <HeaderTitan />
         <ScrollView showVerticalScrollIndicator>
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -40,7 +39,13 @@ class HomePage extends Component {
           </AnnounceCardAllText>
           <View style={{ height: 20 }} />
         </ScrollView>
+        </View>
+      );
+    }
+  }
 
+  export default HomePage;
+/*
         <Footer style={{ justifyContent: 'space-around' }}>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <ButtonImage
@@ -67,9 +72,4 @@ class HomePage extends Component {
             />
           </View>
         </Footer>
-      </View>
-    );
-  }
-}
-
-export default HomePage;
+        */
