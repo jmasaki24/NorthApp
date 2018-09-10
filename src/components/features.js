@@ -13,6 +13,11 @@ const features = () => {
         </CardSection>
         <CardSection>
           <ButtonImage
+            buttonText="Soccer"
+          />
+        </CardSection>
+        <CardSection>
+          <ButtonImage
             uri="https://openclipart.org/image/2400px/svg_to_png/297225/publicdomainq-ball.png"
           />
         </CardSection>

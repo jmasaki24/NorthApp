@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { HeaderTitan, Footer, ButtonImage } from './components/common';
-import Features from './components/features';
 import ScoreCard from './components/ScoreCard';
 import AnnounceCardAllText from './components/AnnounceCardAllText';
 import AnnounceCardImage from './components/AnnounceCardImage';
+import Menu from './components/Menu';
+import Calendar from './components/Calendar';
 
 class App extends Component {
   render() {
@@ -33,8 +34,11 @@ class App extends Component {
             Battle of the bridge 9/28!
             Powderpuff 10/22!
           </AnnounceCardAllText>
+          <Menu />
+          <Calendar />
           <View style={{ height: 20 }} />
         </ScrollView>
+
 
         <Footer style={{ justifyContent: 'space-around' }}>
           <View style={{ flex: 1, alignItems: 'center' }}>
