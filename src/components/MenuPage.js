@@ -4,21 +4,22 @@ import { CardSection, Button } from './common';
 
 class MenuPage extends Component {
   render() {
+    const { buttonStyle, textStyle } = styles;
     return (
       <View>
-        <CardSection>
-          <Button> Home </Button>
+        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
+          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> Home </Button>
         </CardSection>
         <CardSection>
-          <Button> Athletics </Button>
+          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> Athletics </Button>
         </CardSection>
         <CardSection>
-          <Button> X2 Aspen </Button>
+          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> X2 Aspen </Button>
         </CardSection>
-        <CardSection>
+        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
           <Button> Store </Button>
         </CardSection>
-        <CardSection>
+        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
           <Button> Contact Us </Button>
         </CardSection>
       </View>
@@ -34,5 +35,14 @@ class MenuPage extends Component {
     fontSize: '14',
   }
 }*/
+
+const styles = {
+  buttonStyle: {
+    borderColor: 'white'
+  },
+  textStyle: {
+    color: 'black'
+  }
+};
 
 export default MenuPage;
