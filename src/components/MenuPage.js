@@ -8,18 +8,18 @@ class MenuPage extends Component {
     return (
       <View>
         <CardSection>
-          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> Home </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Home </Button>
         </CardSection>
         <CardSection>
-          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> Athletics </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Athletics </Button>
         </CardSection>
         <CardSection>
-          <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> X2 Aspen </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}> X2 Aspen </Button>
         </CardSection>
-        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
+        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
           <Button> Store </Button>
         </CardSection>
-        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
+        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
           <Button> Contact Us </Button>
         </CardSection>
       </View>
@@ -29,10 +29,10 @@ class MenuPage extends Component {
 
 const styles = {
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: '#000'
   },
   textStyle: {
-    color: 'black'
+    color: '#000'
   }
 };
 

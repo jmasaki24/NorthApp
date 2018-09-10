@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import { Entypo } from 'react-native-vector-icons/Entypo';
 import HomePage from './components/HomePage';
@@ -19,9 +18,10 @@ const RootStack = createBottomTabNavigator({
   }, {
     initalRouteName: 'HomeStack',
     tabBarOptions: { activeTintColor: 'tomato', inactiveTintColor: 'gray', },
-    navigation: ({ navigation }) => ({
-        tabBarIcon: <Image source="https://schoolassets.s3.amazonaws.com/logos/21551/21551.png" />
-      })
+    navigation: {
+        tabBarIcon: <Entypo iconName={'home'} size={25} />,
+        showIcon: true,
+      }
   }
 );
 

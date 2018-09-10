@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, } from 'react-native';
-import { Footer, ButtonImage } from './common';
+import Entypo from 'react-native-vector-icons/Entypo';
+//import { Footer, ButtonImage } from './common';
 //import Features from './components/features';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
@@ -16,6 +17,7 @@ class HomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView showVerticalScrollIndicator>
+          <Entypo name={'home'} size={25} />
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -38,7 +40,6 @@ class HomePage extends Component {
             Battle of the bridge 9/28!
             Powderpuff 10/22!
           </AnnounceCardAllText>
-          <Calendar />
           <View style={{ height: 20 }} />
         </ScrollView>
         </View>
