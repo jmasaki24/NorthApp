@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { HeaderTitan, Card, CardSection } from './common';
 import Calendar from 'react-native-calendar'
+import { Card, CardSection } from './common';
+
 
 class calendar extends Component {
   state = { showDay: false, day: null }
