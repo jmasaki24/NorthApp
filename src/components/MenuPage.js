@@ -7,7 +7,7 @@ class MenuPage extends Component {
     const { buttonStyle, textStyle } = styles;
     return (
       <View>
-        <CardSection buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}>
+        <CardSection>
           <Button buttonStyle={{ buttonStyle }} textStyle={{ textStyle }}> Home </Button>
         </CardSection>
         <CardSection>
@@ -26,15 +26,6 @@ class MenuPage extends Component {
     );
   }
 }
-//need to fix button.js to be more...versatile
-// or just not use button.js for menupage
-/*const styles = {
-  ListItem: {
-    borderColor: 'black',
-    fontColor: 'black',
-    fontSize: '14',
-  }
-}*/
 
 const styles = {
   buttonStyle: {

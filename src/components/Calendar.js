@@ -15,9 +15,6 @@ class calendar extends Component {
       return (
         <Card>
           <CardSection style={{ backgroundColor: '#F8F8F8' }}>
-            <Text>{this.state.day}</Text>
-          </CardSection>
-          <CardSection style={{ backgroundColor: '#F8F8F8' }}>
             <ScrollView horizontal>
               <CardSection
                 style={{ eventStyle }}

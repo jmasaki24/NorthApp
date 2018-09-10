@@ -5,6 +5,7 @@ import { Footer, ButtonImage } from './common';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
+import Calendar from './Calendar';
 
 class HomePage extends Component {
   /*createTagArray() {
@@ -37,6 +38,7 @@ class HomePage extends Component {
             Battle of the bridge 9/28!
             Powderpuff 10/22!
           </AnnounceCardAllText>
+          <Calendar />
           <View style={{ height: 20 }} />
         </ScrollView>
         </View>
