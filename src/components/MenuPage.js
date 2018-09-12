@@ -16,11 +16,11 @@ class MenuPage extends Component {
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> X2 Aspen </Button>
         </CardSection>
-        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
-          <Button> Store </Button>
+        <CardSection>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Store </Button>
         </CardSection>
-        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
-          <Button> Contact Us </Button>
+        <CardSection>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Contact Us </Button>
         </CardSection>
       </View>
     );

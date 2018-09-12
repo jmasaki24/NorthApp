@@ -17,7 +17,6 @@ class HomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView showVerticalScrollIndicator>
-          <Entypo name={'home'} size={25} />
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -41,6 +40,7 @@ class HomePage extends Component {
             Powderpuff 10/22!
           </AnnounceCardAllText>
           <View style={{ height: 20 }} />
+          <Calendar />
         </ScrollView>
         </View>
       );
