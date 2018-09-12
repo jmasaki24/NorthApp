@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-//import Calendar from 'react-native-calendar'
+import Calendar from 'react-native-calendar'
 import { Card, CardSection } from './common';
 
 

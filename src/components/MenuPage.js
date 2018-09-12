@@ -1,35 +1,45 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
-import { CardSection, Button } from './common';
+import { View } from 'react-native';
+import { CardSection, Button, Card } from './common';
 
 class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle } = styles;
     return (
-      <View>
+      <Card>
         <CardSection>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Home </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}>
+            Home
+          </Button>
         </CardSection>
         <CardSection>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Athletics </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}>
+            Athletics
+          </Button>
         </CardSection>
         <CardSection>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> X2 Aspen </Button>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}>
+            Academics
+          </Button>
         </CardSection>
-        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
-          <Button> Store </Button>
+        <CardSection>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}>
+            Store
+          </Button>
         </CardSection>
-        <CardSection buttonStyle={buttonStyle} textStyle={textStyle}>
-          <Button> Contact Us </Button>
+        <CardSection>
+          <Button buttonStyle={buttonStyle} textStyle={textStyle}>
+            Contact Us
+          </Button>
         </CardSection>
-      </View>
+      </Card>
     );
   }
 }
 
 const styles = {
   buttonStyle: {
-    borderColor: '#000'
+    borderColor: 'white'
   },
   textStyle: {
     color: '#000'

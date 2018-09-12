@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
-import { Entypo } from 'react-native-vector-icons/Entypo';
+import Entypo from 'react-native-vector-icons/Entypo';
 import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 
@@ -15,15 +15,25 @@ const MenuStack = createStackNavigator({
 const RootStack = createBottomTabNavigator({
     Home: HomeStack,
     Menu: MenuStack
-  }, {
-    initalRouteName: 'HomeStack',
-    tabBarOptions: { activeTintColor: 'tomato', inactiveTintColor: 'gray', },
-    navigation: {
-        tabBarIcon: <Entypo iconName={'home'} size={25} />,
-        showIcon: true,
+  },
+  {
+    initalRouteName: 'MenuStack',
+    tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true },
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: () => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'HomeStack') {
+          iconName = 'home';
+        } else if (routeName === 'MenuStack') {
+          iconName = 'menu';
+        }
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        return <Entypo name={iconName} size={25} color={'blue'} />;
       }
-  }
-);
+    })
+  });
 
 /*
 const { routeName } = navigation.state;
@@ -72,8 +82,6 @@ return <Entypo name={iconName} size={25} color={tintColor} />;
 */
 export default class App extends Component {
   render() {
-    return (
-     <RootStack />
-    );
+    return <RootStack />;
   }
 }
