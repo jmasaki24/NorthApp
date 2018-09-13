@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, ScrollView, } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
 //import { Footer, ButtonImage } from './common';
 //import Features from './components/features';
 import ScoreCard from './ScoreCard';
