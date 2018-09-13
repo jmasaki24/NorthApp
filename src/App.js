@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { Image } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
-import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
+import ContactPage from './components/ContactPage';
+import Calendar from './components/Calendar';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
+});
+
+const CalendarStack = createStackNavigator({
+  Calendar
 });
 
 const MenuStack = createStackNavigator({
@@ -13,24 +20,32 @@ const MenuStack = createStackNavigator({
 });
 
 const RootStack = createBottomTabNavigator({
-    Home: HomeStack,
-    Menu: MenuStack
-  },
-  {
-    initalRouteName: 'MenuStack',
-    tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true },
+    Home: HomePage,
+    Calendar: CalendarStack,
+    Menu: MenuStack,
+    Contact: ContactPage
+  }, {
+    //initalRouteName: 'ContactPage',
+    tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
+
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: () => {
         const { routeName } = navigation.state;
-        let iconName;
-        if (routeName === 'HomeStack') {
+        let iconName = '';
+        if (routeName === 'Home') {
           iconName = 'home';
-        } else if (routeName === 'MenuStack') {
-          iconName = 'menu';
+        } else if (routeName === 'Calendar') {
+          iconName = 'calendar-alt';
+        } else if (routeName === 'Menu') {
+          iconName = 'list';
+        } else if (routeName === 'Contact') {
+          iconName = 'info-circle';
+        } else {
+          iconName = 'dribbble';
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Entypo name={iconName} size={25} color={'blue'} />;
+        return <FontAwesome5 name={iconName} size={25} color={'blue'} />;
       }
     })
   });
