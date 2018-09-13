@@ -9,10 +9,10 @@ const emailHandler = () => {
 
 class ContactPage extends Component {
   render() {
-    const { basicText } = styles;
+    const { basicText, pageStyle } = styles;
 
     return (
-      <View style={{ padding: 30, justifyContent: 'space-around' }}>
+      <View style={pageStyle}>
         <Text style={{ fontSize: 45 }}>  Contact Us </Text>
         <Text style={basicText}> Comments? Questions? </Text>
         <Text> Email us at northcodingteam@gmail.com </Text>
@@ -27,6 +27,11 @@ class ContactPage extends Component {
 const styles = {
   basicText: {
     margin: 10
+  },
+  pageStyle: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 

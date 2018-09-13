@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, ScrollView, } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
-import Calendar from './Calendar';
 import { HeaderTitan } from './common';
 
 class HomePage extends Component {
@@ -14,7 +13,7 @@ class HomePage extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <HeaderTitan />
+
         <ScrollView showVerticalScrollIndicator>
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -38,7 +37,6 @@ class HomePage extends Component {
             Battle of the bridge 9/28!
             Powderpuff 10/22!
           </AnnounceCardAllText>
-          <Calendar />
           <View style={{ height: 20 }} />
         </ScrollView>
         </View>
