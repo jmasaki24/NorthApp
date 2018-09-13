@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Card, CardSection } from './common';
-
+import { Button, Card } from './common';
 
 const Menu = () => {
     const { buttonStyle, textStyle } = styles;

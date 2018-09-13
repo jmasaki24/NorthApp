@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-import { CardSection, Button, Card } from './common';
+import { Card, Button, CardSection } from './common';
 
-class MenuPage extends Component {
+class AcademicsPage extends Component {
   render() {
     const { buttonStyle, textStyle } = styles;
     return (
       <Card>
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}>
-            Home
+            X2 Aspen
           </Button>
         </CardSection>
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}>
-            Athletics
+            Staff Directory
           </Button>
         </CardSection>
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}>
-            Academics
+            Bell Schedule
           </Button>
         </CardSection>
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}>
-            Store
+            Student Handbook
           </Button>
         </CardSection>
         <CardSection>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}>
-            Contact Us
+            Compentency Handbook
           </Button>
         </CardSection>
       </Card>
@@ -45,4 +45,4 @@ const styles = {
   }
 };
 
-export default MenuPage;
+export default AcademicsPage;

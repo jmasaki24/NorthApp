@@ -28,3 +28,32 @@ const styles = {
 };
 
 export { Footer };
+
+/*
+  <Footer style={{ justifyContent: 'space-around' }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <ButtonImage
+        uri="https://vignette.wikia.nocookie.net/lieblingsbuecher/images/3/3d/Haus_-_Vector-Icon.png/revision/latest?cb=20140129173224&path-prefix=de"
+        picStyle={{ height: 40, width: 40 }}
+      />
+    </View>
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <ButtonImage
+        uri="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
+        picStyle={{ height: 40, width: 40 }}
+      />
+    </View>
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <ButtonImage
+        uri="https://www.freeiconspng.com/uploads/calendar-icon-png--0.png"
+        picStyle={{ height: 40, width: 40 }}
+      />
+    </View>
+    <View style={{ flex: 1, alignItems: 'center' }}>
+      <ButtonImage
+        uri="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZTn_1Y9Kt_iH7GNxjMmKVq0aAnmbPXNodZ_gEyjX4zYXBWVE"
+        picStyle={{ height: 40, width: 40 }}
+      />
+    </View>
+  </Footer>
+*/
