@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 //import { Footer, ButtonImage } from './common';
 //import Features from './components/features';
 import ScoreCard from './ScoreCard';

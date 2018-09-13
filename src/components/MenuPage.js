@@ -4,23 +4,29 @@ import { CardSection, Button } from './common';
 
 class MenuPage extends Component {
   render() {
-    const { buttonStyle, textStyle } = styles;
+    const { buttonStyle, textStyle, pageStyle } = styles;
     return (
-      <View>
-        <CardSection>
+      <View style={pageStyle}>
+        <CardSection style={{ padding: 0 }}>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> Home </Button>
         </CardSection>
-        <CardSection>
+        <CardSection style={{ padding: 0 }}>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> Athletics </Button>
         </CardSection>
-        <CardSection>
+        <CardSection style={{ padding: 0 }}>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> X2 Aspen </Button>
         </CardSection>
-        <CardSection>
+        <CardSection style={{ padding: 0 }}>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> Store </Button>
         </CardSection>
-        <CardSection>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Contact Us </Button>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Contact')}
+          >
+            Contact Us
+          </Button>
         </CardSection>
       </View>
     );
@@ -28,11 +34,19 @@ class MenuPage extends Component {
 }
 
 const styles = {
+  pageStyle: {
+    backgroundColor: '#FEFEFC'
+  },
   buttonStyle: {
-    borderColor: '#000'
+    borderWidth: null,
+    backgroundColor: '#AEC6EA',
+    borderRadius: 0,
+    paddingLeft: 10,
+    margin: 0
   },
   textStyle: {
-    color: '#000'
+    color: '#0C4678',
+    alignSelf: 'flex-start'
   }
 };
 

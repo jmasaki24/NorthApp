@@ -9,16 +9,16 @@ const emailHandler = () => {
 
 class ContactPage extends Component {
   render() {
-    const { basicText } = styles;
+    const { basicText, pageStyle } = styles;
 
     return (
-      <View style={{ padding: 30, justifyContent: 'space-around' }}>
+      <View style={pageStyle}>
         <Text style={{ fontSize: 45 }}>  Contact Us </Text>
         <Text style={basicText} > Comments? Questions? </Text>
         <Text> Email us at northcodingteam@gmail.com </Text>
         <FontAwesome5.Button onPress={emailHandler}> Send Email </FontAwesome5.Button>
-        <Text style={{ margin: 10 }} > Development Team: </Text>
-        <Text style={{ margin: 10 }} >  Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
+        <Text style={basicText} > Development Team: </Text>
+        <Text style={basicText} >  Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
       </View>
     );
   }
@@ -27,6 +27,11 @@ class ContactPage extends Component {
 const styles = {
   basicText: {
     margin: 10
+  },
+  pageStyle: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 
