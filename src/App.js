@@ -7,6 +7,7 @@ import MenuPage from './components/MenuPage';
 import ContactPage from './components/ContactPage';
 import AcademicsPage from './components/AcademicsPage';
 import Calendar from './components/Calendar';
+import { HeaderTitan } from './components/common';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -29,7 +30,7 @@ const RootStack = createBottomTabNavigator({
   }, {
     initalRouteName: 'Contact',
     tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
-    headerTitle: <HeaderImage />,
+    headerTitle: <HeaderTitan />,
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: () => {
         const { routeName } = navigation.state;

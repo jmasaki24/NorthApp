@@ -12,14 +12,6 @@ class MenuPage extends Component {
               buttonStyle={buttonStyle}
               textStyle={textStyle}
             >
-              Home
-            </Button>
-          </CardSection>
-          <CardSection style={{ padding: 0 }}>
-            <Button
-              buttonStyle={buttonStyle}
-              textStyle={textStyle}
-            >
               Athletics
             </Button>
           </CardSection>
