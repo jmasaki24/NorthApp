@@ -12,6 +12,7 @@ const Button = (props) => {
   );
 };
 
+//These are default style settings if not given any
 const styles = {
   textStyle: {
     alignSelf: 'center',

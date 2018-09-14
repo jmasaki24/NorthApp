@@ -17,6 +17,7 @@ const CalendarStack = createStackNavigator({
 
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
+  Home: HomePage,
   Contact: ContactPage
 });
 

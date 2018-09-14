@@ -8,7 +8,13 @@ class MenuPage extends Component {
     return (
       <View style={pageStyle}>
         <CardSection style={{ padding: 0 }}>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Home </Button>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Home')}
+          >
+            Home
+            </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
           <Button buttonStyle={buttonStyle} textStyle={textStyle}> Athletics </Button>
