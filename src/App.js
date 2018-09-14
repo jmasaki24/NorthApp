@@ -19,7 +19,8 @@ const CalendarStack = createStackNavigator({
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
   Contact: ContactPage,
-  Academics: AcademicsPage
+  Academics: AcademicsPage,
+  Home: HomePage
 });
 
 const RootStack = createBottomTabNavigator({
@@ -45,7 +46,7 @@ const RootStack = createBottomTabNavigator({
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <FontAwesome5 name={iconName} size={25} color={'blue'} />;
+        return <FontAwesome5 name={iconName} size={25} color={'black'} />;
       }
     })
   });

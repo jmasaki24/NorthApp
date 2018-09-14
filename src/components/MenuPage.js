@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { CardSection, Button, Card } from './common';
+import { CardSection, Button } from './common';
 
 class MenuPage extends Component {
   render() {
@@ -8,14 +8,6 @@ class MenuPage extends Component {
     return (
 
         <View style={pageStyle}>
-          <CardSection style={{ padding: 0 }}>
-            <Button
-              buttonStyle={buttonStyle}
-              textStyle={textStyle}
-            >
-              Home
-            </Button>
-          </CardSection>
           <CardSection style={{ padding: 0 }}>
             <Button
               buttonStyle={buttonStyle}
