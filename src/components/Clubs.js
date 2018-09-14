@@ -177,14 +177,23 @@ class Clubs extends Component {
           Students may audition as actors or serve as stage crew, tech crew, set design, construction or more, and work in the auditorium whenever possible. Drama club rehearses and performs two full scale productions per year. Students are involved in all aspects of production.
           </CardAllText>
           <CardAllText title="Titan Scribbler">
+            Mr. Michael Mulvey
+            mulveym@nashua.edu 
+            Meets bi-monthly on Tue. in D324. 
+            The Titan Scribbler is the school’s literary magazine, featuring creative writing.
 
           </CardAllText>
           <CardAllText title="Titan Times">
+            Ms. Merrill
+            merrillj@nashua.edu 
+            Meets weekly during eBlock in B328 days TBA. 
+            There will also be some after school meetings. Titan Times is Nashua North’s number one source of what is happening in the Titan community. The group consists of student writers, cartoonists & photographers.
           </CardAllText>
-          <CardAllText title="Mr. Michael Mulvey"
-            mulveym@nashua.edu
-            Meets bi-monthly on Tue. in D324.
-            The Titan Scribbler is the school’s literary magazine, featuring creative writing.
+          <CardAllText title="Titan Yearbook"
+            Ms. Gingras
+            gingrass@nashua.edu 
+            Meets Mon. after school in room B140.
+            Yearbook welcomes students from all grades who are interested in creating special memories for their school.
           </CardAllText>
           <CardAllText title="Ultimate Frisbee">
             Mr. Freeman
