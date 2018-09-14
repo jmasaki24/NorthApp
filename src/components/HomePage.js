@@ -3,7 +3,6 @@ import { View, ScrollView, Image } from 'react-native';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
-import { HeaderTitan } from './common';
 
 class HomePage extends Component {
   /*createTagArray() {

@@ -6,7 +6,6 @@ class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle, pageStyle } = styles;
     return (
-
         <View style={pageStyle}>
           <CardSection style={{ padding: 0 }}>
             <Button
@@ -43,7 +42,6 @@ class MenuPage extends Component {
             </Button>
           </CardSection>
         </View>
-
     );
   }
 }
