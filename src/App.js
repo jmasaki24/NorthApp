@@ -51,19 +51,6 @@ const RootStack = createBottomTabNavigator({
     })
   });
 
-class HeaderImage extends Component {
-  render() {
-    return (
-      <View>
-        <Image
-          source={{ uri: 'https://schoolassets.s3.amazonaws.com/logos/21551/21551.png' }}
-          style={{ height: 15, width: 15 }}
-        />
-      </View>
-    );
-  }
-}
-
 export default class App extends Component {
   render() {
     return <RootStack />;
