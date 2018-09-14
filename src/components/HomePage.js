@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image } from 'react-native';
-//import { Footer, ButtonImage } from './common';
-//import Features from './components/features';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
-import Calendar from './Calendar';
+import { HeaderTitan } from './common';
 
 class HomePage extends Component {
   /*createTagArray() {
@@ -15,6 +13,7 @@ class HomePage extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+
         <ScrollView showVerticalScrollIndicator>
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -39,7 +38,6 @@ class HomePage extends Component {
             Powderpuff 10/22!
           </AnnounceCardAllText>
           <View style={{ height: 20 }} />
-          <Calendar />
         </ScrollView>
         </View>
       );
@@ -47,31 +45,3 @@ class HomePage extends Component {
   }
 
   export default HomePage;
-/*
-        <Footer style={{ justifyContent: 'space-around' }}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <ButtonImage
-              uri="https://vignette.wikia.nocookie.net/lieblingsbuecher/images/3/3d/Haus_-_Vector-Icon.png/revision/latest?cb=20140129173224&path-prefix=de"
-              picStyle={{ height: 40, width: 40 }}
-            />
-          </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <ButtonImage
-              uri="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
-              picStyle={{ height: 40, width: 40 }}
-            />
-          </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <ButtonImage
-              uri="https://www.freeiconspng.com/uploads/calendar-icon-png--0.png"
-              picStyle={{ height: 40, width: 40 }}
-            />
-          </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <ButtonImage
-              uri="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZTn_1Y9Kt_iH7GNxjMmKVq0aAnmbPXNodZ_gEyjX4zYXBWVE"
-              picStyle={{ height: 40, width: 40 }}
-            />
-          </View>
-        </Footer>
-        */

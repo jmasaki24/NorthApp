@@ -1,40 +1,55 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View } from 'react-native';
 import { CardSection, Button } from './common';
 
 class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle, pageStyle } = styles;
     return (
-      <View style={pageStyle}>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Home')}
-          >
-            Home
+        <View style={pageStyle}>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+            >
+              Home
             </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Athletics </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> X2 Aspen </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button buttonStyle={buttonStyle} textStyle={textStyle}> Store </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Contact')}
-          >
-            Contact Us
-          </Button>
-        </CardSection>
-      </View>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+            >
+              Athletics
+            </Button>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Academics')}
+            >
+              Academics
+            </Button>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+            >
+              Store
+            </Button>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Contact')}
+            >
+              Contact Us
+            </Button>
+          </CardSection>
+        </View>
     );
   }
 }
@@ -44,6 +59,7 @@ const styles = {
     backgroundColor: '#FEFEFC'
   },
   buttonStyle: {
+    //borderColor: 'white',
     borderWidth: null,
     backgroundColor: '#AEC6EA',
     borderRadius: 0,

@@ -5,6 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 import ContactPage from './components/ContactPage';
+import AcademicsPage from './components/AcademicsPage';
 import Calendar from './components/Calendar';
 
 const HomeStack = createStackNavigator({
@@ -17,8 +18,8 @@ const CalendarStack = createStackNavigator({
 
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
-  Home: HomePage,
-  Contact: ContactPage
+  Contact: ContactPage,
+  Academics: AcademicsPage,
 });
 
 const RootStack = createBottomTabNavigator({
@@ -47,7 +48,7 @@ const RootStack = createBottomTabNavigator({
         return <FontAwesome5 name={iconName} size={25} color={'blue'} />;
       }
     })
-});
+  });
 
 class HeaderImage extends Component {
   render() {
@@ -64,8 +65,6 @@ class HeaderImage extends Component {
 
 export default class App extends Component {
   render() {
-    return (
-     <RootStack />
-    );
+    return <RootStack />;
   }
 }
