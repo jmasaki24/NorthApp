@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+//import { Image, View } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomePage from './components/HomePage';
@@ -7,6 +7,7 @@ import MenuPage from './components/MenuPage';
 import ContactPage from './components/ContactPage';
 import AcademicsPage from './components/AcademicsPage';
 import Calendar from './components/Calendar';
+import StorePage from './components/StorePage';
 import { HeaderTitan } from './components/common';
 
 const HomeStack = createStackNavigator({
@@ -24,6 +25,7 @@ const MenuStack = createStackNavigator({
 });
 
 const RootStack = createBottomTabNavigator({
+    Store: StorePage,
     Home: HomeStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
