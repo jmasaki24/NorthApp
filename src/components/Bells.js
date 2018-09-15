@@ -1,0 +1,160 @@
+import React from 'react';
+import { Text, View, ScrollView } from 'react-native';
+import { Card, CardSection } from './common';
+
+const Bells = () => {
+  const { titleStyle, sectionStyle, viewStyle, subHeadingStyle, infoStyle } = styles;
+  return (
+    <ScrollView>
+      <Card>
+        <CardSection>
+          <View style={viewStyle}>
+            <Text style={titleStyle}>Regular</Text>
+          </View>
+        </CardSection>
+        <CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Period</Text>
+              <Text style={infoStyle}>1</Text>
+              <Text style={infoStyle}>2</Text>
+              <Text style={infoStyle}>E-Block</Text>
+              <Text style={infoStyle}>3</Text>
+              <Text style={infoStyle}>4</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Start</Text>
+              <Text style={infoStyle}>7:20</Text>
+              <Text style={infoStyle}>8:44</Text>
+              <Text style={infoStyle}>10:09</Text>
+              <Text style={infoStyle}>10:49</Text>
+              <Text style={infoStyle}>12:44</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>End</Text>
+              <Text style={infoStyle}>8:39</Text>
+              <Text style={infoStyle}>10:04</Text>
+              <Text style={infoStyle}>10:44</Text>
+              <Text style={infoStyle}>12:39</Text>
+              <Text style={infoStyle}>2:03</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+      </Card>
+
+      <Card>
+        <CardSection>
+          <View style={viewStyle}>
+            <Text style={titleStyle}>Early Release</Text>
+          </View>
+        </CardSection>
+        <CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Period</Text>
+              <Text style={infoStyle}>1</Text>
+              <Text style={infoStyle}>2</Text>
+              <Text style={infoStyle}>E-Block</Text>
+              <Text style={infoStyle}>3</Text>
+              <Text style={infoStyle}>4</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Start</Text>
+              <Text style={infoStyle}>7:20</Text>
+              <Text style={infoStyle}>8:28</Text>
+              <Text style={infoStyle}>N/A</Text>
+              <Text style={infoStyle}>9:36</Text>
+              <Text style={infoStyle}>10:44</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>End</Text>
+              <Text style={infoStyle}>8:20</Text>
+              <Text style={infoStyle}>9:28</Text>
+              <Text style={infoStyle}>N/A</Text>
+              <Text style={infoStyle}>10:36</Text>
+              <Text style={infoStyle}>11:44</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+      </Card>
+
+      <Card>
+        <CardSection>
+          <View style={viewStyle}>
+            <Text style={titleStyle}>Delayed Opening</Text>
+          </View>
+        </CardSection>
+        <CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Period</Text>
+              <Text style={infoStyle}>1</Text>
+              <Text style={infoStyle}>2</Text>
+              <Text style={infoStyle}>E-Block</Text>
+              <Text style={infoStyle}>3</Text>
+              <Text style={infoStyle}>4</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Start</Text>
+              <Text style={infoStyle}>9:20</Text>
+              <Text style={infoStyle}>10:15</Text>
+              <Text style={infoStyle}>N/A</Text>
+              <Text style={infoStyle}>11:10</Text>
+              <Text style={infoStyle}>1:10</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>End</Text>
+              <Text style={infoStyle}>10:10</Text>
+              <Text style={infoStyle}>11:05</Text>
+              <Text style={infoStyle}>N/A</Text>
+              <Text style={infoStyle}>1:05</Text>
+              <Text style={infoStyle}>2:03</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+      </Card>
+    </ScrollView>
+  );
+};
+
+const styles = {
+  titleStyle: {
+    fontWeight: 'bold',
+    fontSize: 30
+  },
+  sectionStyle: {
+    flex: 1,
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    flexDirection: 'column'
+  },
+  viewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  subHeadingStyle: {
+    fontSize: 20,
+    fontWeight: '700',
+    borderBottomWidth: 5
+  },
+  infoStyle: {
+    borderBottomWidth: 5,
+    fontSize: 16
+  }
+};
+
+export default Bells;
