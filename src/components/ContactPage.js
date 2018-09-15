@@ -18,7 +18,7 @@ class ContactPage extends Component {
         <Text style={basicText}> (603) 966-2500 </Text>
         <Text style={basicText} > Comments? Questions? </Text>
         <Text> Email us at northcodingteam@gmail.com </Text>
-        <FontAwesome5.Button onPress={emailHandler}> Send Email </FontAwesome5.Button>
+        <FontAwesome5.Button onPress={emailHandler}>Send Email </FontAwesome5.Button>
         <Text style={basicText}> Development Team: </Text>
         <Text style={basicText}> Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
       </View>

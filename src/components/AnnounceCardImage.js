@@ -9,9 +9,6 @@ const AnnounceCardImage = (props) => (
           {props.title}
         </Text>
       </CardSection>
-      <CardSection>
-        <Text> {props.tags} </Text>
-      </CardSection>
       <CardSection style={{ alignItems: 'center' }}>
         <View style={{ flex: 1 }}>
           <Image

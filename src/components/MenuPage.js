@@ -36,6 +36,15 @@ class MenuPage extends Component {
             <Button
               buttonStyle={buttonStyle}
               textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Clubs')}
+            >
+              Clubs
+            </Button>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
               onPress={() => this.props.navigation.navigate('Contact')}
             >
               Contact Us

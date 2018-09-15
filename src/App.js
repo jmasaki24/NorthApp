@@ -6,8 +6,10 @@ import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 import ContactPage from './components/ContactPage';
 import AcademicsPage from './components/AcademicsPage';
+import ClubsPage from './components/Clubs';
 import Calendar from './components/Calendar';
 import { HeaderTitan } from './components/common';
+import BellSchedule from './components/Bells';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -21,36 +23,37 @@ const MenuStack = createStackNavigator({
   Menu: MenuPage,
   Contact: ContactPage,
   Academics: AcademicsPage,
-  Home: HomePage
+  Clubs: ClubsPage,
+  Bells: BellSchedule
 });
 
 const RootStack = createBottomTabNavigator({
-    Home: HomeStack,
-    Calendar: CalendarStack,
-    Menu: MenuStack,
-  }, {
-    initalRouteName: 'Contact',
-    tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
-    headerTitle: <HeaderTitan />,
+  Home: HomeStack,
+  Calendar: CalendarStack,
+  Menu: MenuStack,
+}, {
+  initalRouteName: 'Calendar',
+  tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
+  headerTitle: <HeaderTitan />,
     navigationOptions: ({ navigation }) => ({
-      tabBarIcon: () => {
-        const { routeName } = navigation.state;
-        let iconName = '';
-        if (routeName === 'Home') {
-          iconName = 'home';
-        } else if (routeName === 'Calendar') {
-          iconName = 'calendar-alt';
-        } else if (routeName === 'Menu') {
-          iconName = 'list';
-        } else {
-          iconName = 'question';
-        }
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
-        return <FontAwesome5 name={iconName} size={25} color={'black'} />;
+    tabBarIcon: () => {
+      const { routeName } = navigation.state;
+      let iconName = '';
+      if (routeName === 'Home') {
+        iconName = 'home';
+      } else if (routeName === 'Calendar') {
+        iconName = 'calendar-alt';
+      } else if (routeName === 'Menu') {
+        iconName = 'list';
+      } else {
+        iconName = 'question';
       }
-    })
-  });
+    // You can return any component that you like here! We usually use an
+    // icon component from react-native-vector-icons
+    return <FontAwesome5 name={iconName} size={25} color={'black'} />;
+    }
+  })
+});
 
 export default class App extends Component {
   render() {

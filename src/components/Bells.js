@@ -125,6 +125,86 @@ const Bells = () => {
           </CardSection>
         </CardSection>
       </Card>
+
+
+      <Card>
+        <CardSection>
+          <View style={viewStyle}>
+            <Text style={titleStyle}>Lunches</Text>
+          </View>
+        </CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Regular</Text>
+              <Text style={infoStyle}>1st</Text>
+              <Text style={infoStyle}>2nd</Text>
+              <Text style={infoStyle}>3rd</Text>
+              <Text style={infoStyle}>4th</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Start</Text>
+              <Text style={infoStyle}>10:49</Text>
+              <Text style={infoStyle}>11:17</Text>
+              <Text style={infoStyle}>11:46</Text>
+              <Text style={infoStyle}>12:15</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>End</Text>
+              <Text style={infoStyle}>11:12</Text>
+              <Text style={infoStyle}>11:41</Text>
+              <Text style={infoStyle}>12:10</Text>
+              <Text style={infoStyle}>12:39</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Early Release</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={infoStyle}>Grab And Go</Text>
+              <Text style={infoStyle}>11:44 - 12:05</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+        <CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Delay</Text>
+              <Text style={infoStyle}>1st</Text>
+              <Text style={infoStyle}>2nd</Text>
+              <Text style={infoStyle}>3rd</Text>
+              <Text style={infoStyle}>4th</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>Start</Text>
+              <Text style={infoStyle}>11:10</Text>
+              <Text style={infoStyle}>11:40</Text>
+              <Text style={infoStyle}>12:10</Text>
+              <Text style={infoStyle}>12:40</Text>
+            </View>
+          </CardSection>
+          <CardSection style={sectionStyle}>
+            <View style={viewStyle}>
+              <Text style={subHeadingStyle}>End</Text>
+              <Text style={infoStyle}>11:35</Text>
+              <Text style={infoStyle}>12:05</Text>
+              <Text style={infoStyle}>12:35</Text>
+              <Text style={infoStyle}>1:05</Text>
+            </View>
+          </CardSection>
+        </CardSection>
+      </Card>
     </ScrollView>
   );
 };
@@ -144,7 +224,8 @@ const styles = {
   },
   viewStyle: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    alignSelf: 'center'
   },
   subHeadingStyle: {
     fontSize: 20,
