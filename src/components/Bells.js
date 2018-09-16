@@ -171,7 +171,7 @@ const Bells = () => {
           <CardSection style={sectionStyle}>
             <View style={viewStyle}>
               <Text style={infoStyle}>Grab And Go</Text>
-              <Text style={infoStyle}>11:44 - 12:05</Text>
+              <Text style={{ fontSize: 16 }}>11:44 - 12:05</Text>
             </View>
           </CardSection>
         </CardSection>
@@ -225,7 +225,8 @@ const styles = {
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    flex: 1
   },
   subHeadingStyle: {
     fontSize: 20,

@@ -25,7 +25,7 @@ const ScoreCard = ({ otherTeam, ourScore, theirScore }) => {
 
 const styles = {
   titleStyle: {
-    fontSize: 26,
+    fontSize: 23,
     fontWeight: 'bold',
     flex: 1
   },
