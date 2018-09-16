@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import CardAllText from './AnnounceCardAllText';
+
 class Clubs extends Component {
   render() {
     return (
