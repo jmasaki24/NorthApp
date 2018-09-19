@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import ContactPage from './ContactPage';
+
+//remove this after updating to a stable release of react native
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
 
 const data = [
   { key: 'Patchwork Rugby Hoodie',
@@ -39,7 +43,10 @@ class StorePage extends Component {
         />
         <Text style={styles.text}>{key}</Text>
         <Text style={styles.text}>{price}</Text>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Contact')}
+          style={styles.buttonContainer}
+        >
           <Text style={styles.buttonText}>
             View Details
           </Text>
@@ -71,7 +78,7 @@ const styles = {
     maxWidth: 223,
     height: 304,
     maxHeight: 304,
-    backgroundColor: '#CCC',
+    backgroundColor: '#e8e8e8',
   },
   list: {
     flex: 1,
@@ -87,19 +94,21 @@ const styles = {
   buttonContainer: {
     flex: 0,
     borderRadius: 0,
-    backgroundColor: '#007aff',
+    backgroundColor: null,
     margin: 0,
-    justifyContent: 'center'
+    alignItems: 'center'
   },
   buttonText: {
-    color: '#fff',
+    color: '#000',
+    textDecorationLine: 'underline',
     fontSize: 12,
     padding: 0,
   }
 };
 
 const StoreStack = createStackNavigator({
-  Store: StorePage
+  Store: StorePage,
+  Contact: ContactPage
 }, {
 });
 
