@@ -1,7 +1,15 @@
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+const Input = ({
+  label,
+  value,
+  onChangeText,
+  placeholder,
+  secureTextEntry,
+  multiline,
+  autocorrect
+}) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -10,10 +18,11 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
-        autocorret={false}
+        autocorret={autocorrect || true}
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
+        multiline={multiline || false}
       />
     </View>
   );
@@ -41,4 +50,4 @@ const styles = {
   }
 };
 
-export {Input};
+export { Input };

@@ -50,6 +50,15 @@ class MenuPage extends Component {
               Contact Us
             </Button>
           </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Admin')}
+            >
+              Admin
+            </Button>
+          </CardSection>
         </View>
     );
   }

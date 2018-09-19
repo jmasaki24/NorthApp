@@ -6,22 +6,22 @@ import HomePage from './components/HomePage';
 import MenuPage from './components/MenuPage';
 import ContactPage from './components/ContactPage';
 import AcademicsPage from './components/AcademicsPage';
+import AdminPage from './components/Admin';
 import ClubsPage from './components/Clubs';
 import Calendar from './components/Calendar';
 import StorePage from './components/StorePage';
-import { HeaderTitan } from './components/common';
 import BellSchedule from './components/Bells';
-import Titan from './titanT.png'
+import Titan from './titanT.png';
 
 const HomeStack = createStackNavigator({
   Home: HomePage
 }, {
   navigationOptions: {
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
+    <Image
+      source={Titan}
+      style={{ height: 40, width: 40 }}
+    />
   }
 });
 
@@ -30,10 +30,10 @@ const CalendarStack = createStackNavigator({
 }, {
   navigationOptions: {
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
+    <Image
+      source={Titan}
+      style={{ height: 40, width: 40 }}
+    />
   }
 });
 
@@ -42,14 +42,15 @@ const MenuStack = createStackNavigator({
   Contact: ContactPage,
   Academics: AcademicsPage,
   Clubs: ClubsPage,
+  Admin: AdminPage,
   Bells: BellSchedule
 }, {
   navigationOptions: {
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
+    <Image
+      source={Titan}
+      style={{ height: 40, width: 40 }}
+    />
   }
 });
 
@@ -58,10 +59,10 @@ const StoreStack = createStackNavigator({
 }, {
   navigationOptions: {
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />,
+    <Image
+      source={Titan}
+      style={{ height: 40, width: 40 }}
+    />,
     headerTitleStyle: { paddingBottom: 10, borderBottomWidth: 10 }
   }
 });
@@ -93,6 +94,13 @@ const RootStack = createBottomTabNavigator({
     }
   })
 });
+
+const T = () => (
+  <Image
+    source={Titan}
+    style={{ height: 40, width: 40 }}
+  />
+);
 
 export default class App extends Component {
   render() {

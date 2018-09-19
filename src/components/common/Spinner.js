@@ -15,4 +15,4 @@ const styles = {
   }
 };
 
-export {Spinner};
+export { Spinner };
