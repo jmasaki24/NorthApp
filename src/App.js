@@ -7,7 +7,7 @@ import CalendarStack from './components/Calendar';
 import StoreStack from './components/StorePage';
 
 const RootStack = createBottomTabNavigator({
-    Store: StoreStack,
+    //Store: StoreStack,
     Home: HomeStack,
     Calendar: CalendarStack,
     Menu: MenuStack,

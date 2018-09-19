@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Titan from '../titanT.png';
 
 const data = [
   { key: 'Patchwork Rugby Hoodie',

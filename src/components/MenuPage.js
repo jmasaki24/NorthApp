@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Titan from '../titanT.png';
+import Titan from 'C:/Users/Jamie/Documents/App Stuff/Work/NorthApp/src/images/titanT.png';
 import { CardSection, Button } from './common';
 import ContactPage from './ContactPage';
 import AcademicsPage from './AcademicsPage';
