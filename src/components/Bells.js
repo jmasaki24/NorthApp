@@ -234,6 +234,7 @@ const styles = {
     borderBottomWidth: 5
   },
   infoStyle: {
+    borderColor: '#fff',
     borderBottomWidth: 5,
     fontSize: 16
   }

@@ -6,9 +6,10 @@ import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
 import StoreStack from './components/StorePage';
+import StoreItem from './components/StoreItem';
 
 const RootStack = createBottomTabNavigator({
-    Store: StoreStack,
+//    Store: StoreItem,
     Home: HomeStack,
     Calendar: CalendarStack,
     Menu: MenuStack,

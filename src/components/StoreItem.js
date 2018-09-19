@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
-import { View, Picker, Image, FlatList, Text } from 'react-native';
+import { Text, Picker, ScrollView, Image } from 'react-native';
+import Titan from '../images/titanT.png';
 
-class StoreItem extends Component {
+class StorePage extends Component {
   render() {
-    const { uri } = this.props.data;
-
     return (
-      <View>
+      <ScrollView style={{ flex: 1 }}>
         <Image
-          resizeMode='cover'
-          style={styles.image}
-          source={{ uri }}
+          style={{ flex: 1 }}
+          source={Titan}
         />
-      </View>
+        <Text style={styles.textStyle}> Patchwork Rugby Hoodie </Text>
+        <Picker
+          style={{ flex: 1 }}
+        >
+          <Picker.Item label="Small" value="small" />
+          <Picker.Item label="Medium" value="medium" />
+          <Picker.Item label="Large" value="large" />
+        </Picker>
+      </ScrollView>
     );
   }
 }
 
 const styles = {
-  image: { flex: 1 }
+  textStyle: {
+    fontSize: 16,
+    color: '#000',
+  }
 };
 
-export default StoreItem;
+export default StorePage;

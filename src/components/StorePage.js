@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import ContactPage from './ContactPage';
-import StoreItem from '../storeItem.json';
+import StoreItems from '../storeItems.json';
 
 //remove this after updating to a stable release of react native
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
 
-const data = StoreItem;
+const data = StoreItems;
 
 const numColumns = 2;
 
@@ -26,7 +25,6 @@ class StorePage extends Component {
         <Text style={styles.text}>{key}</Text>
         <Text style={styles.text}>{price}</Text>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Contact')}
           style={styles.buttonContainer}
         >
           <Text style={styles.buttonText}>
@@ -90,7 +88,6 @@ const styles = {
 
 const StoreStack = createStackNavigator({
   Store: StorePage,
-  Contact: ContactPage
 }, {
 });
 
