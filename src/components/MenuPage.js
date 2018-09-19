@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import Titan from '../images/titanT.png';
 import { CardSection, Button } from './common';
+import ContactPage from './ContactPage';
+import AcademicsPage from './AcademicsPage';
+import ClubsPage from './Clubs';
+import BellSchedule from './Bells';
+import StoreStack from './StorePage';
+import AdminPage from './Admin';
 
 class MenuPage extends Component {
   render() {
@@ -28,6 +36,7 @@ class MenuPage extends Component {
             <Button
               buttonStyle={buttonStyle}
               textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Store')}
             >
               Store
             </Button>
@@ -82,4 +91,22 @@ const styles = {
   }
 };
 
-export default MenuPage;
+const MenuStack = createStackNavigator({
+  Menu: MenuPage,
+  Contact: ContactPage,
+  Academics: AcademicsPage,
+  Clubs: ClubsPage,
+  Bells: BellSchedule,
+  Store: StoreStack,
+  Admin: AdminPage
+}, {
+  navigationOptions: {
+    headerTitle:
+      <Image
+        source={Titan}
+        style={{ height: 40, width: 40 }}
+      />
+  }
+});
+
+export default MenuStack;

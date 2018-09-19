@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Image } from 'react-native';
 import Calendar from 'react-native-calendar';
+import { createStackNavigator } from 'react-navigation';
+import Titan from '../images/titanT.png';
 import { Card, CardSection } from './common';
 
-
-class calendar extends Component {
+class CalendarPage extends Component {
   state = { showDay: false, day: null }
 
   onDateSelect(date) {
@@ -76,4 +77,17 @@ const eventStyle = {
   backgroundColor: '#F8F8F8'
 };
 
-export default calendar;
+const CalendarStack = createStackNavigator({
+  CalendarPage
+}, {
+  headerLayoutPreset: 'center',
+  navigationOptions: {
+    headerTitle:
+      <Image
+        source={Titan}
+        style={{ height: 40, width: 40 }}
+      />
+  }
+});
+
+export default CalendarStack;

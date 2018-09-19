@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
 import firebase from 'firebase';
-import { LoginForm, Spinner, Button } from './common';
+import { LoginForm, Spinner } from './common';
 import AddContent from './AddContent';
 
 
@@ -28,15 +27,13 @@ class Admin extends Component {
   }
 
   renderContent() {
-    switch (this.state.LoggedIn) {
+    switch (this.state.loggedIn) {
       case true:
-        return (
-          <AddContent />
-        );
+        return <AddContent />;
       case false:
         return <LoginForm />;
       default:
-        return <LoginForm />;
+        return <Spinner />;
     }
   }
 

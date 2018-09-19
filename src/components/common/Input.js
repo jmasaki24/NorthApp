@@ -8,12 +8,12 @@ const Input = ({
   placeholder,
   secureTextEntry,
   multiline,
-  autocorrect
+  autocorrect,
+  viewStyle
 }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
-
   return (
-    <View style={containerStyle}>
+    <View style={[containerStyle, viewStyle]}>
       <Text style={labelStyle}>{label}</Text>
       <TextInput
         secureTextEntry={secureTextEntry}

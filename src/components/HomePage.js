@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
+import LogoTitans from '../images/logoTitans.jpg';
 
 class HomePage extends Component {
   /*createTagArray() {
@@ -43,4 +45,17 @@ class HomePage extends Component {
     }
   }
 
-  export default HomePage;
+  const HomeStack = createStackNavigator({
+    Home: HomePage
+  }, {
+    headerLayoutPreset: 'center',
+    navigationOptions: {
+      headerTitle:
+          <Image
+            resizeMode='center'
+            source={LogoTitans}
+          />,
+    }
+  });
+
+  export default HomeStack;

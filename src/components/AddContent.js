@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
+import firebase from 'firebase';
 import { Card, CardSection, Input, Button, Confirm } from './common';
 
 class AddContent extends Component {
@@ -17,6 +19,8 @@ class AddContent extends Component {
       return (
         <CardSection>
           <Button
+            buttonStyle={{ borderColor: 'white' }}
+            textStyle={{ color: 'black' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
             Submit Announcement
@@ -24,7 +28,18 @@ class AddContent extends Component {
         </CardSection>
       );
     }
+    return (
+      <CardSection>
+        <Button
+          buttonStyle={{ borderColor: 'white' }}
+          textStyle={{ color: 'gray' }}
+        >
+          Submit Announcement
+        </Button>
+      </CardSection>
+    );
   }
+
 
   render() {
     return (
@@ -33,26 +48,42 @@ class AddContent extends Component {
           <Input
             label="Title"
             placeholder="Title"
+            viewStyle={{ height: 60 }}
             multiline
+            value={this.state.Title}
+            onChangeText={(Title) => this.setState({ Title })}
           />
         </CardSection>
         <CardSection>
           <Input
-            label=""
-            placeholder="Announcement Info Goes Here"
+            label="Text"
+            placeholder="Info Goes Here"
+            viewStyle={{ height: 150 }}
             multiline
+            value={this.state.Info}
+            onChangeText={(Info) => this.setState({ Info })}
           />
         </CardSection>
         {this.renderButton()}
+        <View style={{ alignItems: 'flex-end' }}>
+          <CardSection>
+            <Button
+              buttonStyle={{ borderColor: 'white' }}
+              textStyle={{ color: 'black' }}
+              onPress={() => firebase.auth().signOut()}
+            >
+              Log Out
+            </Button>
+          </CardSection>
+        </View>
 
         <Confirm
           visible={this.state.showModal}
-          onAccept={this.onAccept()}
-          onDecline={this.onDecline()}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
         >
           Are you sure you would like to add this content?
         </Confirm>
-
       </Card>
     );
   }
