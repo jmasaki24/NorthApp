@@ -8,15 +8,6 @@ class Admin extends Component {
   state = { loggedIn: null }
 
   componentWillMount() {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyBL4uf8wErrDlSaJndsu9jn_SnYM-ldt78',
-      authDomain: 'napp-4f332.firebaseapp.com',
-      databaseURL: 'https://napp-4f332.firebaseio.com',
-      projectId: 'napp-4f3322',
-      storageBucket: 'napp-4f332.appspot.com',
-      messagingSenderId: '687322625517'
-    });
-
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn: true });

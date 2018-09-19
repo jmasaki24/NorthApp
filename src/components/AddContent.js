@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
 import { Card, CardSection, Input, Button, Confirm } from './common';
 
@@ -30,12 +30,9 @@ class AddContent extends Component {
     }
     return (
       <CardSection>
-        <Button
-          buttonStyle={{ borderColor: 'white' }}
-          textStyle={{ color: 'gray' }}
-        >
-          Submit Announcement
-        </Button>
+        <View style={styles.viewStyle}>
+          <Text style={styles.textStyle}>Submit Announcement</Text>
+        </View>
       </CardSection>
     );
   }
@@ -89,5 +86,21 @@ class AddContent extends Component {
   }
 }
 
+const styles = {
+  viewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    flex: 1
+  },
+  textStyle: {
+    color: 'gray',
+    fontSize: 16,
+    fontWeight: '600',
+
+    paddingTop: 10,
+    paddingBottom: 10
+  }
+};
 
 export default AddContent;

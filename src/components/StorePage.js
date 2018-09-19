@@ -1,27 +1,9 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import StoreItem from '../storeItem.json';
 
-const data = [
-  { key: 'Patchwork Rugby Hoodie',
-  price: '$248',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302885_lifestyle?$rl_392_pdp$', },
-  { key: 'Classic Cotton Rugby Shirt',
-  price: '$168',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302897_lifestyle?$rl_392_pdp$' },
-  { key: 'Cotton Blend Fleece Sweatshirt',
-  price: '$188',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302871_lifestyle?$rl_392_pdp$' },
-  { key: 'Cotton Blend Fleece Cardigan',
-  price: '$248',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302888_lifestyle?$rl_392_pdp$' },
-  { key: 'Cotton Blend Fleece Hoodie',
-  price: '$148',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302907_lifestyle?$rl_392_pdp$' },
-  { key: 'Patchwork Fleece Jogger',
-  price: '$198',
-  uri: 'https://www.rlmedia.io/is/image/PoloGSI/s7-1302901_lifestyle?$rl_392_pdp$' }
-];
+const data = StoreItem;
 
 const numColumns = 2;
 

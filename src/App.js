@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
+import firebase from 'firebase';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
@@ -35,6 +36,17 @@ const RootStack = createBottomTabNavigator({
 });
 
 export default class App extends Component {
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBL4uf8wErrDlSaJndsu9jn_SnYM-ldt78',
+      authDomain: 'napp-4f332.firebaseapp.com',
+      databaseURL: 'https://napp-4f332.firebaseio.com',
+      projectId: 'napp-4f3322',
+      storageBucket: 'napp-4f332.appspot.com',
+      messagingSenderId: '687322625517'
+    });
+  }
+
   render() {
     return <RootStack />;
   }
