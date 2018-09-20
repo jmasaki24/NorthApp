@@ -27,7 +27,7 @@ class StorePage extends Component {
         <Text style={styles.text}>{price}</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Store')}
+          onPress={() => this.props.navigation.navigate('Item')}
         >
           <Text style={styles.buttonText}>
             View Details
