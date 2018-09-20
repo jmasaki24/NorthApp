@@ -31,6 +31,14 @@ class AthleticsPage extends Component {
             Spring
           </Button>
         </CardSection>
+        <CardSection>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={buttonTextStyle}
+          >
+            Summer?
+          </Button>
+        </CardSection>
       </Card>
     );
   }
