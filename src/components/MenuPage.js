@@ -7,7 +7,7 @@ import ContactPage from './ContactPage';
 import AcademicsPage from './AcademicsPage';
 import ClubsPage from './Clubs';
 import BellSchedule from './Bells';
-import StorePage from './StorePage';
+import StoreStack from './StorePage';
 import StoreItem from './StoreItem';
 import AdminPage from './Admin';
 import AthleticsPage from './AthleticsPage';
@@ -100,7 +100,7 @@ const MenuStack = createStackNavigator({
   Academics: AcademicsPage,
     Bells: BellSchedule,
   Clubs: ClubsPage,
-  Store: StorePage,
+  Store: StoreStack,
     Item: StoreItem,
 
   Admin: AdminPage,
