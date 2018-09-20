@@ -5,15 +5,13 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
-import StoreStack from './components/StorePage';
 
 const RootStack = createBottomTabNavigator({
-    Store: StoreStack,
     Home: HomeStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
   }, {
-    initalRouteName: 'Home',
+    //initalRouteName: 'Home',
     tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: () => {
