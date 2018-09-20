@@ -90,8 +90,12 @@ const styles = {
 
 const StoreStack = createStackNavigator({
   Store: StorePage,
+<<<<<<< HEAD
   Item: StoreItem
 }, {
+=======
+  StoreItemPage
+>>>>>>> 0196707c37a47bcc73b25824cfe3720b612476c5
 });
 
 export default StoreStack;
