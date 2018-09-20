@@ -9,6 +9,7 @@ import ClubsPage from './Clubs';
 import BellSchedule from './Bells';
 import StoreStack from './StorePage';
 import AdminPage from './Admin';
+import AthleticsPage from './AthleticsPage';
 
 class MenuPage extends Component {
   render() {
@@ -19,6 +20,7 @@ class MenuPage extends Component {
             <Button
               buttonStyle={buttonStyle}
               textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Athletics')}
             >
               Athletics
             </Button>
@@ -98,7 +100,8 @@ const MenuStack = createStackNavigator({
   Clubs: ClubsPage,
   Bells: BellSchedule,
   Store: StoreStack,
-  Admin: AdminPage
+  Admin: AdminPage,
+  Athletics: AthleticsPage
 }, {
   navigationOptions: {
     headerTitle:

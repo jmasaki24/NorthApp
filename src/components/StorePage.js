@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import StoreItemPage from './StoreItem';
 import StoreItems from '../storeItems.json';
 
 //remove this after updating to a stable release of react native
@@ -88,7 +89,7 @@ const styles = {
 
 const StoreStack = createStackNavigator({
   Store: StorePage,
-}, {
+  StoreItemPage
 });
 
 export default StoreStack;
