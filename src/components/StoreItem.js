@@ -1,33 +1,60 @@
 import React, { Component } from 'react';
-import { Text, Picker, ScrollView, Image } from 'react-native';
-import Titan from '../images/titanT.png';
+import { Text, View, Image } from 'react-native';
+import pinkBapeT from '../images/pinkBapeT.jpg';
+import { Card } from './common';
 
-class StorePage extends Component {
+const SizeSquare = ({ size }) => {
+  return (
+    <View style={styles.sizeSquareStyle}>
+      <Text style={{ fontSize: 20, color: '#000' }}> {size} </Text>
+    </View>
+  );
+};
+
+
+class StoreItem extends Component {
   render() {
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <View style={{ flex: 1, }}>
         <Image
-          style={{ flex: 1 }}
-          source={Titan}
+          resizeMode="contain"
+          style={{ flex: 2, maxHeight: 350, width: undefined, borderWidth: 3, borderColor: '#0dd' }}
+          source={pinkBapeT}
         />
-        <Text style={styles.textStyle}> Patchwork Rugby Hoodie </Text>
-        <Picker
-          style={{ flex: 1 }}
-        >
-          <Picker.Item label="Small" value="small" />
-          <Picker.Item label="Medium" value="medium" />
-          <Picker.Item label="Large" value="large" />
-        </Picker>
-      </ScrollView>
+        <Card style={{ padding: 15 }}>
+          <Text style={styles.titleText}>Big Head Ape Tee Pink</Text>
+          <Text style={{ fontSize: 18, color: '#000' }}> $20 </Text>
+          <View style={styles.sizeRowStyle}>
+            <Text style={{ fontSize: 20 }}> Available Sizes: </Text>
+            <SizeSquare size='S' />
+            <SizeSquare size='M' />
+            <SizeSquare size='L' />
+          </View>
+        </Card>
+      </View>
     );
   }
 }
 
 const styles = {
-  textStyle: {
-    fontSize: 16,
+  titleText: {
+    fontSize: 28,
     color: '#000',
+  },
+  sizeRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+   },
+  sizeSquareStyle: {
+    height: 30,
+    width: 30,
+    backgroundColor: '#CCC',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 2.5,
+    marginRight: 2.5
   }
 };
 
-export default StorePage;
+export default StoreItem;
