@@ -12,7 +12,7 @@ const data = StoreItems;
 const numColumns = 2;
 
 class StorePage extends Component {
-  renderItem({ item }) {
+  renderItem({ item, navigation }) {
     const { key, price, uri } = item;
     return (
       <View
@@ -27,7 +27,7 @@ class StorePage extends Component {
         <Text style={styles.text}>{price}</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Item')}
+          onPress={() => navigation.navigate('Item')}
         >
           <Text style={styles.buttonText}>
             View Details
@@ -88,9 +88,4 @@ const styles = {
   }
 };
 
-const StoreStack = createStackNavigator({
-  Store: StorePage,
-  Item: StoreItem
-});
-
-export default StoreStack;
+export default StorePage;
