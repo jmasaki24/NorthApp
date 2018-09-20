@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import StoreItemPage from './StoreItem';
+import StoreItem from './StoreItem';
 import StoreItems from '../storeItems.json';
 
 //remove this after updating to a stable release of react native
@@ -27,6 +27,7 @@ class StorePage extends Component {
         <Text style={styles.text}>{price}</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate('Item')}
         >
           <Text style={styles.buttonText}>
             View Details
@@ -89,7 +90,7 @@ const styles = {
 
 const StoreStack = createStackNavigator({
   Store: StorePage,
-  StoreItemPage
+  Item: StoreItem
 });
 
 export default StoreStack;
