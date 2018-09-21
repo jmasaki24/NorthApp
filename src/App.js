@@ -6,10 +6,12 @@ import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import StoreStack from './components/StorePage';
 import CalendarStack from './components/Calendar';
+import SearchStack from './components/SearchPage';
 
 const RootStack = createBottomTabNavigator({
     Home: HomeStack,
-    Store: StoreStack,
+    Search: SearchStack,
+    //Store: StoreStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
   }, {
@@ -21,10 +23,14 @@ const RootStack = createBottomTabNavigator({
         let iconName = '';
         if (routeName === 'Home') {
           iconName = 'home';
+        } else if (routeName === 'Search') {
+          iconName = 'search';
         } else if (routeName === 'Calendar') {
           iconName = 'calendar-alt';
         } else if (routeName === 'Menu') {
           iconName = 'list';
+        } else if (routeName === 'Store') {
+          iconName = 'dollar-sign';
         } else {
           iconName = 'question';
         }

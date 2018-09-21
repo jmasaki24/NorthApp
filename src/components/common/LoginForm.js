@@ -56,6 +56,7 @@ class LoginForm extends Component {
           <Input
             placeholder="user@email.com"
             label="Email"
+            keyboardType="email-address"
             autoCorrect={false}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}

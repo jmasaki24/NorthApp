@@ -14,7 +14,6 @@ class HomePage extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-
         <ScrollView showVerticalScrollIndicator>
           <AnnounceCardAllText title="Snow Day MM/DD/YYYY!">
             Yay Snow Day! Yay Snow Day! Yay Snow Day! Yay Snow Day!
@@ -40,22 +39,25 @@ class HomePage extends Component {
           </AnnounceCardAllText>
           <View style={{ height: 20 }} />
         </ScrollView>
-        </View>
-      );
+      </View>
+    );
+  }
+}
+
+const HomeStack = createStackNavigator({
+  Home: HomePage
+}, {
+  headerLayoutPreset: 'center',
+  navigationOptions: {
+    headerTitle:
+      <Image
+        style={{ height: 60, width: 110 }}
+        source={LogoTitans}
+      />,
+    headerStyle: {
+      height: 65
     }
   }
-
-  const HomeStack = createStackNavigator({
-    Home: HomePage
-  }, {
-    headerLayoutPreset: 'center',
-    navigationOptions: {
-      headerTitle:
-          <Image
-            resizeMode='center'
-            source={LogoTitans}
-          />,
-    }
-  });
+});
 
   export default HomeStack;

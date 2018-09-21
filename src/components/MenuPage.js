@@ -8,7 +8,6 @@ import AcademicsPage from './AcademicsPage';
 import ClubsPage from './Clubs';
 import BellSchedule from './Bells';
 import StoreStack from './StorePage';
-import StoreItem from './StoreItem';
 import AdminPage from './Admin';
 import AthleticsPage from './AthleticsPage';
 
@@ -98,11 +97,9 @@ const MenuStack = createStackNavigator({
   Menu: MenuPage,
   Contact: ContactPage,
   Academics: AcademicsPage,
-    Bells: BellSchedule,
+  Bells: BellSchedule,
   Clubs: ClubsPage,
   Store: StoreStack,
-    Item: StoreItem,
-
   Admin: AdminPage,
   Athletics: AthleticsPage
 }, {
