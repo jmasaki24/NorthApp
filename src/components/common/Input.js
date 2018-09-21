@@ -9,12 +9,29 @@ const Input = ({
   secureTextEntry,
   multiline,
   autocorrect,
+  keyboardType,
   viewStyle
 }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
+  if (label !== '') {
+    return (
+      <View style={[containerStyle, viewStyle]}>
+        <Text style={labelStyle}>{label}</Text>
+        <TextInput
+          secureTextEntry={secureTextEntry}
+          placeholder={placeholder}
+          autocorret={autocorrect || true}
+          style={inputStyle}
+          value={value}
+          onChangeText={onChangeText}
+          multiline={multiline || false}
+          keyboardType={keyboardType || 'default'}
+        />
+      </View>
+    );
+  }
   return (
     <View style={[containerStyle, viewStyle]}>
-      <Text style={labelStyle}>{label}</Text>
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
@@ -23,13 +40,14 @@ const Input = ({
         value={value}
         onChangeText={onChangeText}
         multiline={multiline || false}
+        keyboardType={keyboardType || 'default'}
       />
     </View>
   );
 };
 
 const styles = {
-  inputStyle: {
+    inputStyle: {
     color: '#000',
     paddingRight: 5,
     paddingLeft: 5,

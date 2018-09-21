@@ -97,8 +97,8 @@ const MenuStack = createStackNavigator({
   Menu: MenuPage,
   Contact: ContactPage,
   Academics: AcademicsPage,
-  Clubs: ClubsPage,
   Bells: BellSchedule,
+  Clubs: ClubsPage,
   Store: StoreStack,
   Admin: AdminPage,
   Athletics: AthleticsPage
