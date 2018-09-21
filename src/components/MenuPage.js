@@ -103,6 +103,7 @@ const MenuStack = createStackNavigator({
   Admin: AdminPage,
   Athletics: AthleticsPage
 }, {
+  headerLayoutPreset: 'center',
   navigationOptions: {
     headerTitle:
       <Image

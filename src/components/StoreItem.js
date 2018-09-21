@@ -3,6 +3,8 @@ import { Text, View, Image } from 'react-native';
 import pinkBapeT from '../images/pinkBapeT.jpg';
 import { Card } from './common';
 
+//use a flatlist to render sizesquares as received by data with actions/redux later
+
 const SizeSquare = ({ size }) => {
   return (
     <View style={styles.sizeSquareStyle}>
@@ -18,7 +20,7 @@ class StoreItem extends Component {
       <View style={{ flex: 1, }}>
         <Image
           resizeMode="contain"
-          style={{ flex: 2, maxHeight: 350, width: undefined, borderWidth: 3, borderColor: '#0dd' }}
+          style={styles.imageStyle}
           source={pinkBapeT}
         />
         <Card style={{ padding: 15 }}>
@@ -54,6 +56,15 @@ const styles = {
     alignItems: 'center',
     marginLeft: 2.5,
     marginRight: 2.5
+  },
+  imageStyle: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    flex: 2,
+    maxHeight: 350,
+    width: undefined,
   }
 };
 
