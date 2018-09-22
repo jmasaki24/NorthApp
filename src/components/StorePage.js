@@ -56,7 +56,7 @@ const styles = {
     marginBottom: 10,
     marginLeft: 5,
     marginRight: 5,
-    minWidth: 170,
+    minWidth: 130,
     maxWidth: 223,
     height: 304,
     maxHeight: 304,
