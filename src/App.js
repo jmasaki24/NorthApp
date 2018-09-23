@@ -15,7 +15,7 @@ const RootStack = createBottomTabNavigator({
     Calendar: CalendarStack,
     Menu: MenuStack,
   }, {
-    //initalRouteName: 'Home',
+    initalRouteName: 'Menu',
     tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: () => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Linking } from 'react-native';
 import { Card, CardSection, Button } from './common';
+import SeasonSelect from './AthleticsDetails/SeasonSelect';
 
 class AthleticsPage extends Component {
   render() {
@@ -15,42 +16,32 @@ class AthleticsPage extends Component {
           </CardSection>
         </Card>
         <View style={{ height: 20 }} />
-        <Card>
-          <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
-              Fall
-            </Button>
-          </CardSection>
-          <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
-              Winter
-            </Button>
-          </CardSection>
-          <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
-              Spring
-            </Button>
-          </CardSection>
-          <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
-              Summer?
-            </Button>
-          </CardSection>
-        </Card>
+        <SeasonSelect />
         <View style={{ height: 20 }} />
         <Card>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={buttonTextStyle}
+              onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/siteRepository/21551/userfiles/North-Coaches-2018-19.pdf')}
+            >
               Coach Directory
             </Button>
           </CardSection>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={buttonTextStyle}
+              onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/main/otherad/contentID/41289580')}
+            >
               Policies
             </Button>
           </CardSection>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={buttonTextStyle}
+            >
               Signup/Registration
             </Button>
           </CardSection>
