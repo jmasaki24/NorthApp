@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import StoreItem from './StoreItem';
-import StoreItems from '../storeItems.json';
+import StoreItems from '../JSON/storeItems.json';
 
 //remove this after updating to a stable release of react native
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
