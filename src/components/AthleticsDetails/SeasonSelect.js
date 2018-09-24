@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, LayoutAnimation } from 'react-native';
 import { Card, CardSection, Button } from '../common';
+import FallSportSelect from './SportSelect/FallSports';
+import WinterSportSelect from './SportSelect/WinterSports';
 
 class SeasonSelect extends Component {
   state = { expandFall: false, expandWinter: false, expandSpring: false }
@@ -11,21 +13,13 @@ class SeasonSelect extends Component {
 
   renderFall() {
     if (this.state.expandFall) {
-      return (
-        <CardSection>
-          <Text>Fall</Text>
-        </CardSection>
-      );
+      return <FallSportSelect />;
     }
   }
 
   renderWinter() {
     if (this.state.expandWinter) {
-      return (
-        <CardSection>
-          <Text>Winter</Text>
-        </CardSection>
-      );
+      return <WinterSportSelect />;
     }
   }
 
@@ -52,9 +46,7 @@ class SeasonSelect extends Component {
             Fall
           </Button>
         </CardSection>
-
         {this.renderFall()}
-
         <CardSection>
           <Button
             buttonStyle={buttonStyle}
@@ -64,29 +56,17 @@ class SeasonSelect extends Component {
             Winter
           </Button>
         </CardSection>
-
         {this.renderWinter()}
-
         <CardSection>
           <Button
             buttonStyle={buttonStyle}
             textStyle={buttonTextStyle}
-            onPress={() => this.setState({ expandSpriing: !this.state.expandSpring })}
+            onPress={() => this.setState({ expandSpring: !this.state.expandSpring })}
           >
             Spring
           </Button>
         </CardSection>
-
         {this.renderSpring()}
-
-        <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={buttonTextStyle}
-          >
-            Summer?
-          </Button>
-        </CardSection>
       </Card>
     );
   }
@@ -97,7 +77,8 @@ const styles = {
     borderColor: 'white'
   },
   buttonTextStyle: {
-    color: 'black'
+    color: 'black',
+    alignSelf: 'flex-start'
   }
 };
 
