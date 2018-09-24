@@ -3,10 +3,18 @@ import { View, Text, ScrollView, Image } from 'react-native';
 import Calendar from 'react-native-calendar';
 import { createStackNavigator } from 'react-navigation';
 import Titan from '../images/titanT.png';
-import { Card, CardSection } from './common';
+import { Card, CardSection, Spinner } from './common';
 
 class CalendarPage extends Component {
-  state = { showDay: false, day: null }
+  state = { showDay: false, day: null, loading: false }
+
+  componentWillMount() {
+    if (this.state.loading) {
+      return (
+        <Spinner />
+      );
+    }
+  }
 
   onDateSelect(date) {
     this.setState({ showDay: true, day: date });
@@ -19,7 +27,7 @@ class CalendarPage extends Component {
           <CardSection style={{ backgroundColor: '#F8F8F8' }}>
             <ScrollView horizontal>
               <CardSection
-                style={{ eventStyle }}
+                style={eventStyle}
               >
                 <Text>Stuff Due</Text>
               </CardSection>

@@ -17,17 +17,26 @@ class AthleticsPage extends Component {
         <View style={{ height: 20 }} />
         <Card>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={{ borderColor: 'white', backgroundColor: '#ff6804' }}
+              textStyle={buttonTextStyle}
+            >
               Fall
             </Button>
           </CardSection>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={{ borderColor: 'white', backgroundColor: '#3dbcd9' }}
+              textStyle={buttonTextStyle}
+            >
               Winter
             </Button>
           </CardSection>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={{ borderColor: 'white', backgroundColor: '#00cd66' }}
+              textStyle={buttonTextStyle}
+            >
               Spring
             </Button>
           </CardSection>

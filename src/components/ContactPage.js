@@ -14,11 +14,17 @@ class ContactPage extends Component {
     return (
       <View style={pageStyle}>
         <Text style={{ fontSize: 45 }}>  Contact Us </Text>
-        <Text style={basicText}> Nashua High School North: 8 Titan Way, Nashua, NH </Text>
+        <Text style={basicText}> Nashua High School North: </Text>
+        <Text> 8 Titan Way, Nashua, NH; 03063 </Text>
         <Text style={basicText}> (603) 966-2500 </Text>
         <Text style={basicText} > Comments? Questions? </Text>
         <Text> Email us at northcodingteam@gmail.com </Text>
-        <FontAwesome5.Button onPress={emailHandler}>Send Email </FontAwesome5.Button>
+        <FontAwesome5.Button
+          onPress={emailHandler}
+          style={{ marginTop: 10 }}
+        >
+          Send Email
+        </FontAwesome5.Button>
         <Text style={basicText}> Development Team: </Text>
         <Text style={basicText}> Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
       </View>
