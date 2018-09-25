@@ -5,7 +5,7 @@ import { Card, CardSection } from './common';
 const AnnounceCardImage = (props) => (
     <Card>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 25, fontWeight: 'bold', }}>
+        <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>
           {props.title}
         </Text>
       </CardSection>
@@ -17,7 +17,7 @@ const AnnounceCardImage = (props) => (
           />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18 }}>{ props.children }</Text>
+          <Text style={{ fontSize: 18, color: 'black' }}>{ props.children }</Text>
         </View>
       </CardSection>
     </Card>
