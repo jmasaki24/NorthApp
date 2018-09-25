@@ -8,14 +8,13 @@ class AthleticsPage extends Component {
     const { buttonStyle, buttonTextStyle } = styles;
     return (
       <ScrollView style={{ flex: 1 }}>
-        <Card>
+        <Card style={{ marginBottom: 20 }}>
           <CardSection>
             <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
               Upcoming Games
             </Button>
           </CardSection>
         </Card>
-        <View style={{ height: 20 }} />
         <SeasonSelect />
         <View style={{ height: 20 }} />
         <Card>

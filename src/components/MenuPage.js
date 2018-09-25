@@ -11,6 +11,8 @@ import StoreStack from './StorePage';
 import AdminPage from './Admin';
 import AthleticsPage from './AthleticsPage';
 
+//want to make this a flatlist afterwards? not sure if it will improve performance
+
 class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle, pageStyle } = styles;
@@ -70,6 +72,7 @@ class MenuPage extends Component {
               Admin
             </Button>
           </CardSection>
+          <CardSection style={{ flex: 1 }} />
         </View>
     );
   }
@@ -89,7 +92,9 @@ const styles = {
   },
   textStyle: {
     color: '#0C4678',
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    fontSize: 18,
+    margin: 5
   }
 };
 

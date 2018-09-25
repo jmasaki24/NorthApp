@@ -60,10 +60,11 @@ const styles = {
     maxWidth: 223,
     height: 304,
     maxHeight: 304,
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#eee',
   },
   list: {
     flex: 1,
+    backgroundColor: '#eee'
   },
   text: {
     textAlign: 'center',
@@ -95,7 +96,7 @@ const StoreStack = createStackNavigator({
 {
   headerLayoutPreset: 'center',
   navigationOptions: {
-    headerTitle: <Text style={{ fontSize: 20 }}> 'T-Stop Store' </Text>
+    headerTitle: <Text style={{ fontSize: 20 }}>Titan Apparrel Store @ T-Stop</Text>
   }
 });
 

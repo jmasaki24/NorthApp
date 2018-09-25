@@ -11,6 +11,7 @@ const Button = (props) => {
       <Text style={[textStyle, props.textStyle]}>
         {props.children}
       </Text>
+      {props.icon}
     </TouchableOpacity>
   );
 };
@@ -22,12 +23,12 @@ const styles = {
     color: '#007aff',
     fontSize: 16,
     fontWeight: '600',
-
-    paddingTop: 10,
-    paddingBottom: 10
+    marginRight: 10,
   },
   buttonStyle: {
     flex: 1,
+    flexDirection: 'row',
+    // justifyContent: 'space-around',
     alignSelf: 'stretch',
     backgroundColor: 'white',
 
@@ -36,7 +37,9 @@ const styles = {
     borderColor: '#007aff',
 
     marginLeft: 5,
-    marginRight: 5
+    marginRight: 5,
+    paddingTop: 10,
+    paddingBottom: 10
   }
 };
 

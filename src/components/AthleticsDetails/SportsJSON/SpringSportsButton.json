@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Baseball",
+    "value": "Baseball"
+  }, {
+    "title": "Lacrosse",
+    "value": "Lacrosse"
+  }, {
+    "title": "Outdoor Track",
+    "value": "OutdoorTrack"
+  }, {
+    "title": "Softball",
+    "value": "Softball"
+  }, {
+    "title": "Tennis",
+    "value": "Tennis"
+  }, {
+    "title": "Unified Outdoor Track",
+    "value": "UnifiedOutdoorTrack"
+  }
+];

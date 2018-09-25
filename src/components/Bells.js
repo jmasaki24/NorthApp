@@ -7,7 +7,7 @@ const Bells = () => {
   return (
     <ScrollView>
       <Card>
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           <View style={viewStyle}>
             <Text style={titleStyle}>Regular</Text>
           </View>
@@ -47,7 +47,7 @@ const Bells = () => {
       </Card>
 
       <Card>
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           <View style={viewStyle}>
             <Text style={titleStyle}>Early Release</Text>
           </View>
@@ -87,7 +87,7 @@ const Bells = () => {
       </Card>
 
       <Card>
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           <View style={viewStyle}>
             <Text style={titleStyle}>Delayed Opening</Text>
           </View>
@@ -128,7 +128,7 @@ const Bells = () => {
 
 
       <Card>
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           <View style={viewStyle}>
             <Text style={titleStyle}>Lunches</Text>
           </View>
@@ -235,7 +235,7 @@ const styles = {
   },
   infoStyle: {
     borderColor: '#fff',
-    borderBottomWidth: 5,
+    borderBottomWidth: 2,
     fontSize: 16
   }
 };

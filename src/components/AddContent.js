@@ -19,7 +19,7 @@ class AddContent extends Component {
       return (
         <CardSection>
           <Button
-            buttonStyle={{ borderColor: 'white' }}
+            buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
@@ -65,7 +65,7 @@ class AddContent extends Component {
         <View style={{ alignItems: 'flex-end' }}>
           <CardSection>
             <Button
-              buttonStyle={{ borderColor: 'white' }}
+              buttonStyle={styles.buttonStyle}
               textStyle={{ color: 'black' }}
               onPress={() => firebase.auth().signOut()}
             >
@@ -95,11 +95,16 @@ const styles = {
   },
   textStyle: {
     color: 'gray',
+    alignSelf: 'center',
     fontSize: 16,
     fontWeight: '600',
-
+    marginRight: 10,
     paddingTop: 10,
     paddingBottom: 10
+  },
+  buttonStyle: {
+    borderColor: 'white',
+    justifyContent: 'center',
   }
 };
 

@@ -4,14 +4,12 @@ import firebase from 'firebase';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
-import StoreStack from './components/StorePage';
 import CalendarStack from './components/Calendar';
 import SearchStack from './components/SearchPage';
 
 const RootStack = createBottomTabNavigator({
     Home: HomeStack,
     Search: SearchStack,
-    //Store: StoreStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
   }, {
