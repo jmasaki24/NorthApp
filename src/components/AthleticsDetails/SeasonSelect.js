@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Text, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection, Button } from '../common';
-import FallSportSelect from './SportSelect/FallSports';
-import WinterSportSelect from './SportSelect/WinterSports';
+import SportSelect from './SportSelect';
+import FallData from './SportsJSON/FallSportsButton.json';
+import WinterData from './SportsJSON/WinterSportsButton.json';
+import SpringData from './SportsJSON/SpringSportsButton.json';
 
 class SeasonSelect extends Component {
   state = { expandFall: false, expandWinter: false, expandSpring: false }
@@ -14,35 +16,31 @@ class SeasonSelect extends Component {
 
   renderFall() {
     if (this.state.expandFall) {
-      return <FallSportSelect />;
+      return <SportSelect data={FallData} />;
     }
   }
 
   renderWinter() {
     if (this.state.expandWinter) {
-      return <WinterSportSelect />;
+      return <SportSelect data={WinterData} />;
     }
   }
 
   renderSpring() {
     if (this.state.expandSpring) {
-      return (
-        <CardSection>
-          <Text>Spring</Text>
-        </CardSection>
-      );
+      return <SportSelect data={SpringData} />;
     }
   }
 
   render() {
     const { buttonStyle, buttonTextStyle } = styles;
     const { expandFall, expandSpring, expandWinter } = this.state;
-    let fallIcon = 'angle-down';
-    let winterIcon = 'angle-down';
-    let springIcon = 'angle-down';
-    if (expandFall) { fallIcon = 'angle-up'; }
-    if (expandWinter) { winterIcon = 'angle-up'; }
-    if (expandSpring) { springIcon = 'angle-up'; }
+    let fallIcon = 'angle-right';
+    let winterIcon = 'angle-right';
+    let springIcon = 'angle-right';
+    if (expandFall) { fallIcon = 'angle-down'; }
+    if (expandWinter) { winterIcon = 'angle-down'; }
+    if (expandSpring) { springIcon = 'angle-down'; }
 
     return (
       <Card>
@@ -50,7 +48,7 @@ class SeasonSelect extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={buttonTextStyle}
-            onPress={() => this.setState({ expandFall: !this.state.expandFall })}
+            onPress={() => this.setState({ expandFall: !expandFall })}
             icon={<FontAwesome5 name={fallIcon} size={25} color={'black'} />}
           >
             Fall
@@ -61,7 +59,7 @@ class SeasonSelect extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={buttonTextStyle}
-            onPress={() => this.setState({ expandWinter: !this.state.expandWinter })}
+            onPress={() => this.setState({ expandWinter: !expandWinter })}
             icon={<FontAwesome5 name={winterIcon} size={25} color={'black'} />}
           >
             Winter
@@ -72,7 +70,7 @@ class SeasonSelect extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={buttonTextStyle}
-            onPress={() => this.setState({ expandSpring: !this.state.expandSpring })}
+            onPress={() => this.setState({ expandSpring: !expandSpring })}
             icon={<FontAwesome5 name={springIcon} size={25} color={'black'} />}
           >
             Spring

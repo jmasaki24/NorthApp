@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Cross Country",
+    "value": "CrossCounrty"
+  },
+  {
+    "title": "Fall Spirit",
+    "value": "FallSpirit"
+  }, 
+  {
+    "title": "Field Hockey",
+    "value":" FieldHockey"
+  },
+  {
+    "title": "Football",
+    "value": "Football"
+  },
+  {
+    "title": "Golf",
+    "value": "Golf"
+  },
+  {
+    "title": "Soccer",
+    "value": "Soccer"
+  },
+  {
+    "title": "Unified Soccer",
+    "value": "UnifiedSoccer"
+  },
+  {
+    "title": "Volleyball",
+    "value": "Volleyball"
+  }
+];
