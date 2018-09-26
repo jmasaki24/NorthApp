@@ -6,7 +6,7 @@ import Titan from '../images/titanT.png';
 import { Card, CardSection, Spinner } from './common';
 
 class CalendarPage extends Component {
-  state = { showDay: false, day: null, loading: false }
+  state = { showDay: false, day: null, loading: true }
 
   componentWillMount() {
     if (this.state.loading) {
@@ -14,6 +14,10 @@ class CalendarPage extends Component {
         <Spinner />
       );
     }
+  }
+
+  componentDidMount() {
+    this.setState({ loading: false });
   }
 
   onDateSelect(date) {

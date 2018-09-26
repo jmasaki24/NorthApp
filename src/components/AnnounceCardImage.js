@@ -17,7 +17,7 @@ const AnnounceCardImage = (props) => (
           />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18 }}>{ props.children }</Text>
+          <Text style={{ fontSize: 18, color: 'black' }}>{ props.children }</Text>
         </View>
       </CardSection>
     </Card>

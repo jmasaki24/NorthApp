@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import { LoginForm, Spinner } from './common';
-import AddContent from './AddContent';
+import AddContent from './AddStuff/AddContent';
 
 
 class Admin extends Component {

@@ -8,7 +8,7 @@ const AnnounceCardAllText = (props) => (
         <Text style={styles.titleText}>{props.title}</Text>
       </CardSection>
       <CardSection>
-        <Text style={{ fontSize: 18, flex: 1 }}>{props.children}</Text>
+        <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{props.children}</Text>
       </CardSection>
     </Card>
   );
