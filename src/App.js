@@ -26,9 +26,7 @@ const RootStack = createBottomTabNavigator({
         } else if (routeName === 'Calendar') {
           iconName = 'calendar-alt';
         } else if (routeName === 'Menu') {
-          iconName = 'list';
-        } else if (routeName === 'Store') {
-          iconName = 'dollar-sign';
+          iconName = 'bars';
         } else {
           iconName = 'question';
         }

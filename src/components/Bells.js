@@ -23,7 +23,7 @@ const Bells = () => {
               <Text style={infoStyle}>4</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0, borderRightWidth: 0 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Start</Text>
               <Text style={infoStyle}>7:20</Text>
@@ -63,7 +63,7 @@ const Bells = () => {
               <Text style={infoStyle}>4</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0, borderRightWidth: 0 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Start</Text>
               <Text style={infoStyle}>7:20</Text>
@@ -103,7 +103,7 @@ const Bells = () => {
               <Text style={infoStyle}>4</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0, borderRightWidth: 0 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Start</Text>
               <Text style={infoStyle}>9:20</Text>
@@ -143,7 +143,7 @@ const Bells = () => {
               <Text style={infoStyle}>4th</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0, borderRightWidth: 0 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Start</Text>
               <Text style={infoStyle}>10:49</Text>
@@ -163,12 +163,12 @@ const Bells = () => {
           </CardSection>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0 }}>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderRightWidth: 0.5 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Early Release</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0.5 }]}>
             <View style={viewStyle}>
               <Text style={infoStyle}>Grab And Go</Text>
               <Text style={{ fontSize: 16 }}>11:44 - 12:05</Text>
@@ -185,7 +185,7 @@ const Bells = () => {
               <Text style={infoStyle}>4th</Text>
             </View>
           </CardSection>
-          <CardSection style={sectionStyle}>
+          <CardSection style={[sectionStyle, { borderLeftWidth: 0, borderRightWidth: 0 }]}>
             <View style={viewStyle}>
               <Text style={subHeadingStyle}>Start</Text>
               <Text style={infoStyle}>11:10</Text>
@@ -230,8 +230,8 @@ const styles = {
   },
   subHeadingStyle: {
     fontSize: 20,
-    fontWeight: '700',
-    borderBottomWidth: 5
+    fontWeight: '300',
+    borderBottomWidth: 1
   },
   infoStyle: {
     borderColor: '#fff',

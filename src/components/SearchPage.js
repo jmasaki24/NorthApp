@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { Card, CardSection, Input } from './common';
-import Titan from '../images/titanT.png'
+import Titan from '../images/titanT.png';
 
 class SearchPage extends Component {
   state = { SearchText: '' };
@@ -26,6 +26,7 @@ class SearchPage extends Component {
 const SearchStack = createStackNavigator({
   Search: SearchPage
 }, {
+  headerLayoutPreset: 'center',
   navigationOptions: {
     headerTitle:
       <Image

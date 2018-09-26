@@ -5,7 +5,7 @@ import { Card, CardSection } from './common';
 const AnnounceCardImage = (props) => (
     <Card>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 25, fontWeight: 'bold', }}>
+        <Text style={styles.titleText}>
           {props.title}
         </Text>
       </CardSection>
@@ -22,5 +22,12 @@ const AnnounceCardImage = (props) => (
       </CardSection>
     </Card>
   );
+
+  const styles = {
+    titleText: {
+      color: '#000',
+      fontSize: 25,
+      fontWeight: 'bold' }
+  };
 
   export default AnnounceCardImage;
