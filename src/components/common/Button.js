@@ -28,7 +28,7 @@ const styles = {
   buttonStyle: {
     flex: 1,
     flexDirection: 'row',
-    // justifyContent: 'space-around',
+    // justifyContent: 'center',
     alignSelf: 'stretch',
     backgroundColor: 'white',
 

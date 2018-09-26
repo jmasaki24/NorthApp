@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Modal } from 'react-native';
 import firebase from 'firebase';
-import { Card, CardSection, Input, Button, Confirm } from './common';
+import DefaultImages from './DefaultImages';
+import { Card, CardSection, Input, Button, Confirm } from '../common';
 
 class AddContent extends Component {
-  state = { Title: '', Info: '', showModal: false };
+  state = { Title: '', Info: '', showModal: false, imageSelect: false, ISVisible: false };
 
   onAccept() {
     this.setState({ showModal: false });
@@ -37,7 +38,6 @@ class AddContent extends Component {
     );
   }
 
-
   render() {
     return (
       <Card>
@@ -61,6 +61,15 @@ class AddContent extends Component {
             onChangeText={(Info) => this.setState({ Info })}
           />
         </CardSection>
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => this.setState({ imageSelect: true })}
+          >
+            Select An Image
+          </Button>
+        </CardSection>
         {this.renderButton()}
         <View style={{ alignItems: 'flex-end' }}>
           <CardSection>
@@ -73,6 +82,23 @@ class AddContent extends Component {
             </Button>
           </CardSection>
         </View>
+
+        <Modal
+          visible={this.state.imageSelect}
+          transparent
+          animationType={'slide'}
+        >
+          <View style={styles.containerStyle}>
+            <CardSection>
+              <DefaultImages />
+            </CardSection>
+            <CardSection>
+              <Button onPress={() => this.setState({ imageSelect: false })}>
+                Close
+              </Button>
+            </CardSection>
+          </View>
+        </Modal>
 
         <Confirm
           visible={this.state.showModal}
@@ -87,6 +113,12 @@ class AddContent extends Component {
 }
 
 const styles = {
+  containerStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    position: 'relative',
+    flex: 1,
+    justifyContent: 'center'
+  },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
