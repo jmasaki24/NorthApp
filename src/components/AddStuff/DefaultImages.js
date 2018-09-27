@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
-import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
+import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
 import { Header, Card } from '../common';
-
-//remove this after updating to a stable release of react native
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
 
 const data = Info;
 const numColumns = 2;
 
 class List extends Component {
-  state = { headerText: 'Images' };
+  state = { headerText: 'Images', Selected: '' };
 
-  renderItem(item) {
-    const { uri, text } = item;
+  renderItem({ item }) {
+    const { key, uri, text } = item;
     return (
-      <Card>
+      <TouchableOpacity
+        onPress={() => this.setState({ headerText: text, Selected: key })}
+      >
         <Image
           resizeMode='cover'
           style={styles.image}
           source={{ uri }}
         />
-        <Text>
+        <Text style={{ alignSelf: 'center', fontSize: 16 }}>
           {text}
         </Text>
-      </Card>
+      </TouchableOpacity>
     );
   }
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Header headerText={this.state.headerText} />
         <FlatList
           style={styles.list}
@@ -45,17 +44,6 @@ class List extends Component {
 
 
 const styles = {
-  listItem: {
-    flex: 1,
-    marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    minWidth: 150,
-    maxWidth: 223,
-    height: 304,
-    maxHeight: 304,
-    backgroundColor: '#eee',
-  },
   list: {
     flex: 1,
     backgroundColor: '#eee'
@@ -66,9 +54,9 @@ const styles = {
     fontSize: 16
   },
   image: {
+    height: 190,
+    width: 190,
     flex: 1,
-    minHeight: 100,
-    minWidth: 100
   }
 };
 

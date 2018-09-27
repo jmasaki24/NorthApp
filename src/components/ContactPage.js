@@ -15,13 +15,13 @@ class ContactPage extends Component {
       <View style={pageStyle}>
         <Text style={{ fontSize: 45 }}>  Contact Us </Text>
         <Text style={basicText}> Nashua High School North: </Text>
-        <Text> 8 Titan Way, Nashua, NH; 03063 </Text>
+        <Text style={basicText}> 8 Titan Way, Nashua, NH; 03063 </Text>
         <Text style={basicText}> (603) 966-2500 </Text>
-        <Text style={basicText} > Comments? Questions? </Text>
-        <Text> Email us at northcodingteam@gmail.com </Text>
+        <Text style={basicText}> Comments? Questions? </Text>
+        <Text style={basicText}> Email us at northcodingteam@gmail.com </Text>
         <FontAwesome5.Button
           onPress={emailHandler}
-          style={{ marginTop: 10 }}
+          name={'envelope'}
         >
           Send Email
         </FontAwesome5.Button>
@@ -34,7 +34,8 @@ class ContactPage extends Component {
 
 const styles = {
   basicText: {
-    margin: 10
+    marginTop: 10,
+    fontSize: 16
   },
   pageStyle: {
     padding: 10,

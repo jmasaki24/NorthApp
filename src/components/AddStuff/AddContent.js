@@ -85,15 +85,18 @@ class AddContent extends Component {
 
         <Modal
           visible={this.state.imageSelect}
+          animationType='fade'
         >
-          <List />
-          <CardSection>
-            <Button
-              onPress={() => this.setState({ imageSelect: false })}
-            >
-              Close
-            </Button>
-          </CardSection>
+            <List />
+            <CardSection>
+              <Button
+                buttonStyle={styles.buttonStyle}
+                textStyle={{ color: 'black' }}
+                onPress={() => this.setState({ imageSelect: false })}
+              >
+                Close
+              </Button>
+            </CardSection>
         </Modal>
 
         <Confirm

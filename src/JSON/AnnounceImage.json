@@ -1,12 +1,20 @@
 [
   {
     "key":"Titan",
-    "uri": "https://schoolassets.s3.amazonaws.com/logos/21551/21551.png",
+    "uri": "https://schoolassets.s3.amazonaws.com/logos/21551/21551.png?$rl_392_pdp$",
     "text": "Titan T"
   },
   {
     "key":"Snowflake",
-    "uri": "https://techflourish.com/images/black-and-white-frozen-snowflake-clipart-2.png",
+    "uri": "https://techflourish.com/images/black-and-white-frozen-snowflake-clipart-2.png?$rl_392_pdp$",
     "text": "Snowflake"
+  }, {
+    "key":"NoSchool",
+    "uri":"https://techflourish.com/images/labor-day-no-school-clipart-9.png",
+    "text":"No School"
+  },{
+    "key":"Music",
+    "uri":"http://www.i2clipart.com/cliparts/6/2/d/6/12804562d6b25fb08bff6933f4499e291bcb51.png",
+    "text":"Music"
   }
 ];

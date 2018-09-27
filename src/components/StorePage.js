@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import StoreItem from './StoreItem';
 import StoreItems from '../JSON/storeItems.json';
 
@@ -96,7 +97,13 @@ const StoreStack = createStackNavigator({
 {
   headerLayoutPreset: 'center',
   navigationOptions: {
-    headerTitle: <Text style={{ fontSize: 20 }}>Titan Apparrel Store @ T-Stop</Text>
+    headerTitle:
+      <Text style={{ fontSize: 18, alignSelf: 'center', }}>T-Stop Apparrel Store</Text>,
+    headerBackImage:
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <FontAwesome5 style={{ marginRight: 3 }} name={'caret-left'} color={'black'} size={33} />
+        <FontAwesome5 name={'store-alt'} color={'black'} size={20} />
+      </View>
   }
 });
 

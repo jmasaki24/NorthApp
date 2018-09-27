@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button } from './common';
 import ContactPage from './ContactPage';
@@ -72,7 +73,7 @@ class MenuPage extends Component {
               Admin
             </Button>
           </CardSection>
-          <CardSection style={{ flex: 1 }} />
+          <Text style={{ alignSelf: 'center' }}>Copyright Nashua North 2018</Text>
         </View>
     );
   }
@@ -80,7 +81,8 @@ class MenuPage extends Component {
 
 const styles = {
   pageStyle: {
-    backgroundColor: '#FEFEFC'
+    backgroundColor: '#FEFEFC',
+    flex: 1
   },
   buttonStyle: {
     //borderColor: 'white',
@@ -109,13 +111,16 @@ const MenuStack = createStackNavigator({
   Athletics: AthleticsPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  navigationOptions: ({ navigation }) => ({
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
-  }
+      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+        <Image
+          source={Titan}
+          style={{ height: 40, width: 40 }}
+        />
+      </TouchableOpacity>,
+    headerBackImage: <FontAwesome5 name={'bars'} size={25} color={'black'} />
+  })
 });
 
 export default MenuStack;
