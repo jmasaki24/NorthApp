@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image } from 'react-native';
+import { View, ScrollView, Image, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';

@@ -14,9 +14,9 @@ const RootStack = createBottomTabNavigator({
     Menu: MenuStack,
   }, {
     initalRouteName: 'Menu',
-    tabBarOptions: { activeTintColor: 'blue', inactiveTintColor: 'gray', showIcon: true, },
+    tabBarOptions: { activeTintColor: '#0C4678', inactiveTintColor: '#AEC6EA', },
     navigationOptions: ({ navigation }) => ({
-      tabBarIcon: () => {
+      tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
         let iconName = '';
         if (routeName === 'Home') {
@@ -32,7 +32,7 @@ const RootStack = createBottomTabNavigator({
         }
       // You can return any component that you like here! We usually use an
       // icon component from react-native-vector-icons
-      return <FontAwesome5 name={iconName} size={25} color={'black'} />;
+      return <FontAwesome5 name={iconName} size={25} color={tintColor} />;
     }
   })
 });

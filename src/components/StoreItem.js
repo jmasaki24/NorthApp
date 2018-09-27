@@ -19,11 +19,11 @@ class StoreItem extends Component {
     return (
       <View style={{ flex: 1, }}>
         <Image
-          resizeMode="contain"
+          resizeMode="cover"
           style={styles.imageStyle}
           source={pinkBapeT}
         />
-        <Card style={{ padding: 15 }}>
+        <Card style={styles.descripStyle}>
           <Text style={styles.titleText}>Big Head Ape Tee Pink</Text>
           <Text style={{ fontSize: 18, color: '#000' }}> $20 </Text>
           <View style={styles.sizeRowStyle}>
@@ -65,6 +65,21 @@ const styles = {
     flex: 2,
     maxHeight: 350,
     width: undefined,
+  },
+  descripStyle: {
+    padding: 15,
+
+    borderWidth: 0,
+    borderRadius: 0,
+    borderColor: null,
+    shadowColor: null,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0
   }
 };
 

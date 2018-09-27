@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { Card, CardSection, Input } from './common';
 import Titan from '../images/titanT.png';
@@ -27,13 +27,15 @@ const SearchStack = createStackNavigator({
   Search: SearchPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  navigationOptions: ({ navigation }) => ({
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
-  }
+      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+        <Image
+          source={Titan}
+          style={{ height: 40, width: 40 }}
+        />
+      </TouchableOpacity>,
+  })
 });
 
 export default SearchStack;

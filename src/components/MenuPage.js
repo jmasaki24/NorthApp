@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
@@ -111,14 +111,16 @@ const MenuStack = createStackNavigator({
   Athletics: AthleticsPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  navigationOptions: ({ navigation }) => ({
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />,
+      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+        <Image
+          source={Titan}
+          style={{ height: 40, width: 40 }}
+        />
+      </TouchableOpacity>,
     headerBackImage: <FontAwesome5 name={'bars'} size={25} color={'black'} />
-  }
+  })
 });
 
 export default MenuStack;

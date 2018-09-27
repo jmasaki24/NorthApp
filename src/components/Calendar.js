@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import Calendar from 'react-native-calendar';
 import { createStackNavigator } from 'react-navigation';
 import Titan from '../images/titanT.png';
@@ -93,13 +93,15 @@ const CalendarStack = createStackNavigator({
   CalendarPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  navigationOptions: ({ navigation }) => ({
     headerTitle:
-      <Image
-        source={Titan}
-        style={{ height: 40, width: 40 }}
-      />
-  }
+      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+        <Image
+          source={Titan}
+          style={{ height: 40, width: 40 }}
+        />
+      </TouchableOpacity>,
+  })
 });
 
 export default CalendarStack;
