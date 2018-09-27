@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, Modal } from 'react-native';
 import firebase from 'firebase';
-import DefaultImages from './DefaultImages';
+import List from './DefaultImages';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 
 class AddContent extends Component {
-  state = { Title: '', Info: '', showModal: false, imageSelect: false, ISVisible: false };
+  state = { Title: '', Info: '', showModal: false, imageSelect: false };
 
   onAccept() {
     this.setState({ showModal: false });
@@ -85,19 +85,15 @@ class AddContent extends Component {
 
         <Modal
           visible={this.state.imageSelect}
-          transparent
-          animationType={'slide'}
         >
-          <View style={styles.containerStyle}>
-            <CardSection>
-              <DefaultImages />
-            </CardSection>
-            <CardSection>
-              <Button onPress={() => this.setState({ imageSelect: false })}>
-                Close
-              </Button>
-            </CardSection>
-          </View>
+          <List />
+          <CardSection>
+            <Button
+              onPress={() => this.setState({ imageSelect: false })}
+            >
+              Close
+            </Button>
+          </CardSection>
         </Modal>
 
         <Confirm
@@ -113,12 +109,6 @@ class AddContent extends Component {
 }
 
 const styles = {
-  containerStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    position: 'relative',
-    flex: 1,
-    justifyContent: 'center'
-  },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',

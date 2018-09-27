@@ -30,7 +30,7 @@ const styles = {
   }
 };
 
-const WinterSportSelect = (props) => props.data.map(sport =>
+const SportSelect = (props) => props.data.map(sport =>
   <Select key={sport.title} sport={sport} />);
 
-export default WinterSportSelect;
+export default SportSelect;

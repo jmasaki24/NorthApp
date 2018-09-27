@@ -40,6 +40,7 @@ class AthleticsPage extends Component {
             <Button
               buttonStyle={buttonStyle}
               textStyle={buttonTextStyle}
+              onPress={() => Linking.openURL('https://www.familyid.com/programs/high-school-north-winter-2018-19')}
             >
               Signup/Registration
             </Button>

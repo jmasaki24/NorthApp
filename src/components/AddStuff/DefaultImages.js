@@ -1,41 +1,48 @@
 import React, { Component } from 'react';
-import { View, FlatList, Image, Text } from 'react-native';
-import Titan from '../../images/titanT.png';
+import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
+import { Header, Card } from '../common';
 
-//const data = Info;
+//remove this after updating to a stable release of react native
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
+
+const data = Info;
 const numColumns = 2;
 
-class DefaultImages extends Component {
-  state = { imageSelected: '' };
+class List extends Component {
+  state = { headerText: 'Images' };
 
-  renderImages(image) {
-    const { key, uri, text } = image;
+  renderItem(item) {
+    const { uri, text } = item;
     return (
-      <View style={styles.listItem}>
+      <Card>
         <Image
-          resizeMode='center'
-          style={styles.imageStyle}
+          resizeMode='cover'
+          style={styles.image}
           source={{ uri }}
         />
-        <Text style={styles.textStyle}>
+        <Text>
           {text}
         </Text>
-      </View>
+      </Card>
     );
   }
 
   render() {
     return (
+      <View>
+        <Header headerText={this.state.headerText} />
         <FlatList
-          style={styles.listStyle}
-          data={Info}
-          renderItem={(image) => this.renderImages(image)}
+          style={styles.list}
+          data={data}
+          renderItem={item => this.renderItem(item)}
           numColumns={numColumns}
         />
+      </View>
     );
   }
 }
+
 
 const styles = {
   listItem: {
@@ -48,20 +55,21 @@ const styles = {
     height: 304,
     maxHeight: 304,
     backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
-  listStyle: {
+  list: {
     flex: 1,
-    //backgroundColor: 'white'
+    backgroundColor: '#eee'
   },
-  imageStyle: {
-    flex: 1
+  text: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16
   },
-  textStyle: {
-    fontSize: 16,
-    alignSelf: 'center'
+  image: {
+    flex: 1,
+    minHeight: 100,
+    minWidth: 100
   }
 };
 
-export default DefaultImages;
+export default List;
