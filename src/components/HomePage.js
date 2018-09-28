@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Image, } from 'react-native';
+import { FlatList, Image, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
@@ -16,7 +16,7 @@ class HomePage extends Component {
   renderItem({ item }) {
     if (item.hasImage) {
       return (
-        <AnnounceCardImage title={item.title} source={item.image}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri }}>
           {item.description}
         </AnnounceCardImage>
       );

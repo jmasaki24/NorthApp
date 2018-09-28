@@ -1,8 +1,11 @@
 import React from 'react';
 import { Text, Image, View } from 'react-native';
 import { Card, CardSection } from './common';
+
 // title, uri, children, tags ; are props
-const AnnounceCardImage = (props) => (
+const AnnounceCardImage = (props) => {
+  console.log(props.image);
+  return (
     <Card>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.titleText}>
@@ -13,7 +16,7 @@ const AnnounceCardImage = (props) => (
         <View style={{ flex: 1 }}>
           <Image
             style={{ width: 140, height: 140, alignSelf: 'center' }}
-            source={'../images/titanT.png'}
+            source={props.image}
           />
         </View>
         <View style={{ flex: 1 }}>
@@ -22,6 +25,7 @@ const AnnounceCardImage = (props) => (
       </CardSection>
     </Card>
   );
+};
 
   const styles = {
     titleText: {
