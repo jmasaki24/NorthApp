@@ -13,7 +13,7 @@ const AnnounceCardImage = (props) => (
         <View style={{ flex: 1 }}>
           <Image
             style={{ width: 140, height: 140, alignSelf: 'center' }}
-            source={{ uri: props.uri }}
+            source={'../images/titanT.png'}
           />
         </View>
         <View style={{ flex: 1 }}>

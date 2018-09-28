@@ -1,0 +1,31 @@
+[
+  {
+    "key" : "00001",
+    "hasImage" : true,
+    "title" : "Snow Day!",
+    "description" : "No School, Big Snow; No School, Big Snow; No School, Big Snow; No School, Big Snow; No School, Big Snow; No School, Big Snow;",
+     "image" : "''../images/autumn.jpg'"
+  },
+  {
+    "key" : "00002",
+    "hasImage" : false,
+    "title" : "PSAT October 10th",
+    "description" : "The Prelim. SAT is coming up, sign up before October 3rd in B3 guidance. You could win money!!",
+    "image" : "null"
+  },
+  {
+    "key" : "00003",
+    "hasImage": true,
+    "title" : "North App Coming Soon, Maybe!",
+    "description" : "We like mobile applications, and this semester they're coming",
+    "image" : "'../images/titanT.png'",
+  },
+  {
+    "key" : "0004",
+    "hasImage" : false,
+    "title" : "Spirit Week This Week Only",
+    "description" : "Get hyped, for it's this week only. Then we have the Bridge Battle",
+    "image" : null,
+  },
+
+]

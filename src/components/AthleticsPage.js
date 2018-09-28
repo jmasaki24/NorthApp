@@ -14,6 +14,11 @@ class AthleticsPage extends Component {
               Upcoming Games
             </Button>
           </CardSection>
+          <ScrollView style={{ flexDirection: 'row', }}>
+            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
+            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
+            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
+          </ScrollView>
         </Card>
         <SeasonSelect />
         <View style={{ height: 20 }} />
