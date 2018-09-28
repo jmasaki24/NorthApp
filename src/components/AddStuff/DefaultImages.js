@@ -1,67 +1,63 @@
 import React, { Component } from 'react';
-import { View, FlatList, Image, Text } from 'react-native';
-import Titan from '../../images/titanT.png';
+import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
+import { Header, Card } from '../common';
 
-//const data = Info;
+const data = Info;
 const numColumns = 2;
 
-class DefaultImages extends Component {
-  state = { imageSelected: '' };
+class List extends Component {
+  state = { headerText: 'Images', Selected: '' };
 
-  renderImages(image) {
-    const { key, uri, text } = image;
+  renderItem({ item }) {
+    const { key, uri, text } = item;
     return (
-      <View style={styles.listItem}>
+      <TouchableOpacity
+        onPress={() => this.setState({ headerText: text, Selected: key })}
+      >
         <Image
-          resizeMode='center'
-          style={styles.imageStyle}
+          resizeMode='cover'
+          style={styles.image}
           source={{ uri }}
         />
-        <Text style={styles.textStyle}>
+        <Text style={{ alignSelf: 'center', fontSize: 16 }}>
           {text}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
   render() {
     return (
+      <View style={{ flex: 1 }}>
+        <Header headerText={this.state.headerText} />
         <FlatList
-          style={styles.listStyle}
-          data={Info}
-          renderItem={(image) => this.renderImages(image)}
+          style={styles.list}
+          data={data}
+          renderItem={item => this.renderItem(item)}
           numColumns={numColumns}
         />
+      </View>
     );
   }
 }
 
+
 const styles = {
-  listItem: {
+  list: {
     flex: 1,
-    marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    minWidth: 150,
-    maxWidth: 223,
-    height: 304,
-    maxHeight: 304,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: '#eee'
   },
-  listStyle: {
+  text: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  image: {
+    height: 190,
+    width: 190,
     flex: 1,
-    //backgroundColor: 'white'
-  },
-  imageStyle: {
-    flex: 1
-  },
-  textStyle: {
-    fontSize: 16,
-    alignSelf: 'center'
   }
 };
 
-export default DefaultImages;
+export default List;
