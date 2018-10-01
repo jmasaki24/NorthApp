@@ -6,5 +6,4 @@ export * from './Input';
 export * from './Spinner';
 export * from './Confirm';
 export * from './HeaderTitan';
-export * from './ButtonImage';
 export * from './LoginForm';

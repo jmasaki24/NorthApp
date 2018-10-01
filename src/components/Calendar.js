@@ -1,39 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
-import Calendar from 'react-native-calendar';
 import { createStackNavigator } from 'react-navigation';
 import Titan from '../images/titanT.png';
 import { Card, CardSection, Spinner } from './common';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
-class CalendarPage extends Component {
-  state = { showDay: false, day: null, loading: true }
+class calendarsPage extends Component {
+  state = { showEvent: false, date: [] };
 
-  componentWillMount() {
-    if (this.state.loading) {
-      return (
-        <Spinner />
-      );
-    }
-  }
-
-  componentDidMount() {
-    this.setState({ loading: false });
-  }
-
-  onDateSelect(date) {
-    this.setState({ showDay: true, day: date });
-  }
-
-  renderDay() {
-    if (this.state.showDay) {
+  renderDayEvents() {
+    if (this.state.showEvent) {
       return (
         <Card>
-          <CardSection style={{ backgroundColor: '#F8F8F8' }}>
+          <CardSection>
+            <Text style={styles.dateStyle}>{this.state.date}</Text>
+          </CardSection>
+          <CardSection>
             <ScrollView horizontal>
-              <CardSection
-                style={eventStyle}
-              >
-                <Text>Stuff Due</Text>
+              <CardSection>
+                <Text>Event Here</Text>
               </CardSection>
             </ScrollView>
           </CardSection>
@@ -44,53 +29,36 @@ class CalendarPage extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Card>
-          <Calendar
-            scrollEnabled
-            dayHeadings={
-              ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-            }
-            monthNames={
-              ['January', 'February', 'March ', 'April ', 'May ', 'June',
-               'July', 'August', 'September ', 'October', 'November', 'December']
-            }
-            showControls
-            nextButtonText={'Next>'}
-            prevButtonText={'<Prev'}
-            weekStart={0}
-            customStyle={calendarStyle}
-            onDateSelect={(date) => this.onDateSelect(date)}
-          />
-        </Card>
-        {this.renderDay()}
+      <View>
+        <Calendar
+          onDayPress={({ day, month, year }) =>
+            this.setState({ showEvent: true, date: [`${month}/`, `${day}/`, year] })}
+          theme={styles.calendarStyles}
+        />
+        {this.renderDayEvents()}
       </View>
     );
   }
 }
 
-const calendarStyle = {
-  controlButtonText: {
-    color: 'blue'
+const styles = {
+  calendarStyles: {
+    textSectionTitleColor: 'black',
+    todaytextColor: 'red',
+    dayTextColor: 'black',
+    monthTextColor: 'black',
+    textMonthFontWeight: 'bold',
+    textDisabledColor: 'gray'
   },
-  weekendHeading: {
-    color: 'black'
-  },
-  weekendDayText: {
-    color: 'black'
+  dateStyle: {
+    fontSize: 18,
+    fontWeight: '400',
+    alignItems: 'center'
   }
 };
 
-const eventStyle = {
-  borderWidth: 2,
-  flex: 1,
-  height: 100,
-  width: 100,
-  backgroundColor: '#F8F8F8'
-};
-
 const CalendarStack = createStackNavigator({
-  CalendarPage
+  calendarsPage
 }, {
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
