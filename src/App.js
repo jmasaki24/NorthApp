@@ -14,7 +14,7 @@ const RootStack = createBottomTabNavigator({
     Menu: MenuStack,
   }, {
     initalRouteName: 'Menu',
-    tabBarOptions: { activeTintColor: '#0C4678', inactiveTintColor: '#AEC6EA', },
+    tabBarOptions: { activeTintColor: 'black', inactiveTintColor: 'gray', },
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;

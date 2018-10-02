@@ -15,12 +15,12 @@ const AnnounceCardImage = (props) => {
       <CardSection style={{ alignItems: 'center' }}>
         <View style={{ flex: 1 }}>
           <Image
-            style={{ width: 140, height: 140, alignSelf: 'center' }}
+            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
             source={props.image}
           />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18, color: 'black' }}>{ props.children }</Text>
+          <Text style={{ fontSize: 18, color: 'black' }}>{props.children}</Text>
         </View>
       </CardSection>
     </Card>

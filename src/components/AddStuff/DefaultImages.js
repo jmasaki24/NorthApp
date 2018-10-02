@@ -54,9 +54,12 @@ const styles = {
     fontSize: 16
   },
   image: {
-    height: 190,
-    width: 190,
     flex: 1,
+    margin: 5,
+    height: 150,
+    maxHeight: 200,
+    minWidth: 150,
+    maxWidth: 200
   }
 };
 

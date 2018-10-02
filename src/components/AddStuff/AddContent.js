@@ -8,6 +8,31 @@ class AddContent extends Component {
   state = { Title: '', Info: '', showModal: false, imageSelect: false };
 
   onAccept() {
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: 'AIzaSyBL4uf8wErrDlSaJndsu9jn_SnYM-ldt78',
+        authDomain: 'napp-4f332.firebaseapp.com',
+        databaseURL: 'https://napp-4f332.firebaseio.com',
+        projectId: 'napp-4f3322',
+        storageBucket: 'napp-4f332.appspot.com',
+        messagingSenderId: '687322625517' });
+    }
+
+    const { currentUser } = firebase.auth();
+
+    firebase.database().ref('Announcements').push({
+      key: "00001",
+      hasImage: false,
+      title: this.state.Title,
+      description: this.state.Info,
+      uri: 'null'
+    })
+    .then(() => {
+      console.log('Announcement Submitted');
+    })
+    .catch(() => {
+      console.log('Failed To Submit Annoncement');
+    });
     this.setState({ showModal: false });
   }
 
