@@ -4,6 +4,10 @@ import { Card, CardSection, Button } from './common';
 import SeasonSelect from './AthleticsDetails/SeasonSelect';
 
 class AthleticsPage extends Component {
+  renderItem() {
+    return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} /> ;
+  }
+
   render() {
     const { buttonStyle, buttonTextStyle } = styles;
     return (
@@ -14,11 +18,11 @@ class AthleticsPage extends Component {
               Upcoming Games
             </Button>
           </CardSection>
-          <ScrollView style={{ flexDirection: 'row', }}>
-            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
-            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
-            <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />
-          </ScrollView>
+          <FlatList
+            style={{ flexDirection: 'row', }}
+            item={item => renderItem()}
+
+          />
         </Card>
         <SeasonSelect />
         <View style={{ height: 20 }} />
