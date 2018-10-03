@@ -39,7 +39,11 @@ class LoginForm extends Component {
     }
 
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
+      <Button
+        buttonStyle={styles.buttonStyle}
+        textStyle={styles.buttonTextStyle}
+        onPress={this.onButtonPress.bind(this)}
+      >
         Log In
       </Button>
     );
@@ -87,6 +91,13 @@ const styles = {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
+  },
+  buttonStyle: {
+    borderColor: 'white'
+  },
+  buttonTextStyle: {
+    alignSelf: 'center',
+    color: 'black'
   }
 };
 
