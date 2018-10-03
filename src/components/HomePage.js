@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { FlatList, Image, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import ScoreCard from './ScoreCard';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 import LogoTitans from '../images/logoTitans.jpg';
 import announcementData from '../JSON/announcementData.json';
+//import firebase from 'firebase';
 
 const data = announcementData;
 class HomePage extends Component {
@@ -38,6 +38,13 @@ class HomePage extends Component {
       />
     );
   }
+
+  // render() {
+  //   return (
+  //     firebase.database().ref('/Announcements')
+  //       .on()
+  //   );
+  // }
 }
 
 const HomeStack = createStackNavigator({
