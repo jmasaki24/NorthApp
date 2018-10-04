@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
-import { Header, Card } from '../common';
+import { Header, Button } from '../common';
+import Titan from '../../images/titanT.png';
 
 const data = Info;
 const numColumns = 2;
@@ -12,18 +13,20 @@ class List extends Component {
   renderItem({ item }) {
     const { key, uri, text } = item;
     return (
-      <TouchableOpacity
-        onPress={() => this.setState({ headerText: text, Selected: key })}
-      >
+      <View style={styles.listItem}>
         <Image
-          resizeMode='cover'
+          resizeMode='contain'
           style={styles.image}
           source={{ uri }}
         />
-        <Text style={{ alignSelf: 'center', fontSize: 16 }}>
-          {text}
-        </Text>
-      </TouchableOpacity>
+      <Button
+        buttonStyle={styles.buttonContainer}
+        textStyle={styles.buttonText}
+        onPress={() => this.setState({ headerText: text, Selected: key })}
+      >
+        {text}
+      </Button>
+      </View>
     );
   }
 
@@ -44,6 +47,17 @@ class List extends Component {
 
 
 const styles = {
+  listItem: {
+    flex: 1,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    minWidth: 150,
+    maxWidth: 223,
+    height: 304,
+    maxHeight: 304,
+    backgroundColor: '#eee',
+  },
   list: {
     flex: 1,
     backgroundColor: '#eee'
@@ -55,11 +69,25 @@ const styles = {
   },
   image: {
     flex: 1,
-    margin: 5,
-    height: 150,
-    maxHeight: 200,
-    minWidth: 150,
-    maxWidth: 200
+    height: 200,
+    width: 200,
+    alignSelf: 'center'
+  },
+  buttonContainer: {
+    flex: 0.15,
+    borderRadius: 10,
+    borderColor: 'black',
+    backgroundColor: '#eee',
+    margin: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: '#000',
+    textDecorationLine: 'underline',
+    alignSelf: 'center',
+    fontSize: 24,
+    padding: 0,
   }
 };
 
