@@ -69,8 +69,8 @@ const styles = {
   },
   image: {
     flex: 1,
-    height: 200,
-    width: 200,
+    height: 160,
+    width: 160,
     alignSelf: 'center'
   },
   buttonContainer: {
@@ -84,7 +84,6 @@ const styles = {
   },
   buttonText: {
     color: '#000',
-    textDecorationLine: 'underline',
     alignSelf: 'center',
     fontSize: 24,
     padding: 0,
