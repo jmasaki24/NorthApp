@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
-<<<<<<< HEAD
-import { Header, Button } from '../common';
-=======
 import { Header } from '../common';
->>>>>>> ef21a51f8dd2bf60b0b04e85cddbaadd2f0349d9
-import Titan from '../../images/titanT.png';
 
 const data = Info;
 const numColumns = 2;
@@ -18,7 +13,7 @@ class List extends Component {
     const { key, uri, text } = item;
     return (
       <TouchableOpacity
-      style={styles.touchStyle}
+        style={styles.touchStyle}
         onPress={() => this.setState({ headerText: text, Selected: key })}
       >
         <Image
@@ -78,30 +73,10 @@ const styles = {
     width: 160,
     alignSelf: 'center'
   },
-<<<<<<< HEAD
-  buttonContainer: {
-    flex: 0.15,
-    borderRadius: 10,
-    borderColor: 'black',
-    backgroundColor: '#eee',
-    margin: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonText: {
-    color: '#000',
-    alignSelf: 'center',
-    fontSize: 24,
-    padding: 0,
-=======
   touchStyle: {
     flex: 1,
     alignSelf: 'center',
-    margin: 5,
-    // borderRadius: 1,
-    // borderWidth: 1,
-    // borderColor: 'black'
->>>>>>> ef21a51f8dd2bf60b0b04e85cddbaadd2f0349d9
+    margin: 5
   }
 };
 
