@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
 import { Header } from '../common';
-import Titan from '../../images/titanT.png';
 
 const data = Info;
 const numColumns = 2;
+const { height, width } = Dimensions.get('window');
 
 class List extends Component {
   state = { headerText: 'Images', Selected: '' };
@@ -14,18 +14,18 @@ class List extends Component {
     const { key, uri, text } = item;
     return (
       <TouchableOpacity
-      style={styles.touchStyle}
+        style={styles.touchStyle}
         onPress={() => this.setState({ headerText: text, Selected: key })}
       >
         <Image
           resizeMode='contain'
-          style={styles.image}
+          style={{ height: height / 3, width: width / 2 }}
           source={{ uri }}
         />
         <Text
           style={styles.text}
         >
-        {text}
+          {text}
         </Text>
       </TouchableOpacity>
     );
@@ -77,10 +77,7 @@ const styles = {
   touchStyle: {
     flex: 1,
     alignSelf: 'center',
-    margin: 5,
-    // borderRadius: 1,
-    // borderWidth: 1,
-    // borderColor: 'black'
+    margin: 5
   }
 };
 

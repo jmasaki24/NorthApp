@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Modal } from 'react-native';
 import firebase from 'firebase';
 import List from './DefaultImages';
+import Photos from './Photos';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 
 class AddContent extends Component {
@@ -15,13 +16,9 @@ class AddContent extends Component {
       description: this.state.Info,
       uri: 'null'
     })
-    .then(() => {
-      console.log('Announcement Submitted');
-    })
-    .catch(() => {
-      console.log('Failed To Submit Annoncement');
-    });
-    this.setState({ showModal: false, Title: '', Info: '' });
+    .then(() => {})
+    .catch(() => {});
+    this.setState({ showModal: false, Title: '', Info: '', showCameraRoll: false });
   }
 
   onDecline() {
@@ -98,18 +95,42 @@ class AddContent extends Component {
 
         <Modal
           visible={this.state.imageSelect}
-          animationType='fade'
+          //animationType='fade'
         >
-            <List />
+          <List />
+          <CardSection>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={{ color: 'black' }}
+              onPress={() => this.setState({ showCameraRoll: true })}
+            >
+              Select Image From Camera Roll
+            </Button>
+          </CardSection>
+          <CardSection>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={{ color: 'black' }}
+              onPress={() => this.setState({ imageSelect: false })}
+            >
+              Close
+            </Button>
+          </CardSection>
+
+          <Modal
+            visible={this.state.showCameraRoll}
+          >
+            <Photos />
             <CardSection>
               <Button
                 buttonStyle={styles.buttonStyle}
                 textStyle={{ color: 'black' }}
-                onPress={() => this.setState({ imageSelect: false })}
+                onPress={() => this.setState({ showCameraRoll: false, imageSelect: false })}
               >
-                Close
+                Close CameraRoll
               </Button>
             </CardSection>
+          </Modal>
         </Modal>
 
         <Confirm
