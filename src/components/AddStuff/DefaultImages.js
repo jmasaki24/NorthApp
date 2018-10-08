@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Dimensions, Image, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
 import Info from '../../JSON/AnnounceImage.json';
-import { Header } from '../common';
+import Photos from './Photos';
+import { Header, CardSection, Button } from '../common';
 
 const data = Info;
 const numColumns = 2;
 const { height, width } = Dimensions.get('window');
 
+
 class List extends Component {
-  state = { headerText: 'Images', Selected: '' };
+  state = { headerText: 'Images', Selected: '', photoSelect: false };
 
   renderItem({ item }) {
     const { key, uri, text } = item;
@@ -41,11 +43,34 @@ class List extends Component {
           renderItem={item => this.renderItem(item)}
           numColumns={numColumns}
         />
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => this.setState({ photoSelect: true })}
+          >
+            Select Image From Camera Roll
+          </Button>
+        </CardSection>
+
+        <Modal
+          visible={this.state.photoSelect}
+        >
+          <Photos />
+          <CardSection>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={{ color: 'black' }}
+              onPress={() => this.setState({ photoSelect: false })}
+            >
+              Close
+            </Button>
+          </CardSection>
+        </Modal>
       </View>
     );
   }
 }
-
 
 const styles = {
   listItem: {
@@ -78,6 +103,10 @@ const styles = {
     flex: 1,
     alignSelf: 'center',
     margin: 5
+  },
+  buttonStyle: {
+    borderColor: 'white',
+    justifyContent: 'center',
   }
 };
 

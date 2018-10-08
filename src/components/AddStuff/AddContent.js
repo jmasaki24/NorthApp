@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Modal } from 'react-native';
 import firebase from 'firebase';
 import List from './DefaultImages';
-import Photos from './Photos';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 
 class AddContent extends Component {
@@ -14,11 +13,11 @@ class AddContent extends Component {
       hasImage: false,
       title: this.state.Title,
       description: this.state.Info,
-      uri: 'null'
+      uri: null
     })
     .then(() => {})
     .catch(() => {});
-    this.setState({ showModal: false, Title: '', Info: '', showCameraRoll: false });
+    this.setState({ showModal: false, Title: '', Info: '' });
   }
 
   onDecline() {
@@ -53,22 +52,14 @@ class AddContent extends Component {
       <Card>
         <CardSection>
           <Input
-            label="Title"
-            placeholder="Title"
-            viewStyle={{ height: 60 }}
-            multiline
-            value={this.state.Title}
-            onChangeText={(Title) => this.setState({ Title })}
+            label="Title" placeholder="Title" viewStyle={{ height: 60 }}
+            multiline value={this.state.Title} onChangeText={(Title) => this.setState({ Title })}
           />
         </CardSection>
         <CardSection>
           <Input
-            label="Text"
-            placeholder="Info Goes Here"
-            viewStyle={{ height: 150 }}
-            multiline
-            value={this.state.Info}
-            onChangeText={(Info) => this.setState({ Info })}
+            label="Text" placeholder="Info Goes Here" viewStyle={{ height: 150 }}
+            multiline value={this.state.Info} onChangeText={(Info) => this.setState({ Info })}
           />
         </CardSection>
         <CardSection>
@@ -95,18 +86,8 @@ class AddContent extends Component {
 
         <Modal
           visible={this.state.imageSelect}
-          //animationType='fade'
         >
           <List />
-          <CardSection>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              textStyle={{ color: 'black' }}
-              onPress={() => this.setState({ showCameraRoll: true })}
-            >
-              Select Image From Camera Roll
-            </Button>
-          </CardSection>
           <CardSection>
             <Button
               buttonStyle={styles.buttonStyle}
@@ -116,21 +97,6 @@ class AddContent extends Component {
               Close
             </Button>
           </CardSection>
-
-          <Modal
-            visible={this.state.showCameraRoll}
-          >
-            <Photos />
-            <CardSection>
-              <Button
-                buttonStyle={styles.buttonStyle}
-                textStyle={{ color: 'black' }}
-                onPress={() => this.setState({ showCameraRoll: false, imageSelect: false })}
-              >
-                Close CameraRoll
-              </Button>
-            </CardSection>
-          </Modal>
         </Modal>
 
         <Confirm
