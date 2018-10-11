@@ -5,15 +5,23 @@ import List from './DefaultImages';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 
 class AddContent extends Component {
-  state = { Title: '', Info: '', showModal: false, imageSelect: false };
+  state = {
+    Title: '',
+    Info: '',
+    HasImage: false,
+    Uri: '',
+
+    showModal: false,
+    imageSelect: false
+  };
 
   onAccept() {
     firebase.database().ref('/Announcements').push({
       key: '00001',
-      hasImage: false,
+      hasImage: this.state.HasImage,
       title: this.state.Title,
       description: this.state.Info,
-      uri: null
+      uri: this.state.Uri
     })
     .then(() => {})
     .catch(() => {});

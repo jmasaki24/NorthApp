@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
 import firebase from 'firebase';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+import reducers from './reducers';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
@@ -50,6 +55,11 @@ export default class App extends Component {
   }
 
   render() {
-    return <RootStack />;
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    return (
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    );
   }
 }

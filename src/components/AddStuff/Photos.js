@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Modal } from 'react-native'
+import { View } from 'react-native'
 import { Spinner, Header } from '../common';
 import CameraRollPicker from 'react-native-camera-roll-multi-picker';
 
