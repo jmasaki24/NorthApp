@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Info from '../../JSON/AnnounceImage.json';
-import Photos from './Photos';
-import { Header, CardSection, Button } from '../common';
+import { CardSection, Button } from '../common';
+import { addImage } from '../../actions';
 
 const data = Info;
 const numColumns = 2;
@@ -10,23 +11,29 @@ const { height, width } = Dimensions.get('window');
 
 
 class List extends Component {
-  state = { headerText: 'Images', Selected: '', photoSelect: false };
+  state = { Selected: '', photoSelect: false };
+
+  onImagePress(text, key, uri) {
+    this.setState({ headerText: text, Selected: key });
+
+    this.props.addImage(true, uri);
+
+    this.props.navigation.navigate('AddContent');
+  }
 
   renderItem({ item }) {
     const { key, uri, text } = item;
     return (
       <TouchableOpacity
         style={styles.touchStyle}
-        onPress={() => this.setState({ headerText: text, Selected: key })}
+        onPress={() => this.onImagePress(text, key, uri)}
       >
         <Image
           resizeMode='contain'
           style={{ height: height / 3, width: width / 2 }}
           source={{ uri }}
         />
-        <Text
-          style={styles.text}
-        >
+        <Text style={styles.text}>
           {text}
         </Text>
       </TouchableOpacity>
@@ -36,7 +43,6 @@ class List extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Header headerText={this.state.headerText} />
         <FlatList
           style={styles.list}
           data={data}
@@ -47,26 +53,20 @@ class List extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => this.setState({ photoSelect: true })}
+            onPress={() => this.props.navigation.navigate('Photos')}
           >
             Select Image From Camera Roll
           </Button>
         </CardSection>
-
-        <Modal
-          visible={this.state.photoSelect}
-        >
-          <Photos />
-          <CardSection>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              textStyle={{ color: 'black' }}
-              onPress={() => this.setState({ photoSelect: false })}
-            >
-              Close
-            </Button>
-          </CardSection>
-        </Modal>
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => this.props.navigation.navigate('AddContent')}
+          >
+            Cancel
+          </Button>
+        </CardSection>
       </View>
     );
   }
@@ -110,4 +110,9 @@ const styles = {
   }
 };
 
-export default List;
+const mapStateToProps = ({ announce }) => {
+  const { hasImage, uri } = announce;
+  return { hasImage, uri };
+};
+
+export default connect(mapStateToProps, { addImage })(List);

@@ -1,31 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, Modal } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
-import List from './DefaultImages';
+import { connect } from 'react-redux';
+import { createStackNavigator, withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
+import { addDescription, addTitle, pushToFirebase } from '../../actions';
+import DefaultImagesPage from './DefaultImages';
+import PhotosPage from './Photos';
 
 class AddContent extends Component {
-  state = {
-    Title: '',
-    Info: '',
-    HasImage: false,
-    Uri: '',
-
-    showModal: false,
-    imageSelect: false
-  };
+  state = { showModal: false };
 
   onAccept() {
-    firebase.database().ref('/Announcements').push({
-      key: '00001',
-      hasImage: this.state.HasImage,
-      title: this.state.Title,
-      description: this.state.Info,
-      uri: this.state.Uri
-    })
-    .then(() => {})
-    .catch(() => {});
-    this.setState({ showModal: false, Title: '', Info: '' });
+    const { hasImage, title, info, uri } = this.props;
+    //this.props.pushToFirebase(hasImage, title, info, uri);
+    this.props.pushToFirebase({ title, info, uri });
   }
 
   onDecline() {
@@ -33,24 +22,24 @@ class AddContent extends Component {
   }
 
   renderButton() {
-    if (this.state.Title !== '' && this.state.Info !== '') {
+    if ((this.props.title === '') && (this.props.info === '')) {
       return (
         <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black' }}
-            onPress={() => this.setState({ showModal: !this.state.showModal })}
-          >
-            Submit Announcement
-          </Button>
+          <View style={styles.viewStyle}>
+            <Text style={styles.textStyle}>Submit Announcement</Text>
+          </View>
         </CardSection>
       );
     }
     return (
       <CardSection>
-        <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>Submit Announcement</Text>
-        </View>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          textStyle={{ color: 'black' }}
+          onPress={() => this.setState({ showModal: !this.state.showModal })}
+        >
+          Submit Announcement
+        </Button>
       </CardSection>
     );
   }
@@ -60,21 +49,29 @@ class AddContent extends Component {
       <Card>
         <CardSection>
           <Input
-            label="Title" placeholder="Title" viewStyle={{ height: 60 }}
-            multiline value={this.state.Title} onChangeText={(Title) => this.setState({ Title })}
+            label="Title"
+            placeholder="Title"
+            viewStyle={{ height: 60 }}
+            multiline
+            //value={{ title }}
+            onChangeText={() => this.props.addTitle(this)}
           />
         </CardSection>
         <CardSection>
           <Input
-            label="Text" placeholder="Info Goes Here" viewStyle={{ height: 150 }}
-            multiline value={this.state.Info} onChangeText={(Info) => this.setState({ Info })}
+            label="Text"
+            placeholder="Info Goes Here"
+            viewStyle={{ height: 150 }}
+            multiline
+            //value={{ info }}
+            onChangeText={() => this.props.addDescription(this)}
           />
         </CardSection>
         <CardSection>
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => this.setState({ imageSelect: true })}
+            onPress={() => this.props.navigation.navigate('DefaultImages')}
           >
             Select An Image
           </Button>
@@ -91,21 +88,6 @@ class AddContent extends Component {
             </Button>
           </CardSection>
         </View>
-
-        <Modal
-          visible={this.state.imageSelect}
-        >
-          <List />
-          <CardSection>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              textStyle={{ color: 'black' }}
-              onPress={() => this.setState({ imageSelect: false })}
-            >
-              Close
-            </Button>
-          </CardSection>
-        </Modal>
 
         <Confirm
           visible={this.state.showModal}
@@ -141,4 +123,9 @@ const styles = {
   }
 };
 
-export default AddContent;
+const mapStateToProps = (state) => {
+  const { hasImage, title, info, uri } = state.announce;
+  return { hasImage, title, info, uri };
+};
+
+export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushToFirebase })(AddContent));

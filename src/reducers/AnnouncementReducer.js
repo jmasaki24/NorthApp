@@ -1,13 +1,14 @@
 import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
-  ADD_TITLE
+  ADD_TITLE,
+  PUSH_TO_FIREBASE
 } from '../actions/types';
 
 const INITIAL_STATE = {
   hasImage: false,
   title: '',
-  description: '',
+  info: '',
   uri: null,
 };
 
@@ -17,10 +18,13 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, hasImage: action.payload.hasImage, uri: action.payload.uri };
 
     case ADD_DESCRIPTION:
-      return { ...state, description: action.payload };
+      return { ...state, info: action.payload };
 
     case ADD_TITLE:
       return { ...state, title: action.payload };
+
+    case PUSH_TO_FIREBASE:
+      return { ...state, ...INITIAL_STATE };
 
     default:
       return state;
