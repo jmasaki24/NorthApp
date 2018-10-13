@@ -1,36 +1,43 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
-import { createStackNavigator, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 import { addDescription, addTitle, pushToFirebase } from '../../actions';
-import DefaultImagesPage from './DefaultImages';
-import PhotosPage from './Photos';
 
 class AddContent extends Component {
   state = { showModal: false };
 
   onAccept() {
-    const { hasImage, title, info, uri } = this.props;
+    const { title, info, uri } = this.props;
     //this.props.pushToFirebase(hasImage, title, info, uri);
     this.props.pushToFirebase({ title, info, uri });
+    this.setState({ showModal: false });
   }
 
   onDecline() {
     this.setState({ showModal: false });
   }
 
+  onTitleChange(text) {
+    this.props.addTitle(text);
+  }
+
+  onInfoChange(text) {
+    this.props.addDescription(text);
+  }
+
   renderButton() {
-    if ((this.props.title === '') && (this.props.info === '')) {
-      return (
-        <CardSection>
-          <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>Submit Announcement</Text>
-          </View>
-        </CardSection>
-      );
-    }
+    // if ((this.props.title === '') && (this.props.info === '')) {
+    //   return (
+    //     <CardSection>
+    //       <View style={styles.viewStyle}>
+    //         <Text style={styles.textStyle}>Submit Announcement</Text>
+    //       </View>
+    //     </CardSection>
+    //   );
+    // }
     return (
       <CardSection>
         <Button
@@ -53,8 +60,8 @@ class AddContent extends Component {
             placeholder="Title"
             viewStyle={{ height: 60 }}
             multiline
-            //value={{ title }}
-            onChangeText={() => this.props.addTitle(this)}
+            onChangeText={this.onTitleChange.bind(this)}
+            value={this.props.title}
           />
         </CardSection>
         <CardSection>
@@ -63,8 +70,8 @@ class AddContent extends Component {
             placeholder="Info Goes Here"
             viewStyle={{ height: 150 }}
             multiline
-            //value={{ info }}
-            onChangeText={() => this.props.addDescription(this)}
+            onChangeText={this.onInfoChange.bind(this)}
+            value={this.props.info}
           />
         </CardSection>
         <CardSection>

@@ -6,10 +6,10 @@ import {
   PUSH_TO_FIREBASE,
 } from './types';
 
-export const addImage = ({ hasImage, uri }) => {
+export const addImage = (uri) => {
   return {
     type: ADD_IMAGE,
-    payload: { hasImage, uri }
+    payload: uri
   };
 };
 
