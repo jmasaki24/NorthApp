@@ -8,3 +8,4 @@ export * from './Confirm';
 export * from './HeaderTitan';
 export * from './ButtonImage';
 export * from './Footer';
+export * from './LoginForm';

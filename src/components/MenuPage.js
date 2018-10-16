@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import Titan from 'C:/Users/Jamie/Documents/App Stuff/Work/NorthApp/src/images/titanT.png';
+import Titan from '../images/titanT.png';
 import { CardSection, Button } from './common';
 import ContactPage from './ContactPage';
 import AcademicsPage from './AcademicsPage';
@@ -56,6 +56,15 @@ class MenuPage extends Component {
               onPress={() => this.props.navigation.navigate('Contact')}
             >
               Contact Us
+            </Button>
+          </CardSection>
+          <CardSection style={{ padding: 0 }}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={textStyle}
+              onPress={() => this.props.navigation.navigate('Admin')}
+            >
+              Admin
             </Button>
           </CardSection>
         </View>

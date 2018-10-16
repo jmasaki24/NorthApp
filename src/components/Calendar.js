@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import Calendar from 'react-native-calendar';
 import { createStackNavigator } from 'react-navigation';
-import Titan from 'C:/Users/Jamie/Documents/App Stuff/Work/NorthApp/src/images/titanT.png';
+import Titan from '../images/titanT.png';
 import { Card, CardSection } from './common';
 
 class CalendarPage extends Component {

@@ -5,8 +5,8 @@ import { Button } from './Button';
 
 const Confirm = ({ children, visible, onAccept, onDecline }) => {
   const { cardSectionStyle, textStyle, containerStyle } = styles;
-  
-  return(
+
+  return (
     <Modal
       visible={visible}
       transparent

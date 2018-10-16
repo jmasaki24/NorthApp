@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import firebase from 'firebase';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
-import StoreStack from './components/StorePage';
 
 const RootStack = createBottomTabNavigator({
-    //Store: StoreStack,
     Home: HomeStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
@@ -35,6 +34,16 @@ const RootStack = createBottomTabNavigator({
 });
 
 export default class App extends Component {
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyBL4uf8wErrDlSaJndsu9jn_SnYM-ldt78',
+      authDomain: 'napp-4f332.firebaseapp.com',
+      databaseURL: 'https://napp-4f332.firebaseio.com',
+      projectId: 'napp-4f3322',
+      storageBucket: 'napp-4f332.appspot.com',
+      messagingSenderId: '687322625517'
+    });
+  }
   render() {
     return <RootStack />;
   }
