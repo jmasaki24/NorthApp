@@ -1,10 +1,5 @@
 [
   {
-    "key":"None",
-    "uri":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3NIO1OxzTKefV4VDhc3huCRopWqto3KV7QOVtN5_0Zc2MmtzL",
-    "text":"None"
-  },
-  {
     "key":"Titan",
     "uri": "https://schoolassets.s3.amazonaws.com/logos/21551/21551.png?$rl_392_pdp$",
     "text": "Titan T"
@@ -28,13 +23,17 @@
     "uri":"https://icon2.kisspng.com/20180813/wsj/kisspng-clip-art-lunchbox-openclipart-bag-school-snack-cliparts-7-1-17-x-1-17-carwad-net-5b724c678ffe01.3466928615342173195898.jpg?$rl_392_pdp$",
     "text":"Lunch"
   },
-];
-
-
-/*
   {
     "key":"GNE",
     "uri":"https://afinde-production.s3.amazonaws.com/uploads/1fd57482-649a-4740-99ad-2e20933841a7.jpg",
     "text":"Good News"
   }
+];
+
+/*
+  {
+    "key":"",
+    "uri":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3NIO1OxzTKefV4VDhc3huCRopWqto3KV7QOVtN5_0Zc2MmtzL",
+    "text":"None"
+  },
 */

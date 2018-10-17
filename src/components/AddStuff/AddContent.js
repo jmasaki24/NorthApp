@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
@@ -10,9 +10,9 @@ class AddContent extends Component {
   state = { showModal: false };
 
   onAccept() {
-    const { title, info, uri } = this.props;
+    const { title, info, uri, isDefault } = this.props;
     //this.props.pushToFirebase(hasImage, title, info, uri);
-    this.props.pushToFirebase({ title, info, uri });
+    this.props.pushToFirebase({ title, info, uri, isDefault });
     this.setState({ showModal: false });
   }
 
@@ -29,15 +29,15 @@ class AddContent extends Component {
   }
 
   renderButton() {
-    // if ((this.props.title === '') && (this.props.info === '')) {
-    //   return (
-    //     <CardSection>
-    //       <View style={styles.viewStyle}>
-    //         <Text style={styles.textStyle}>Submit Announcement</Text>
-    //       </View>
-    //     </CardSection>
-    //   );
-    // }
+    if ((this.props.title === '') && (this.props.info === '')) {
+      return (
+        <CardSection>
+          <View style={styles.viewStyle}>
+            <Text style={styles.textStyle}>Submit Announcement</Text>
+          </View>
+        </CardSection>
+      );
+    }
     return (
       <CardSection>
         <Button
@@ -131,8 +131,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { hasImage, title, info, uri } = state.announce;
-  return { hasImage, title, info, uri };
+  const { title, info, uri, isDefault } = state.announce;
+  return { title, info, uri, isDefault };
 };
 
 export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushToFirebase })(AddContent));

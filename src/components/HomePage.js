@@ -1,51 +1,12 @@
-import React, { Component } from 'react';
-import { FlatList, Image, } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import AnnounceCardAllText from './AnnounceCardAllText';
-import AnnounceCardImage from './AnnounceCardImage';
+import HomePageItems from './HomePageItems';
 import LogoTitans from '../images/logoTitans.jpg';
-import announcementData from '../JSON/announcementData.json';
-//import firebase from 'firebase';
 
-const data = announcementData;
-class HomePage extends Component {
-  /*createTagArray() {
-    return (arguments);
-  }*/
-
-  renderItem({ item }) {
-    if (item.hasImage) {
-      return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.uri }}>
-          {item.description}
-        </AnnounceCardImage>
-      );
-    } else if (!item.hasImage) {
-      return (
-        <AnnounceCardAllText title={item.title}>
-          {item.description}
-        </AnnounceCardAllText>
-      );
-    }
-  }
-
-  render() {
-    return (
-      <FlatList
-        style={{ flex: 1 }}
-        data={data}
-        renderItem={item => this.renderItem(item)}
-      />
-    );
-  }
-
-  // render() {
-  //   return (
-  //     firebase.database().ref('/Announcements')
-  //       .on()
-  //   );
-  // }
-}
+const HomePage = () => (
+  <HomePageItems />
+);
 
 const HomeStack = createStackNavigator({
   Home: HomePage
@@ -63,4 +24,5 @@ const HomeStack = createStackNavigator({
   }
 });
 
-  export default HomeStack;
+
+export default HomeStack;

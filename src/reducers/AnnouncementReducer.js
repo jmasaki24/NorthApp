@@ -2,13 +2,15 @@ import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
   ADD_TITLE,
-  PUSH_TO_FIREBASE
+  PUSH_TO_FIREBASE,
+  DEFAULT_IMAGE_BOOL
 } from '../actions/types';
 
 const INITIAL_STATE = {
   title: '',
   info: '',
-  uri: ''
+  uri: '',
+  isDefault: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,6 +23,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case ADD_TITLE:
       return { ...state, title: action.payload };
+
+    case DEFAULT_IMAGE_BOOL:
+      return { ...state, isDefault: action.payload };
 
     case PUSH_TO_FIREBASE:
       return INITIAL_STATE;

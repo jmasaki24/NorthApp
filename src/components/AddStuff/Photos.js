@@ -3,19 +3,26 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-multi-picker';
 import { Spinner, CardSection, Button } from '../common';
-import { addImage } from '../../actions';
+import { addImage, isDefaultImage } from '../../actions';
 
 class Photos extends Component {
-  onImagePress() {
-    //Set app levl state with redux Here
+  onImagePress(image) {
+    this.props.isDefaultImage(false);
+    this.props.addImage(image);
     this.props.navigation.navigate('AddContent');
+  }
+
+  onCancelPress() {
+    this.props.isDefaultImage(null);
+    this.props.addImage('');
+    this.props.navigation.navigate('DefaultImages');
   }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
         <CameraRollPicker
-          callback={() => this.onImagePress()}
+          callback={(image) => this.onImagePress(image)}
           assetTypes='Photos'
           selectSingleItem
           backgroundColor='#eee'
@@ -25,7 +32,7 @@ class Photos extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => this.props.navigation.navigate('DefaultImages')}
+            onPress={() => this.onCancelPress()}
           >
             Cancel
           </Button>
@@ -43,8 +50,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { hasImage, uri } = state.announce;
-  return { hasImage, uri };
+  const { uri } = state.announce;
+  return { uri };
 };
 
-export default connect(mapStateToProps, { addImage })(Photos);
+export default connect(mapStateToProps, { addImage, isDefaultImage })(Photos);

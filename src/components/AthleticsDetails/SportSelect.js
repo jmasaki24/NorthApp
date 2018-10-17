@@ -1,5 +1,4 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
 import { CardSection, Button } from '../common';
 
 const Select = ({ sport }) => {

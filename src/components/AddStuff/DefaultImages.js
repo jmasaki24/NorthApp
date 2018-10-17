@@ -3,21 +3,25 @@ import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react
 import { connect } from 'react-redux';
 import Info from '../../JSON/AnnounceImage.json';
 import { CardSection, Button } from '../common';
-import { addImage } from '../../actions';
+import { addImage, isDefaultImage } from '../../actions';
 
 const data = Info;
 const numColumns = 2;
 const { height, width } = Dimensions.get('window');
 
-
 class List extends Component {
-  state = { Selected: '', photoSelect: false };
+  state = { photoSelect: false };
 
-  onImagePress(text, key, uri) {
-    this.setState({ headerText: text, Selected: key });
+  onImagePress(key) {
+    this.props.isDefaultImage(true);
+    this.props.addImage(key);
 
-    this.props.addImage(true, uri);
+    this.props.navigation.navigate('AddContent');
+  }
 
+  onCancelPress() {
+    this.props.isDefaultImage(null);
+    this.props.addImage('');
     this.props.navigation.navigate('AddContent');
   }
 
@@ -26,7 +30,7 @@ class List extends Component {
     return (
       <TouchableOpacity
         style={styles.touchStyle}
-        onPress={() => this.onImagePress(text, key, uri)}
+        onPress={() => this.onImagePress(key)}
       >
         <Image
           resizeMode='contain'
@@ -62,7 +66,7 @@ class List extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => this.props.navigation.navigate('AddContent')}
+            onPress={() => this.onCancelPress()}
           >
             Cancel
           </Button>
@@ -111,8 +115,8 @@ const styles = {
 };
 
 const mapStateToProps = ({ announce }) => {
-  const { hasImage, uri } = announce;
-  return { hasImage, uri };
+  const { uri } = announce;
+  return { uri };
 };
 
-export default connect(mapStateToProps, { addImage })(List);
+export default connect(mapStateToProps, { addImage, isDefaultImage })(List);
