@@ -13,7 +13,7 @@ class ContactPage extends Component {
 
     return (
       <View style={pageStyle}>
-        <Text style={{ fontSize: 45 }}>  Contact Us </Text>
+        <Text style={{ fontSize: 45, color: 'black' }}>  Contact Us </Text>
         <Text style={basicText}> Nashua High School North: </Text>
         <Text style={basicText}> 8 Titan Way, Nashua, NH; 03063 </Text>
         <Text style={basicText}> (603) 966-2500 </Text>
@@ -35,6 +35,7 @@ class ContactPage extends Component {
 const styles = {
   basicText: {
     marginTop: 10,
+	color: 'black',
     fontSize: 16
   },
   pageStyle: {

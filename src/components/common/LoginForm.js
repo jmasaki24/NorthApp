@@ -93,7 +93,8 @@ const styles = {
     color: 'red'
   },
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
+	justifyContent: 'center'
   },
   buttonTextStyle: {
     alignSelf: 'center',
