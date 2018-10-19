@@ -5,6 +5,8 @@ import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 import { getAnnouncements } from '../actions';
 
+console.disableYellowBox = true;
+
 class HomePageItems extends Component {
   componentWillMount() {
     this.props.getAnnouncements();
@@ -19,7 +21,7 @@ class HomePageItems extends Component {
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} image={{}}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri }}>
           {item.info}
         </AnnounceCardImage>
       );

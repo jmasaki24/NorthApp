@@ -119,6 +119,7 @@ const MenuStack = createStackNavigator({
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
     headerTitle:
+      //<TouchableOpacity onPress={() => navigation.popToTop()}>
       <TouchableOpacity onPress={() => navigation.goBack(null)}>
         <Image
           source={Titan}
