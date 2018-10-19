@@ -230,13 +230,13 @@ const styles = {
   },
   subHeadingStyle: {
     fontSize: 20,
-	color: 'black',
+    color: 'black',
     fontWeight: '300',
     borderBottomWidth: 1
   },
   infoStyle: {
     borderColor: '#fff',
-	color: 'black',
+    color: 'black',
     borderBottomWidth: 2,
     fontSize: 16
   }

@@ -4,7 +4,6 @@ import { Card, CardSection } from './common';
 
 // title, uri, children, tags ; are props
 const AnnounceCardImage = (props) => {
-  console.log(props.image);
   return (
     <Card>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>

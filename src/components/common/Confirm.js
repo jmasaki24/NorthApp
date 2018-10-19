@@ -11,6 +11,7 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
       visible={visible}
       transparent
       //animationType="slide"
+      onRequestClose={() => console.log('Close Confirm')}
     >
       <View style={containerStyle}>
         <CardSection style={cardSectionStyle}>

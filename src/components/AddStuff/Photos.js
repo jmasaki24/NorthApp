@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, CameraRoll } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-multi-picker';
 import { Spinner, CardSection, Button } from '../common';

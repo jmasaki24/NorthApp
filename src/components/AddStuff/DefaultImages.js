@@ -12,9 +12,9 @@ const { height, width } = Dimensions.get('window');
 class List extends Component {
   state = { photoSelect: false };
 
-  onImagePress(key) {
+  onImagePress(uri) {
     this.props.isDefaultImage(true);
-    this.props.addImage(key);
+    this.props.addImage(uri);
 
     this.props.navigation.navigate('AddContent');
   }
@@ -26,11 +26,11 @@ class List extends Component {
   }
 
   renderItem({ item }) {
-    const { key, uri, text } = item;
+    const { uri, text } = item;
     return (
       <TouchableOpacity
         style={styles.touchStyle}
-        onPress={() => this.onImagePress(key)}
+        onPress={() => this.onImagePress(uri)}
       >
         <Image
           resizeMode='contain'

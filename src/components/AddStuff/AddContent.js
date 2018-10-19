@@ -11,7 +11,6 @@ class AddContent extends Component {
 
   onAccept() {
     const { title, info, uri, isDefault } = this.props;
-    //this.props.pushToFirebase(hasImage, title, info, uri);
     this.props.pushToFirebase({ title, info, uri, isDefault });
     this.setState({ showModal: false });
   }
@@ -29,6 +28,7 @@ class AddContent extends Component {
   }
 
   renderButton() {
+    //USE react native API NetInfo in conditional to determine if push should be done
     if ((this.props.title === '') && (this.props.info === '')) {
       return (
         <CardSection>
