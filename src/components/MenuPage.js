@@ -11,6 +11,7 @@ import BellSchedule from './Bells';
 import StoreStack from './StorePage';
 import AdminStack from './Admin';
 import AthleticsPage from './AthleticsPage';
+import AddContentPage from './AddStuff/AddContent';
 import DefaultImagesPage from './AddStuff/DefaultImages';
 import PhotosPage from './AddStuff/Photos';
 import PhotosProtosPage from './AddStuff/PhotosProtoType';
@@ -112,6 +113,7 @@ const MenuStack = createStackNavigator({
   Store: StoreStack,
   Athletics: AthleticsPage,
   Admin: AdminStack,
+  AddContent: AddContentPage,
   DefaultImages: DefaultImagesPage,
   Photos: PhotosPage,
   PhotosPT: PhotosProtosPage
