@@ -3,7 +3,6 @@ import firebase from 'firebase';
 import { LoginForm, Spinner } from './common';
 import AddContent from './AddStuff/AddContent';
 
-
 class Admin extends Component {
   state = { loggedIn: null }
 

@@ -4,14 +4,20 @@ import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
-import { addDescription, addTitle, pushToFirebase } from '../../actions';
+import { addDescription, addTitle, pushToFirebase, pushToFBStorage } from '../../actions';
 
 class AddContent extends Component {
   state = { showModal: false };
 
   onAccept() {
     const { title, info, uri, isDefault } = this.props;
-    this.props.pushToFirebase({ title, info, uri, isDefault });
+    // if (isDefault) {
+    //   this.props.pushToFirebase({ title, info, uri, isDefault });
+    // } else {
+    //   this.props.pushToFirebase({ title, info, uri, isDefault });
+    //   this.props.pushToFBStorage({});
+    // }
+    this.props.pushToFirebase({ title, info, uri, isDefault });    
     this.setState({ showModal: false });
   }
 
@@ -135,4 +141,4 @@ const mapStateToProps = (state) => {
   return { title, info, uri, isDefault };
 };
 
-export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushToFirebase })(AddContent));
+export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushToFirebase, pushToFBStorage })(AddContent));

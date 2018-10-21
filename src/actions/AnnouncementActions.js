@@ -5,7 +5,8 @@ import {
   ADD_TITLE,
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
-  GET_FROM_FIREBASE
+  GET_FROM_FIREBASE,
+  PUSH_TO_FBSTORAGE
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -39,12 +40,21 @@ export const addTitle = (text) => {
 export const pushToFirebase = ({ title, info, uri, isDefault }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
-  
+
   return (dispatch) => {
     firebase.database().ref('/Announcements')
       .push({ title, info, uri, isDefault, uid })
       .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
       .catch(() => {});
+  };
+};
+
+export const pushToFBStorage = () => {
+  return (dispatch) => {
+    firebase.storage().ref()
+      .on()
+      .then(() => dispatch({ type: PUSH_TO_FBSTORAGE }))
+      .catch();
   };
 };
 

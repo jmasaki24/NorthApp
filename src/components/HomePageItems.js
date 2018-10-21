@@ -21,7 +21,7 @@ class HomePageItems extends Component {
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.uri }}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri.uri }}>
           {item.info}
         </AnnounceCardImage>
       );
@@ -46,7 +46,7 @@ class HomePageItems extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const data = Object.values(state.HPannouncements);
+  const data = Object.values(state.HPannouncements).reverse();
   return { data };
 };
 

@@ -10,12 +10,9 @@ const numColumns = 2;
 const { height, width } = Dimensions.get('window');
 
 class List extends Component {
-  state = { photoSelect: false };
-
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
-
     this.props.navigation.navigate('AddContent');
   }
 
@@ -53,6 +50,15 @@ class List extends Component {
           renderItem={item => this.renderItem(item)}
           numColumns={numColumns}
         />
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => this.props.navigation.navigate('PhotosPT')}
+          >
+            Photos Prototype Selector
+          </Button>
+        </CardSection>
         <CardSection>
           <Button
             buttonStyle={styles.buttonStyle}

@@ -3,7 +3,8 @@ import {
   ADD_DESCRIPTION,
   ADD_TITLE,
   PUSH_TO_FIREBASE,
-  DEFAULT_IMAGE_BOOL
+  DEFAULT_IMAGE_BOOL,
+  PUSH_TO_FBSTORAGE
 } from '../actions/types';
 
 const INITIAL_STATE = {
