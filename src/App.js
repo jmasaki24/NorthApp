@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
 import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
