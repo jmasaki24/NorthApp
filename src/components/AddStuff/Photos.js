@@ -8,8 +8,10 @@ import { addImage, isDefaultImage } from '../../actions';
 class Photos extends Component {
 
   onImagePress(image) {
+    const URI = Object.values(image[0])[5];
+    console.log(URI);
     this.props.isDefaultImage(false);
-    this.props.addImage(image);
+    this.props.addImage(URI);
     this.props.navigation.navigate('AddContent');
   }
 

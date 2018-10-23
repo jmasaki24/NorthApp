@@ -11,13 +11,7 @@ class AddContent extends Component {
 
   onAccept() {
     const { title, info, uri, isDefault } = this.props;
-    // if (isDefault) {
-    //   this.props.pushToFirebase({ title, info, uri, isDefault });
-    // } else {
-    //   this.props.pushToFirebase({ title, info, uri, isDefault });
-    //   this.props.pushToFBStorage({});
-    // }
-    this.props.pushToFirebase({ title, info, uri, isDefault });    
+    this.props.pushToFirebase({ title, info, uri, isDefault });
     this.setState({ showModal: false });
   }
 

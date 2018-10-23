@@ -42,19 +42,28 @@ export const pushToFirebase = ({ title, info, uri, isDefault }) => {
   const uid = currentUser.uid;
 
   return (dispatch) => {
-    firebase.database().ref('/Announcements')
-      .push({ title, info, uri, isDefault, uid })
-      .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
-      .catch(() => {});
+    if (isDefault) {
+      firebase.database().ref('/Announcements')
+        .push({ title, info, uri, isDefault, uid })
+        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+        .catch();
+    } else {
+      firebase.database().ref('/Announcements')
+        .push({ title, info, uri, isDefault, uid })
+        .then(console.log('Regular Pushing Works'))
+        .then(() => pushToFBStorage(dispatch))
+        .catch();
+    }
   };
 };
 
-export const pushToFBStorage = () => {
+const pushToFBStorage = ({ uri }) => {
   return (dispatch) => {
-    firebase.storage().ref()
-      .on()
-      .then(() => dispatch({ type: PUSH_TO_FBSTORAGE }))
-      .catch();
+    firebase.storage().ref('/napp_user_images')
+      .put({ uri })
+      .then(console.log('I got here'))
+      .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+      .catch(console.log('Something may have gone wrong'));
   };
 };
 
@@ -73,3 +82,12 @@ export const getAnnouncements = () => {
     });
  };
 };
+
+// export const getPhotoKey = () => {
+//   return (dispatch) => {
+//     firebase.database().ref('/UserAnnouncementImageKey')
+//       .on('value', snapshot => {
+//         dispatch({ type: GET_USER_IMAGE_KEY, payload: snapshot.val() });
+//       });
+//   };
+// };

@@ -42,6 +42,8 @@ class List extends Component {
   }
 
   render() {
+    const date = new Date();
+    console.log(date);
     return (
       <View style={{ flex: 1 }}>
         <FlatList
@@ -50,15 +52,6 @@ class List extends Component {
           renderItem={item => this.renderItem(item)}
           numColumns={numColumns}
         />
-        <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black' }}
-            onPress={() => this.props.navigation.navigate('PhotosPT')}
-          >
-            Photos Prototype Selector
-          </Button>
-        </CardSection>
         <CardSection>
           <Button
             buttonStyle={styles.buttonStyle}
@@ -121,8 +114,8 @@ const styles = {
 };
 
 const mapStateToProps = ({ announce }) => {
-  const { uri } = announce;
-  return { uri };
+  const { uri, isDefault } = announce;
+  return { uri, isDefault };
 };
 
 export default connect(mapStateToProps, { addImage, isDefaultImage })(List);
