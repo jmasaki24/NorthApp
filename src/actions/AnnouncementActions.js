@@ -5,7 +5,7 @@ import {
   ADD_TITLE,
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
-  GET_FROM_FIREBASE,
+  GET_FROM_FIREBASE_SUCCESS,
   PUSH_TO_FBSTORAGE
 } from './types';
 
@@ -69,7 +69,7 @@ export const getAnnouncements = () => {
  return (dispatch) => {
    firebase.database().ref('/Announcements')
     .on('value', snapshot => {
-      dispatch({ type: GET_FROM_FIREBASE, payload: snapshot.val() });
+      dispatch({ type: GET_FROM_FIREBASE_SUCCESS, payload: snapshot.val() });
     });
  };
 };
