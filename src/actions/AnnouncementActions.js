@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import RNFetchBlob from 'react-native-fetch-blob';
 import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
@@ -59,7 +60,7 @@ export const pushToFirebase = ({ title, info, uri, isDefault }) => {
 
 const pushToFBStorage = ({ uri }) => {
   return (dispatch) => {
-    firebase.storage().ref('/napp_user_images')
+    firebase.storage().ref('napp_user_images').child()
       .put({ uri })
       .then(console.log('I got here'))
       .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
