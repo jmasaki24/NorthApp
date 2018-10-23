@@ -8,7 +8,17 @@ import { getAnnouncements } from '../actions';
 console.disableYellowBox = true;
 
 class HomePageItems extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { refreshing: false };
+  }
+
   componentWillMount() {
+    this.props.getAnnouncements();
+  }
+
+  handleRefresh = () => {
+    this.setState({ refreshing: true });
     this.props.getAnnouncements();
   }
 
@@ -40,6 +50,8 @@ class HomePageItems extends Component {
         style={{ flex: 1 }}
         data={this.props.data}
         renderItem={item => this.renderItem(item)}
+        refreshing={this.state.refreshing}
+        onRefresh={this.handleRefresh}
       />
     );
   }
