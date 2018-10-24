@@ -44,6 +44,7 @@ class List extends Component {
   render() {
     const date = new Date();
     console.log(date);
+    console.log(date.toString().split(' ')[4]);
     return (
       <View style={{ flex: 1 }}>
         <FlatList
