@@ -7,8 +7,13 @@ const AnnounceCardAllText = (props) => (
       <CardSection style={{ justifyContent: 'center' }}>
         <Text style={styles.titleText}>{props.title}</Text>
       </CardSection>
-      <CardSection>
-        <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{props.children}</Text>
+      <CardSection style={{ borderBottomWidth: 0 }}>
+        <Text style={{ fontSize: 16, flex: 1, color: 'black' }}>{props.children}</Text>
+      </CardSection>
+      <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+        <Text style={{ fontSize: 10 }}>
+          {props.time}
+        </Text>
       </CardSection>
     </Card>
   );

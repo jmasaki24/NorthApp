@@ -3,17 +3,14 @@ import {
   ADD_DESCRIPTION,
   ADD_TITLE,
   PUSH_TO_FIREBASE,
-  DEFAULT_IMAGE_BOOL,
-  PUSH_TO_FBSTORAGE,
-  GET_USER_IMAGE_KEY
+  DEFAULT_IMAGE_BOOL
 } from '../actions/types';
 
 const INITIAL_STATE = {
   title: '',
   info: '',
   uri: '',
-  isDefault: null,
-  photoKey: null
+  isDefault: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,9 +29,6 @@ export default (state = INITIAL_STATE, action) => {
 
     case PUSH_TO_FIREBASE:
       return INITIAL_STATE;
-
-    case GET_USER_IMAGE_KEY:
-      return { ...state, photoKey: action.payload };
 
     default:
       return state;

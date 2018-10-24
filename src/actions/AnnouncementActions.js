@@ -1,13 +1,11 @@
 import firebase from 'firebase';
-import RNFetchBlob from 'react-native-fetch-blob';
 import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
   ADD_TITLE,
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
-  GET_FROM_FIREBASE_SUCCESS,
-  PUSH_TO_FBSTORAGE
+  GET_FROM_FIREBASE
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -41,30 +39,34 @@ export const addTitle = (text) => {
 export const pushToFirebase = ({ title, info, uri, isDefault }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
+  let date = new Date();
+  date = date.toString().split(' ');
+  const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
 
   return (dispatch) => {
-    if (isDefault) {
-      firebase.database().ref('/Announcements')
-        .push({ title, info, uri, isDefault, uid })
-        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
-        .catch();
+    if (uri !== '') {
+      if (isDefault) {
+        firebase.database().ref('/Announcements')
+          .push({ title, info, uri, isDefault, uid, dateString })
+          .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+          .catch();
+      } else {
+        firebase.storage().ref()
+          .put()
+          .then(
+            firebase.database().ref('/Announcements')
+              .push({ title, info, uri, isDefault, uid, dateString })
+              .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+              .catch()
+          )
+          .catch();
+      }
     } else {
       firebase.database().ref('/Announcements')
-        .push({ title, info, uri, isDefault, uid })
-        .then(console.log('Regular Pushing Works'))
-        .then(() => pushToFBStorage(dispatch))
+        .push({ title, info, uri, isDefault, uid, dateString })
+        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
         .catch();
     }
-  };
-};
-
-const pushToFBStorage = ({ uri }) => {
-  return (dispatch) => {
-    firebase.storage().ref('napp_user_images').child()
-      .put({ uri })
-      .then(console.log('I got here'))
-      .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
-      .catch(console.log('Something may have gone wrong'));
   };
 };
 
@@ -79,16 +81,7 @@ export const getAnnouncements = () => {
  return (dispatch) => {
    firebase.database().ref('/Announcements')
     .on('value', snapshot => {
-      dispatch({ type: GET_FROM_FIREBASE_SUCCESS, payload: snapshot.val() });
+      dispatch({ type: GET_FROM_FIREBASE, payload: snapshot.val() });
     });
  };
 };
-
-// export const getPhotoKey = () => {
-//   return (dispatch) => {
-//     firebase.database().ref('/UserAnnouncementImageKey')
-//       .on('value', snapshot => {
-//         dispatch({ type: GET_USER_IMAGE_KEY, payload: snapshot.val() });
-//       });
-//   };
-// };
