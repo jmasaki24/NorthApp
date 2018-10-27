@@ -16,6 +16,7 @@ class Photos extends Component {
   }
 
   onImagePress(image) {
+    console.log(image);
     const URI = Object.values(image[0])[5];
     console.log(URI);
     this.props.isDefaultImage(false);

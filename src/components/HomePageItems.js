@@ -31,7 +31,7 @@ class HomePageItems extends Component {
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.uri.uri }} time={item.dateString}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri }} time={item.dateString}>
           {item.info}
         </AnnounceCardImage>
       );
