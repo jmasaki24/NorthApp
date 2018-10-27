@@ -13,13 +13,9 @@ const INITIAL_STATE = {
   title: '',
   info: '',
   uri: '',
-<<<<<<< HEAD
   isDefault: null,
   photoKey: null,
   refreshing: false,
-=======
-  isDefault: null
->>>>>>> a77dd8e299bd2e7dff533cda00ea73ee291fd7f0
 };
 
 export default (state = INITIAL_STATE, action) => {
