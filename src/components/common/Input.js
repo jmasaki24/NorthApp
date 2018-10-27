@@ -26,7 +26,7 @@ const Input = ({
           onChangeText={onChangeText}
           multiline={multiline || false}
           keyboardType={keyboardType || 'default'}
-		  underlineColorAndroid={'white'}
+          underlineColorAndroid={'white'}
         />
       </View>
     );
@@ -42,7 +42,7 @@ const Input = ({
         onChangeText={onChangeText}
         multiline={multiline || false}
         keyboardType={keyboardType || 'default'}
-		underlineColorAndroid={'white'}
+        underlineColorAndroid={'white'}
       />
     </View>
   );
@@ -54,12 +54,12 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
-    lineHeight: 23,
+    lineHeight: 30,
     flex: 2
   },
   labelStyle: {
     fontSize: 18,
-	color: 'black',
+    color: 'black',
     paddingLeft: 20,
     flex: 1
   },

@@ -26,19 +26,19 @@ class HomePageItems extends Component {
   renderItem({ item }) {
     if (item.isDefault) {
       return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.uri }}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri }} time={item.dateString}>
           {item.info}
         </AnnounceCardImage>
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.uri.uri }}>
+        <AnnounceCardImage title={item.title} image={{ uri: item.uri }} time={item.dateString}>
           {item.info}
         </AnnounceCardImage>
       );
     } else if (item.uri === '') {
       return (
-        <AnnounceCardAllText title={item.title}>
+        <AnnounceCardAllText title={item.title} time={item.dateString}>
           {item.info}
         </AnnounceCardAllText>
       );

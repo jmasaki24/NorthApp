@@ -6,16 +6,20 @@ import {
   DEFAULT_IMAGE_BOOL,
   GET_SUCCESS,
   PUSH_TO_FBSTORAGE,
-  GET_USER_IMAGE_KEY
+  GET_USER_IMAGE_KEY,
 } from '../actions/types';
 
 const INITIAL_STATE = {
   title: '',
   info: '',
   uri: '',
+<<<<<<< HEAD
   isDefault: null,
   photoKey: null,
   refreshing: false,
+=======
+  isDefault: null
+>>>>>>> a77dd8e299bd2e7dff533cda00ea73ee291fd7f0
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -35,12 +39,15 @@ export default (state = INITIAL_STATE, action) => {
     case PUSH_TO_FIREBASE:
       return INITIAL_STATE;
 
+<<<<<<< HEAD
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };
 
     case GET_USER_IMAGE_KEY:
       return { ...state, photoKey: action.payload };
 
+=======
+>>>>>>> a77dd8e299bd2e7dff533cda00ea73ee291fd7f0
     default:
       return state;
   }

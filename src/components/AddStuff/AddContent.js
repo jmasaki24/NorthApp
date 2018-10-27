@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm } from '../common';
 import { addDescription, addTitle, pushToFirebase, pushToFBStorage } from '../../actions';
+
+const { height, width } = Dimensions.get('window');
 
 class AddContent extends Component {
   state = { showModal: false };
@@ -25,6 +27,19 @@ class AddContent extends Component {
 
   onInfoChange(text) {
     this.props.addDescription(text);
+  }
+
+  selectedImageDisplay() {
+    if (this.props.uri !== '') {
+      return (
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            style={{ height: height / 4, width: width / 2.5 }}
+            source={{ uri: this.props.uri }}
+          />
+        </CardSection>
+      );
+    }
   }
 
   renderButton() {
@@ -53,57 +68,60 @@ class AddContent extends Component {
 
   render() {
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="Title"
-            placeholder="Title"
-            viewStyle={{ height: 60 }}
-            multiline
-            onChangeText={this.onTitleChange.bind(this)}
-            value={this.props.title}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            label="Text"
-            placeholder="Info Goes Here"
-            viewStyle={{ height: 150 }}
-            multiline
-            onChangeText={this.onInfoChange.bind(this)}
-            value={this.props.info}
-          />
-        </CardSection>
-        <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black' }}
-            onPress={() => this.props.navigation.navigate('DefaultImages')}
-          >
-            Select An Image
-          </Button>
-        </CardSection>
-        {this.renderButton()}
-        <View style={{ alignItems: 'flex-end' }}>
+      <ScrollView style={{ flex: 1 }}>
+        <Card>
+          <CardSection>
+            <Input
+              label="Title"
+              placeholder="Title"
+              viewStyle={{ height: 60 }}
+              multiline
+              onChangeText={this.onTitleChange.bind(this)}
+              value={this.props.title}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              label="Text"
+              placeholder="Info Goes Here"
+              viewStyle={{ height: 150 }}
+              multiline
+              onChangeText={this.onInfoChange.bind(this)}
+              value={this.props.info}
+            />
+          </CardSection>
+          {this.selectedImageDisplay()}
           <CardSection>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={{ color: 'black' }}
-              onPress={() => firebase.auth().signOut()}
+              onPress={() => this.props.navigation.navigate('DefaultImages')}
             >
-              Log Out
+              Select An Image
             </Button>
           </CardSection>
-        </View>
+          {this.renderButton()}
+          <View style={{ alignItems: 'flex-end' }}>
+            <CardSection>
+              <Button
+                buttonStyle={styles.buttonStyle}
+                textStyle={{ color: 'black' }}
+                onPress={() => firebase.auth().signOut()}
+              >
+                Log Out
+              </Button>
+            </CardSection>
+          </View>
 
-        <Confirm
-          visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
-        >
-          Are you sure you would like to add this content?
-        </Confirm>
-      </Card>
+          <Confirm
+            visible={this.state.showModal}
+            onAccept={this.onAccept.bind(this)}
+            onDecline={this.onDecline.bind(this)}
+          >
+            Are you sure you would like to add this content?
+          </Confirm>
+        </Card>
+      </ScrollView>
     );
   }
 }
