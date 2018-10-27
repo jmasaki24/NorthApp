@@ -8,7 +8,7 @@ import {
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
   GET_FROM_FIREBASE,
-  GET_SUCCESS,
+  GET_SUCCESS
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -126,7 +126,6 @@ export const getAnnouncements = () => {
     });
  };
 };
-<<<<<<< HEAD
 
 export const getSuccess = () => {
   return {
@@ -134,14 +133,3 @@ export const getSuccess = () => {
     payload: false
   };
 };
-
-// export const getPhotoKey = () => {
-//   return (dispatch) => {
-//     firebase.database().ref('/UserAnnouncementImageKey')
-//       .on('value', snapshot => {
-//         dispatch({ type: GET_USER_IMAGE_KEY, payload: snapshot.val() });
-//       });
-//   };
-// };
-=======
->>>>>>> a77dd8e299bd2e7dff533cda00ea73ee291fd7f0

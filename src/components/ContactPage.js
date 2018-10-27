@@ -35,7 +35,7 @@ class ContactPage extends Component {
 const styles = {
   basicText: {
     marginTop: 10,
-	color: 'black',
+    color: 'black',
     fontSize: 16
   },
   pageStyle: {
