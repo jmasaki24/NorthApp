@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { FlatList, Text, TouchableOpacity, View, Modal } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import clubList from '../JSON/clubList.json';
+import { openClub } from '../actions';
+import { Button } from './common';
 
 const data = clubList;
 
@@ -12,25 +15,18 @@ class Clubs extends Component {
     this.setState({ showModal: visible });
   }
 
+  modalHandler(item) {
+    this.setState({ showModal: true });
+    this.props.openClub(item);
+    console.log(item);
+  }
+
   renderItem({ item }) {
     return (
       <View>
-        <Modal
-          visible={this.state.showModal}
-          animationType='slide'
-          style={{ justifyContent: 'center', alignItems: 'center' }}
-          onRequestClose={() => console.log('close modal')}
-        >
-          <View>
-            <Text style={{ fontSize: 40 }}>{item.title}</Text>
-            <TouchableOpacity onPress={() => { this.setModalVisible(!this.state.showModal); }}>
-              <Text> Close </Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
         <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => this.setState({ showModal: true, key: item.key })}
+          style={styles.listItemContainer}
+          onPress={() => this.modalHandler(item)}
         >
           <View style={{ flex: 1 }} >
               <Text style={styles.titleStyle}>{item.name}</Text>
@@ -53,6 +49,23 @@ class Clubs extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Modal
+          visible={this.state.showModal}
+          animationType='slide'
+          style={{ justifyContent: 'center', alignItems: 'center' }}
+          onRequestClose={() => console.log('close modal')}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={{ fontSize: 40 }}>{this.props.item.name}</Text>
+            <Text>Contact {this.props.item.teacher} at {this.props.item.contact}</Text>
+            <Button
+              onPress={() => { this.setModalVisible(!this.state.showModal); }} 
+            >
+               Close
+            </Button>
+          </View>
+        </Modal>
+
         <FlatList
           style={{ flex: 1, backgroundColor: '#FEFEFC' }}
           data={data}
@@ -64,7 +77,7 @@ class Clubs extends Component {
 }
 
 const styles = {
-  buttonContainer: {
+  listItemContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -81,7 +94,16 @@ const styles = {
     color: '#000',
     margin: 5,
     textDecorationLine: 'underline',
-  }
+  },
+  modalContainer: {
+    justifyContent: 'center',
+    flex: 1,
+  },
 };
 
-export default Clubs;
+const mapStateToProps = (state) => {
+  const { item } = state.club;
+  return { item };
+};
+
+export default connect(mapStateToProps, { openClub })(Clubs);
