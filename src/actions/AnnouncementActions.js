@@ -126,7 +126,6 @@ export const getAnnouncements = () => {
     });
  };
 };
-<<<<<<< HEAD
 
 export const getSuccess = () => {
   return {
@@ -143,5 +142,3 @@ export const getSuccess = () => {
 //       });
 //   };
 // };
-=======
->>>>>>> a77dd8e299bd2e7dff533cda00ea73ee291fd7f0
