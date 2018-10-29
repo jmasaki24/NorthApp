@@ -15,7 +15,11 @@ export default (state = INITIAL_STATE, action) => {
     case OPEN_CLUB:
       return { ...state, item: action.payload };
     default:
-      console.log('got to the reducer2');
+      //console.log('got to the reducer2');
+
+      //Idk what you did jamie but whenever I run my debugger this above console log
+      //showed up way to much without even touching the clubs portion of the app
+
       return INITIAL_STATE;
   }
 };
