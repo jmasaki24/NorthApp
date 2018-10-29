@@ -8,7 +8,7 @@ import {
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
   GET_FROM_FIREBASE,
-  GET_SUCCESS,
+  GET_SUCCESS
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -133,12 +133,3 @@ export const getSuccess = () => {
     payload: false
   };
 };
-
-// export const getPhotoKey = () => {
-//   return (dispatch) => {
-//     firebase.database().ref('/UserAnnouncementImageKey')
-//       .on('value', snapshot => {
-//         dispatch({ type: GET_USER_IMAGE_KEY, payload: snapshot.val() });
-//       });
-//   };
-// };

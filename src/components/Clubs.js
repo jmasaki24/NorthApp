@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { FlatList, Text, TouchableOpacity, View, Modal } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import clubList from '../JSON/clubList.json';
 import { openClub } from '../actions';
-import { Button } from './common';
+import { Button, CardSection } from './common';
 
 const data = clubList;
 
@@ -55,15 +55,25 @@ class Clubs extends Component {
           style={{ justifyContent: 'center', alignItems: 'center' }}
           onRequestClose={() => console.log('close modal')}
         >
-          <View style={styles.modalContainer}>
-            <Text style={{ fontSize: 40 }}>{this.props.item.name}</Text>
-            <Text>Contact {this.props.item.teacher} at {this.props.item.contact}</Text>
-            <Button
-              onPress={() => { this.setModalVisible(!this.state.showModal); }} 
-            >
-               Close
-            </Button>
-          </View>
+          <SafeAreaView style={styles.modalContainer}>
+            <Text style={{ fontSize: 40, textAlign: 'center', marginBottom: 20 }}>
+              {this.props.item.name}
+            </Text>
+            <Text style={{ textAlign: 'center', fontSize: 22, padding: 5 }}>
+              Contact {this.props.item.teacher} at {this.props.item.contact}
+            </Text>
+            <Text style={{ padding: 10, fontSize: 18 }}>
+              {this.props.item.description}
+            </Text>
+            <CardSection style={{ borderBottomWidth: 0, backgroundColor: 'white', borderColor: 'white' }}>
+              <Button
+                buttonStyle={styles.buttonStyle}
+                onPress={() => { this.setModalVisible(!this.state.showModal); }}
+              >
+                 Close
+              </Button>
+            </CardSection>
+          </SafeAreaView>
         </Modal>
 
         <FlatList
@@ -96,9 +106,12 @@ const styles = {
     textDecorationLine: 'underline',
   },
   modalContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flex: 1,
   },
+  buttonStyle: {
+    justifyContent: 'center'
+  }
 };
 
 const mapStateToProps = (state) => {
