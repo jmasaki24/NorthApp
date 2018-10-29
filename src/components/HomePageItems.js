@@ -15,7 +15,7 @@ class HomePageItems extends Component {
 
   componentWillMount() {
     this.props.getAnnouncements();
-    console.log(getAnnouncements());
+    //console.log(getAnnouncements());
   }
 
   handleRefresh = () => {
