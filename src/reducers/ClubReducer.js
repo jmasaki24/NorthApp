@@ -15,7 +15,6 @@ export default (state = INITIAL_STATE, action) => {
     case OPEN_CLUB:
       return { ...state, item: action.payload };
     default:
-      console.log('got to the reducer2');
       return INITIAL_STATE;
   }
 };

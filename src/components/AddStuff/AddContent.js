@@ -1,3 +1,7 @@
+/**
+* Date: 10/29/2018
+* Author: Matt Peters
+*/
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView } from 'react-native';
 import firebase from 'firebase';
