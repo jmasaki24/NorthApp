@@ -31,13 +31,7 @@ class Clubs extends Component {
           <View style={{ flex: 1 }} >
               <Text style={styles.titleStyle}>{item.name}</Text>
           </View>
-          <View style={{ flex: 1 }} >
-            <Text
-              style={{ flexWrap: 'nowrap', fontSize: 18 }}
-            >
-              {item.description.substring(0, 17)}...
-            </Text>
-          </View>
+          
           <View style={{ flex: -1, margin: 5 }} >
             <Icon name={'chevron-right'} color={'#000'} size={20} />
           </View>

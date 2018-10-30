@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import { Calendar, Agenda } from 'react-native-calendars';
 import Titan from '../images/titanT.png';
 import { Card, CardSection, Spinner } from './common';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 class calendarsPage extends Component {
-  state = { showEvent: false, date: [] };
+  constructor(props) {
+    super(props);
+    const d = new Date();
+
+    //showEvent: bool, date: [string,string,string]
+    //since getMonth() returns a number from 0-11, must add 1 and convert to string
+    this.state = {
+      showEvent: true,
+      date: [`${d.getMonth() + 1}/`, `${d.getDate()}/`, `${d.getFullYear()}`]
+    };
+  }
+  componentWillMount() {
+    console.log(this.state);
+    console.log(Date());
+    this.renderDayEvents();
+  }
 
   renderDayEvents() {
     if (this.state.showEvent) {
@@ -43,12 +58,16 @@ class calendarsPage extends Component {
 
 const styles = {
   calendarStyles: {
+    flex: 1,
     textSectionTitleColor: 'black',
     todaytextColor: 'red',
     dayTextColor: 'black',
     monthTextColor: 'black',
     textMonthFontWeight: 'bold',
-    textDisabledColor: 'gray'
+    textDisabledColor: 'gray',
+    selectedDayBackground: '#111',
+
+
   },
   dateStyle: {
     fontSize: 18,

@@ -120,13 +120,13 @@ const MenuStack = createStackNavigator({
   navigationOptions: ({ navigation }) => ({
     headerTitle:
       //<TouchableOpacity onPress={() => navigation.popToTop()}>
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+      <TouchableOpacity onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image
           source={Titan}
           style={{ height: 40, width: 40 }}
         />
       </TouchableOpacity>,
-    
+
   })
 });
 
