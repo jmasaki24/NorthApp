@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-multi-picker';
 import Permissions from 'react-native-permissions';
@@ -17,7 +17,11 @@ class Photos extends Component {
 
   onImagePress(image) {
     console.log(image);
-    const URI = Object.values(image[0])[5];
+    let URI = Object.values(image[0])[5];
+    if (Platform.OS === 'android') {
+      URI = image[0].uri;
+      console.log(`URI 4 android: ${URI}`);
+    }
     console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);

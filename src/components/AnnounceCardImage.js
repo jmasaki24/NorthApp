@@ -19,11 +19,11 @@ const AnnounceCardImage = (props) => {
           />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 16, color: 'black' }}>{props.children}</Text>
+          <Text style={{ fontSize: 18, color: 'black' }}>{props.children}</Text>
         </View>
       </CardSection>
       <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-        <Text style={{ fontSize: 10 }}>
+        <Text style={{ fontSize: 14 }}>
           {props.time}
         </Text>
       </CardSection>
