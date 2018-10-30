@@ -52,17 +52,18 @@ class Clubs extends Component {
         <Modal
           visible={this.state.showModal}
           animationType='slide'
-          style={{ justifyContent: 'center', alignItems: 'center' }}
-          onRequestClose={() => console.log('close modal')}
+          style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}
+          onRequestClose={() => { this.setModalVisible(!this.state.showModal); } }
+          presentationStyle='pageSheet' //for larger devices, only renders a portrait mode width
         >
           <SafeAreaView style={styles.modalContainer}>
-            <Text style={{ fontSize: 40, textAlign: 'center', marginBottom: 20 }}>
+            <Text style={{ fontSize: 40, textAlign: 'center' }}>
               {this.props.item.name}
             </Text>
             <Text style={{ textAlign: 'center', fontSize: 22, padding: 5 }}>
               Contact {this.props.item.teacher} at {this.props.item.contact}
             </Text>
-            <Text style={{ padding: 10, fontSize: 18 }}>
+            <Text style={{ fontSize: 18 }}>
               {this.props.item.description}
             </Text>
             <CardSection style={{ borderBottomWidth: 0, backgroundColor: 'white', borderColor: 'white' }}>
@@ -108,9 +109,11 @@ const styles = {
   modalContainer: {
     justifyContent: 'flex-start',
     flex: 1,
+    padding: 20
   },
   buttonStyle: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 50
   }
 };
 

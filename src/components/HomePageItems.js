@@ -1,9 +1,9 @@
 /**
-* Used to handle the render of Announcements seperately, as the react-navigation
-* props got mixed up with the redux props
-* Date: 10/29/2018
-* Author: Matt Peters
-*/
+ * Used to handle the render of Announcements seperately, as the react-navigation
+ * props got mixed up with the redux props
+ * Date: 10/29/2018
+ * Author: Matt Peters
+ */
 
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
