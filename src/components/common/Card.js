@@ -1,3 +1,8 @@
+/**
+ * @param  {Object} style overrides default styling
+ * Date: 10/29/2018
+ */
+
 import React from 'react';
 import { View } from 'react-native';
 

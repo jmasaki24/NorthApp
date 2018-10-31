@@ -76,7 +76,7 @@ class MenuPage extends Component {
             Admin
           </Button>
         </CardSection>
-        <Text style={{ alignSelf: 'center' }}>Copyright Nashua North 2018</Text>
+        <Text style={{ alignSelf: 'center' }}>Copyright NHSN 2018</Text>
       </View>
     );
   }
@@ -120,13 +120,13 @@ const MenuStack = createStackNavigator({
   navigationOptions: ({ navigation }) => ({
     headerTitle:
       //<TouchableOpacity onPress={() => navigation.popToTop()}>
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
+      <TouchableOpacity onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image
           source={Titan}
           style={{ height: 40, width: 40 }}
         />
       </TouchableOpacity>,
-    headerBackImage: <FontAwesome5 name={'bars'} size={25} color={'black'} />
+
   })
 });
 

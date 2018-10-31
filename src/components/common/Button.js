@@ -1,3 +1,9 @@
+/**
+ * @param  {Object} buttonStyle overrides default styling
+ * @param  {Object} textStyle overrides default styling
+ * Date: 10/29/2018
+ */
+
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
