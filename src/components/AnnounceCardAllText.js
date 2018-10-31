@@ -4,7 +4,7 @@ import { Card, CardSection } from './common';
 
 const AnnounceCardAllText = (props) => (
     <Card>
-      <CardSection style={{ justifyContent: 'center' }}>
+      <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.titleText}>{props.title}</Text>
       </CardSection>
       <CardSection style={{ borderBottomWidth: 0 }}>
@@ -22,7 +22,8 @@ const styles = {
   titleText: {
     color: '#000',
     fontSize: 25,
-    fontWeight: 'bold' }
+    fontWeight: 'bold'
+  }
 };
 
 export default AnnounceCardAllText;
