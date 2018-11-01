@@ -8,7 +8,8 @@ import {
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
   GET_FROM_FIREBASE,
-  GET_SUCCESS
+  GET_SUCCESS,
+  PUSHING_BOOLEAN
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -118,5 +119,12 @@ export const getSuccess = () => {
   return {
     type: GET_SUCCESS,
     payload: false
+  };
+};
+
+export const pushingBool = (bool) => {
+  return {
+    type: PUSHING_BOOLEAN,
+    payload: bool
   };
 };

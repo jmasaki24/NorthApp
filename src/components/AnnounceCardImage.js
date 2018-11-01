@@ -35,7 +35,8 @@ const AnnounceCardImage = (props) => {
     titleText: {
       color: '#000',
       fontSize: 25,
-      fontWeight: 'bold' }
+      fontWeight: 'bold' 
+    }
   };
 
   export default AnnounceCardImage;

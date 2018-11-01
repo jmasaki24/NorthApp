@@ -4,7 +4,8 @@ import {
   ADD_TITLE,
   PUSH_TO_FIREBASE,
   DEFAULT_IMAGE_BOOL,
-  GET_SUCCESS
+  GET_SUCCESS,
+  PUSHING_BOOLEAN
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,6 +15,7 @@ const INITIAL_STATE = {
   isDefault: null,
   photoKey: null,
   refreshing: false,
+  pushing: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,8 +32,11 @@ export default (state = INITIAL_STATE, action) => {
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };
 
+    case PUSHING_BOOLEAN:
+      return { ...state, pushing: action.payload };
+
     case PUSH_TO_FIREBASE:
-      return INITIAL_STATE;
+      return { ...state, ...INITIAL_STATE, pushing: false };
 
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };
