@@ -1,3 +1,9 @@
+/**
+* @param Obj inputStyle  for native textput
+*@param obj labelStyle for the <text> initially in the input
+* @param obj containerStyle
+*/
+
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 

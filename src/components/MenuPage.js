@@ -126,7 +126,7 @@ const MenuStack = createStackNavigator({
           style={{ height: 40, width: 40 }}
         />
       </TouchableOpacity>,
-
+    headerBackImage: <FontAwesome5 name={'bars'} size={25} color={'black'} />
   })
 });
 

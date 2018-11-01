@@ -40,6 +40,7 @@ export const addTitle = (text) => {
 };
 
 export const pushToFirebase = ({ title, info, uri, isDefault }) => {
+  console.log(title);
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let date = new Date();

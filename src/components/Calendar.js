@@ -28,14 +28,14 @@ class calendarsPage extends Component {
           }
         }
       }
-      //console.log(this.state.items);
+      console.log(this.state.items);
       const newItems = {};
       Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
       this.setState({
         items: newItems
       });
     }, 1000);
-    // console.log(`Load Items for ${day.year}-${day.month}`);
+    console.log(`Load Items for ${day.year}-${day.month}`);
   }
 
   timeToString(time) {
@@ -65,7 +65,7 @@ class calendarsPage extends Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2017-05-16'}
+        minDate={'2018-08-28'}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
