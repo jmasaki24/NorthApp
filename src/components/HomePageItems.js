@@ -6,18 +6,19 @@
  */
 
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View, Modal, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 import { getAnnouncements } from '../actions';
+import { Button } from './common';
 
 console.disableYellowBox = true;
 
 class HomePageItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false };
+    this.state = { refreshing: false, imageModal: false, url: null };
   }
 
   componentWillMount() {
@@ -27,7 +28,7 @@ class HomePageItems extends Component {
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.getAnnouncements();
+    this.props.getAnnouncements().then(this.setState({ refreshing: false }));
   }
 
   renderItem({ item }) {
@@ -39,8 +40,15 @@ class HomePageItems extends Component {
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} image={{ uri: item.url }} time={item.dateString}>
-          {item.info}
+        <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
+          <TouchableOpacity
+            onPress={() => this.setState({ imageModal: true, url: item.url })}
+          >
+            <Image
+              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+              source={{ uri: item.url }}
+            />
+          </TouchableOpacity>
         </AnnounceCardImage>
       );
     } else if (item.uri === '') {
@@ -54,13 +62,28 @@ class HomePageItems extends Component {
 
   render() {
     return (
-      <FlatList
-        style={{ flex: 1 }}
-        data={this.props.data}
-        renderItem={item => this.renderItem(item)}
-        refreshing={this.state.refreshing}
-        onRefresh={this.handleRefresh}
-      />
+      <View style={{ flex: 1 }}>
+        <FlatList
+          style={{ flex: 1 }}
+          data={this.props.data}
+          renderItem={item => this.renderItem(item)}
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}
+        />
+        <Modal
+          visible={this.state.imageModal}
+
+          onRequestClose={console.log('Close Image')}
+        >
+          <View style={{ backgroundColor: 'bleck' }}>
+            <Image
+              style={{ flex: 1 }}
+              source={{ uri: this.state.url }}
+            />
+
+          </View>
+        </Modal>
+      </View>
     );
   }
 }

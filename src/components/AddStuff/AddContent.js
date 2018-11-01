@@ -132,6 +132,7 @@ class AddContent extends Component {
           >
             <View style={styles.pushingViewStyle}>
               <Spinner />
+              <Text>Please Wait...</Text>
             </View>
           </Modal>
         </Card>
