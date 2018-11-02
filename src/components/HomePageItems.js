@@ -6,21 +6,21 @@
  */
 
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 import { getAnnouncements } from '../actions';
-import { Button } from './common';
 
 console.disableYellowBox = true;
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class HomePageItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, url: null };
+    this.state = { refreshing: false, imageModal: false, imageUrl: null };
   }
 
   componentWillMount() {
@@ -44,7 +44,7 @@ class HomePageItems extends Component {
       return (
         <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
           <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, url: item.url })}
+            onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
           >
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
@@ -63,8 +63,6 @@ class HomePageItems extends Component {
   }
 
   render() {
-    console.log(`width: ${width}`);
-    console.log(`height: ${height}`);
     return (
       <View style={{ flex: 1 }}>
         <FlatList
@@ -78,17 +76,39 @@ class HomePageItems extends Component {
           visible={this.state.imageModal}
           onRequestClose={console.log('Close Image')}
         >
-          <View style={{ backgroundColor: 'black', flex: 1 }}>
+          <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
+            <TouchableOpacity
+              modalBackStyle={styles.modalBackStyle}
+              onPress={() => this.setState({ imageModal: false, imageUrl: null })}
+            >
+              <View style={{ flex: -1, margin: 5, paddingLeft: 10, alignContent: 'flex-start' }}>
+                <Icon name={'chevron-left'} color={'white'} size={30} />
+              </View>
+            </TouchableOpacity>
             <Image
-              style={{ flex: 0, height: height / 10, width: width / 5, alignSelf: 'center', alignContent: 'center' }}
-              source={{ uri: this.state.url }}
+              style={{ flex: 0, height: width, width, alignSelf: 'center', alignContent: 'center' }}
+              source={{ uri: this.state.imageUrl }}
             />
-          </View>
+          </SafeAreaView>
         </Modal>
       </View>
     );
   }
 }
+
+const styles = {
+  modalBackStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    marginHorizontal: 5,
+    marginTop: 5,
+    borderWidth: 2,
+    padding: 5
+  }
+};
 
 const mapStateToProps = (state) => {
   const data = Object.values(state.HPannouncements).reverse();
