@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image } from 'react-native';
+import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
@@ -14,6 +14,8 @@ import { getAnnouncements } from '../actions';
 import { Button } from './common';
 
 console.disableYellowBox = true;
+
+const { height, width } = Dimensions.get('window');
 
 class HomePageItems extends Component {
   constructor(props) {
@@ -61,6 +63,8 @@ class HomePageItems extends Component {
   }
 
   render() {
+    console.log(`width: ${width}`);
+    console.log(`height: ${height}`);
     return (
       <View style={{ flex: 1 }}>
         <FlatList
@@ -72,15 +76,13 @@ class HomePageItems extends Component {
         />
         <Modal
           visible={this.state.imageModal}
-
           onRequestClose={console.log('Close Image')}
         >
-          <View style={{ backgroundColor: 'bleck' }}>
+          <View style={{ backgroundColor: 'black', flex: 1 }}>
             <Image
-              style={{ flex: 1 }}
+              style={{ flex: 0, height: height / 10, width: width / 5, alignSelf: 'center', alignContent: 'center' }}
               source={{ uri: this.state.url }}
             />
-
           </View>
         </Modal>
       </View>
