@@ -3,7 +3,7 @@
 * Author: Matt Peters
 */
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, Modal } from 'react-native';
+import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
@@ -125,14 +125,20 @@ class AddContent extends Component {
           >
             Are you sure you would like to add this content?
           </Confirm>
+
           <Modal
             visible={this.props.pushing}
             transparent
             onRequestClose={console.log('Closing pushing modal')}
           >
-            <View style={styles.pushingViewStyle}>
-              <Spinner />
-            </View>
+            <SafeAreaView style={styles.pushingViewStyle}>
+              <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+                <Spinner style={{ flex: -1 }} />
+                <View style={{ flex: -1 }}>
+                  <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+                </View>
+              </View>
+            </SafeAreaView>
           </Modal>
         </Card>
       </ScrollView>
@@ -148,7 +154,7 @@ const styles = {
     flex: 1
   },
   pushingViewStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,
     justifyContent: 'center',

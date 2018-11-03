@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Card, CardSection } from './common';
 
 // title, uri, children, tags ; are props
@@ -13,13 +13,10 @@ const AnnounceCardImage = (props) => {
       </CardSection>
       <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
         <View style={{ flex: 1 }}>
-          <Image
-            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-            source={props.image}
-          />
+          {props.children}
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18, color: 'black' }}>{props.children}</Text>
+          <Text style={{ fontSize: 18, color: 'black' }}>{props.info}</Text>
         </View>
       </CardSection>
       <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -35,8 +32,13 @@ const AnnounceCardImage = (props) => {
     titleText: {
       color: '#000',
       fontSize: 25,
-      fontWeight: 'bold' 
+      fontWeight: 'bold'
     }
   };
 
   export default AnnounceCardImage;
+
+  // <Image
+  //   style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+  //   source={props.image}
+  // />
