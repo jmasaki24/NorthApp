@@ -52,6 +52,7 @@ class Admin extends Component {
   }
 
   render() {
+    console.log(this.state);
     return this.renderContent();
   }
 }
@@ -80,17 +81,6 @@ const AdminStack = createStackNavigator({
   Event: AddEvent
   },
   {
-    navigationOptions: ({ navigation }) => {
-      title: () => {
-        const routeName = navigation.state;
-        switch (routeName) {
-          case (AdminHome):
-            return 'Admin';
-          case (Announce):
-            return ''
-        }
-      }
-    }
     headerLayoutPreset: 'center'
 });
 
