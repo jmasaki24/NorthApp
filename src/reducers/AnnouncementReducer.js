@@ -2,10 +2,10 @@ import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
   ADD_TITLE,
-  PUSH_TO_FIREBASE,
+  PUSH_ANNOUNCEMENT,
   DEFAULT_IMAGE_BOOL,
   GET_SUCCESS,
-  PUSHING_BOOLEAN
+  PUSHING_BOOLEAN,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -35,7 +35,7 @@ export default (state = INITIAL_STATE, action) => {
     case PUSHING_BOOLEAN:
       return { ...state, pushing: action.payload };
 
-    case PUSH_TO_FIREBASE:
+    case PUSH_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
 
     case GET_SUCCESS:

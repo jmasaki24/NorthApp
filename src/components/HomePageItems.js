@@ -26,6 +26,10 @@ class HomePageItems extends Component {
     this.props.getAnnouncements();
   }
 
+  setModalVisible() {
+    this.setState({ imageModal: false });
+  }
+
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.props.getAnnouncements();
@@ -73,7 +77,7 @@ class HomePageItems extends Component {
         />
         <Modal
           visible={this.state.imageModal}
-          onRequestClose={console.log('Close Image')}
+          onRequestClose={() => this.setModalVisible}
         >
           <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
             <TouchableOpacity
