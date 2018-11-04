@@ -4,7 +4,6 @@
  * Date: 10/29/2018
  * Author: Matt Peters
  */
-
 import React, { Component } from 'react';
 import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -25,12 +24,12 @@ class HomePageItems extends Component {
 
   componentWillMount() {
     this.props.getAnnouncements();
-    //console.log(getAnnouncements());
   }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.getAnnouncements().then(this.setState({ refreshing: false }));
+    this.props.getAnnouncements();
+    //this.setState({ refreshing: false });
   }
 
   renderItem({ item }) {

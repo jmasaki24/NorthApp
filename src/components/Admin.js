@@ -21,22 +21,29 @@ class Admin extends Component {
 
   renderHome() {
       return (
-       <View style={{ flex: 1 }}>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.textStyle}
-          onPress={() => this.props.navigation.navigate('Announce')}
-        >
-          Create Announcement
-        </Button>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.textStyle}
-          onPress={() => this.props.navigation.navigate('Event')}
-        >
-          Create Event
-        </Button>
-       </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('Announce')}
+          >
+            Create Announcement
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('Event')}
+          >
+            Create Event
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => firebase.auth().signOut()}
+          >
+            Log Out
+          </Button>
+        </View>
       );
   }
 
@@ -64,7 +71,8 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: 0,
     paddingLeft: 10,
-    margin: 0
+    margin: 0,
+    justifyContent: 'center'
   },
   textStyle: {
     color: 'black',
