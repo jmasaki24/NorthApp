@@ -1,3 +1,7 @@
+/**
+* Author: Jamie Maddock
+*/
+
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { email } from 'react-native-communications';

@@ -1,3 +1,7 @@
+/**
+* Author: Matt Peters
+*/
+
 import React, { Component } from 'react';
 import { Linking } from 'react-native';
 import { Card, Button, CardSection } from './common';

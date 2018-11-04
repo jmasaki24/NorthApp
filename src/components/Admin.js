@@ -1,3 +1,7 @@
+/**
+* Date: 11/3/18
+* Authors: Jamie Maddock && Matt Peters
+*/
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import firebase from 'firebase';
@@ -19,40 +23,36 @@ class Admin extends Component {
     });
   }
 
-  logOut() {
-    this.setState({ loggedIn: false });
-  }
-
   renderHome() {
       return (
-       <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
-        <Text style={styles.description} >
-          Hi there. This is the admin page.
-          From here you can add an announcement to the homepage, or add an event to the calendar.
-          If you need help, feel free to send an email to northcodingteam@gmail.com
+        <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
+          <Text style={styles.description} >
+            Hi there. This is the admin page.
+            From here you can add an announcement to the homepage, or add an event to the calendar.
+            If you need help, feel free to send an email to northcodingteam@gmail.com
           </Text>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.textStyle}
-          onPress={() => this.props.navigation.navigate('Announce')}
-        >
-          Create Announcement
-        </Button>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.textStyle}
-          onPress={() => this.props.navigation.navigate('Event')}
-        >
-          Create Event
-        </Button>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={styles.textStyle}
-          onPress={() => this.logOut()}
-        >
-          Log Out
-        </Button>
-       </View>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('Announce')}
+          >
+            Create Announcement
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('Event')}
+          >
+            Create Event
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => firebase.auth().signOut()}
+          >
+            Log Out
+          </Button>
+        </View>
       );
   }
 
@@ -82,7 +82,8 @@ const styles = {
     borderRadius: 0,
     paddingLeft: 10,
     margin: 0,
-    flex: 0
+    flex: 0,
+    justifyContent: 'center'
   },
   textStyle: {
     color: 'black',

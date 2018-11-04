@@ -1,3 +1,7 @@
+/**
+* Author: Jamie Maddock
+*/
+
 import React, { Component } from 'react';
 import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';

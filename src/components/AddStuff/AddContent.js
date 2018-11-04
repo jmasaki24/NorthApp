@@ -4,7 +4,6 @@
 */
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
@@ -106,17 +105,6 @@ class AddContent extends Component {
             </Button>
           </CardSection>
           {this.renderButton()}
-          <View style={{ alignItems: 'flex-end' }}>
-            <CardSection>
-              <Button
-                buttonStyle={styles.buttonStyle}
-                textStyle={{ color: 'black' }}
-                onPress={() => firebase.auth().signOut()}
-              >
-                Log Out
-              </Button>
-            </CardSection>
-          </View>
 
           <Confirm
             visible={this.state.showModal}

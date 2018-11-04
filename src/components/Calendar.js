@@ -1,3 +1,8 @@
+/**
+* Author: Jamie Maddock
+* Date: //You can fill this part in Jamie
+*/
+
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
