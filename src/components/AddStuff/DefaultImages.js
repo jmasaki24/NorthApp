@@ -1,3 +1,7 @@
+/**
+* Date: 10/29/18
+* Author: Matt Peters
+*/
 import React, { Component } from 'react';
 import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';

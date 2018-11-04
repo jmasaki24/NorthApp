@@ -1,3 +1,7 @@
+/**
+* Author: Matt Peters
+*/
+
 import React from 'react';
 import { CardSection, Button } from '../common';
 
