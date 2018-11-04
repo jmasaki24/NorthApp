@@ -3,7 +3,7 @@
 * Authors: Jamie Maddock && Matt Peters
 */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from './common';
@@ -25,7 +25,12 @@ class Admin extends Component {
 
   renderHome() {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
+          <Text style={styles.description} >
+            Hi there. This is the admin page.
+            From here you can add an announcement to the homepage, or add an event to the calendar.
+            If you need help, feel free to send an email to northcodingteam@gmail.com
+          </Text>
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={styles.textStyle}
@@ -77,6 +82,7 @@ const styles = {
     borderRadius: 0,
     paddingLeft: 10,
     margin: 0,
+    flex: 0,
     justifyContent: 'center'
   },
   textStyle: {
@@ -84,6 +90,10 @@ const styles = {
     alignSelf: 'flex-start',
     fontSize: 18,
     margin: 5
+  },
+  description: {
+    fontSize: 20,
+    margin: 10,
   }
 };
 
@@ -93,6 +103,9 @@ const AdminStack = createStackNavigator({
   Event: AddEvent
   },
   {
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.state.routeName
+    }),
     headerLayoutPreset: 'center'
 });
 

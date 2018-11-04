@@ -5,11 +5,11 @@ import {
   ADD_IMAGE,
   ADD_DESCRIPTION,
   ADD_TITLE,
-  PUSH_TO_FIREBASE,
+  PUSH_ANNOUNCEMENT,
   DEFAULT_IMAGE_BOOL,
   GET_FROM_FIREBASE,
   GET_SUCCESS,
-  PUSHING_BOOLEAN
+  PUSHING_BOOLEAN,
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -40,7 +40,7 @@ export const addTitle = (text) => {
   };
 };
 
-export const pushToFirebase = ({ title, info, uri, isDefault }) => {
+export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
   console.log(title);
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
@@ -53,7 +53,7 @@ export const pushToFirebase = ({ title, info, uri, isDefault }) => {
       if (isDefault) {
         firebase.database().ref('/Announcements')
           .push({ title, info, uri, isDefault, uid, dateString })
-          .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+          .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
           .catch();
       } else {
         const Blob = RNFetchBlob.polyfill.Blob;
@@ -76,7 +76,7 @@ export const pushToFirebase = ({ title, info, uri, isDefault }) => {
                     .then((url) => {
                       firebase.database().ref('/Announcements')
                         .push({ title, info, url, isDefault, uid, dateString })
-                        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+                        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
                         .catch();
                     });
                 })

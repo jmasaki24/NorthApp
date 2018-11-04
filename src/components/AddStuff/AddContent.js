@@ -7,7 +7,7 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, pushToFirebase, pushToFBStorage, pushingBool } from '../../actions';
+import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool } from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
@@ -16,7 +16,7 @@ class AddContent extends Component {
 
   onAccept() {
     const { title, info, uri, isDefault } = this.props;
-    this.props.pushToFirebase({ title, info, uri, isDefault });
+    this.props.pushAnnouncement({ title, info, uri, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
@@ -168,4 +168,5 @@ const mapStateToProps = (state) => {
   return { title, info, uri, isDefault, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushToFirebase, pushToFBStorage, pushingBool })(AddContent));
+export default withNavigation(connect(mapStateToProps,
+  { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool })(AddContent));

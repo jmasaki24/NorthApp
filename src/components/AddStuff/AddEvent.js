@@ -3,34 +3,148 @@
 * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
+import { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent } from '../../actions';
 
-import { CardSection, Input } from '../common';
+import { CardSection, Input, Button, Confirm, } from '../common';
 
 class AddEvent extends Component {
+  state = { showModal: false }
+
+  onAccept() {
+      console.log(date, title, location, description);
+      const { date, title, location, description } = this.props;
+      this.props.pushEvent({ date, title, location, description });
+      this.setState({ showModal: false });
+      console.log(date, title, location, description);
+  }
+
+  onDecline() {
+    this.setState({ showModal: false });
+  }
+
+  onDateChange(day) {
+    console.log(day.dateString);
+    this.props.addEventDate(day.dateString);
+  }
+
+  onTitleChange(text) {
+    this.props.addEventTitle(text);
+  }
+
+  onLocationChange(text) {
+    this.props.addEventLocation(text);
+  }
+
+  onDescriptionChange(text) {
+    this.props.addEventDescription(text);
+  }
+
+  renderButton() {
+    if (this.props.title === '') {
+      return (
+        <CardSection>
+          <View style={styles.viewStyle}>
+            <Text style={styles.textStyle}>Create Event</Text>
+          </View>
+        </CardSection>
+      );
+    }
+      return (
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black', alignSelf: 'center' }}
+            onPress={() => this.setState({ showModal: !this.state.showModal })}
+          >
+            Create Event
+          </Button>
+        </CardSection>
+      );
+  }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-       <Calendar />
-       <CardSection style={{ flexDirection: 'row' }}>
-        <Text> Title: </Text>
-        <Input label="Event Name" />
+      <ScrollView style={{ flex: 1 }}>
+       <Calendar
+          onDayPress={(day) => this.onDateChange(day)}
+       />
+       <CardSection style={styles.inputSection}>
+        <Input
+          placeholder="Event Name"
+          label='Title:'
+          onChangeText={this.onTitleChange.bind(this)}
+        />
        </CardSection>
-       <CardSection style={{ flexDirection: 'row' }}>
-        <Text>Location: </Text>
-        <Input label="e.g. B130, Auditorium" />
+       <CardSection style={styles.inputSection}>
+        <Input
+          placeholder="e.g. B130, Auditorium"
+          label='Location:'
+          onChangeText={this.onLocationChange.bind(this)}
+        />
        </CardSection>
-       <CardSection>
-        <Input label="Describe this event" />
+       <CardSection style={styles.inputSection} >
+        <Input
+          placeholder="Describe this event"
+          label='Desciption:'
+          onChangeText={this.onDescriptionChange.bind(this)}
+        />
        </CardSection>
-      </View>
+       {this.renderButton()}
+
+       <Confirm
+         visible={this.state.showModal}
+         onAccept={this.onAccept.bind(this)}
+         onDecline={this.onDecline.bind(this)}
+       >
+         Are you sure you would like to add this event?
+       </Confirm>
+      </ScrollView>
     );
   }
 }
 
-export default AddEvent;
+const styles = {
+  inputSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  buttonStyle: {
+    flex: 1,
+    borderWidth: null,
+    backgroundColor: 'white',
+    borderRadius: 0,
+    paddingLeft: 10,
+    margin: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textStyle: {
+    color: 'gray',
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  viewStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    flex: 1
+  },
+};
+
+const mapStateToProps = (state) => {
+  const { date, title, location, description, pushing } = state.event;
+  return { date, title, location, description, pushing };
+};
+
+export default withNavigation(connect(mapStateToProps,
+  { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent })(AddEvent));
