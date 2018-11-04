@@ -1,3 +1,7 @@
+/**
+* Author: Jamie Maddock
+*/
+
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import pinkBapeT from '../images/pinkBapeT.jpg';

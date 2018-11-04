@@ -1,3 +1,7 @@
+/**
+* Date: 11/3/18
+* Authors: Jamie Maddock && Matt Peters
+*/
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import firebase from 'firebase';
@@ -59,6 +63,7 @@ class Admin extends Component {
   }
 
   render() {
+    console.log(this.state);
     return this.renderContent();
   }
 }
@@ -87,20 +92,8 @@ const AdminStack = createStackNavigator({
   Announce: AddContent,
   Event: AddEvent
   },
-//   {
-//     navigationOptions: ({ navigation }) => {
-//       title: () => {
-//         const routeName = navigation.state;
-//         switch (routeName) {
-//           case (AdminHome):
-//             return 'Admin';
-//           case (Announce):
-//             return ''
-//         }
-//       }
-//     }
-//     headerLayoutPreset: 'center'
-// }
-);
+  {
+    headerLayoutPreset: 'center'
+});
 
 export default AdminStack;

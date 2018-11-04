@@ -1,3 +1,7 @@
+/**
+* Author: Matt Peters
+*/
+
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Card, CardSection } from './common';
