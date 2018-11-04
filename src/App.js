@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import fbConfig from '../../firebaseConfigInfo.json';
 
 import reducers from './reducers';
 import HomeStack from './components/HomePage';
@@ -45,12 +46,12 @@ const RootStack = createBottomTabNavigator({
 export default class App extends Component {
   componentWillMount() {
     firebase.initializeApp({
-      apiKey: 'AIzaSyBL4uf8wErrDlSaJndsu9jn_SnYM-ldt78',
-      authDomain: 'napp-4f332.firebaseapp.com',
-      databaseURL: 'https://napp-4f332.firebaseio.com',
-      projectId: 'napp-4f3322',
-      storageBucket: 'napp-4f332.appspot.com',
-      messagingSenderId: '687322625517'
+      apiKey: fbConfig.apiKey,
+      authDomain: fbConfig.authDomain,
+      databaseURL: fbConfig.databaseURL,
+      projectId: fbConfig.projectId,
+      storageBucket: fbConfig.storageBucket,
+      messagingSenderId: fbConfig.messagingSenderId,
     });
   }
 
