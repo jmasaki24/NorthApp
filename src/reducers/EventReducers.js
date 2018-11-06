@@ -3,7 +3,8 @@ import {
   ADD_EVENT_TITLE,
   ADD_EVENT_LOCATION,
   ADD_EVENT_DESCRIPTION,
-  PUSH_EVENT
+  ADD_EVENT_TIME,
+  PUSH_EVENT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
   title: '',
   location: '',
   description: '',
+  time: '',
   pushing: false
 };
 
@@ -24,6 +26,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, location: action.payload };
     case ADD_EVENT_DESCRIPTION:
       return { ...state, description: action.payload };
+    case ADD_EVENT_TIME:
+      return { ...state, time: action.payload };
     case PUSH_EVENT:
       return { ...state, ...INITIAL_STATE, pushing: action.payload };
     default:

@@ -13,7 +13,7 @@ import { addEventDate, addEventTitle, addEventLocation, addEventDescription, pus
 import { CardSection, Input, Button, Confirm, } from '../common';
 
 class AddEvent extends Component {
-  state = { showModal: false }
+  state = { showModal: false, showCalendar: false }
 
   onAccept() {
       console.log(date, title, location, description);
@@ -44,6 +44,19 @@ class AddEvent extends Component {
     this.props.addEventDescription(text);
   }
 
+  renderCalendar() {
+    if (this.state.showCalendar) {
+      return (
+        <Calendar
+           onDayPress={(day) => {
+             this.onDateChange(day);
+             this.setState({ showCalendar: false });
+           }}
+        />
+      );
+    }
+  }
+
   renderButton() {
     if (this.props.title === '') {
       return (
@@ -70,15 +83,23 @@ class AddEvent extends Component {
   render() {
     return (
       <ScrollView style={{ flex: 1 }}>
-       <Calendar
-          onDayPress={(day) => this.onDateChange(day)}
-       />
+       {this.renderCalendar()}
        <CardSection style={styles.inputSection}>
         <Input
           placeholder="Event Name"
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
         />
+       </CardSection>
+       <CardSection style={styles.inputSection}>
+          <Text style={styles.dateText}>Date:</Text>
+          <Text style={styles.dateText}>{this.props.date}</Text>
+        <Button
+          onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
+          buttonStyle={{ justifyContent: 'center', alignItems: 'center' }}
+        >
+          Select Date
+        </Button>
        </CardSection>
        <CardSection style={styles.inputSection}>
         <Input
@@ -109,6 +130,12 @@ class AddEvent extends Component {
 }
 
 const styles = {
+  dateText: {
+    flex: 1,
+    marginLeft: 20,
+    fontSize: 18,
+    color: 'black'
+  },
   inputSection: {
     flex: 1,
     flexDirection: 'row',
