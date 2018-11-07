@@ -15,4 +15,4 @@ export const ADD_EVENT_LOCATION = 'add_event_location';
 export const ADD_EVENT_DESCRIPTION = 'add_event_description';
 export const ADD_EVENT_TIME = 'add_event_time';
 export const PUSH_EVENT = 'push_event';
-export const GET_EVENTS = 'get_events';
+export const GET_CALENDAR = 'get_calendar';

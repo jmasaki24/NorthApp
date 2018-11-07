@@ -6,7 +6,7 @@ import {
   ADD_EVENT_DESCRIPTION,
   ADD_EVENT_TIME,
   PUSH_EVENT,
-  GET_EVENTS,
+  GET_CALENDAR,
 } from './types';
 
 export const addEventDate = (date) => (
@@ -48,26 +48,25 @@ export const addEventTime = (time) => (
 export const pushEvent = ({ date, title, location, description }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
-  const eventData = { date, title, location, description };
-  const newEventKey = firebase.database().ref('/Events').push().key;
+  const eventData = { date, title, location, description, uid };
+  const newEventKey = firebase.database().ref().child(`Calendar/${date}`).push().key;
 
   const updates = {};
-  updates[`/Events/${newEventKey}`] = eventData;
+  updates[`/Users/${uid}/Events/${newEventKey}`] = eventData;
   updates[`/Calendar/${date}/${newEventKey}`] = eventData;
 
   return (dispatch) => {
     firebase.database().ref().update(updates)
-      .push({ date, title, location, description, uid })
       .then(() => dispatch({ type: PUSH_EVENT }))
       .catch();
   };
 };
 
-export const getEvents = () => {
+export const getCalendar = () => {
   return (dispatch) => {
-  firebase.database().ref('/Events')
+  firebase.database().ref('/Calendar')
     .on('value', snapshot => {
-      dispatch({ type: GET_EVENTS, payload: snapshot.val() });
+      dispatch({ type: GET_CALENDAR, payload: snapshot.val() });
     });
   };
 };

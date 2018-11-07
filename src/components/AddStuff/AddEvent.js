@@ -4,11 +4,11 @@
 */
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
-import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
-import { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent } from '../../actions';
+import { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent }
+  from '../../actions';
 
 import { CardSection, Input, Button, Confirm, } from '../common';
 

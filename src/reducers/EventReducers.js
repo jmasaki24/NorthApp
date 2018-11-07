@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_EVENT_TIME:
       return { ...state, time: action.payload };
     case PUSH_EVENT:
-      return { ...state, ...INITIAL_STATE, pushing: action.payload };
+      return { ...state, ...INITIAL_STATE, pushing: false };
     default:
       return state;
   }

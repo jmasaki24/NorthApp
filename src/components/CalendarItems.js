@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Agenda } from 'react-native-calendars';
-import { getEvents } from '../actions';
+import { getCalendar } from '../actions';
 
 class CalendarItems extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class CalendarItems extends Component {
 *console.log(`Load Items for ${day.year}-${day.month}`);
 */
   componentWillMount() {
-    this.props.getEvents();
+    this.props.getCalendar();
     console.log('hello');
     console.log(this.props.data);
   }
@@ -118,4 +118,4 @@ const mapStateToProps = (state) => {
   return { data };
 };
 
-export default connect(mapStateToProps, { getEvents })(CalendarItems);
+export default connect(mapStateToProps, { getCalendar })(CalendarItems);
