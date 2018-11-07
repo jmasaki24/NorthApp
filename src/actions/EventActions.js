@@ -4,7 +4,9 @@ import {
   ADD_EVENT_TITLE,
   ADD_EVENT_LOCATION,
   ADD_EVENT_DESCRIPTION,
+  ADD_EVENT_TIME,
   PUSH_EVENT,
+  GET_CALENDAR,
 } from './types';
 
 export const addEventDate = (date) => (
@@ -35,14 +37,36 @@ export const addEventDescription = (text) => (
   }
 );
 
+export const addEventTime = (time) => (
+  {
+    type: ADD_EVENT_TIME,
+    payload: time
+  }
+);
+
+
 export const pushEvent = ({ date, title, location, description }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
+  const eventData = { date, title, location, description, uid };
+  const newEventKey = firebase.database().ref().child(`Calendar/${date}`).push().key;
+
+  const updates = {};
+  updates[`/Users/${uid}/Events/${newEventKey}`] = eventData;
+  updates[`/Calendar/${date}/${newEventKey}`] = eventData;
 
   return (dispatch) => {
-    firebase.database().ref('/Events')
-      .push({ date, title, location, description, uid })
+    firebase.database().ref().update(updates)
       .then(() => dispatch({ type: PUSH_EVENT }))
       .catch();
+  };
+};
+
+export const getCalendar = () => {
+  return (dispatch) => {
+  firebase.database().ref('/Calendar')
+    .on('value', snapshot => {
+      dispatch({ type: GET_CALENDAR, payload: snapshot.val() });
+    });
   };
 };

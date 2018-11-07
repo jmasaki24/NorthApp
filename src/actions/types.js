@@ -13,4 +13,6 @@ export const ADD_EVENT_DATE = 'add_event_date';
 export const ADD_EVENT_TITLE = 'add_event_title';
 export const ADD_EVENT_LOCATION = 'add_event_location';
 export const ADD_EVENT_DESCRIPTION = 'add_event_description';
+export const ADD_EVENT_TIME = 'add_event_time';
 export const PUSH_EVENT = 'push_event';
+export const GET_CALENDAR = 'get_calendar';

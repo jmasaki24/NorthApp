@@ -74,8 +74,16 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
                 .then(() => {
                   imageRef.getDownloadURL()
                     .then((url) => {
-                      firebase.database().ref('/Announcements')
-                        .push({ title, info, url, isDefault, uid, dateString })
+                      const announcementData = { title, info, url, isDefault, uid, dateString };
+                      const newAnnouncementKey =
+                        firebase.database().ref().child('Announcements').push().key;
+
+                      const updates = {};
+                      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+                      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+                        = announcementData;
+
+                      firebase.database().ref().update(updates)
                         .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
                         .catch();
                     });
@@ -93,7 +101,7 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
     } else {
       firebase.database().ref('/Announcements')
         .push({ title, info, uri, isDefault, uid, dateString })
-        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
+        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
         .catch();
     }
   };

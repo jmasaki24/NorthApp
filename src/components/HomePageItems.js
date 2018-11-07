@@ -24,6 +24,7 @@ class HomePageItems extends Component {
 
   componentWillMount() {
     this.props.getAnnouncements();
+    console.log(this.props.data);
   }
 
   setModalVisible() {
