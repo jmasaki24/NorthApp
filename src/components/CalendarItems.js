@@ -1,46 +1,39 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
-import { getCalendar } from '../actions';
 
 class CalendarItems extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}
+      items: {},
+      refreshing: true
     };
   }
-  // item object would be e.g. {2017-05-01: [ 0: {title: '' etc...}, 1: {title: '' etc...}], 2017-05-02: [0:{etc..}]}
-/**
-*setTimeout(() => {
-*  for (let i = -15; i < 85; i++) {
-*    const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-*    const strTime = this.timeToString(time);
-*    if (!this.state.items[strTime]) {
-*      this.state.items[strTime] = [];
-*      const numItems = Math.floor(Math.random() * 5);
-*      for (let j = 0; j < numItems; j++) {
-*        this.state.items[strTime].push({
-*          name: `Item for ${strTime}`,
-*          height: Math.max(50, Math.floor(Math.random() * 150))
-*        });
-*      }
-*    }
-*  }
-*  console.log(this.state.items);
-*  const newItems = {};
-*  Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
-*  this.setState({
-*    items: newItems
-*  });
-*}, 1000);
-*console.log(`Load Items for ${day.year}-${day.month}`);
-*/
+
   componentWillMount() {
-    this.props.getCalendar();
-    console.log('hello');
-    console.log(this.props.data);
+    this.getCalendar();
+  }
+
+  getCalendar() {
+    this.setState({ refreshing: true });
+    let firebaseData = {};
+    firebase.database().ref('/Calendar')
+      .once('value', snapshot => {
+        firebaseData = snapshot.val();
+        const calendarData = {};
+        // looping through an object in JavaScript
+        // https://zellwk.com/blog/looping-through-js-objects/
+        for (const date in firebaseData) {
+          if (firebaseData.hasOwnProperty(date)) {
+            calendarData[date] = Object.values(firebaseData[date]);
+          }
+        }
+        console.log(calendarData);
+        this.setState({ items: calendarData, refreshing: false });
+      });
+      console.log(this.state);
   }
 
   timeToString(time) {
@@ -59,9 +52,13 @@ class CalendarItems extends Component {
   }
 
   renderItem(item) {
-    console.log(this.props.data);
+    console.log('item:');
+    console.log(item);
     return (
-      <View style={[styles.item, { height: item.height }]}><Text>{item.name}</Text></View>
+      <View style={[styles.item, { height: 90 }]}>
+        <Text>{item.title}</Text>
+        <Text>{item.description}</Text>
+      </View>
     );
   }
 
@@ -69,29 +66,26 @@ class CalendarItems extends Component {
   render() {
     return (
       <Agenda
-        items={{
-        '2018-11-06': { name: 'Item for date', height: 80 },
-        '2018-11-07': [{ name: 'Item for date', height: 99 }, { name: 'Item for date', height: 120 }],
-        '2018-11-06': { name: 'Item for date', height: 40 }
-        }}
-        // loadItemsForMonth={this.loadItems.bind(this)}
-        minDate={'2018-08-28'}
+        items={this.state.items}
+        onRefresh={this.getCalendar.bind(this)}
+        refreshing={this.state.refreshing}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
+        onDayPress={() => { console.log(this.state); }}
         // markingType={'period'}
         // markedDates={{
-        //    '2017-05-08': {textColor: '#666'},
-        //    '2017-05-09': {textColor: '#666'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-         // monthFormat={'yyyy'}
-         // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+        //    '2018-11-08': { textColor: '#666' },
+        //    '2018-11-09': { textColor: '#666' },
+        //    '2018-11-14': { startingDay: true, endingDay: true, color: 'blue' },
+        //    '2018-11-21': { startingDay: true, color: 'blue' },
+        //    '2018-11-22': { endingDay: true, color: 'gray' },
+        //    '2018-11-24': { startingDay: true, color: 'gray' },
+        //    '2018-11-25': { color: 'gray' },
+        //    '2018-11-26': { endingDay: true, color: 'gray' }
+        //  }}
+        //  theme={{ agendaKnobColor: 'green' }}
+        // renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
       />
     );
   }
@@ -113,9 +107,6 @@ const styles = {
   },
 };
 
-const mapStateToProps = (state) => {
-  const data = state.event;
-  return { data };
-};
+// export default connect(mapStateToProps, { getCalendar })(CalendarItems);
 
-export default connect(mapStateToProps, { getCalendar })(CalendarItems);
+export default CalendarItems;

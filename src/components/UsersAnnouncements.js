@@ -1,43 +1,52 @@
 /**
- * Used to handle the render of Announcements seperately, as the react-navigation
- * props got mixed up with the redux props
- * Date: 10/29/2018
- * Author: Matt Peters
- */
+ * Basically copied HomePageItems.js
+ * Author: Jamie Maddock
+*/
 import React, { Component } from 'react';
 import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
   from 'react-native';
-import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import firebase from 'firebase';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
-import { getAnnouncements } from '../actions';
 
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
 
-class HomePageItems extends Component {
+class UsersAnnouncements extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, imageUrl: null };
+    this.state = { refreshing: false, imageModal: false, imageUrl: null, announcementArray: [] };
   }
-
   componentWillMount() {
-    this.props.getAnnouncements();
+    this.getUsersAnnouncements();
   }
 
   setModalVisible() {
     this.setState({ imageModal: false });
   }
 
+  getUsersAnnouncements() {
+    const { currentUser } = firebase.auth();
+    const uid = currentUser.uid;
+    return () => {
+      firebase.database().ref(`/Users/${uid}/Announcements`)
+        .on('value', (snapshot) => {
+          this.setState({ announcementArray: snapshot.val() });
+          console.log(snapshot.val());
+        });
+    };
+}
+
   handleRefresh = () => {
     this.setState({ refreshing: true });
-    this.props.getAnnouncements();
+    this.getUsersAnnouncements();
     //this.setState({ refreshing: false });
   }
 
   renderItem({ item }) {
+    console.log(this.props.data);
     if (item.isDefault) {
       return (
         <AnnounceCardImage
@@ -113,10 +122,6 @@ const styles = {
     padding: 5
   }
 };
+// export default connect(mapStateToProps, { getUsersAnnouncements })(UsersAnnouncements);
 
-const mapStateToProps = (state) => {
-  const data = Object.values(state.HPannouncements).reverse();
-  return { data };
-};
-
-export default connect(mapStateToProps, { getAnnouncements })(HomePageItems);
+export default UsersAnnouncements;
