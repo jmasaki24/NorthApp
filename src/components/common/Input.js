@@ -60,7 +60,7 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
-    lineHeight: 20,
+    lineHeight: 18,
     flex: 2
   },
   labelStyle: {
