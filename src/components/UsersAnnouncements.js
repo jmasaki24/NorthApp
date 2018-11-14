@@ -17,10 +17,12 @@ const { width } = Dimensions.get('window');
 class UsersAnnouncements extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, imageUrl: null, announcementArray: [] };
+    this.state = { refreshing: false, imageModal: false, imageUrl: null, announcementArray: {} };
   }
+
   componentWillMount() {
     this.getUsersAnnouncements();
+    console.log(this.state);
   }
 
   setModalVisible() {
@@ -30,13 +32,14 @@ class UsersAnnouncements extends Component {
   getUsersAnnouncements() {
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    return () => {
+    let firebaseData = {};
+    return (
       firebase.database().ref(`/Users/${uid}/Announcements`)
-        .on('value', (snapshot) => {
-          this.setState({ announcementArray: snapshot.val() });
-          console.log(snapshot.val());
-        });
-    };
+        .on('value', snapshot => {
+          firebaseData = snapshot.val();
+          this.setState({ announcementArray: Object.values(firebaseData).reverse() });
+        })
+    );
 }
 
   handleRefresh = () => {
@@ -46,16 +49,23 @@ class UsersAnnouncements extends Component {
   }
 
   renderItem({ item }) {
-    console.log(this.props.data);
+    console.log(item);
     if (item.isDefault) {
       return (
-        <AnnounceCardImage
-        title={item.title} image={{ uri: item.uri }} time={item.dateString} info={item.info}
-        />
+        <AnnounceCardImage button title={item.title} time={item.dateString} info={item.info}>
+          <TouchableOpacity
+            onPress={() => this.setState({ imageModal: true, imageUrl: item.uri })}
+          >
+            <Image
+              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+              source={{ uri: item.uri }}
+            />
+          </TouchableOpacity>
+        </AnnounceCardImage>
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
+        <AnnounceCardImage button title={item.title} time={item.dateString} info={item.info}>
           <TouchableOpacity
             onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
           >
@@ -66,13 +76,12 @@ class UsersAnnouncements extends Component {
           </TouchableOpacity>
         </AnnounceCardImage>
       );
-    } else if (item.uri === '') {
+    } // if no image, the code below runs
       return (
-        <AnnounceCardAllText title={item.title} time={item.dateString}>
+        <AnnounceCardAllText button title={item.title} time={item.dateString}>
           {item.info}
         </AnnounceCardAllText>
       );
-    }
   }
 
   render() {
@@ -80,7 +89,7 @@ class UsersAnnouncements extends Component {
       <View style={{ flex: 1 }}>
         <FlatList
           style={{ flex: 1 }}
-          data={this.props.data}
+          data={this.state.announcementArray}
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}

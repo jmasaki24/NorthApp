@@ -16,11 +16,9 @@ class AddEvent extends Component {
   state = { showModal: false, showCalendar: false }
 
   onAccept() {
-      console.log(date, title, location, description);
       const { date, title, location, description } = this.props;
       this.props.pushEvent({ date, title, location, description });
       this.setState({ showModal: false });
-      console.log(date, title, location, description);
   }
 
   onDecline() {

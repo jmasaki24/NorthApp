@@ -10,9 +10,10 @@ import { LoginForm, Spinner, Button } from './common';
 import AddContent from './AddStuff/AddContent';
 import AddEvent from './AddStuff/AddEvent';
 import UsersAnnouncements from './UsersAnnouncements';
+import UsersEvents from './UsersEvents';
 
 class Admin extends Component {
-  state = { loggedIn: null }
+  state = { loggedIn: null, u: 'Loading...' }
 
   componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -22,6 +23,15 @@ class Admin extends Component {
         this.setState({ loggedIn: false });
       }
     });
+    const { currentUser } = firebase.auth();
+    const uid = currentUser.uid;
+    let firebaseData = {};
+    firebase.database().ref(`/Users/${uid}`)
+      .on('value', snapshot => {
+        firebaseData = snapshot.val();
+        this.setState({ u: firebaseData.Username });
+      });
+    console.log(this.state.u);
   }
 
   renderHome() {
@@ -56,6 +66,13 @@ class Admin extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('UsersEvents')}
+          >
+            View Created Events
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
             onPress={() => firebase.auth().signOut()}
           >
             Log Out
@@ -76,7 +93,6 @@ class Admin extends Component {
   }
 
   render() {
-    console.log(this.state);
     return this.renderContent();
   }
 }
@@ -104,16 +120,17 @@ const styles = {
     margin: 10,
   }
 };
-
+// ES6 shortcut: when a key and its value are the same, it can be simplified e.g. UsersAnnouncements
 const AdminStack = createStackNavigator({
   AdminHome: Admin,
   Announce: AddContent,
   Event: AddEvent,
   UsersAnnouncements,
+  UsersEvents
   },
   {
     navigationOptions: ({ navigation }) => ({
-      title: navigation.state.routeName
+      title: `${navigation.state.routeName}`  // I want to add a username somewhere on screen -JM
     }),
     headerLayoutPreset: 'center'
 });

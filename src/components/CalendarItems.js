@@ -23,8 +23,9 @@ class CalendarItems extends Component {
       .once('value', snapshot => {
         firebaseData = snapshot.val();
         const calendarData = {};
-        // looping through an object in JavaScript
-        // https://zellwk.com/blog/looping-through-js-objects/
+        // looping through an object in JavaScript https://zellwk.com/blog/looping-through-js-objects/
+        // could use Object.map() method instead.
+
         for (const date in firebaseData) {
           if (firebaseData.hasOwnProperty(date)) {
             calendarData[date] = Object.values(firebaseData[date]);
@@ -36,6 +37,35 @@ class CalendarItems extends Component {
       console.log(this.state);
   }
 
+/**
+loadItems(day) {
+    setTimeout(() => {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (!this.state.items[strTime]) {
+          this.state.items[strTime] = [];
+          const numItems = Math.floor(Math.random() * 5);
+          for (let j = 0; j < numItems; j++) {
+            this.state.items[strTime].push({
+              name: 'Item for ' + strTime,
+              height: Math.max(50, Math.floor(Math.random() * 150))
+            });
+          }
+        }
+      }
+      //console.log(this.state.items);
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      this.setState({
+        items: newItems
+      });
+    }, 1000);
+    // console.log(`Load Items for ${day.year}-${day.month}`);
+  }
+
+*/
+
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -45,15 +75,13 @@ class CalendarItems extends Component {
     return r1.name !== r2.name;
   }
 
-  renderEmptyDate() {
+  renderEmptyData() {
     return (
-      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+      <View style={styles.emptyDate}><Text>No Events Today :/</Text></View>
     );
   }
 
   renderItem(item) {
-    console.log('item:');
-    console.log(item);
     return (
       <View style={[styles.item, { height: 90 }]}>
         <Text>{item.title}</Text>
@@ -70,22 +98,9 @@ class CalendarItems extends Component {
         onRefresh={this.getCalendar.bind(this)}
         refreshing={this.state.refreshing}
         renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        renderEmptyData={this.renderEmptyData.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
         onDayPress={() => { console.log(this.state); }}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2018-11-08': { textColor: '#666' },
-        //    '2018-11-09': { textColor: '#666' },
-        //    '2018-11-14': { startingDay: true, endingDay: true, color: 'blue' },
-        //    '2018-11-21': { startingDay: true, color: 'blue' },
-        //    '2018-11-22': { endingDay: true, color: 'gray' },
-        //    '2018-11-24': { startingDay: true, color: 'gray' },
-        //    '2018-11-25': { color: 'gray' },
-        //    '2018-11-26': { endingDay: true, color: 'gray' }
-        //  }}
-        //  theme={{ agendaKnobColor: 'green' }}
-        // renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
       />
     );
   }
@@ -103,7 +118,8 @@ const styles = {
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
+    justifyContent: 'center'
   },
 };
 
