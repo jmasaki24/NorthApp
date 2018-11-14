@@ -7,7 +7,8 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool } from '../../actions';
+import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool }
+  from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 

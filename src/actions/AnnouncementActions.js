@@ -10,6 +10,7 @@ import {
   GET_FROM_FIREBASE,
   GET_SUCCESS,
   PUSHING_BOOLEAN,
+  GET_USERS_ANNOUNCEMENTS
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -74,8 +75,16 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
                 .then(() => {
                   imageRef.getDownloadURL()
                     .then((url) => {
-                      firebase.database().ref('/Announcements')
-                        .push({ title, info, url, isDefault, uid, dateString })
+                      const announcementData = { title, info, url, isDefault, uid, dateString };
+                      const newAnnouncementKey =
+                        firebase.database().ref().child('Announcements').push().key;
+
+                      const updates = {};
+                      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+                      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+                        = announcementData;
+
+                      firebase.database().ref().update(updates)
                         .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
                         .catch();
                     });
@@ -91,10 +100,18 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
         });
       }
     } else {
-      firebase.database().ref('/Announcements')
-        .push({ title, info, uri, isDefault, uid, dateString })
-        .then(() => dispatch({ type: PUSH_TO_FIREBASE }))
-        .catch();
+      const announcementData = { title, info, isDefault, uid, dateString };
+      const newAnnouncementKey =
+        firebase.database().ref().child('Announcements').push().key;
+
+      const updates = {};
+      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+        = announcementData;
+
+      firebase.database().ref().update(updates)
+        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+        .catch()
     }
   };
 };
@@ -113,6 +130,17 @@ export const getAnnouncements = () => {
       dispatch({ type: GET_FROM_FIREBASE, payload: snapshot.val() });
     });
  };
+};
+
+export const getUsersAnnouncements = () => {
+  const { currentUser } = firebase.auth();
+  const uid = currentUser.uid;
+  return (dispatch) => {
+    firebase.database().ref(`/Users/${uid}/Announcements`)
+      .on('value', snapshot => {
+        dispatch({ type: GET_USERS_ANNOUNCEMENTS, payload: snapshot.val() });
+      });
+  };
 };
 
 export const getSuccess = () => {

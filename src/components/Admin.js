@@ -9,6 +9,7 @@ import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from './common';
 import AddContent from './AddStuff/AddContent';
 import AddEvent from './AddStuff/AddEvent';
+import UsersAnnouncements from './UsersAnnouncements';
 
 class Admin extends Component {
   state = { loggedIn: null }
@@ -44,6 +45,13 @@ class Admin extends Component {
             onPress={() => this.props.navigation.navigate('Event')}
           >
             Create Event
+          </Button>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={styles.textStyle}
+            onPress={() => this.props.navigation.navigate('UsersAnnouncements')}
+          >
+            View Created Announcements
           </Button>
           <Button
             buttonStyle={styles.buttonStyle}
@@ -100,7 +108,8 @@ const styles = {
 const AdminStack = createStackNavigator({
   AdminHome: Admin,
   Announce: AddContent,
-  Event: AddEvent
+  Event: AddEvent,
+  UsersAnnouncements,
   },
   {
     navigationOptions: ({ navigation }) => ({
