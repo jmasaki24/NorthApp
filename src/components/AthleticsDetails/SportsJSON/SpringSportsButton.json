@@ -1,21 +1,32 @@
 [
   {
     "title": "Baseball",
-    "value": "Baseball"
-  }, {
+    "value": "Baseball",
+    "childSport": ["Boys Varsity", "Boys JV", "Boys Freshman"]
+  },
+  {
     "title": "Lacrosse",
-    "value": "Lacrosse"
-  }, {
+    "value": "Lacrosse",
+    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV"]
+  },
+  {
     "title": "Outdoor Track",
-    "value": "OutdoorTrack"
-  }, {
+    "value": "OutdoorTrack",
+    "childSport": ["CoEd Varsity"]
+  },
+  {
     "title": "Softball",
-    "value": "Softball"
-  }, {
+    "value": "Softball",
+    "childSport": ["Girls Varsity", "Girls JV"]
+  },
+  {
     "title": "Tennis",
-    "value": "Tennis"
-  }, {
+    "value": "Tennis",
+    "childSport": ["Girls Varsity", "Boys Varsity"]
+  },
+  {
     "title": "Unified Outdoor Track",
-    "value": "UnifiedOutdoorTrack"
+    "value": "UnifiedOutdoorTrack",
+    "childSport": ["CoEd Varsity"]
   }
 ];

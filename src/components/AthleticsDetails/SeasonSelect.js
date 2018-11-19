@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { Animated, LayoutAnimation } from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection, Button } from '../common';
 import SportSelect from './SportSelect';

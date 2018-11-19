@@ -1,34 +1,42 @@
 [
   {
     "title": "Cross Country",
-    "value": "CrossCounrty"
+    "value": "CrossCountry",
+    "childSport": ["CoEd Varsity", "CoEd JV"]
   },
   {
     "title": "Fall Spirit",
-    "value": "FallSpirit"
-  }, 
+    "value": "FallSpirit",
+    "childSport": ["CoEd Varsity", "CoEd JV"]
+  },
   {
     "title": "Field Hockey",
-    "value":" FieldHockey"
+    "value":" FieldHockey",
+    "childSport": ["Girls Varsity", "Girls JV"]
   },
   {
     "title": "Football",
-    "value": "Football"
+    "value": "Football",
+    "childSport": ["Boys Varsity", "Boys JV", "Boys Freshman"]
   },
   {
     "title": "Golf",
-    "value": "Golf"
+    "value": "Golf",
+    "childSport": ["Boys Varsity", "Boys JV"]
   },
   {
     "title": "Soccer",
-    "value": "Soccer"
+    "value": "Soccer",
+    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV"]
   },
   {
     "title": "Unified Soccer",
-    "value": "UnifiedSoccer"
+    "value": "UnifiedSoccer",
+    "childSport": ["CoEd Varsity"]
   },
   {
     "title": "Volleyball",
-    "value": "Volleyball"
+    "value": "Volleyball",
+    "childSport": ["Girls Varsity", "Girls JV", "Girls Freshman"]
   }
 ];

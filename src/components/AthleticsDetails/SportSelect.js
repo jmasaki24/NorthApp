@@ -13,6 +13,7 @@ const Select = ({ sport }) => {
       <Button
         buttonStyle={buttonStyle}
         textStyle={buttonTextStyle}
+        //onPress={() => this.props.navigation.navigate('sportPage');}
       >
         {title}
       </Button>
