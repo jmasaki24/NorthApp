@@ -1,5 +1,5 @@
 /**
- * Basically copied HomePageItems.js
+ * Similar to HomePageItems.js in some, different in lacking redux
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
@@ -7,6 +7,7 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
+import { Confirm } from './common';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 
@@ -17,12 +18,27 @@ const { width } = Dimensions.get('window');
 class UsersAnnouncements extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, imageUrl: null, announcementArray: {} };
+    this.state = {
+      refreshing: false,
+      imageModal: false,
+      imageUrl: null,
+      announcementArray: {},
+      showModal: false,
+      item: {}
+    };
   }
 
   componentWillMount() {
     this.getUsersAnnouncements();
-    console.log(this.state);
+  }
+
+  onAccept() {
+    this.deleteAnnouncement();
+    this.setState({ showModal: false });
+  }
+
+  onDecline() {
+    this.setState({ showModal: false, item: {} });
   }
 
   setModalVisible() {
@@ -33,26 +49,52 @@ class UsersAnnouncements extends Component {
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
     let firebaseData = {};
+    const array = [];
+    let i = 0;
     return (
       firebase.database().ref(`/Users/${uid}/Announcements`)
         .on('value', snapshot => {
           firebaseData = snapshot.val();
-          this.setState({ announcementArray: Object.values(firebaseData).reverse() });
+          for (const key in firebaseData) {
+            if (firebaseData[key].hasOwnProperty) {
+              firebaseData[key].id = key;
+              array[i] = firebaseData[key];
+              i++;
+            }
+          }
+          this.setState({ announcementArray: array });
         })
     );
-}
+  }
+
+  deleteAnnouncement() {
+    console.log(this.state.item);
+    const { item } = this.state.item;
+    console.log(item);
+    const { currentUser } = firebase.auth();
+    const uid = currentUser.uid;
+    firebase.database().ref(`/Users/${uid}/Announcements/${item.id}`).remove()
+      .then(() => { console.log('Remove from user succeeded.'); })
+      .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
+    firebase.database().ref(`/Announcements/${item.id}`).remove()
+      .then(() => { console.log('Remove from main succeeded.'); })
+      .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
+    this.getUsersAnnouncements();
+  }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.getUsersAnnouncements();
-    //this.setState({ refreshing: false });
+    this.setState({ refreshing: false });
   }
 
   renderItem({ item }) {
-    console.log(item);
     if (item.isDefault) {
       return (
-        <AnnounceCardImage button title={item.title} time={item.dateString} info={item.info}>
+        <AnnounceCardImage
+          button title={item.title} time={item.dateString}
+          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+        >
           <TouchableOpacity
             onPress={() => this.setState({ imageModal: true, imageUrl: item.uri })}
           >
@@ -65,7 +107,10 @@ class UsersAnnouncements extends Component {
       );
     } else if (item.isDefault === false) {
       return (
-        <AnnounceCardImage button title={item.title} time={item.dateString} info={item.info}>
+        <AnnounceCardImage
+          button title={item.title} time={item.dateString}
+          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+        >
           <TouchableOpacity
             onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
           >
@@ -78,7 +123,10 @@ class UsersAnnouncements extends Component {
       );
     } // if no image, the code below runs
       return (
-        <AnnounceCardAllText button title={item.title} time={item.dateString}>
+        <AnnounceCardAllText
+          button title={item.title} time={item.dateString}
+          onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+        >
           {item.info}
         </AnnounceCardAllText>
       );
@@ -94,6 +142,13 @@ class UsersAnnouncements extends Component {
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
         />
+        <Confirm
+          visible={this.state.showModal}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
+        >
+          Are you sure you would like to delete this content? This is permanent.
+        </Confirm>
         <Modal
           visible={this.state.imageModal}
           onRequestClose={() => this.setModalVisible}

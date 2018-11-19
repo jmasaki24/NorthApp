@@ -118,7 +118,7 @@ class AddContent extends Component {
           <Modal
             visible={this.props.pushing}
             transparent
-            onRequestClose={console.log('Closing pushing modal')}
+            onRequestClose={this.onDecline()}
           >
             <SafeAreaView style={styles.pushingViewStyle}>
               <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>

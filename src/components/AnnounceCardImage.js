@@ -16,9 +16,6 @@ const AnnounceCardImage = (props) => {
           <Text style={styles.titleText}>
             {props.title}
           </Text>
-          <View style={{ flex: -1 }}>
-            <Icon.Button name="trash-alt" onPress={props.onPress} />
-          </View>
         </CardSection>
         <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
           <View style={{ flex: 1 }}>
@@ -28,10 +25,18 @@ const AnnounceCardImage = (props) => {
             <Text style={{ fontSize: 18, color: 'black' }}>{props.info}</Text>
           </View>
         </CardSection>
-        <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-          <Text style={{ fontSize: 14 }}>
-            {props.time}
-          </Text>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: -1 }}>
+            <Icon.Button
+              name="trash-alt" onPress={props.onPress} iconStyle={{ marginRight: 0 }}
+            />
+          </View>
+          <View style={{ flex: 1 }} />
+          <View style={{ flex: -1 }}>
+            <Text style={{ fontSize: 14 }}>
+              {props.time}
+            </Text>
+          </View>
         </CardSection>
       </Card>
     );

@@ -38,6 +38,7 @@ class HomePageItems extends Component {
   }
 
   // The difference between isDefault is item.uri and item.url
+  // We're going to clean this up later (JM and MP)
   renderItem({ item }) {
     if (item.isDefault) {
       return (
