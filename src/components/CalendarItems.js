@@ -23,8 +23,9 @@ class CalendarItems extends Component {
       .once('value', snapshot => {
         firebaseData = snapshot.val();
         const calendarData = {};
-        // looping through an object in JavaScript
-        // https://zellwk.com/blog/looping-through-js-objects/
+        // looping through an object in JavaScript https://zellwk.com/blog/looping-through-js-objects/
+        // could use Object.map() method instead.
+
         for (const date in firebaseData) {
           if (firebaseData.hasOwnProperty(date)) {
             calendarData[date] = Object.values(firebaseData[date]);
@@ -45,15 +46,13 @@ class CalendarItems extends Component {
     return r1.name !== r2.name;
   }
 
-  renderEmptyDate() {
+  renderEmptyData() {
     return (
-      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+      <View style={styles.emptyDate}><Text>No Events Today :/</Text></View>
     );
   }
 
   renderItem(item) {
-    console.log('item:');
-    console.log(item);
     return (
       <View style={[styles.item, { height: 90 }]}>
         <Text>{item.title}</Text>
@@ -70,22 +69,9 @@ class CalendarItems extends Component {
         onRefresh={this.getCalendar.bind(this)}
         refreshing={this.state.refreshing}
         renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        renderEmptyData={this.renderEmptyData.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
         onDayPress={() => { console.log(this.state); }}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2018-11-08': { textColor: '#666' },
-        //    '2018-11-09': { textColor: '#666' },
-        //    '2018-11-14': { startingDay: true, endingDay: true, color: 'blue' },
-        //    '2018-11-21': { startingDay: true, color: 'blue' },
-        //    '2018-11-22': { endingDay: true, color: 'gray' },
-        //    '2018-11-24': { startingDay: true, color: 'gray' },
-        //    '2018-11-25': { color: 'gray' },
-        //    '2018-11-26': { endingDay: true, color: 'gray' }
-        //  }}
-        //  theme={{ agendaKnobColor: 'green' }}
-        // renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
       />
     );
   }
@@ -103,7 +89,8 @@ const styles = {
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
+    alignItems: 'center'
   },
 };
 

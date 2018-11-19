@@ -42,7 +42,6 @@ export const addTitle = (text) => {
 };
 
 export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
-  console.log(title);
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let date = new Date();
@@ -52,10 +51,18 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
   return (dispatch) => {
     if (uri !== '') {
       if (isDefault) {
-        firebase.database().ref('/Announcements')
-          .push({ title, info, uri, isDefault, uid, dateString })
-          .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-          .catch();
+          const announcementData = { title, info, uri, isDefault, uid, dateString };
+          const newAnnouncementKey =
+            firebase.database().ref().child('Announcements').push().key;
+
+          const updates = {};
+          updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+          updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+            = announcementData;
+
+          firebase.database().ref().update(updates)
+            .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+            .catch();
       } else {
         const Blob = RNFetchBlob.polyfill.Blob;
         const fs = RNFetchBlob.fs;
@@ -111,7 +118,7 @@ export const pushAnnouncement = ({ title, info, uri, isDefault }) => {
 
       firebase.database().ref().update(updates)
         .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-        .catch()
+        .catch();
     }
   };
 };
@@ -126,7 +133,7 @@ export const isDefault = (bool) => {
 export const getAnnouncements = () => {
  return (dispatch) => {
    firebase.database().ref('/Announcements')
-    .on('value', snapshot => {
+    .once('value', snapshot => {
       dispatch({ type: GET_FROM_FIREBASE, payload: snapshot.val() });
     });
  };

@@ -34,9 +34,11 @@ class HomePageItems extends Component {
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.props.getAnnouncements();
-    //this.setState({ refreshing: false });
+    this.setState({ refreshing: false });
   }
 
+  // The difference between isDefault is item.uri and item.url
+  // We're going to clean this up later (JM and MP)
   renderItem({ item }) {
     if (item.isDefault) {
       return (
@@ -64,13 +66,12 @@ class HomePageItems extends Component {
           </TouchableOpacity>
         </AnnounceCardImage>
       );
-    } else if (item.uri === '') {
+    }
       return (
         <AnnounceCardAllText title={item.title} time={item.dateString}>
           {item.info}
         </AnnounceCardAllText>
       );
-    }
   }
 
   render() {
