@@ -3,7 +3,7 @@
 * Authors: Jamie Maddock && Matt Peters
 */
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from './common';
@@ -37,46 +37,48 @@ class Admin extends Component {
   renderHome() {
       return (
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
-          <Text style={styles.description} >
-            Hi there. This is the admin page.
-            From here you can add an announcement to the homepage, or add an event to the calendar.
-            If you need help, feel free to send an email to northcodingteam@gmail.com
-          </Text>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={styles.textStyle}
-            onPress={() => this.props.navigation.navigate('Announce')}
-          >
-            Create Announcement
-          </Button>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={styles.textStyle}
-            onPress={() => this.props.navigation.navigate('Event')}
-          >
-            Create Event
-          </Button>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={styles.textStyle}
-            onPress={() => this.props.navigation.navigate('UsersAnnouncements')}
-          >
-            View Created Announcements
-          </Button>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={styles.textStyle}
-            onPress={() => this.props.navigation.navigate('UsersEvents')}
-          >
-            View Created Events
-          </Button>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={styles.textStyle}
-            onPress={() => firebase.auth().signOut()}
-          >
-            Log Out
-          </Button>
+          <ScrollView>
+            <Text style={styles.description} >
+              Hi there. This is the admin page.
+              From here you can add an announcement to the homepage, or add an event to the calendar.
+              If you need help, feel free to send an email to northcodingteam@gmail.com
+            </Text>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => this.props.navigation.navigate('Announce')}
+            >
+              Create Announcement
+            </Button>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => this.props.navigation.navigate('Event')}
+            >
+              Create Event
+            </Button>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => this.props.navigation.navigate('UsersAnnouncements')}
+            >
+              View Created Announcements
+            </Button>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => this.props.navigation.navigate('UsersEvents')}
+            >
+              View Created Events
+            </Button>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => firebase.auth().signOut()}
+            >
+              Log Out
+            </Button>
+          </ScrollView>
         </View>
       );
   }
