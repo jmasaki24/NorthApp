@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Linking, FlatList } from 'react-native';
+import { View, ScrollView, Linking } from 'react-native';
 import { Card, CardSection, Button } from './common';
 import SeasonSelect from './AthleticsDetails/SeasonSelect';
 
 class AthleticsPage extends Component {
   renderItem() {
-    return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} /> ;
+    return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />;
   }
 
   render() {
@@ -14,15 +14,14 @@ class AthleticsPage extends Component {
       <ScrollView style={{ flex: 1 }}>
         <Card style={{ marginBottom: 20 }}>
           <CardSection>
-            <Button buttonStyle={buttonStyle} textStyle={buttonTextStyle}>
+            <Button
+              buttonStyle={buttonStyle}
+              textStyle={buttonTextStyle}
+              onPress={() => this.props.navigation.navigate('UpcomingGames')}
+            >
               Upcoming Games
             </Button>
           </CardSection>
-          <FlatList
-            style={{ flexDirection: 'row', }}
-            item={item => renderItem()}
-
-          />
         </Card>
         <SeasonSelect />
         <View style={{ height: 20 }} />

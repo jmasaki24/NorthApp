@@ -17,3 +17,5 @@ export const ADD_EVENT_DESCRIPTION = 'add_event_description';
 export const ADD_EVENT_TIME = 'add_event_time';
 export const PUSH_EVENT = 'push_event';
 export const GET_CALENDAR = 'get_calendar';
+
+export const GET_UPCOMING_GAMES = 'get_upcoming_games';
