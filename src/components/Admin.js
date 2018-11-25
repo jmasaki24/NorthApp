@@ -23,15 +23,15 @@ class Admin extends Component {
         this.setState({ loggedIn: false });
       }
     });
-    const { currentUser } = firebase.auth();
-    const uid = currentUser.uid;
-    let firebaseData = {};
-    firebase.database().ref(`/Users/${uid}`)
-      .on('value', snapshot => {
-        firebaseData = snapshot.val();
-        this.setState({ u: firebaseData.Username });
-      });
-    console.log(this.state.u);
+    // const { currentUser } = firebase.auth();
+    // const uid = currentUser.uid;
+    // let firebaseData = {};
+    // firebase.database().ref(`/Users/${uid}`)
+    //   .on('value', snapshot => {
+    //     firebaseData = snapshot.val();
+    //     this.setState({ u: firebaseData.Username });
+    //   });
+    // console.log(this.state.u);
   }
 
   renderHome() {
