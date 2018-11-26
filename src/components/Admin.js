@@ -19,19 +19,20 @@ class Admin extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn: true });
+        const { currentUser } = firebase.auth();
+        const uid = currentUser.uid;
+        let firebaseData = {};
+        firebase.database().ref(`/Users/${uid}`)
+          .on('value', snapshot => {
+            firebaseData = snapshot.val();
+            this.setState({ u: firebaseData.Username });
+          });
+        console.log(this.state.u);
       } else {
         this.setState({ loggedIn: false });
       }
     });
-    const { currentUser } = firebase.auth();
-    const uid = currentUser.uid;
-    let firebaseData = {};
-    firebase.database().ref(`/Users/${uid}`)
-      .on('value', snapshot => {
-        firebaseData = snapshot.val();
-        this.setState({ u: firebaseData.Username });
-      });
-    console.log(this.state.u);
+
   }
 
   renderHome() {
@@ -129,10 +130,11 @@ const AdminStack = createStackNavigator({
   UsersEvents
   },
   {
-    navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.routeName}`  // I want to add a username somewhere on screen -JM
+    navigationOptions: () => ({
+      // title: `${navigation.state.routeName}`  // I want to add a username somewhere on screen -JM
+      header: null
     }),
-    headerLayoutPreset: 'center'
+
 });
 
 export default AdminStack;

@@ -6,6 +6,7 @@ import {
   DEFAULT_IMAGE_BOOL,
   GET_SUCCESS,
   PUSHING_BOOLEAN,
+  EDIT_ANNOUNCEMENT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -36,6 +37,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, pushing: action.payload };
 
     case PUSH_ANNOUNCEMENT:
+      return { ...state, ...INITIAL_STATE, pushing: false };
+
+    case EDIT_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
 
     case GET_SUCCESS:

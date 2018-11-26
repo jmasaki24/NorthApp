@@ -3,8 +3,9 @@
 */
 
 import React, { Component } from 'react';
-import { Linking } from 'react-native';
-import { Card, Button, CardSection } from './common';
+import { Linking, TouchableOpacity, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Card, CardSection } from './common';
 
 class AcademicsPage extends Component {
   render() {
@@ -12,49 +13,48 @@ class AcademicsPage extends Component {
     return (
       <Card>
         <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
+          <TouchableOpacity
+            style={buttonStyle}
             onPress={() => Linking.openURL('https://x2.nashua.edu/aspen/logon.do')}
           >
-            X2 Aspen
-          </Button>
+            <Text style={textStyle}>X2 Aspen</Text>
+            <Icon name='link' />
+          </TouchableOpacity>
         </CardSection>
         <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
+          <TouchableOpacity
+            style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/contact-us/staff-directory.aspx')}
           >
-            Staff Directory
-          </Button>
+            <Text style={textStyle}>Staff Directory</Text>
+            <Icon name='link' />
+          </TouchableOpacity>
         </CardSection>
         <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
+          <TouchableOpacity
+            style={buttonStyle}
             onPress={() => this.props.navigation.navigate('Bells')}
           >
-            Bell Schedule
-          </Button>
+            <Text style={textStyle}>Bell Schedule</Text>
+          </TouchableOpacity>
         </CardSection>
         <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
+          <TouchableOpacity
+            style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/Nashua/Media/PDF-files/For%20Students/Nashua-North-2018-2019-Agenda-Book.pdf')}
           >
-            Student Handbook
-          </Button>
+            <Text style={textStyle}>Student Handbook</Text>
+            <Icon name='link' />
+          </TouchableOpacity>
         </CardSection>
         <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
+          <TouchableOpacity
+            style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/getmedia/02fd65e0-fd7a-45d0-ba05-e996d016c390/2017-POS_MSTR_012916_WEB_1A')}
           >
-            Program of Studies
-          </Button>
+            <Text style={textStyle}>Program of Studies</Text>
+            <Icon name='link' />
+          </TouchableOpacity>
         </CardSection>
       </Card>
     );
@@ -63,10 +63,27 @@ class AcademicsPage extends Component {
 
 const styles = {
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: 'white',
+
+    borderRadius: 5,
+    borderWidth: 1,
+
+    marginLeft: 5,
+    marginRight: 5,
+    paddingTop: 10,
+    paddingBottom: 10
   },
   textStyle: {
-    color: '#000'
+    color: '#000',
+    alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    marginRight: 10,
   }
 };
 

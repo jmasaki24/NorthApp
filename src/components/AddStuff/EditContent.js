@@ -1,23 +1,24 @@
 /**
-* Date: 10/29/2018
-* Author: Matt Peters
+ * Basically copied AddContent.js
+ * Date: 10/29/2018
+ * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool }
+import { addDescription, addTitle, editAnnouncement, pushToFBStorage, pushingBool }
   from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
+class EditContent extends Component {
   state = { showModal: false };
 
   onAccept() {
     const { title, info, uri, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, uri, isDefault });
+    this.props.editAnnouncement({ title, info, uri, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
@@ -32,10 +33,6 @@ class AddContent extends Component {
 
   onInfoChange(text) {
     this.props.addDescription(text);
-  }
-
-  setShowModalVisible(bool) {
-    this.setState({ showModal: bool });
   }
 
   selectedImageDisplay() {
@@ -67,7 +64,7 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.setShowModalVisible(true)}
+          onPress={() => this.setState({ showModal: !this.state.showModal })}
         >
           Submit Announcement
         </Button>
@@ -122,7 +119,7 @@ class AddContent extends Component {
           <Modal
             visible={this.props.pushing}
             transparent
-            onRequestClose={() => console.log('yea lol')}
+            onRequestClose={this.onDecline()}
           >
             <SafeAreaView style={styles.pushingViewStyle}>
               <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -174,4 +171,4 @@ const mapStateToProps = (state) => {
 };
 
 export default withNavigation(connect(mapStateToProps,
-  { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool })(AddContent));
+  { addDescription, addTitle, editAnnouncement, pushToFBStorage, pushingBool })(EditContent));

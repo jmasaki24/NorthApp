@@ -7,6 +7,7 @@ export const GET_FROM_FIREBASE = 'get_from_firebase';
 export const GET_SUCCESS = 'get_success';
 export const PUSHING_BOOLEAN = 'pushing_boolean';
 export const GET_USERS_ANNOUNCEMENTS = 'get_users_announcements';
+export const EDIT_ANNOUNCEMENT = 'edit_announcement';
 
 export const OPEN_CLUB = 'open_club';
 

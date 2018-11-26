@@ -7,9 +7,11 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
+import { createStackNavigator } from 'react-navigation';
 import { Confirm } from './common';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
+import EditContent from './AddStuff/EditContent';
 
 console.disableYellowBox = true;
 
@@ -188,4 +190,14 @@ const styles = {
 };
 // export default connect(mapStateToProps, { getUsersAnnouncements })(UsersAnnouncements);
 
-export default UsersAnnouncements;
+const UsersStack = createStackNavigator({
+    UsersAnnouncements,
+    Edit: EditContent
+  },
+  {
+    navigationOptions: () => ({
+      header: null
+    })
+});
+
+export default UsersStack;
