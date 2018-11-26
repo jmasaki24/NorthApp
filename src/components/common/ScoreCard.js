@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Card, CardSection } from './common';
+import { Card } from './Card';
+import { CardSection } from './CardSection';
 
 const ScoreCard = ({ otherTeam, ourScore, theirScore }) => {
   const { titleStyle, scoreStyle, viewStyle } = styles;
@@ -43,4 +44,4 @@ const styles = {
   }
 };
 
-export default ScoreCard;
+export { ScoreCard };

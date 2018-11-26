@@ -1,25 +1,58 @@
 /**
 * Author: Matt Peters
+* Last Edit: 11/25/2018
 */
 
-import React from 'react';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { CardSection, Button } from '../common';
 
-const Select = ({ sport }) => {
-  const { title } = sport;
-  const { buttonStyle, buttonTextStyle } = styles;
-  return (
-    <CardSection>
-      <Button
-        buttonStyle={buttonStyle}
-        textStyle={buttonTextStyle}
-        //onPress={() => this.props.navigation.navigate('sportPage');}
-      >
-        {title}
-      </Button>
-    </CardSection>
-  );
-};
+class Select extends Component {
+  state = { pressed: false };
+
+  renderChildSports(childSport) {
+    if (this.state.pressed) {
+      console.log(childSport);
+      const { buttonStyle, childButtonTextStyle } = styles;
+      const items = childSport.map(item =>
+        <CardSection>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={childButtonTextStyle}
+          >
+            {item}
+          </Button>
+        </CardSection>
+      );
+      return items;
+    }
+  }
+
+  render() {
+    console.log(this.props);
+    console.log(this.state.pressed);
+    const data = this.props.sport;
+    let iconType = 'angle-right';
+    if (this.state.pressed) { iconType = 'angle-down'; }
+    const { buttonStyle, buttonTextStyle } = styles;
+    return (
+      <View>
+        <CardSection>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={buttonTextStyle}
+            onPress={() => this.setState({ pressed: !this.state.pressed })}
+            icon={<FontAwesome5 name={iconType} size={20} color={'black'} />}
+          >
+            {data.title}
+          </Button>
+        </CardSection>
+        {this.renderChildSports(data.childSport)}
+      </View>
+    );
+  }
+}
 
 const styles = {
   buttonStyle: {
@@ -31,6 +64,13 @@ const styles = {
     fontWeight: 'normal',
     alignSelf: 'flex-start',
     paddingLeft: 20
+  },
+  childButtonTextStyle: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'normal',
+    alignSelf: 'flex-start',
+    paddingLeft: 40
   }
 };
 
