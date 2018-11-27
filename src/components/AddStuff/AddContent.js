@@ -172,8 +172,8 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ announce }) => {
-  const { title, info, uri, isDefault, pushing } = announce;
+const mapStateToProps = (state) => {
+  const { title, info, uri, isDefault, pushing } = state.announce;
   return { title, info, uri, isDefault, pushing };
 };
 

@@ -20,7 +20,10 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_EVENT_DATE:
       return { ...state, date: action.payload };
-    case ADD_EVENT_TITLE:
+      case ADD_EVENT_TITLE:
+      console.log('got to title reducer');
+      console.log(action.payload);
+      console.log({ ...state, title: action.payload });
       return { ...state, title: action.payload };
     case ADD_EVENT_LOCATION:
       return { ...state, location: action.payload };
