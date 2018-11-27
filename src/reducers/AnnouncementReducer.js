@@ -23,28 +23,26 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_IMAGE:
       return { ...state, uri: action.payload };
-
     case ADD_DESCRIPTION:
+      console.log('got to description reducer');
+      console.log(action.payload);
+      console.log({ ...state, info: action.payload });
       return { ...state, info: action.payload };
-
     case ADD_TITLE:
+      console.log('got to title reducer');
+      console.log(action.payload);
+      console.log({ ...state, title: action.payload });
       return { ...state, title: action.payload };
-
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };
-
     case PUSHING_BOOLEAN:
       return { ...state, pushing: action.payload };
-
     case PUSH_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
-
     case EDIT_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
-
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };
-
     default:
       return state;
   }

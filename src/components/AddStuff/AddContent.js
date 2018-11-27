@@ -2,6 +2,7 @@
 * Date: 10/29/2018
 * Author: Matt Peters
 */
+
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -27,16 +28,18 @@ class AddContent extends Component {
   }
 
   onTitleChange(text) {
+    console.log('Got to onTitleChange');
     this.props.addTitle(text);
   }
 
   onInfoChange(text) {
+    console.log('Got to onInfoChange');
     this.props.addDescription(text);
   }
 
-  setShowModalVisible(bool) {
-    this.setState({ showModal: bool });
-  }
+  // setShowModalVisible(bool) {
+  //   this.setState({ showModal: bool });
+  // }
 
   selectedImageDisplay() {
     if (this.props.uri !== '') {
@@ -67,7 +70,7 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.setShowModalVisible(true)}
+          onPress={this.setState({ showModal: !this.state.showModal })}
         >
           Submit Announcement
         </Button>
@@ -85,8 +88,9 @@ class AddContent extends Component {
               placeholder="Title"
               viewStyle={{ height: 60 }}
               multiline
+              //onChangeText={(text) => this.onTitleChange(text)}
               onChangeText={this.onTitleChange.bind(this)}
-              value={this.props.title}
+              //value={this.props.title}
             />
           </CardSection>
           <CardSection>
@@ -96,7 +100,7 @@ class AddContent extends Component {
               viewStyle={{ height: 150 }}
               multiline
               onChangeText={this.onInfoChange.bind(this)}
-              value={this.props.info}
+              //value={this.props.info}
             />
           </CardSection>
           {this.selectedImageDisplay()}
@@ -168,8 +172,8 @@ const styles = {
   }
 };
 
-const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault, pushing } = state.announce;
+const mapStateToProps = ({ announce }) => {
+  const { title, info, uri, isDefault, pushing } = announce;
   return { title, info, uri, isDefault, pushing };
 };
 
