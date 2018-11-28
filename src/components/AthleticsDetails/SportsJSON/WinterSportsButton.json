@@ -2,46 +2,71 @@
   {
     "title": "Alpine Skiing",
     "value": "AlpineSkiing",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   },
   {
     "title": "Basketball",
     "value": "Basketball",
-    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV", "Boys Freshman"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""},
+      {"title": "Girls JV", "link": ""},
+      {"title": "Boys Varsity", "link": ""},
+      {"title": "Boys JV", "link": ""}, 
+      {"title": "Boys Freshman", "link": ""}
+    ]
   },
   {
     "title": "Gymnastics",
     "value": "Gynmastics",
-    "childSport": ["Girls Varsity"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""}
+    ]
   },
   {
     "title": "Ice Hockey",
     "value": "IceHockey",
-    "childSport": ["Boys Varsity"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": ""}
+    ]
   },
   {
     "title": "Indoor Track",
     "value": "IndoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   },
   {
     "title": "Swimming Diving",
     "value": "SwimmingDiving",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   },
   {
     "title": "Unified Basketball",
     "value": "UnifiedBasketball",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   },
   {
     "title": "Winter Spirit",
     "value": "WinterSpirit",
-    "childSport": ["Girls Varsity", "CoEd Varsity", "CoEd JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""},
+      {"title": "CoEd Varsity", "link": ""},
+      {"title": "CoEd JV", "link": ""}
+    ]
   },
   {
     "title": "Wrestling",
     "value": "Wrestling",
-    "childSport": ["Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": ""},
+      {"title": "Boys JV", "link": ""}
+    ]
   }
 ];

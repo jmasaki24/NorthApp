@@ -1,7 +1,8 @@
 import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import {
-  GET_UPCOMING_GAMES
+  GET_UPCOMING_GAMES,
+  GET_SPORT_INFO
 } from './types';
 import {
   UPCOMING_GAMES_URL
@@ -46,6 +47,23 @@ export const getUpcomingGames = () => {
         dispatch({
           type: GET_UPCOMING_GAMES,
           payload: finalArray
+        });
+      });
+  };
+};
+
+export const getSportInfo = (sport) => {
+  //figure our which url to scrape from
+
+  return (dispatch) => {
+    axios.get()
+      .then((response) => {
+        if (response.status === 200) {
+          const $ = cheerio.load(response.data);
+        }
+        dispatch({
+          type: GET_SPORT_INFO,
+          payload: null //TEMPORARY NULL
         });
       });
   };

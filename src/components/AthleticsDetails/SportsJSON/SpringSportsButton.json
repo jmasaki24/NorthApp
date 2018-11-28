@@ -2,31 +2,50 @@
   {
     "title": "Baseball",
     "value": "Baseball",
-    "childSport": ["Boys Varsity", "Boys JV", "Boys Freshman"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": ""}, 
+      {"title": "Boys JV", "link": ""}, 
+      {"title": "Boys Freshman", "link": ""}
+    ]
   },
   {
     "title": "Lacrosse",
     "value": "Lacrosse",
-    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""}, 
+      {"title": "Girls JV", "link": ""}, 
+      {"title": "Boys Varsity", "link": ""}, 
+      {"title": "Boys JV", "link": ""}
+    ]
   },
   {
     "title": "Outdoor Track",
     "value": "OutdoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   },
   {
     "title": "Softball",
     "value": "Softball",
-    "childSport": ["Girls Varsity", "Girls JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""},
+      {"title": "Girls JV", "link": ""}
+    ]
   },
   {
     "title": "Tennis",
     "value": "Tennis",
-    "childSport": ["Girls Varsity", "Boys Varsity"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": ""},
+      {"title": "Boys Varsity", "link": ""}
+    ]
   },
   {
     "title": "Unified Outdoor Track",
     "value": "UnifiedOutdoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": ""}
+    ]
   }
 ];

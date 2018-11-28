@@ -1,12 +1,12 @@
 import {
   ADD_IMAGE,
-  ADD_DESCRIPTION,
   ADD_TITLE,
   PUSH_ANNOUNCEMENT,
   DEFAULT_IMAGE_BOOL,
   GET_SUCCESS,
   PUSHING_BOOLEAN,
-  EDIT_ANNOUNCEMENT
+  EDIT_ANNOUNCEMENT,
+  ADD_INFO
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -23,15 +23,9 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_IMAGE:
       return { ...state, uri: action.payload };
-    case ADD_DESCRIPTION:
-      console.log('got to description reducer');
-      console.log(action.payload);
-      console.log({ ...state, info: action.payload });
+    case ADD_INFO:
       return { ...state, info: action.payload };
     case ADD_TITLE:
-      console.log('got to title reducer');
-      console.log(action.payload);
-      console.log({ ...state, title: action.payload });
       return { ...state, title: action.payload };
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };

@@ -8,7 +8,7 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool }
+import { infoAction, titleAction, pushAnnouncement, pushToFBStorage, pushingBool }
   from '../../actions';
 
 const { height, width } = Dimensions.get('window');
@@ -28,18 +28,12 @@ class AddContent extends Component {
   }
 
   onTitleChange(text) {
-    console.log('Got to onTitleChange');
-    this.props.addTitle(text);
+    this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    console.log('Got to onInfoChange');
-    this.props.addDescription(text);
+    this.props.infoAction(text);
   }
-
-  // setShowModalVisible(bool) {
-  //   this.setState({ showModal: bool });
-  // }
 
   selectedImageDisplay() {
     if (this.props.uri !== '') {
@@ -88,9 +82,8 @@ class AddContent extends Component {
               placeholder="Title"
               viewStyle={{ height: 60 }}
               multiline
-              //onChangeText={(text) => this.onTitleChange(text)}
-              onChangeText={this.onTitleChange.bind(this)}
-              //value={this.props.title}
+              onChangeText={() => this.onTitleChange.bind(this)}
+              value={this.props.title}
             />
           </CardSection>
           <CardSection>
@@ -99,8 +92,8 @@ class AddContent extends Component {
               placeholder="Info Goes Here"
               viewStyle={{ height: 150 }}
               multiline
-              onChangeText={this.onInfoChange.bind(this)}
-              //value={this.props.info}
+              onChangeText={() => this.onInfoChange.bind(this)}
+              value={this.props.info}
             />
           </CardSection>
           {this.selectedImageDisplay()}
@@ -126,7 +119,7 @@ class AddContent extends Component {
           <Modal
             visible={this.props.pushing}
             transparent
-            onRequestClose={() => console.log('yea lol')}
+            onRequestClose={() => console.log('close pushing modal')}
           >
             <SafeAreaView style={styles.pushingViewStyle}>
               <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -174,8 +167,14 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { title, info, uri, isDefault, pushing } = state.announce;
+  console.log(state.announce);
   return { title, info, uri, isDefault, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps,
-  { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool })(AddContent));
+export default withNavigation(connect(mapStateToProps, {
+  infoAction,
+  titleAction,
+  pushAnnouncement,
+  pushToFBStorage,
+  pushingBool
+})(AddContent));

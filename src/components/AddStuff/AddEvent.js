@@ -2,6 +2,7 @@
 * Date: 11/01/2018
 * Author: Jamie Maddock
 */
+
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -87,6 +88,7 @@ class AddEvent extends Component {
           placeholder="Event Name"
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
+          value={this.props.title}
         />
        </CardSection>
        <CardSection style={styles.inputSection}>
@@ -104,13 +106,15 @@ class AddEvent extends Component {
           placeholder="e.g. B130, Auditorium"
           label='Location:'
           onChangeText={this.onLocationChange.bind(this)}
+          value={this.props.location}
         />
        </CardSection>
-       <CardSection style={styles.inputSection} >
+       <CardSection style={styles.inputSection}>
         <Input
           placeholder="Describe this event"
           label='Desciption:'
           onChangeText={this.onDescriptionChange.bind(this)}
+          value={this.props.description}
         />
        </CardSection>
        {this.renderButton()}
@@ -168,8 +172,14 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { date, title, location, description, pushing } = state.event;
+  console.log(state.event);
   return { date, title, location, description, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps,
-  { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent })(AddEvent));
+export default withNavigation(connect(mapStateToProps, {
+  addEventDate,
+  addEventTitle,
+  addEventLocation,
+  addEventDescription,
+  pushEvent
+})(AddEvent));
