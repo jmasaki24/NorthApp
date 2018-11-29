@@ -28,6 +28,7 @@ class AddContent extends Component {
   }
 
   onTitleChange(text) {
+    console.log(this.props.title);
     this.props.titleAction(text);
   }
 
@@ -82,7 +83,10 @@ class AddContent extends Component {
               placeholder="Title"
               viewStyle={{ height: 60 }}
               multiline
-              onChangeText={() => this.onTitleChange.bind(this)}
+              onChangeText={(text) => {
+                console.log('string');
+                this.onTitleChange(text);
+              }}
               value={this.props.title}
             />
           </CardSection>
@@ -92,7 +96,7 @@ class AddContent extends Component {
               placeholder="Info Goes Here"
               viewStyle={{ height: 150 }}
               multiline
-              onChangeText={() => this.onInfoChange.bind(this)}
+              onChangeText={(text) => this.onInfoChange(text)}
               value={this.props.info}
             />
           </CardSection>

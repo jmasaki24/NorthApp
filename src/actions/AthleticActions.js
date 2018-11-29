@@ -54,9 +54,10 @@ export const getSportInfo = (url) => {
       .then((response) => {
         if (response.status === 200) {
           const $ = cheerio.load(response.data);
+          console.log($);
 
-          const scores = $('.datarow');
-          console.log(scores);
+          // const scores = $('.datarow');
+          // console.log(scores);
         }
         dispatch({
           type: GET_SPORT_INFO,
