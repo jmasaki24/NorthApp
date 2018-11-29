@@ -9,15 +9,21 @@ import { Card, CardSection } from '../common';
 
 class SportsPage extends Component {
   componentWillMount() {
-    console.log(this.props);
     //webscrape here with props as params
   }
 
   render() {
+    console.log(this.props.navigation.state.params);
+    const characteristics = this.props.navigation.state.params;
+    const sport = `${characteristics.item.title} ${characteristics.sportName}`;
     return (
       <Card>
         <CardSection>
-          <Text>Go Team!</Text>
+          <Text
+            style={{ fontSize: 20, color: 'black', textAlign: 'center' }}
+          >
+            {sport}
+          </Text>
         </CardSection>
       </Card>
     );
