@@ -5,15 +5,12 @@
 
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import { Card, CardSection } from '../common';
+import { connect } from 'react-redux';
+import { Card, CardSection, Button } from '../common';
+import { getSportScores } from '../../actions';
 
 class SportsPage extends Component {
-  componentWillMount() {
-    //webscrape here with props as params
-  }
-
   render() {
-    console.log(this.props.navigation.state.params);
     const characteristics = this.props.navigation.state.params;
     const sport = `${characteristics.item.title} ${characteristics.sportName}`;
     return (
@@ -25,9 +22,21 @@ class SportsPage extends Component {
             {sport}
           </Text>
         </CardSection>
+        <CardSection>
+          <Button
+            onPress={() => this.props.getSportScores(this.props.navigation.state.params.item.link)}
+          >
+            Scores
+          </Button>
+        </CardSection>
       </Card>
     );
   }
 }
 
-export default SportsPage;
+const mapStateToProps = (state) => {
+  const { sportInfo } = state.athleticsInfo;
+  return { sportInfo };
+};
+
+export default connect(mapStateToProps, { getSportScores })(SportsPage);

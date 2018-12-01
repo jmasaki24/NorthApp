@@ -2,7 +2,7 @@ import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import {
   GET_UPCOMING_GAMES,
-  GET_SPORT_INFO
+  GET_SPORT_SCORES
 } from './types';
 import {
   UPCOMING_GAMES_URL
@@ -46,23 +46,60 @@ export const getUpcomingGames = () => {
   };
 };
 
-export const getSportInfo = (url) => {
-  //figure our which url to scrape from
-
+export const getSportScores = (url) => {
+  const finalArray = [];
   return (dispatch) => {
     axios.get(url)
       .then((response) => {
         if (response.status === 200) {
+          //console.log(response.data);
           const $ = cheerio.load(response.data);
-          console.log($);
 
-          // const scores = $('.datarow');
-          // console.log(scores);
+          const scores = $('.datarow');
+          console.log(scores);
+
+          const scoreArray = [];
+
+          const len = scores.length;
+          for (let i = 0; i < len; i++) {
+            const thing = scores[i].children;
+            console.log(thing);
+            const thingLen = thing.length;
+
+            for (let j = 0; j < thingLen; j++) {
+              // console.log(thing[j]);
+              // console.log(`${i},${j}`);
+              // console.log(thing[j].data);
+              // console.log(thing[j].data === ' /col6&7 ');
+
+              if (thing[j].data === ' /col6&7 ') {
+                const score = thing[j].prev.children[0].data;
+                scoreArray.push(score);
+              }
+            }
+          }
+          console.log(scoreArray);
+
+          for (let i = 0; i < scoreArray.length; i++) {
+            scoreArray[i] = scoreArray[i].trim();
+            if (scoreArray[i] !== '') {
+              finalArray.push(scoreArray[i]);
+            }
+          }
+          console.log(scoreArray);
+          console.log(finalArray);
         }
         dispatch({
-          type: GET_SPORT_INFO,
-          payload: null //TEMPORARY NULL
+          type: GET_SPORT_SCORES,
+          payload: finalArray
         });
+      })
+      .catch(() => {
+        console.log('failed to scrape');
+        return {
+          type: GET_SPORT_SCORES,
+          payload: []
+        };
       });
   };
 };

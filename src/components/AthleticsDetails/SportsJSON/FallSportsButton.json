@@ -44,26 +44,26 @@
     "title": "Soccer",
     "value": "Soccer",
     "childSport": [
-      {"title": "Girls Varsity", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696004/seasonid/4327544"},
-      {"title": "Girls JV", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696011/seasonid/4336989"},
-      {"title": "Boys Varsity", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695990/seasonid/4327541"},
-      {"title": "Boys JV", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695997/seasonid/4327542"}
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696004/seasonid/4327544"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696011/seasonid/4336989"},
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695990/seasonid/4327541"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695997/seasonid/4327542"}
     ]
   },
   {
     "title": "Unified Soccer",
     "value": "UnifiedSoccer",
     "childSport": [
-      {"title": "CoEd Varsity", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3700459/seasonid/4336983"}
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3700459/seasonid/4336983"}
     ]
   },
   {
     "title": "Volleyball",
     "value": "Volleyball",
     "childSport": [
-      {"title": "Girls Varsity", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696009/seasonid/4327545"},
-      {"title": "Girls JV", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696015/seasonid/4327547"},
-      {"title": "Girls Freshman", "Link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696016/seasonid/4336986"}
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696009/seasonid/4327545"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696015/seasonid/4327547"},
+      {"title": "Girls Freshman", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696016/seasonid/4336986"}
     ]
   }
 ];
