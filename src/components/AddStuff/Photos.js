@@ -20,13 +20,13 @@ class Photos extends Component {
   }
 
   onImagePress(image) {
-    console.log(image);
+    //console.log(image);
     let URI = Object.values(image[0])[5];
     if (Platform.OS === 'android') {
       URI = image[0].uri;
       console.log(`URI 4 android: ${URI}`);
     }
-    console.log(URI);
+    //console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);
     this.props.navigation.navigate('AddContent');

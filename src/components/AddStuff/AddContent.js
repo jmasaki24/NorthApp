@@ -2,13 +2,13 @@
 * Date: 10/29/2018
 * Author: Matt Peters
 */
+
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool }
-  from '../../actions';
+import { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool } from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
@@ -26,17 +26,20 @@ class AddContent extends Component {
     this.setState({ showModal: false });
   }
 
+  //REDUX IS THE PROBLEM
   onTitleChange(text) {
+    console.log('Got to addTitle');
     this.props.addTitle(text);
   }
 
   onInfoChange(text) {
+    console.log('Got to addDescription');
     this.props.addDescription(text);
   }
 
-  setShowModalVisible(bool) {
-    this.setState({ showModal: bool });
-  }
+  // setShowModalVisible(bool) {
+  //   this.setState({ showModal: bool });
+  // }
 
   selectedImageDisplay() {
     if (this.props.uri !== '') {
@@ -67,7 +70,7 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.setShowModalVisible(true)}
+          onPress={this.setState({ showModal: !this.state.showModal })}
         >
           Submit Announcement
         </Button>
@@ -173,5 +176,4 @@ const mapStateToProps = (state) => {
   return { title, info, uri, isDefault, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps,
-  { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool })(AddContent));
+export default withNavigation(connect(mapStateToProps, { addDescription, addTitle, pushAnnouncement, pushToFBStorage, pushingBool })(AddContent));
