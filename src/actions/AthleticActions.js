@@ -54,40 +54,40 @@ export const getSportScores = (url) => {
         if (response.status === 200) {
           //console.log(response.data);
           const $ = cheerio.load(response.data);
-
           const scores = $('.datarow');
-          console.log(scores);
+          const otherSchools = $('.span_test');
+          // console.log(scores);
+          // console.log(otherSchools);
 
           const scoreArray = [];
 
           const len = scores.length;
-          for (let i = 0; i < len; i++) {
-            const thing = scores[i].children;
-            console.log(thing);
-            const thingLen = thing.length;
+          console.log(otherSchools.length);
+          if (len === otherSchools.length) {
+            for (let i = 0; i < len; i++) {
+              const thing = scores[i].children;
+              //console.log(thing);
+              const thingLen = thing.length;
 
-            for (let j = 0; j < thingLen; j++) {
-              // console.log(thing[j]);
-              // console.log(`${i},${j}`);
-              // console.log(thing[j].data);
-              // console.log(thing[j].data === ' /col6&7 ');
-
-              if (thing[j].data === ' /col6&7 ') {
-                const score = thing[j].prev.children[0].data;
-                scoreArray.push(score);
+              for (let j = 0; j < thingLen; j++) {
+                if (thing[j].data === ' /col6&7 ') {
+                  const otherTeam = otherSchools[i].children[1].children[0].data;
+                  //console.log(otherTeam);
+                  const score = thing[j].prev.children[0].data;
+                  scoreArray.push({ otherTeam, score });
+                }
               }
             }
           }
-          console.log(scoreArray);
 
           for (let i = 0; i < scoreArray.length; i++) {
-            scoreArray[i] = scoreArray[i].trim();
-            if (scoreArray[i] !== '') {
+            scoreArray[i].score = scoreArray[i].score.trim();
+            if (scoreArray[i].score !== '' && scoreArray.otherTeam !== '') {
               finalArray.push(scoreArray[i]);
             }
           }
-          console.log(scoreArray);
-          console.log(finalArray);
+          // console.log(scoreArray);
+          // console.log(finalArray);
         }
         dispatch({
           type: GET_SPORT_SCORES,
