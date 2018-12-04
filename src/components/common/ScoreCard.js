@@ -32,7 +32,8 @@ const styles = {
   titleStyle: {
     fontSize: 23,
     fontWeight: 'bold',
-    flex: 1
+    flex: 1,
+    color: 'black'
   },
   viewStyle: {
     alignItems: 'center',
@@ -40,7 +41,8 @@ const styles = {
     flexDirection: 'column'
   },
   scoreStyle: {
-    fontSize: 50
+    fontSize: 50,
+    color: 'black'
   }
 };
 

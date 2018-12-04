@@ -12,7 +12,8 @@ import StoreStack from './StorePage';
 import AdminStack from './Admin';
 import AthleticsPage from './AthleticsPage';
 import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
-import IndivSportsPage from './AthleticsDetails/IndivSportsPage.js';
+import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
+import ScorePage from './AthleticsDetails/ScorePage';
 import AddContentPage from './AddStuff/AddContent';
 import DefaultImagesPage from './AddStuff/DefaultImages';
 import PhotosPage from './AddStuff/Photos';
@@ -115,6 +116,7 @@ const MenuStack = createStackNavigator({
   Athletics: AthleticsPage,
     UpcomingGames: UpcomingGamesPage,
     IndivSportsPage,
+      ScorePage,
   Admin: AdminStack,
   AddContent: AddContentPage,
   DefaultImages: DefaultImagesPage,

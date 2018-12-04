@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Button } from '../common';
 import { getSportScores } from '../../actions';
 
@@ -24,7 +25,10 @@ class SportsPage extends Component {
         </CardSection>
         <CardSection>
           <Button
-            onPress={() => this.props.getSportScores(this.props.navigation.state.params.item.link)}
+            onPress={() => {
+              this.props.getSportScores(this.props.navigation.state.params.item.link);
+              this.props.navigation.navigate('ScorePage');
+            }}
           >
             Scores
           </Button>
@@ -39,4 +43,4 @@ const mapStateToProps = (state) => {
   return { sportInfo };
 };
 
-export default connect(mapStateToProps, { getSportScores })(SportsPage);
+export default withNavigation(connect(mapStateToProps, { getSportScores })(SportsPage));

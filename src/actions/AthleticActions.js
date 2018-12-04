@@ -1,3 +1,7 @@
+/**
+* Author: Matthew Peters
+*/
+
 import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import {
@@ -91,7 +95,7 @@ export const getSportScores = (url) => {
         }
         dispatch({
           type: GET_SPORT_SCORES,
-          payload: finalArray
+          payload: finalArray.reverse()
         });
       })
       .catch(() => {
