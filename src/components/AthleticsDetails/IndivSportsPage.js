@@ -8,7 +8,7 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Button } from '../common';
-import { getSportScores } from '../../actions';
+import { getSportScores, load } from '../../actions';
 
 class SportsPage extends Component {
   render() {
@@ -25,12 +25,24 @@ class SportsPage extends Component {
         </CardSection>
         <CardSection>
           <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
             onPress={() => {
+              this.props.load(true);
               this.props.getSportScores(this.props.navigation.state.params.item.link);
-              this.props.navigation.navigate('ScorePage');
+              this.props.navigation.navigate('ScorePage', { sport });
             }}
           >
             Scores
+          </Button>
+        </CardSection>
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            //onPress={() => {}}
+          >
+            Schedule
           </Button>
         </CardSection>
       </Card>
@@ -38,9 +50,11 @@ class SportsPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { sportInfo } = state.athleticsInfo;
-  return { sportInfo };
+const styles = {
+  buttonStyle: {
+    borderColor: 'white',
+    justifyContent: 'center'
+  }
 };
 
-export default withNavigation(connect(mapStateToProps, { getSportScores })(SportsPage));
+export default withNavigation(connect(null, { getSportScores, load })(SportsPage));

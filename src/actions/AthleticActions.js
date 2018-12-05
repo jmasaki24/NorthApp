@@ -6,7 +6,9 @@ import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import {
   GET_UPCOMING_GAMES,
-  GET_SPORT_SCORES
+  GET_SPORT_SCORES,
+  LOADING,
+  REMOVE_SCORES
 } from './types';
 import {
   UPCOMING_GAMES_URL
@@ -105,5 +107,19 @@ export const getSportScores = (url) => {
           payload: []
         };
       });
+  };
+};
+
+export const load = (bool) => {
+  return {
+    type: LOADING,
+    payload: bool
+  };
+};
+
+export const removeScores = () => {
+  return {
+    type: REMOVE_SCORES,
+    payload: []
   };
 };

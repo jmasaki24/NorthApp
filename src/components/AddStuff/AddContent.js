@@ -27,8 +27,8 @@ class AddContent extends Component {
     this.setState({ showModal: false });
   }
 
+  //REDUX IS THE PROBLEM
   onTitleChange(text) {
-    console.log(this.props.title);
     this.props.titleAction(text);
   }
 
