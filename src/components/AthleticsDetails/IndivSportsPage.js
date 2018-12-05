@@ -8,7 +8,7 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Button } from '../common';
-import { getSportScores, load } from '../../actions';
+import { getSportScores, getSportSchedules, load } from '../../actions';
 
 class SportsPage extends Component {
   render() {
@@ -40,7 +40,11 @@ class SportsPage extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            //onPress={() => {}}
+            onPress={() => {
+              //this.props.load(true);
+              this.props.getSportSchedules(this.props.navigation.state.params.item.link);
+              this.props.navigation.navigate('SchedulePage', { sport });
+            }}
           >
             Schedule
           </Button>
@@ -57,4 +61,4 @@ const styles = {
   }
 };
 
-export default withNavigation(connect(null, { getSportScores, load })(SportsPage));
+export default withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));

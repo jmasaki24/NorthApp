@@ -8,7 +8,9 @@ import {
   GET_UPCOMING_GAMES,
   GET_SPORT_SCORES,
   LOADING,
-  REMOVE_SCORES
+  REMOVE_SCORES,
+  GET_SPORT_SCHEDULE,
+  REMOVE_SCHEDULE
 } from './types';
 import {
   UPCOMING_GAMES_URL
@@ -77,7 +79,8 @@ export const getSportScores = (url) => {
 
               for (let j = 0; j < thingLen; j++) {
                 if (thing[j].data === ' /col6&7 ') {
-                  const otherTeam = otherSchools[i].children[1].children[0].data;
+                  let otherTeam = otherSchools[i].children[1].children[0].data;
+                  otherTeam = otherTeam.replace('HS', '');
                   //console.log(otherTeam);
                   const score = thing[j].prev.children[0].data;
                   scoreArray.push({ otherTeam, score });
@@ -110,6 +113,61 @@ export const getSportScores = (url) => {
   };
 };
 
+export const getSportSchedules = (url) => {
+  const finalArray = [];
+  return (dispatch) => {
+    axios.get(url)
+      .then((response) => {
+        if (response.status === 200) {
+          const $ = cheerio.load(response.data);
+          const data = $('.datarow');
+          console.log(data);
+
+          const test = null;
+          console.log(`Test: ${test}`);
+          // col 1 has (H) or (A)
+          // col 2 has date and time
+          // there is nol col 3 for some reason
+          // col 4 has opponent
+          // col 5 has the place
+          const info = [];
+          const len = data.length;
+          for (let i = 0; i < len; i++) {
+            const dataChild = data[i].children;
+            let HorA = '';
+            let DateTime = '';
+            let opponent = '';
+            let place = '';
+            for (let j = 0; j < dataChild.length; j++) {
+              if (dataChild[j].data === ' /col1 ') {
+                HorA = dataChild[j - 1].children[2].data.trim();
+              } else if (dataChild[j].data === ' /col2 ') {
+                DateTime = dataChild[j - 1].children[1].children[0].data.trim();
+              } else if (dataChild[j].data === ' /col4 ') {
+                opponent = dataChild[j - 1].children[2].children[1].children[0].data;
+              } else if (dataChild[j].data === ' /col5 ') {
+                place = dataChild[j - 1].children[2].children[1].children[0];
+              }
+            }
+            info.push({ HorA, DateTime, opponent, place });
+          }
+          console.log(info);
+        }
+        dispatch({
+          type: GET_SPORT_SCHEDULE,
+          payload: finalArray
+        });
+      })
+      .catch(() => {
+        console.log('failed');
+        return {
+          type: GET_SPORT_SCHEDULE,
+          payload: []
+        };
+      });
+  };
+};
+
 export const load = (bool) => {
   return {
     type: LOADING,
@@ -120,6 +178,13 @@ export const load = (bool) => {
 export const removeScores = () => {
   return {
     type: REMOVE_SCORES,
+    payload: []
+  };
+};
+
+export const removeScheules = () => {
+  return {
+    type: REMOVE_SCHEDULE,
     payload: []
   };
 };

@@ -6,13 +6,14 @@
 import React, { Component } from 'react';
 import { FlatList, SafeAreaView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { getSportScores, removeScores } from '../../actions';
+import { removeScores } from '../../actions';
 import { Card, CardSection, ScoreCard, Spinner } from '../common';
 
 class ScorePage extends Component {
   componentWillUnmount() {
     this.props.removeScores();
   }
+
   record() {
     let wins = 0;
     let loses = 0;
@@ -100,4 +101,4 @@ const mapStateToProps = (state) => {
   return { sportInfo, loading };
 };
 
-export default connect(mapStateToProps, { getSportScores, removeScores })(ScorePage);
+export default connect(mapStateToProps, { removeScores })(ScorePage);
