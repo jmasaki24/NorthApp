@@ -53,13 +53,15 @@ class ScorePage extends Component {
   }
 
   renderStuff() {
-    return (
-      <FlatList
-        style={{ flex: 1 }}
-        data={this.props.sportInfo.scores}
-        renderItem={item => this.renderItem(item)}
-      />
-    );
+    if (this.props.sportInfo.scores !== null) {
+      return (
+        <FlatList
+          style={{ flex: 1 }}
+          data={this.props.sportInfo.scores}
+          renderItem={item => this.renderItem(item)}
+        />
+      );
+    }
   }
 
   render() {
