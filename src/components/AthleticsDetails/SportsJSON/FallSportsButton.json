@@ -2,41 +2,68 @@
   {
     "title": "Cross Country",
     "value": "CrossCountry",
-    "childSport": ["CoEd Varsity", "CoEd JV"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3703411/seasonid/4336980"},
+      {"title": "CoEd JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3758571/seasonid/4336994"}
+    ]
   },
   {
     "title": "Fall Spirit",
     "value": "FallSpirit",
-    "childSport": ["CoEd Varsity", "CoEd JV"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696017/seasonid/4356684"},
+      {"title": "CoEd JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3700331/seasonid/4380515"}
+    ]
   },
   {
     "title": "Field Hockey",
     "value":" FieldHockey",
-    "childSport": ["Girls Varsity", "Girls JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696007/seasonid/4327546"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696013/seasonid/4327543"}
+    ]
   },
   {
     "title": "Football",
     "value": "Football",
-    "childSport": ["Boys Varsity", "Boys JV", "Boys Freshman"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695987/seasonid/4331223"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695996/seasonid/4337003"},
+      {"title": "Boys Freshman", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696000/seasonid/4336991"}
+    ]
   },
   {
     "title": "Golf",
     "value": "Golf",
-    "childSport": ["Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695988/seasonid/4383376"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3699825/seasonid/4396077"}
+    ]
   },
   {
     "title": "Soccer",
     "value": "Soccer",
-    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696004/seasonid/4327544"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696011/seasonid/4336989"},
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695990/seasonid/4327541"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695997/seasonid/4327542"}
+    ]
   },
   {
     "title": "Unified Soccer",
     "value": "UnifiedSoccer",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3700459/seasonid/4336983"}
+    ]
   },
   {
     "title": "Volleyball",
     "value": "Volleyball",
-    "childSport": ["Girls Varsity", "Girls JV", "Girls Freshman"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696009/seasonid/4327545"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696015/seasonid/4327547"},
+      {"title": "Girls Freshman", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696016/seasonid/4336986"}
+    ]
   }
 ];

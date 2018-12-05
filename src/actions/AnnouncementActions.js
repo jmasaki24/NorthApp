@@ -3,7 +3,6 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from 'react-native';
 import {
   ADD_IMAGE,
-  ADD_DESCRIPTION,
   ADD_TITLE,
   PUSH_ANNOUNCEMENT,
   DEFAULT_IMAGE_BOOL,
@@ -11,7 +10,8 @@ import {
   GET_SUCCESS,
   PUSHING_BOOLEAN,
   GET_USERS_ANNOUNCEMENTS,
-  EDIT_ANNOUNCEMENT
+  EDIT_ANNOUNCEMENT,
+  ADD_INFO
 } from './types';
 
 export const isDefaultImage = (bool) => {
@@ -21,24 +21,24 @@ export const isDefaultImage = (bool) => {
   };
 };
 
+export const titleAction = (text) => {
+  return {
+    type: ADD_TITLE,
+    payload: text
+  };
+};
+
+export const infoAction = (text) => {
+  return {
+    type: ADD_INFO,
+    payload: text
+  };
+};
+
 export const addImage = (uri) => {
   return {
     type: ADD_IMAGE,
     payload: uri
-  };
-};
-
-export const addDescription = (text) => {
-  return {
-    type: ADD_DESCRIPTION,
-    payload: text
-  };
-};
-
-export const addTitle = (text) => {
-  return {
-    type: ADD_TITLE,
-    payload: text
   };
 };
 

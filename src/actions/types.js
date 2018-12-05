@@ -1,5 +1,5 @@
 export const ADD_IMAGE = 'add_image';
-export const ADD_DESCRIPTION = 'add_description';
+export const ADD_INFO = 'add_info';
 export const ADD_TITLE = 'add_title';
 export const PUSH_ANNOUNCEMENT = 'push_announcement';
 export const DEFAULT_IMAGE_BOOL = 'deafult_image_bool';
@@ -20,3 +20,5 @@ export const PUSH_EVENT = 'push_event';
 export const GET_CALENDAR = 'get_calendar';
 
 export const GET_UPCOMING_GAMES = 'get_upcoming_games';
+export const GET_SPORT_SCORES = 'get_sport_scores';
+export const GET_SPORT_SCHEDULE = 'get_sport_schedule';

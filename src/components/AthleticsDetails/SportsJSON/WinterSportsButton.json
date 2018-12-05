@@ -2,46 +2,71 @@
   {
     "title": "Alpine Skiing",
     "value": "AlpineSkiing",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722036/seasonid/4340232"}
+    ]
   },
   {
     "title": "Basketball",
     "value": "Basketball",
-    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV", "Boys Freshman"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696002/seasonid/4384248"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696010/seasonid/4394246"},
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695985/seasonid/4353955"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695995/seasonid/4389810"},
+      {"title": "Boys Freshman", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695999/seasonid/4398082"}
+    ]
   },
   {
     "title": "Gymnastics",
     "value": "Gynmastics",
-    "childSport": ["Girls Varsity"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722033/seasonid/4402917"}
+    ]
   },
   {
     "title": "Ice Hockey",
     "value": "IceHockey",
-    "childSport": ["Boys Varsity"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695989/seasonid/4360580"}
+    ]
   },
   {
     "title": "Indoor Track",
     "value": "IndoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3723741/seasonid/4386612"}
+    ]
   },
   {
     "title": "Swimming Diving",
     "value": "SwimmingDiving",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722998/seasonid/4406585"}
+    ]
   },
   {
     "title": "Unified Basketball",
     "value": "UnifiedBasketball",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3699310/seasonid/4386589"}
+    ]
   },
   {
     "title": "Winter Spirit",
     "value": "WinterSpirit",
-    "childSport": ["Girls Varsity", "CoEd Varsity", "CoEd JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3773011/seasonid/4423061"},
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696018/seasonid/4354325"},
+      {"title": "CoEd JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722078/seasonid/4402922"}
+    ]
   },
   {
     "title": "Wrestling",
     "value": "Wrestling",
-    "childSport": ["Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695992/seasonid/4403391"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722030/seasonid/4402915"}
+    ]
   }
 ];

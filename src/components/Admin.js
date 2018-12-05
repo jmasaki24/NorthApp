@@ -38,7 +38,7 @@ class Admin extends Component {
       return (
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
           <ScrollView>
-            <Text style={styles.description} >
+            <Text style={styles.description}>
               Hi there. This is the admin page.
               From here you can add an announcement to the homepage, or add an event to the calendar.
               If you need help, feel free to send an email to northcodingteam@gmail.com

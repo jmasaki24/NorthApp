@@ -2,31 +2,50 @@
   {
     "title": "Baseball",
     "value": "Baseball",
-    "childSport": ["Boys Varsity", "Boys JV", "Boys Freshman"]
+    "childSport": [
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3675296/seasonid/4386554"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695994/seasonid/4402914"},
+      {"title": "Boys Freshman", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3722031/seasonid/4271132"}
+    ]
   },
   {
     "title": "Lacrosse",
     "value": "Lacrosse",
-    "childSport": ["Girls Varsity", "Girls JV", "Boys Varsity", "Boys JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696008/seasonid/4386575"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696014/seasonid/4389678"},
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695993/seasonid/4386572"},
+      {"title": "Boys JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695998/seasonid/4389677"}
+    ]
   },
   {
     "title": "Outdoor Track",
     "value": "OutdoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3729910/seasonid/4379745"}
+    ]
   },
   {
     "title": "Softball",
     "value": "Softball",
-    "childSport": ["Girls Varsity", "Girls JV"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696005/seasonid/4386573"},
+      {"title": "Girls JV", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696012/seasonid/4402920"}
+    ]
   },
   {
     "title": "Tennis",
     "value": "Tennis",
-    "childSport": ["Girls Varsity", "Boys Varsity"]
+    "childSport": [
+      {"title": "Girls Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3696006/seasonid/4386574"},
+      {"title": "Boys Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3695991/seasonid/4386571"}
+    ]
   },
   {
     "title": "Unified Outdoor Track",
     "value": "UnifiedOutdoorTrack",
-    "childSport": ["CoEd Varsity"]
+    "childSport": [
+      {"title": "CoEd Varsity", "link": "https://www.nashuanorthathletics.com/main/teamschedule/id/3730826/seasonid/4402921"}
+    ]
   }
 ];
