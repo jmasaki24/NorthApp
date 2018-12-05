@@ -6,8 +6,9 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
+import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Button } from '../common';
-import { getSportScores } from '../../actions';
+import { getSportScores, load } from '../../actions';
 
 class SportsPage extends Component {
   render() {
@@ -24,7 +25,13 @@ class SportsPage extends Component {
         </CardSection>
         <CardSection>
           <Button
-            onPress={() => this.props.getSportScores(this.props.navigation.state.params.item.link)}
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => {
+              this.props.load(true);
+              this.props.getSportScores(this.props.navigation.state.params.item.link);
+              this.props.navigation.navigate('ScorePage', { sport });
+            }}
           >
             Scores
           </Button>
@@ -34,9 +41,11 @@ class SportsPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { sportInfo } = state.athleticsInfo;
-  return { sportInfo };
+const styles = {
+  buttonStyle: {
+    borderColor: 'white',
+    justifyContent: 'center'
+  }
 };
 
-export default connect(mapStateToProps, { getSportScores })(SportsPage);
+export default withNavigation(connect(null, { getSportScores, load })(SportsPage));

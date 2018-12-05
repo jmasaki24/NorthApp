@@ -6,12 +6,13 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection } from '../common';
-import { getUpcomingGames } from '../../actions';
+import { CardSection, Spinner } from '../common';
+import { getUpcomingGames, load } from '../../actions';
 
 class UpcomingGamesPage extends Component {
   componentWillMount() {
     this.props.getUpcomingGames();
+    this.props.load(true);
     console.log(this.props.upcomingGames);
   }
 
@@ -49,6 +50,9 @@ class UpcomingGamesPage extends Component {
 
   render() {
     console.log(this.props.upcomingGames);
+    if (this.props.loading) {
+      return <Spinner />;
+    }
     return (
       <View style={{ flex: 1 }}>
         <CardSection>
@@ -103,8 +107,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { upcomingGames } = state.athleticsInfo;
-  return { upcomingGames };
+  const { upcomingGames, loading } = state.athleticsInfo;
+  return { upcomingGames, loading };
 };
 
-export default connect(mapStateToProps, { getUpcomingGames })(UpcomingGamesPage);
+export default connect(mapStateToProps, { getUpcomingGames, load })(UpcomingGamesPage);

@@ -21,4 +21,5 @@ export const GET_CALENDAR = 'get_calendar';
 
 export const GET_UPCOMING_GAMES = 'get_upcoming_games';
 export const GET_SPORT_SCORES = 'get_sport_scores';
+export const LOADING = 'loading';
 export const GET_SPORT_SCHEDULE = 'get_sport_schedule';
