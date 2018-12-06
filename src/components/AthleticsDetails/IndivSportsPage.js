@@ -41,7 +41,7 @@ class SportsPage extends Component {
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
             onPress={() => {
-              //this.props.load(true);
+              this.props.load(true);
               this.props.getSportSchedules(this.props.navigation.state.params.item.link);
               this.props.navigation.navigate('SchedulePage', { sport });
             }}

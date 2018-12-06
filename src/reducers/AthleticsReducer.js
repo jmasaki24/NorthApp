@@ -24,7 +24,7 @@ export default (state = INITIAL_STATE, action) => {
     case REMOVE_SCORES:
       return { ...state, sportInfo: { scores: action.payload } };
     case GET_SPORT_SCHEDULE:
-     return { ...state, sportInfo: { schedule: action.payload } };
+     return { ...state, sportInfo: { schedule: action.payload }, loading: false };
     case REMOVE_SCHEDULE:
       return { ...state, sportInfo: { schedule: action.payload } };
     default:
