@@ -121,7 +121,7 @@ export const getSportSchedules = (url) => {
         if (response.status === 200) {
           const $ = cheerio.load(response.data);
           const data = $('.datarow');
-          //console.log(data);
+          console.log(data);
           // col 1 has (H) or (A)
           // col 2 has date and time
           // there is nol col 3 for some reason
@@ -134,6 +134,7 @@ export const getSportSchedules = (url) => {
             let dateTime = '';
             let opponent = '';
             let place = '';
+
             for (let j = 0; j < dataChild.length; j++) {
               if (dataChild[j].data === ' /col1 ') {
                 homeAway = dataChild[j - 1].children[2].data.trim();
@@ -148,9 +149,13 @@ export const getSportSchedules = (url) => {
                 }
               }
             }
-            finalArray.push({ homeAway, dateTime, opponent, place });
+            const game = dataChild[1].children[1].attribs.title;
+            if (game === 'Home' || game === 'Away') {
+              finalArray.push({ homeAway, dateTime, opponent, place });
+            }
           }
         }
+        console.log(finalArray);
         dispatch({
           type: GET_SPORT_SCHEDULE,
           payload: finalArray

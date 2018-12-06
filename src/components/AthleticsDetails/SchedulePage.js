@@ -4,19 +4,19 @@
 */
 
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView, View, Text } from 'react-native';
+import { FlatList, SafeAreaView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { removeSchedules } from '../../actions';
-import { Button, Card, CardSection, Spinner } from '../common';
+import { Card, CardSection, Spinner } from '../common';
+import ScheduleDropDown from './ScheduleDropDown';
 
 class SchedulePage extends Component {
-  // componentWillUnmount() {
-  //   this.props.removeScheules();
-  // }
+  componentWillUnmount() {
+    this.props.removeScheules();
+  }
 
   renderItem({ item }) {
     console.log(item);
-    const { buttonStyle, buttonTextStyle } = styles;
 
     let date = 'N/A';
     let time = 'TBA';
@@ -35,23 +35,14 @@ class SchedulePage extends Component {
       place = item.place;
     }
 
-    //maybe move the native components into a separate const (within this file possibly)
-    //so that it can have its own state property to allow for expansion, rendering of data,
-    //and what not
-    // ^ for 12/6/18 ^
+    const buttonText = `${item.homeAway} vs ${opponent}`;
     return (
-      <View>
-        <CardSection>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={buttonTextStyle}
-            //onPress={}
-            //icon={}
-          >
-            {date}
-          </Button>
-        </CardSection>
-      </View>
+      <ScheduleDropDown
+        buttonText={buttonText}
+        date={date}
+        time={time}
+        place={place}
+      />
     );
   }
 
@@ -91,17 +82,6 @@ class SchedulePage extends Component {
     );
   }
 }
-
-const styles = {
-  buttonStyle: {
-    borderColor: 'white'
-  },
-  buttonTextStyle: {
-    fontSize: 16,
-    color: 'black'
-  }
-  //add title styles for the sport name at the to of the screen
-};
 
 const mapStateToProps = (state) => {
   const { sportInfo, loading } = state.athleticsInfo;
