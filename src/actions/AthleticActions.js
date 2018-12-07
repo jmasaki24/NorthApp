@@ -185,7 +185,7 @@ export const removeScores = () => {
   };
 };
 
-export const removeScheules = () => {
+export const removeSchedules = () => {
   return {
     type: REMOVE_SCHEDULE,
     payload: []

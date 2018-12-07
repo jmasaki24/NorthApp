@@ -12,7 +12,7 @@ import ScheduleDropDown from './ScheduleDropDown';
 
 class SchedulePage extends Component {
   componentWillUnmount() {
-    this.props.removeScheules();
+    this.props.removeSchedules();
   }
 
   renderItem({ item }) {
@@ -35,6 +35,11 @@ class SchedulePage extends Component {
       place = item.place;
     }
 
+    console.log(opponent.includes('TBA'));
+    if (opponent.includes('TBA')) {
+      opponent = opponent.replace('vs ', '');
+    }
+
     const buttonText = `${item.homeAway} vs ${opponent}`;
     return (
       <ScheduleDropDown
@@ -53,7 +58,7 @@ class SchedulePage extends Component {
       return (
         <Card style={{ flex: 1 }}>
           <FlatList
-            style={{ flex: 1 }}
+            style={{ flex: 1, paddingbottom: 20 }}
             data={schedule}
             renderItem={item => this.renderItem(item)}
           />
@@ -71,8 +76,10 @@ class SchedulePage extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Card>
-          <CardSection>
-            <Text>
+          <CardSection style={{ justifyContent: 'center' }}>
+            <Text
+              style={{ color: 'black', fontWeight: 'bold', fontSize: 28, textAlign: 'center' }}
+            >
               {this.props.navigation.state.params.sport}
             </Text>
           </CardSection>
