@@ -49,7 +49,7 @@ class SchedulePage extends Component {
   renderStuff() {
     const schedule = this.props.sportInfo.schedule;
     console.log(schedule);
-    if (schedule !== null && (schedule.toString() !== '')) {
+    if (schedule !== null && (schedule.toString() !== undefined)) {
       return (
         <Card style={{ flex: 1 }}>
           <FlatList
