@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { CardSection, Button } from '../common';
 
 class ScheduleDropDown extends Component {
   state = { expanded: false };
 
   renderContent(date, time, place) {
-    return null;
+    const dayString = `Day: ${date}`;
+    const timeString = `Time: ${time}`;
+    const placeString = `Place: ${place}`;
+    if (this.state.expanded) {
+      return (
+        <View>
+          <CardSection>
+            <Text>{dayString}</Text>
+          </CardSection>
+          <CardSection>
+            <Text>{timeString}</Text>
+          </CardSection>
+          <CardSection>
+            <Text>{placeString}</Text>
+          </CardSection>
+        </View>
+      );
+    }
   }
 
   render() {
