@@ -16,8 +16,6 @@ class SchedulePage extends Component {
   }
 
   renderItem({ item }) {
-    console.log(item);
-
     let date = 'N/A';
     let time = 'TBA';
     let opponent = 'N/A';
@@ -35,7 +33,6 @@ class SchedulePage extends Component {
       place = item.place;
     }
 
-    console.log(opponent.includes('TBA'));
     if (opponent.includes('TBA')) {
       opponent = opponent.replace('vs ', '');
     }
@@ -52,14 +49,13 @@ class SchedulePage extends Component {
   }
 
   renderStuff() {
-    const schedule = this.props.sportInfo.schedule;
-    console.log(schedule);
-    if (schedule !== null && (schedule.toString() !== undefined)) {
+    const scheduleArray = this.props.schedule;
+    if (scheduleArray.length !== 0) {
       return (
         <Card style={{ flex: 1 }}>
           <FlatList
             style={{ flex: 1, paddingbottom: 20 }}
-            data={schedule}
+            data={scheduleArray}
             renderItem={item => this.renderItem(item)}
           />
         </Card>
@@ -91,8 +87,8 @@ class SchedulePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { sportInfo, loading } = state.athleticsInfo;
-  return { sportInfo, loading };
+  const { schedule, loading } = state.athleticsInfo;
+  return { schedule, loading };
 };
 
 export default connect(mapStateToProps, { removeSchedules })(SchedulePage);
