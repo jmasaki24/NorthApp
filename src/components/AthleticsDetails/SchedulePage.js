@@ -35,7 +35,6 @@ class SchedulePage extends Component {
       place = item.place;
     }
 
-    console.log(opponent.includes('TBA'));
     if (opponent.includes('TBA')) {
       opponent = opponent.replace('vs ', '');
     }
@@ -53,17 +52,18 @@ class SchedulePage extends Component {
 
   renderStuff() {
     const schedule = this.props.sportInfo.schedule;
+    console.log(this.props.loading);
     console.log(schedule);
-    if (schedule !== null && (schedule.toString() !== undefined)) {
-      return (
-        <Card style={{ flex: 1 }}>
-          <FlatList
-            style={{ flex: 1, paddingbottom: 20 }}
-            data={schedule}
-            renderItem={item => this.renderItem(item)}
-          />
-        </Card>
-      );
+    if (schedule !== []) {
+        return (
+          <Card style={{ flex: 1 }}>
+            <FlatList
+              style={{ flex: 1, paddingbottom: 20 }}
+              data={schedule}
+              renderItem={item => this.renderItem(item)}
+            />
+          </Card>
+        );
     } else if (this.props.loading) {
       return <Spinner />;
     }

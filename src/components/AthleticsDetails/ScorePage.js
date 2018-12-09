@@ -19,7 +19,8 @@ class ScorePage extends Component {
     let loses = 0;
     let ties = 0;
     const scores = this.props.sportInfo.scores;
-    if (scores !== null) {
+    console.log(scores);
+    if (scores !== undefined) {
       for (let i = 0; i < scores.length; i++) {
         const WLT = scores[i].score.split(' ')[3];
 

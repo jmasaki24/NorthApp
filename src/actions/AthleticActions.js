@@ -70,7 +70,6 @@ export const getSportScores = (url) => {
           const scoreArray = [];
 
           const len = scores.length;
-          console.log(otherSchools.length);
           if (len === otherSchools.length) {
             for (let i = 0; i < len; i++) {
               const thing = scores[i].children;
@@ -172,6 +171,7 @@ export const getSportSchedules = (url) => {
 };
 
 export const load = (bool) => {
+  console.log('load: ' + bool);
   return {
     type: LOADING,
     payload: bool

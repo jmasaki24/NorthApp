@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   upcomingGames: null,
-  sportInfo: { scores: null, schedule: null },
+  sportInfo: { scores: [], schedule: [] },
   loading: false
 };
 
