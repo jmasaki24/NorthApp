@@ -120,7 +120,6 @@ export const getSportSchedules = (url) => {
         if (response.status === 200) {
           const $ = cheerio.load(response.data);
           const data = $('.datarow');
-          console.log(data);
           // col 1 has (H) or (A)
           // col 2 has date and time
           // there is nol col 3 for some reason
@@ -154,7 +153,7 @@ export const getSportSchedules = (url) => {
             }
           }
         }
-        console.log(finalArray);
+        //console.log(finalArray);
         dispatch({
           type: GET_SPORT_SCHEDULE,
           payload: finalArray
@@ -171,7 +170,6 @@ export const getSportSchedules = (url) => {
 };
 
 export const load = (bool) => {
-  console.log('load: ' + bool);
   return {
     type: LOADING,
     payload: bool

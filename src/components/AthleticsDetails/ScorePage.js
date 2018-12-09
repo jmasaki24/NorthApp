@@ -18,19 +18,17 @@ class ScorePage extends Component {
     let wins = 0;
     let loses = 0;
     let ties = 0;
-    const scores = this.props.sportInfo.scores;
-    console.log(scores);
-    if (scores !== undefined) {
-      for (let i = 0; i < scores.length; i++) {
-        const WLT = scores[i].score.split(' ')[3];
+    const scoreArray = this.props.scores;
+    
+    for (let i = 0; i < scoreArray.length; i++) {
+      const WLT = scoreArray[i].score.split(' ')[3];
 
-        if (WLT === 'W') {
-          wins += 1;
-        } else if (WLT === 'L') {
-          loses += 1;
-        } else if (WLT === 'T') {
-          ties += 1;
-        }
+      if (WLT === 'W') {
+        wins += 1;
+      } else if (WLT === 'L') {
+        loses += 1;
+      } else if (WLT === 'T') {
+        ties += 1;
       }
     }
 
@@ -57,11 +55,11 @@ class ScorePage extends Component {
   }
 
   renderStuff() {
-    if (this.props.sportInfo.scores !== null && (this.props.sportInfo.scores.toString() !== '')) {
+    if (this.props.scores.length !== 0) {
       return (
         <FlatList
           style={{ flex: 1 }}
-          data={this.props.sportInfo.scores}
+          data={this.props.scores}
           renderItem={item => this.renderItem(item)}
         />
       );
@@ -98,8 +96,8 @@ class ScorePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { sportInfo, loading } = state.athleticsInfo;
-  return { sportInfo, loading };
+  const { scores, loading } = state.athleticsInfo;
+  return { scores, loading };
 };
 
 export default connect(mapStateToProps, { removeScores })(ScorePage);

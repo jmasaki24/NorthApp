@@ -16,8 +16,6 @@ class SchedulePage extends Component {
   }
 
   renderItem({ item }) {
-    console.log(item);
-
     let date = 'N/A';
     let time = 'TBA';
     let opponent = 'N/A';
@@ -51,19 +49,17 @@ class SchedulePage extends Component {
   }
 
   renderStuff() {
-    const schedule = this.props.sportInfo.schedule;
-    console.log(this.props.loading);
-    console.log(schedule);
-    if (schedule !== []) {
-        return (
-          <Card style={{ flex: 1 }}>
-            <FlatList
-              style={{ flex: 1, paddingbottom: 20 }}
-              data={schedule}
-              renderItem={item => this.renderItem(item)}
-            />
-          </Card>
-        );
+    const scheduleArray = this.props.schedule;
+    if (scheduleArray.length !== 0) {
+      return (
+        <Card style={{ flex: 1 }}>
+          <FlatList
+            style={{ flex: 1, paddingbottom: 20 }}
+            data={scheduleArray}
+            renderItem={item => this.renderItem(item)}
+          />
+        </Card>
+      );
     } else if (this.props.loading) {
       return <Spinner />;
     }
@@ -91,8 +87,8 @@ class SchedulePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { sportInfo, loading } = state.athleticsInfo;
-  return { sportInfo, loading };
+  const { schedule, loading } = state.athleticsInfo;
+  return { schedule, loading };
 };
 
 export default connect(mapStateToProps, { removeSchedules })(SchedulePage);

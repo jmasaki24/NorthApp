@@ -14,10 +14,10 @@ class ScheduleDropDown extends Component {
     if (this.state.expanded) {
       return (
         <View>
-          <CardSection>
+          <CardSection style={{ borderBottomWidth: 0 }}>
             <Text style={dataStyle}>{dayString}</Text>
           </CardSection>
-          <CardSection>
+          <CardSection style={{ borderBottomWidth: 0 }}>
             <Text style={dataStyle}>{timeString}</Text>
           </CardSection>
           <CardSection>
@@ -32,10 +32,15 @@ class ScheduleDropDown extends Component {
     const { buttonStyle, buttonTextStyle } = styles;
     const { buttonText, date, time, place } = this.props;
     let icon = 'angle-right';
-    if (this.state.expanded) { icon = 'angle-down'; }
+    let CardSectionStyle = {};
+    if (this.state.expanded) {
+      icon = 'angle-down';
+      CardSectionStyle = { borderBottomWidth: 0 };
+    }
+
     return (
       <View>
-        <CardSection>
+        <CardSection style={CardSectionStyle}>
           <Button
             buttonStyle={buttonStyle}
             textStyle={buttonTextStyle}
