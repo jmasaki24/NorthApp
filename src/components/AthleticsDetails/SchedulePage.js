@@ -12,12 +12,10 @@ import ScheduleDropDown from './ScheduleDropDown';
 
 class SchedulePage extends Component {
   componentWillUnmount() {
-    this.props.removeScheules();
+    this.props.removeSchedules();
   }
 
   renderItem({ item }) {
-    console.log(item);
-
     let date = 'N/A';
     let time = 'TBA';
     let opponent = 'N/A';
@@ -35,6 +33,10 @@ class SchedulePage extends Component {
       place = item.place;
     }
 
+    if (opponent.includes('TBA')) {
+      opponent = opponent.replace('vs ', '');
+    }
+
     const buttonText = `${item.homeAway} vs ${opponent}`;
     return (
       <ScheduleDropDown
@@ -47,14 +49,13 @@ class SchedulePage extends Component {
   }
 
   renderStuff() {
-    const schedule = this.props.sportInfo.schedule;
-    console.log(schedule);
-    if (schedule !== null && (schedule.toString() !== undefined)) {
+    const scheduleArray = this.props.schedule;
+    if (scheduleArray.length !== 0) {
       return (
         <Card style={{ flex: 1 }}>
           <FlatList
-            style={{ flex: 1 }}
-            data={schedule}
+            style={{ flex: 1, paddingbottom: 20 }}
+            data={scheduleArray}
             renderItem={item => this.renderItem(item)}
           />
         </Card>
@@ -71,8 +72,10 @@ class SchedulePage extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Card>
-          <CardSection>
-            <Text>
+          <CardSection style={{ justifyContent: 'center' }}>
+            <Text
+              style={{ color: 'black', fontWeight: 'bold', fontSize: 28, textAlign: 'center' }}
+            >
               {this.props.navigation.state.params.sport}
             </Text>
           </CardSection>
@@ -84,8 +87,8 @@ class SchedulePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { sportInfo, loading } = state.athleticsInfo;
-  return { sportInfo, loading };
+  const { schedule, loading } = state.athleticsInfo;
+  return { schedule, loading };
 };
 
 export default connect(mapStateToProps, { removeSchedules })(SchedulePage);

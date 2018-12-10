@@ -9,7 +9,8 @@ import {
 
 const INITIAL_STATE = {
   upcomingGames: null,
-  sportInfo: { scores: null, schedule: null },
+  scores: [],
+  schedule: [],
   loading: false
 };
 
@@ -18,15 +19,15 @@ export default (state = INITIAL_STATE, action) => {
     case GET_UPCOMING_GAMES:
       return { ...state, upcomingGames: action.payload, loading: false };
     case GET_SPORT_SCORES:
-      return { ...state, sportInfo: { scores: action.payload }, loading: false };
+      return { ...state, scores: action.payload, loading: false };
     case LOADING:
       return { ...state, loading: action.payload };
     case REMOVE_SCORES:
-      return { ...state, sportInfo: { scores: action.payload } };
+      return { ...state, scores: action.payload };
     case GET_SPORT_SCHEDULE:
-     return { ...state, sportInfo: { schedule: action.payload }, loading: false };
+     return { ...state, schedule: action.payload, loading: false };
     case REMOVE_SCHEDULE:
-      return { ...state, sportInfo: { schedule: action.payload } };
+      return { ...state, schedule: action.payload };
     default:
       return state;
   }

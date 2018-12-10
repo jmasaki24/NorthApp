@@ -24,3 +24,4 @@ export const GET_SPORT_SCORES = 'get_sport_scores';
 export const LOADING = 'loading';
 export const REMOVE_SCORES = 'remove_scores';
 export const GET_SPORT_SCHEDULE = 'get_sport_schedule';
+export const REMOVE_SCHEDULE = 'remove_scedule';

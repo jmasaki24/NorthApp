@@ -70,7 +70,6 @@ export const getSportScores = (url) => {
           const scoreArray = [];
 
           const len = scores.length;
-          console.log(otherSchools.length);
           if (len === otherSchools.length) {
             for (let i = 0; i < len; i++) {
               const thing = scores[i].children;
@@ -121,7 +120,6 @@ export const getSportSchedules = (url) => {
         if (response.status === 200) {
           const $ = cheerio.load(response.data);
           const data = $('.datarow');
-          console.log(data);
           // col 1 has (H) or (A)
           // col 2 has date and time
           // there is nol col 3 for some reason
@@ -155,7 +153,7 @@ export const getSportSchedules = (url) => {
             }
           }
         }
-        console.log(finalArray);
+        //console.log(finalArray);
         dispatch({
           type: GET_SPORT_SCHEDULE,
           payload: finalArray
@@ -185,7 +183,7 @@ export const removeScores = () => {
   };
 };
 
-export const removeScheules = () => {
+export const removeSchedules = () => {
   return {
     type: REMOVE_SCHEDULE,
     payload: []

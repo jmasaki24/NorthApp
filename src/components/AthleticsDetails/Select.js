@@ -14,7 +14,6 @@ class Select extends Component {
 
   renderChildSports(childSport, sport, sportName) {
     if (this.state.pressed) {
-      console.log(childSport);
       const { buttonStyle, childButtonTextStyle } = styles;
       const items = childSport.map(item =>
         <CardSection>
@@ -32,7 +31,6 @@ class Select extends Component {
   }
 
   render() {
-    console.log(this.props);
     const data = this.props.sport;
     let iconType = 'angle-right';
     if (this.state.pressed) { iconType = 'angle-down'; }
