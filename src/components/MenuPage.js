@@ -15,9 +15,6 @@ import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
 import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
-import AddContentPage from './AddStuff/AddContent';
-import DefaultImagesPage from './AddStuff/DefaultImages';
-import PhotosPage from './AddStuff/Photos';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
 
@@ -119,10 +116,7 @@ const MenuStack = createStackNavigator({
     IndivSportsPage,
       ScorePage,
       SchedulePage,
-  Admin: AdminStack,
-  AddContent: AddContentPage,
-  DefaultImages: DefaultImagesPage,
-  Photos: PhotosPage
+  Admin: AdminStack
 }, {
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({

@@ -1,6 +1,6 @@
 /**
-* Date: 10/29/2018
 * Author: Matt Peters
+* Date: 12/10/2018
 */
 
 import React, { Component } from 'react';
@@ -8,12 +8,11 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, pushAnnouncement, pushingBool }
-  from '../../actions';
+import { pushAnnouncement, pushingBool } from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
+class AddAnouncement extends Component {
   state = { showModal: false };
 
   onAccept() {
@@ -25,15 +24,6 @@ class AddContent extends Component {
 
   onDecline() {
     this.setState({ showModal: false });
-  }
-
-  //REDUX IS THE PROBLEM
-  onTitleChange(text) {
-    this.props.titleAction(text);
-  }
-
-  onInfoChange(text) {
-    this.props.infoAction(text);
   }
 
   selectedImageDisplay() {
@@ -72,32 +62,22 @@ class AddContent extends Component {
       </CardSection>
     );
   }
-
   render() {
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
           <CardSection>
             <Input
-              label="Title"
-              placeholder="Title"
-              viewStyle={{ height: 60 }}
+              label=""
+              placeholder=""
               multiline
-              onChangeText={(text) => {
-                console.log('string');
-                this.onTitleChange(text);
-              }}
-              value={this.props.title}
             />
           </CardSection>
           <CardSection>
             <Input
-              label="Text"
-              placeholder="Info Goes Here"
-              viewStyle={{ height: 150 }}
+              label=""
+              placeholder=""
               multiline
-              onChangeText={(text) => this.onInfoChange(text)}
-              value={this.props.info}
             />
           </CardSection>
           {this.selectedImageDisplay()}
@@ -170,14 +150,12 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault, pushing } = state.announce;
+  const { title, info, uri, isDefault } = state.announce;
   console.log(state.announce);
-  return { title, info, uri, isDefault, pushing };
+  return { title, info, uri, isDefault };
 };
 
 export default withNavigation(connect(mapStateToProps, {
-  infoAction,
-  titleAction,
   pushAnnouncement,
   pushingBool
-})(AddContent));
+})(AddAnouncement));

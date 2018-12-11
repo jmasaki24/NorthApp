@@ -8,9 +8,13 @@ import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from './common';
 import AddContent from './AddStuff/AddContent';
+import DefaultImagesPage from './AddStuff/DefaultImages';
+import PhotosPage from './AddStuff/Photos';
 import AddEvent from './AddStuff/AddEvent';
 import UsersAnnouncements from './UsersAnnouncements';
 import UsersEvents from './UsersEvents';
+
+import AddAnouncement from './AddStuff/AddAnouncement';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
@@ -49,6 +53,13 @@ class Admin extends Component {
               onPress={() => this.props.navigation.navigate('Announce')}
             >
               Create Announcement
+            </Button>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={styles.textStyle}
+              onPress={() => this.props.navigation.navigate('AddAnnouncement')}
+            >
+              Temp announcement maker
             </Button>
             <Button
               buttonStyle={styles.buttonStyle}
@@ -128,7 +139,10 @@ const AdminStack = createStackNavigator({
   Announce: AddContent,
   Event: AddEvent,
   UsersAnnouncements,
-  UsersEvents
+  UsersEvents,
+  DefaultImages: DefaultImagesPage,
+  Photos: PhotosPage,
+  AddAnouncement
   },
   {
     navigationOptions: () => ({
