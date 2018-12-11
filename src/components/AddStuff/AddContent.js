@@ -74,6 +74,7 @@ class AddContent extends Component {
   }
 
   render() {
+    console.log(this.props.title);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -84,7 +85,7 @@ class AddContent extends Component {
               viewStyle={{ height: 60 }}
               multiline
               onChangeText={(text) => {
-                console.log('string');
+                console.log(text);
                 this.onTitleChange(text);
               }}
               value={this.props.title}

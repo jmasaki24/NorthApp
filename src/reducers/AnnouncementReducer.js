@@ -26,6 +26,7 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_INFO:
       return { ...state, info: action.payload };
     case ADD_TITLE:
+      console.log('state');
       return { ...state, title: action.payload };
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };

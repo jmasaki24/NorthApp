@@ -1,66 +1,131 @@
-import React, { Component } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
-import firebase from 'firebase';
-import { Card, CardSection, Input, Button } from './common';
-import Titan from '../images/titanT.png';
+import React from 'react';
+import { StyleSheet, View, FlatList, Text, TextInput, TouchableHighlight } from 'react-native';
+import { InstantSearch, connectInfiniteHits, connectSearchBox, connectHighlight, connectRefinementList } from 'react-instantsearch-native';
+import { ALGOLIA_APP_ID, ALGOLIA_API_SEARCH_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
+import { Card, CardSection } from './common';
 
-class SearchPage extends Component {
-  state = { SearchText: 'start' };
+const RefinementList = connectRefinementList(({ refine, items }) =>
+  <FlatList
+    data={items}
+    keyExtractor={(item, index) => item.objectID}
+    ListHeaderComponent={() =>
+      <Text style={{ marginTop: 20, height: 50, alignSelf: 'center' }}>
+        Categories
+      </Text>}
+    renderItem={({ item }) => {
+      return (
+        <View style={{ height: 30 }}>
+          <TouchableHighlight
+            onPress={() => {
+              refine(item.value);
+            }}
+          >
+            <Text style={item.isRefined ? { fontWeight: 'bold' } : {}}>
+              {item.label}
+            </Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }}
+  />
+);
 
-  onTextChange(text) {
-    this.setState({ SearchText: text });
+const Highlight = connectHighlight(
+  ({ highlight, attribute, hit, highlightProperty }) => {
+    const parsedHit = highlight({
+      attribute,
+      hit,
+      highlightProperty: '_highlightResult',
+    });
+    const highlightedHit = parsedHit.map((part, idx) => {
+      if (part.isHighlighted)
+        return (
+          <Text key={idx} style={{ backgroundColor: '#ffff99' }}>
+            {part.value}
+          </Text>
+        );
+      return part.value;
+    });
+    return <Text>{highlightedHit}</Text>;
   }
+);
 
-  firebaseSearch() {
-    console.log('hi');
-    console.log(this.state.SearchText);
-    console.log(firebase.database().ref().orderByChild('_searchLastName')
-     .startAt(this.state.SearchText)
-     .endAt(`${this.state.SearchText}\uf8ff`));
-  }
+const SearchBox = connectSearchBox(({ refine, currentRefinement }) => {
+  const styles = {
+    height: 60,
+    borderWidth: 1,
+    padding: 10,
+    margin: 10,
+    flex: 1,
+  };
 
+  return (
+    <TextInput
+      style={styles}
+      onChangeText={text => refine(text)}
+      value={currentRefinement}
+      placeholder={'Search a product...'}
+      clearButtonMode={'always'}
+      spellCheck={false}
+      autoCorrect={false}
+      autoCapitalize={'none'}
+    />
+  );
+});
+
+
+const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
+  /* if there are still results, you can
+  call the refine function to load more */
+  const onEndReached = function () {
+    if (hasMore) {
+      refine();
+    }
+  };
+
+  return (
+    <FlatList
+      data={hits}
+      onEndReached={onEndReached}
+      keyExtractor={(item, index) => item.objectID}
+      renderItem={({ item }) => {
+        // datestring, info, title, uri or url
+        return (
+          <Card>
+           <Text>
+            <Highlight attribute="title" hit={item} />
+           </Text>
+           <Text><Highlight attribute="info" hit={item} /></Text>
+          </Card>
+        );
+      }}
+    />
+  );
+});
+
+export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 0 }}>
-        <Card>
-          <CardSection>
-            <Input
-              placeholder="I'm Feeling Lucky"
-              value={this.state.SearchText}
-              label=''
-              viewStyle={{}}
-              onChangeText={this.onTextChange.bind(this)}
-            />
-          </CardSection>
-        </Card>
-        <Button onPress={this.firebaseSearch}>
-          Search me
-        </Button>
+      <View style={styles.container}>
+        <InstantSearch
+          appId={ALGOLIA_APP_ID}
+          apiKey={ALGOLIA_API_SEARCH_KEY}
+          indexName={ALGOLIA_INDEX_NAME}
+        >
+        <View style={{ flexDirection: 'row' }}>
+          <SearchBox />
+        </View>
+        <RefinementList attribute="categories" />
+        <Hits />
+        </InstantSearch>
       </View>
     );
   }
 }
 
-/**
-databaseReference.orderByChild('_searchLastName')
-                 .startAt(queryText)
-                 .endAt(queryText+"\uf8ff")
-*/
-
-const SearchStack = createStackNavigator({
-  Search: SearchPage
-}, {
-  headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
-    headerTitle:
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
-        <Image
-          source={Titan}
-          style={{ height: 40, width: 40 }}
-        />
-      </TouchableOpacity>,
-  })
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
 });
-
-export default SearchStack;
