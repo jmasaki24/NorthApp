@@ -75,6 +75,7 @@ class AddContent extends Component {
 
   render() {
     console.log(this.props.title);
+    console.log(this.props.info);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -86,7 +87,7 @@ class AddContent extends Component {
               multiline
               onChangeText={(text) => {
                 console.log(text);
-                this.onTitleChange(text);
+                this.onTitleChange.bind(this, text);
               }}
               value={this.props.title}
             />
@@ -97,7 +98,7 @@ class AddContent extends Component {
               placeholder="Info Goes Here"
               viewStyle={{ height: 150 }}
               multiline
-              onChangeText={(text) => this.onInfoChange(text)}
+              onChangeText={() => this.onInfoChange.bind(this)}
               value={this.props.info}
             />
           </CardSection>

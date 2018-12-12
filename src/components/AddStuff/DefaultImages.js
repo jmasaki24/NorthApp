@@ -17,13 +17,13 @@ class List extends Component {
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
-    this.props.navigation.navigate('AddContent');
+    this.props.navigation.navigate('Announce');
   }
 
   onCancelPress() {
     this.props.isDefaultImage(null);
     this.props.addImage('');
-    this.props.navigation.navigate('AddContent');
+    this.props.navigation.navigate('Announce');
   }
 
   renderItem({ item }) {

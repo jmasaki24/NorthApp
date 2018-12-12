@@ -68,16 +68,19 @@ class AddAnouncement extends Component {
         <Card>
           <CardSection>
             <Input
-              label=""
-              placeholder=""
+              label="Title"
+              placeholder="Title"
               multiline
+              viewStyle={{ height: 60 }}
+              onChangeText={(text) => console.log(text)}
             />
           </CardSection>
           <CardSection>
             <Input
-              label=""
-              placeholder=""
+              label="Info"
+              placeholder="Details"
               multiline
+              viewStyle={{ height: 150 }}
             />
           </CardSection>
           {this.selectedImageDisplay()}
@@ -150,9 +153,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault } = state.announce;
+  const { title, info, uri, isDefault, pushing } = state.announce;
   console.log(state.announce);
-  return { title, info, uri, isDefault };
+  return { title, info, uri, isDefault, pushing };
 };
 
 export default withNavigation(connect(mapStateToProps, {
