@@ -17,14 +17,18 @@ class AddContent extends Component {
   state = { showModal: false };
 
   onAccept() {
-    const { title, info, uri, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, uri, isDefault });
+    const { title, info, img, isDefault } = this.props;
+    this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
 
   onDecline() {
     this.setState({ showModal: false });
+  }
+
+  onSubmitPress() {
+    this.setState({ showModal: true });
   }
 
   //REDUX IS THE PROBLEM
@@ -37,12 +41,12 @@ class AddContent extends Component {
   }
 
   selectedImageDisplay() {
-    if (this.props.uri !== '') {
+    if (this.props.img !== '') {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={{ height: height / 4, width: width / 2.5 }}
-            source={{ uri: this.props.uri }}
+            source={{ uri: this.props.img }}
           />
         </CardSection>
       );
@@ -65,7 +69,7 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.setState({ showModal: !this.state.showModal })}
+          onPress={this.onSubmitPress.bind(this)}
         >
           Submit Announcement
         </Button>
@@ -171,9 +175,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault, pushing } = state.announce;
+  const { title, info, img, isDefault, pushing } = state.announce;
   console.log(state.announce);
-  return { title, info, uri, isDefault, pushing };
+  return { title, info, img, isDefault, pushing };
 };
 
 export default withNavigation(connect(mapStateToProps, {

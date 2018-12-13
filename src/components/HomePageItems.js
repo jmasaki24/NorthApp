@@ -75,6 +75,7 @@ class HomePageItems extends Component {
   }
 
   render() {
+    console.log(this.props.data);
     return (
       <View style={{ flex: 1 }}>
         <FlatList

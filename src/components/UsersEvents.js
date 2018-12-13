@@ -98,7 +98,7 @@ class UsersEvents extends Component {
           <Text style={{ fontSize: 18, flex: 1, color: 'black', alignSelf: 'center' }}>
             {item.location}
           </Text>
-          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.description}</Text>
+          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.info}</Text>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ flex: -1 }}>

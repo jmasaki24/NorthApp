@@ -12,7 +12,7 @@ import {
 const INITIAL_STATE = {
   title: '',
   info: '',
-  uri: '',
+  img: '',
   isDefault: null,
   photoKey: null,
   refreshing: false,
@@ -22,11 +22,10 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_IMAGE:
-      return { ...state, uri: action.payload };
+      return { ...state, img: action.payload };
     case ADD_INFO:
       return { ...state, info: action.payload };
     case ADD_TITLE:
-      console.log('state');
       return { ...state, title: action.payload };
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };

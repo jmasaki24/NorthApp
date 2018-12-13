@@ -55,8 +55,9 @@ class CalendarItems extends Component {
   renderItem(item) {
     return (
       <View style={[styles.item, { height: 90 }]}>
-        <Text>{item.title}</Text>
-        <Text>{item.description}</Text>
+        <Text style={styles.itemTitleStyle}>{item.title}</Text>
+        <Text>{item.location}</Text>
+        <Text>{item.info}</Text>
       </View>
     );
   }
@@ -92,6 +93,11 @@ const styles = {
     paddingTop: 30,
     alignItems: 'center'
   },
+  itemTitleStyle: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    alignSelf: 'center'
+  }
 };
 
 // export default connect(mapStateToProps, { getCalendar })(CalendarItems);
