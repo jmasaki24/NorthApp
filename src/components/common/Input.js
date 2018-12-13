@@ -16,7 +16,8 @@ const Input = ({
   multiline,
   autocorrect,
   keyboardType,
-  viewStyle
+  viewStyle,
+  onChange
 }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
   if (label !== '') {
@@ -33,6 +34,7 @@ const Input = ({
           multiline={multiline || false}
           keyboardType={keyboardType || 'default'}
           underlineColorAndroid={'white'}
+          onChange={onChange}
         />
       </View>
     );
@@ -49,6 +51,7 @@ const Input = ({
         multiline={multiline || false}
         keyboardType={keyboardType || 'default'}
         underlineColorAndroid={'white'}
+        onChange={onChange}
       />
     </View>
   );

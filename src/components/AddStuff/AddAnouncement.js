@@ -1,6 +1,6 @@
 /**
-* Date: 10/29/2018
 * Author: Matt Peters
+* Date: 12/10/2018
 */
 
 import React, { Component } from 'react';
@@ -8,17 +8,16 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, pushAnnouncement, pushingBool }
-  from '../../actions';
+import { pushAnnouncement, pushingBool } from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
+class AddAnouncement extends Component {
   state = { showModal: false };
 
   onAccept() {
-    const { title, info, img, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, img, isDefault });
+    const { title, info, uri, isDefault } = this.props;
+    this.props.pushAnnouncement({ title, info, uri, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
@@ -27,26 +26,13 @@ class AddContent extends Component {
     this.setState({ showModal: false });
   }
 
-  onSubmitPress() {
-    this.setState({ showModal: true });
-  }
-
-  //REDUX IS THE PROBLEM
-  onTitleChange(text) {
-    this.props.titleAction(text);
-  }
-
-  onInfoChange(text) {
-    this.props.infoAction(text);
-  }
-
   selectedImageDisplay() {
-    if (this.props.img !== '') {
+    if (this.props.uri !== '') {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={{ height: height / 4, width: width / 2.5 }}
-            source={{ uri: this.props.img }}
+            source={{ uri: this.props.uri }}
           />
         </CardSection>
       );
@@ -69,17 +55,14 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.onSubmitPress.bind(this)}
+          onPress={this.setState({ showModal: !this.state.showModal })}
         >
           Submit Announcement
         </Button>
       </CardSection>
     );
   }
-
   render() {
-    console.log(this.props.title);
-    console.log(this.props.info);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -87,23 +70,17 @@ class AddContent extends Component {
             <Input
               label="Title"
               placeholder="Title"
-              viewStyle={{ height: 60 }}
               multiline
-              onChangeText={(text) => {
-                console.log(text);
-                this.onTitleChange.bind(this, text);
-              }}
-              value={this.props.title}
+              viewStyle={{ height: 60 }}
+              onChangeText={(text) => console.log(text)}
             />
           </CardSection>
           <CardSection>
             <Input
-              label="Text"
-              placeholder="Info Goes Here"
-              viewStyle={{ height: 150 }}
+              label="Info"
+              placeholder="Details"
               multiline
-              onChangeText={() => this.onInfoChange.bind(this)}
-              value={this.props.info}
+              viewStyle={{ height: 150 }}
             />
           </CardSection>
           {this.selectedImageDisplay()}
@@ -176,14 +153,12 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, pushing } = state.announce;
+  const { title, info, uri, isDefault, pushing } = state.announce;
   console.log(state.announce);
-  return { title, info, img, isDefault, pushing };
+  return { title, info, uri, isDefault, pushing };
 };
 
 export default withNavigation(connect(mapStateToProps, {
-  infoAction,
-  titleAction,
   pushAnnouncement,
   pushingBool
-})(AddContent));
+})(AddAnouncement));

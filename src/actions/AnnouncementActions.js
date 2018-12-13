@@ -22,6 +22,7 @@ export const isDefaultImage = (bool) => {
 };
 
 export const titleAction = (text) => {
+  console.log(text);
   return {
     type: ADD_TITLE,
     payload: text
@@ -29,6 +30,7 @@ export const titleAction = (text) => {
 };
 
 export const infoAction = (text) => {
+  console.log(text);
   return {
     type: ADD_INFO,
     payload: text

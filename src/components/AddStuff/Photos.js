@@ -29,7 +29,7 @@ class Photos extends Component {
     //console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);
-    this.props.navigation.navigate('AddContent');
+    this.props.navigation.navigate('Announce');
   }
 
   onCancelPress() {

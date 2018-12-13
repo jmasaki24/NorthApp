@@ -8,6 +8,8 @@ import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from './common';
 import AddContent from './AddStuff/AddContent';
+import DefaultImagesPage from './AddStuff/DefaultImages';
+import PhotosPage from './AddStuff/Photos';
 import AddEvent from './AddStuff/AddEvent';
 import UsersAnnouncements from './UsersAnnouncements';
 import UsersEvents from './UsersEvents';
@@ -128,7 +130,9 @@ const AdminStack = createStackNavigator({
   Announce: AddContent,
   Event: AddEvent,
   UsersAnnouncements,
-  UsersEvents
+  UsersEvents,
+  DefaultImages: DefaultImagesPage,
+  Photos: PhotosPage
   },
   {
     navigationOptions: () => ({
