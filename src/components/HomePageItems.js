@@ -37,10 +37,8 @@ class HomePageItems extends Component {
     this.setState({ refreshing: false });
   }
 
-  // The difference between isDefault is item.uri and item.url
-  // We're going to clean this up later (JM and MP)
   renderItem({ item }) {
-    if (item.isDefault) {
+    if (item.uri !== '') {
       return (
         <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
           <TouchableOpacity
@@ -49,19 +47,6 @@ class HomePageItems extends Component {
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
               source={{ uri: item.uri }}
-            />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
-    } else if (item.isDefault === false) {
-      return (
-        <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
-          <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.url }}
             />
           </TouchableOpacity>
         </AnnounceCardImage>
@@ -75,7 +60,6 @@ class HomePageItems extends Component {
   }
 
   render() {
-    console.log(this.props.data);
     return (
       <View style={{ flex: 1 }}>
         <FlatList

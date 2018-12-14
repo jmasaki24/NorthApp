@@ -90,10 +90,7 @@ class AddContent extends Component {
               placeholder="Title"
               viewStyle={{ height: 60 }}
               multiline
-              onChangeText={(text) => {
-                console.log(text);
-                this.onTitleChange(text).bind(this);
-              }}
+              onChangeText={this.onTitleChange.bind(this)}
               value={this.props.title}
             />
           </CardSection>
