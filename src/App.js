@@ -6,7 +6,9 @@ import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME }
+import algoliasearch from 'algoliasearch';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, FB_API_KEY, FB_PROJECT_ID,
+FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
   from 'react-native-dotenv';
 
 import fbConfig from '../../firebaseConfigInfo.json';
@@ -16,8 +18,6 @@ import HomeStack from './components/HomePage';
 import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
 import SearchStack from './components/SearchPage';
-
-const algoliasearch = require('algoliasearch');
 
 // configure firebase
 firebase.initializeApp({
@@ -39,13 +39,13 @@ const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
 // Get all contacts from Firebase
 // probably should only be done after adding or editing an item
-database.ref('/Announcements').once('value', contacts => {
+database.ref('/Announcements').once('value', announcements => {
   // Build an array of all records to push to Algolia
   const records = [];
-  contacts.forEach(contact => {
+  announcements.forEach(announcement => {
     // get the key and data from the snapshot
-    const childKey = contact.key;
-    const childData = contact.val();
+    const childKey = announcement.key;
+    const childData = announcement.val();
     // We set the Algolia objectID as the Firebase .key
     childData.objectID = childKey;
     // Add object for indexing
@@ -56,10 +56,35 @@ database.ref('/Announcements').once('value', contacts => {
   index
     .saveObjects(records)
     .then(() => {
-      console.log('Contacts imported into Algolia');
+      console.log('Announcements imported into Algolia');
     })
     .catch(error => {
-      console.error('Error when importing contact into Algolia', error);
+      console.error('Error when importing announcement into Algolia', error);
+      process.exit(1);
+    });
+});
+
+database.ref('/Calendar').once('value', calendar => {
+  // Build an array of all records to push to Algolia
+  const records = [];
+  calendar.forEach(date => {
+      for (const event in calendar.val()[date.key]) {
+        if (calendar.val()[date.key].hasOwnProperty(event)) {
+          const o = calendar.val()[date.key][event];
+          o.objectID = event;
+          records.push(o);
+        }
+      }
+  });
+
+  // Add or update new objects
+  index
+    .saveObjects(records)
+    .then(() => {
+      console.log('Calendar imported into Algolia');
+    })
+    .catch(error => {
+      console.error('Error when importing event into Algolia', error);
       process.exit(1);
     });
 });

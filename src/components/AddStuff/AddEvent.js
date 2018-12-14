@@ -8,7 +8,7 @@ import { Text, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
-import { addEventDate, addEventTitle, addEventLocation, addEventDescription, pushEvent }
+import { addEventDate, addEventTitle, addEventLocation, addEventInfo, pushEvent }
   from '../../actions';
 
 import { CardSection, Input, Button, Confirm, } from '../common';
@@ -17,8 +17,8 @@ class AddEvent extends Component {
   state = { showModal: false, showCalendar: false }
 
   onAccept() {
-      const { date, title, location, description } = this.props;
-      this.props.pushEvent({ date, title, location, description });
+      const { date, title, location, info } = this.props;
+      this.props.pushEvent({ date, title, location, info });
       this.setState({ showModal: false });
   }
 
@@ -39,8 +39,8 @@ class AddEvent extends Component {
     this.props.addEventLocation(text);
   }
 
-  onDescriptionChange(text) {
-    this.props.addEventDescription(text);
+  onInfoChange(text) {
+    this.props.addEventInfo(text);
   }
 
   renderCalendar() {
@@ -57,7 +57,7 @@ class AddEvent extends Component {
   }
 
   renderButton() {
-    if (this.props.title === '') {
+    if (this.props.title === '' || this.props.info === '') {
       return (
         <CardSection>
           <View style={styles.viewStyle}>
@@ -114,8 +114,8 @@ class AddEvent extends Component {
         <Input
           placeholder="Describe this event"
           label='Desciption:'
-          onChangeText={this.onDescriptionChange.bind(this)}
-          value={this.props.description}
+          onChangeText={this.onInfoChange.bind(this)}
+          value={this.props.info}
         />
        </CardSection>
        {this.renderButton()}
@@ -172,15 +172,15 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { date, title, location, description, pushing } = state.event;
+  const { date, title, location, info, pushing } = state.event;
   console.log(state.event);
-  return { date, title, location, description, pushing };
+  return { date, title, location, info, pushing };
 };
 
 export default withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventLocation,
-  addEventDescription,
+  addEventInfo,
   pushEvent
 })(AddEvent));
