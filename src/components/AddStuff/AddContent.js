@@ -29,10 +29,12 @@ class AddContent extends Component {
 
   //REDUX IS THE PROBLEM
   onTitleChange(text) {
+    console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
+    console.log(text);
     this.props.infoAction(text);
   }
 
@@ -74,8 +76,7 @@ class AddContent extends Component {
   }
 
   render() {
-    console.log(this.props.title);
-    console.log(this.props.info);
+    console.log(`render called ${this.props.title}`);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -87,7 +88,7 @@ class AddContent extends Component {
               multiline
               onChangeText={(text) => {
                 console.log(text);
-                this.onTitleChange.bind(this, text);
+                this.onTitleChange(text).bind(this);
               }}
               value={this.props.title}
             />
@@ -98,7 +99,7 @@ class AddContent extends Component {
               placeholder="Info Goes Here"
               viewStyle={{ height: 150 }}
               multiline
-              onChangeText={() => this.onInfoChange.bind(this)}
+              onChangeText={this.onInfoChange.bind(this)}
               value={this.props.info}
             />
           </CardSection>
@@ -121,22 +122,21 @@ class AddContent extends Component {
           >
             Are you sure you would like to add this content?
           </Confirm>
-
-          <Modal
-            visible={this.props.pushing}
-            transparent
-            onRequestClose={() => console.log('close pushing modal')}
-          >
-            <SafeAreaView style={styles.pushingViewStyle}>
-              <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
-                <Spinner style={{ flex: -1 }} />
-                <View style={{ flex: -1 }}>
-                  <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
-                </View>
-              </View>
-            </SafeAreaView>
-          </Modal>
         </Card>
+        <Modal
+          visible={this.props.pushing}
+          transparent
+          onRequestClose={() => console.log('close pushing modal')}
+        >
+          <SafeAreaView style={styles.pushingViewStyle}>
+            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+              <Spinner style={{ flex: -1 }} />
+              <View style={{ flex: -1 }}>
+                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </ScrollView>
     );
   }

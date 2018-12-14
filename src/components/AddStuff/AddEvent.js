@@ -80,6 +80,7 @@ class AddEvent extends Component {
   }
 
   render() {
+    console.log('render called');
     return (
       <ScrollView style={{ flex: 1 }}>
        {this.renderCalendar()}
