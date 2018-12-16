@@ -17,9 +17,9 @@ class AddEvent extends Component {
   state = { showModal: false, showCalendar: false }
 
   onAccept() {
-      const { date, title, location, info } = this.props;
-      this.props.pushEvent({ date, title, location, info });
-      this.setState({ showModal: false });
+    const { date, title, location, info } = this.props;
+    this.props.pushEvent({ date, title, location, info });
+    this.setState({ showModal: false });
   }
 
   onDecline() {
@@ -47,10 +47,10 @@ class AddEvent extends Component {
     if (this.state.showCalendar) {
       return (
         <Calendar
-           onDayPress={(day) => {
-             this.onDateChange(day);
-             this.setState({ showCalendar: false });
-           }}
+          onDayPress={(day) => {
+            this.onDateChange(day);
+            this.setState({ showCalendar: false });
+          }}
         />
       );
     }
@@ -66,67 +66,60 @@ class AddEvent extends Component {
         </CardSection>
       );
     }
-      return (
-        <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black', alignSelf: 'center' }}
-            onPress={() => this.setState({ showModal: !this.state.showModal })}
-          >
-            Create Event
-          </Button>
-        </CardSection>
-      );
+    return (
+      <CardSection>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          textStyle={{ color: 'black', alignSelf: 'center' }}
+          onPress={() => this.setState({ showModal: !this.state.showModal })}
+        >
+          Create Event
+        </Button>
+      </CardSection>
+    );
   }
 
   render() {
     console.log('render called');
     return (
       <ScrollView style={{ flex: 1 }}>
-       {this.renderCalendar()}
-       <CardSection style={styles.inputSection}>
+        {this.renderCalendar()}
         <Input
           placeholder="Event Name"
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
         />
-       </CardSection>
-       <CardSection style={styles.inputSection}>
+        <CardSection style={styles.inputSection}>
           <Text style={styles.dateText}>Date:</Text>
           <Text style={styles.dateText}>{this.props.date}</Text>
-        <Button
-          onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
-          buttonStyle={{ justifyContent: 'center', alignItems: 'center' }}
-        >
-          Select Date
-        </Button>
-       </CardSection>
-       <CardSection style={styles.inputSection}>
+          <Button
+            onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
+            buttonStyle={{ justifyContent: 'center', alignItems: 'center' }}
+          >
+            Select Date
+          </Button>
+        </CardSection>
         <Input
           placeholder="e.g. B130, Auditorium"
           label='Location:'
           onChangeText={this.onLocationChange.bind(this)}
           value={this.props.location}
         />
-       </CardSection>
-       <CardSection style={styles.inputSection}>
         <Input
           placeholder="Describe this event"
           label='Desciption:'
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
         />
-       </CardSection>
-       {this.renderButton()}
-
-       <Confirm
-         visible={this.state.showModal}
-         onAccept={this.onAccept.bind(this)}
-         onDecline={this.onDecline.bind(this)}
-       >
-         Are you sure you would like to add this event?
-       </Confirm>
+        {this.renderButton()}
+        <Confirm
+          visible={this.state.showModal}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
+        >
+          Are you sure you would like to add this event?
+        </Confirm>
       </ScrollView>
     );
   }

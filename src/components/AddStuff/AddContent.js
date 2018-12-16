@@ -84,26 +84,20 @@ class AddContent extends Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
-          <CardSection>
-            <Input
-              label="Title"
-              placeholder="Title"
-              viewStyle={{ height: 60 }}
-              multiline
-              onChangeText={this.onTitleChange.bind(this)}
-              value={this.props.title}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              label="Text"
-              placeholder="Info Goes Here"
-              viewStyle={{ height: 150 }}
-              multiline
-              onChangeText={this.onInfoChange.bind(this)}
-              value={this.props.info}
-            />
-          </CardSection>
+          <Input
+            label="Title"
+            placeholder="Title"
+            multiline
+            onChangeText={this.onTitleChange.bind(this)}
+            value={this.props.title}
+          />
+          <Input
+            label="Text"
+            placeholder="Info Goes Here"
+            multiline
+            onChangeText={this.onInfoChange.bind(this)}
+            value={this.props.info}
+          />
           {this.selectedImageDisplay()}
           <CardSection>
             <Button

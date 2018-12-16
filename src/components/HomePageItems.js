@@ -20,7 +20,7 @@ const { width } = Dimensions.get('window');
 class HomePageItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, imageUrl: null };
+    this.state = { refreshing: false, imageModal: false, imageUri: null };
   }
 
   componentWillMount() {
@@ -42,7 +42,7 @@ class HomePageItems extends Component {
       return (
         <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
           <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.uri })}
+            onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
           >
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
@@ -76,7 +76,7 @@ class HomePageItems extends Component {
           <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
             <TouchableOpacity
               modalBackStyle={styles.modalBackStyle}
-              onPress={() => this.setState({ imageModal: false, imageUrl: null })}
+              onPress={() => this.setState({ imageModal: false, imageUri: null })}
             >
               <View style={{ flex: -1, margin: 5, paddingLeft: 10, alignContent: 'flex-start' }}>
                 <Icon name={'chevron-left'} color={'white'} size={30} />
@@ -84,7 +84,7 @@ class HomePageItems extends Component {
             </TouchableOpacity>
             <Image
               style={{ flex: 0, height: width, width, alignSelf: 'center', alignContent: 'center' }}
-              source={{ uri: this.state.imageUrl }}
+              source={{ uri: this.state.imageUri }}
             />
           </SafeAreaView>
         </Modal>

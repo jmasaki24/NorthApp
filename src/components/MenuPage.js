@@ -15,6 +15,7 @@ import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
 import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
+import PollPage from './PollLogin';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
 
@@ -57,6 +58,15 @@ class MenuPage extends Component {
             onPress={() => this.props.navigation.navigate('Clubs')}
           >
             Clubs
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Polls')}
+          >
+            Polls
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -116,7 +126,8 @@ const MenuStack = createStackNavigator({
     IndivSportsPage,
       ScorePage,
       SchedulePage,
-  Admin: AdminStack
+  Admin: AdminStack,
+  Polls: PollPage
 }, {
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
