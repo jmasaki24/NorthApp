@@ -15,7 +15,8 @@ import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
 import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
-import PollPage from './PollLogin';
+import PollLogin from './PollLogin';
+//import PollPage from './PollPage';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
 
@@ -127,7 +128,8 @@ const MenuStack = createStackNavigator({
       ScorePage,
       SchedulePage,
   Admin: AdminStack,
-  Polls: PollPage
+  Polls: PollLogin,
+  //PollPage
 }, {
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
