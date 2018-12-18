@@ -1,6 +1,5 @@
 /**
 * Author: Jamie Maddock
-* Date: //You can fill this part in Jamie
 */
 
 import React from 'react';

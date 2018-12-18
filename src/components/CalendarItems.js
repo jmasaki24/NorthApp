@@ -24,7 +24,7 @@ class CalendarItems extends Component {
         firebaseData = snapshot.val();
         const calendarData = {};
         // looping through an object in JavaScript https://zellwk.com/blog/looping-through-js-objects/
-        // could use Object.map() method instead.
+        // could and should (?) use Object.map() method instead.
 
         for (const date in firebaseData) {
           if (firebaseData.hasOwnProperty(date)) {
@@ -99,7 +99,5 @@ const styles = {
     alignSelf: 'center'
   }
 };
-
-// export default connect(mapStateToProps, { getCalendar })(CalendarItems);
 
 export default CalendarItems;
