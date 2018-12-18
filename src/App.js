@@ -5,13 +5,13 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import RNLanguages from 'react-native-languages';
+import i18n from './utils/i18n.js';
 
 import algoliasearch from 'algoliasearch';
 import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, FB_API_KEY, FB_PROJECT_ID,
 FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
   from 'react-native-dotenv';
-
-import fbConfig from '../../firebaseConfigInfo.json';
 
 import reducers from './reducers';
 import HomeStack from './components/HomePage';
@@ -19,14 +19,14 @@ import MenuStack from './components/MenuPage';
 import CalendarStack from './components/Calendar';
 import SearchStack from './components/SearchPage';
 
-// configure firebase
+// configure firebase, want to use dotenv but not sure if it works
 firebase.initializeApp({
-  apiKey: fbConfig.apiKey,
-  authDomain: fbConfig.authDomain,
-  databaseURL: fbConfig.databaseURL,
-  projectId: fbConfig.projectId,
-  storageBucket: fbConfig.storageBucket,
-  messagingSenderId: fbConfig.messagingSenderId,
+  apiKey: FB_API_KEY,
+  authDomain: FB_AUTH_DOMAIN,
+  databaseURL: FB_DATABASE_URL,
+  projectId: FB_PROJECT_ID,
+  storageBucket: FB_STORAGE_BUCKET,
+  messagingSenderId: FB_MESSAGING_SENDER_ID,
 });
 const database = firebase.database();
 
@@ -37,8 +37,8 @@ const algolia = algoliasearch(
 );
 const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
-// Get all contacts from Firebase
-// probably should only be done after adding or editing an item
+// Get all announcements and events from Firebase
+// probably should only be done after adding or editing an item,
 database.ref('/Announcements').once('value', announcements => {
   // Build an array of all records to push to Algolia
   const records = [];
@@ -121,8 +121,16 @@ const RootStack = createBottomTabNavigator({
 
 export default class App extends Component {
   componentWillMount() {
-
+    RNLanguages.addEventListener('change', this._onLanguagesChange);
   }
+
+  componentWillUnmount() {
+    RNLanguages.removeEventListener('change', this._onLanguagesChange);
+  }
+
+  _onLanguagesChange = ({ language }) => {
+   i18n.locale = language;
+  };
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

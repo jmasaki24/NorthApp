@@ -17,6 +17,7 @@ import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
 import PollLogin from './PollLogin';
 //import PollPage from './PollPage';
+import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
 
@@ -31,7 +32,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Athletics')}
           >
-            Athletics
+            {i18n.t('ATHLETICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -40,7 +41,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Academics')}
           >
-            Academics
+            {i18n.t('ACADEMICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -49,7 +50,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Store')}
           >
-            Store
+            {i18n.t('STORE')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -58,7 +59,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Clubs')}
           >
-            Clubs
+            {i18n.t('CLUBS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -67,7 +68,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Polls')}
           >
-            Polls
+            {i18n.t('VOTING')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -76,7 +77,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Contact')}
           >
-            Contact Us
+            {i18n.t('CONTACT')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -85,7 +86,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Admin')}
           >
-            Admin
+            {i18n.t('ADMINISTRATION')}
           </Button>
         </CardSection>
         <Text style={{ alignSelf: 'center' }}>Copyright NHSN 2018</Text>
@@ -134,14 +135,18 @@ const MenuStack = createStackNavigator({
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
     headerTitle:
-      //<TouchableOpacity onPress={() => navigation.popToTop()}>
       <TouchableOpacity onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image
           source={Titan}
           style={{ height: 40, width: 40 }}
         />
       </TouchableOpacity>,
-    headerBackImage: <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />
+    headerLeft:
+      <View style={{ paddingLeft: 10 }}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />
+        </TouchableOpacity>
+      </View>
   })
 });
 
