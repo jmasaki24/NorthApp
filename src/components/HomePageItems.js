@@ -37,26 +37,58 @@ class HomePageItems extends Component {
     this.setState({ refreshing: false });
   }
 
+  pressableImage(item) {
+    if (item.isDefault) {
+      return (
+        <Image
+          style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+          source={{ uri: item.uri }}
+        />
+      );
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
+      >
+        <Image
+          style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+          source={{ uri: item.uri }}
+        />
+      </TouchableOpacity>
+    );
+  }
+
   renderItem({ item }) {
     if (item.uri !== '') {
-      return (
-        <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
-          <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
-          >
+      if (item.isDefault === false) {
+        return (
+          <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
+            <TouchableOpacity
+              onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
+            >
+              <Image
+                style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+                source={{ uri: item.uri }}
+              />
+            </TouchableOpacity>
+          </AnnounceCardImage>
+        );
+      } else if (item.isDefault === true) {
+        return (
+          <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
               source={{ uri: item.uri }}
             />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
+          </AnnounceCardImage>
+        );
+      }
     }
-      return (
-        <AnnounceCardAllText title={item.title} time={item.dateString}>
-          {item.info}
-        </AnnounceCardAllText>
-      );
+    return (
+      <AnnounceCardAllText title={item.title} time={item.dateString}>
+        {item.info}
+      </AnnounceCardAllText>
+    );
   }
 
   render() {
