@@ -139,12 +139,8 @@ const MenuStack = createStackNavigator({
           style={{ height: 40, width: 40 }}
         />
       </TouchableOpacity>,
-    headerLeft:
-      <View style={{ paddingLeft: 10 }}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+    headerBackImage:      
           <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />
-        </TouchableOpacity>
-      </View>
   })
 });
 

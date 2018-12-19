@@ -5,5 +5,16 @@
   "CLUBS": "Clubs",
   "VOTING": "Votación",
   "CONTACT": "Contáctenos",
-  "ADMINISTRATION": "Administración"
+  "ADMINISTRATION": "Administración",
+  "UPCOMING_GAMES": "Próximos juegos",
+  "FALL": "Otoño",
+  "WINTER": "Invierno",
+  "SPRING": "Primavera",
+  "COACHES_DIRECTORY": "Directorio de Entrenadores",
+  "POLICIES": "Políticas",
+  "REGISTRATION": "Matriculación",
+  "STAFF_DIRECTORY": "Directorio del Personal",
+  "BELL_SCHEDULE":  "Horario Diario",
+  "STUDENT_HANDBOOK": "Manual del Estudiante",
+  "PROGRAM_OF_STUDIES": "Programa de Estudios",  
 }

@@ -10,6 +10,7 @@ import SportSelect from './SportSelect';
 import FallData from './SportsJSON/FallSportsButton.json';
 import WinterData from './SportsJSON/WinterSportsButton.json';
 import SpringData from './SportsJSON/SpringSportsButton.json';
+import i18n from '../../utils/i18n'
 
 class SeasonSelect extends Component {
   state = { expandFall: false, expandWinter: false, expandSpring: false }
@@ -55,7 +56,7 @@ class SeasonSelect extends Component {
             onPress={() => this.setState({ expandFall: !expandFall })}
             icon={<FontAwesome5 name={fallIcon} size={25} color={'black'} />}
           >
-            Fall
+            {i18n.t('FALL')}
           </Button>
         </CardSection>
         {this.renderFall()}
@@ -66,7 +67,7 @@ class SeasonSelect extends Component {
             onPress={() => this.setState({ expandWinter: !expandWinter })}
             icon={<FontAwesome5 name={winterIcon} size={25} color={'black'} />}
           >
-            Winter
+            {i18n.t('WINTER')}
           </Button>
         </CardSection>
         {this.renderWinter()}
@@ -77,7 +78,7 @@ class SeasonSelect extends Component {
             onPress={() => this.setState({ expandSpring: !expandSpring })}
             icon={<FontAwesome5 name={springIcon} size={25} color={'black'} />}
           >
-            Spring
+            {i18n.t('SPRING')}
           </Button>
         </CardSection>
         {this.renderSpring()}

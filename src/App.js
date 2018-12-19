@@ -39,7 +39,7 @@ const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
 // Get all announcements and events from Firebase
 // probably should only be done after adding or editing an item,
-database.ref('/Announcements').once('value', announcements => {
+database.ref('/Announcements').on('child_changed', announcements => {
   // Build an array of all records to push to Algolia
   const records = [];
   announcements.forEach(announcement => {
@@ -64,7 +64,7 @@ database.ref('/Announcements').once('value', announcements => {
     });
 });
 
-database.ref('/Calendar').once('value', calendar => {
+database.ref('/Calendar').on('child_changed', calendar => {
   // Build an array of all records to push to Algolia
   const records = [];
   calendar.forEach(date => {

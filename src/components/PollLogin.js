@@ -14,8 +14,8 @@ class PollPage extends Component {
         </Card>
         <Card>
           <Input
-            label='ID#'
-            placeholder='000000000'
+            label='Student ID #'
+            placeholder='12345789'
             keyboardType='number-pad'
           />
           <CardSection>
