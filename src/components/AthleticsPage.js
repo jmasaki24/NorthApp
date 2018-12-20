@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Linking } from 'react-native';
 import { Card, CardSection, Button } from './common';
 import SeasonSelect from './AthleticsDetails/SeasonSelect';
+import i18n from '../utils/i18n.js';
 
 class AthleticsPage extends Component {
   renderItem() {
@@ -19,7 +20,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => this.props.navigation.navigate('UpcomingGames')}
             >
-              Upcoming Games
+              {i18n.t('UPCOMING_GAMES')}
             </Button>
           </CardSection>
         </Card>
@@ -32,7 +33,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/siteRepository/21551/userfiles/North-Coaches-2018-19.pdf')}
             >
-              Coach Directory
+              {i18n.t('COACHES_DIRECTORY')}
             </Button>
           </CardSection>
           <CardSection>
@@ -41,7 +42,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/main/otherad/contentID/41289580')}
             >
-              Policies
+              {i18n.t('POLICIES')}
             </Button>
           </CardSection>
           <CardSection>
@@ -50,7 +51,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.familyid.com/programs/high-school-north-winter-2018-19')}
             >
-              Signup/Registration
+              {i18n.t('REGISTRATION')}
             </Button>
           </CardSection>
         </Card>

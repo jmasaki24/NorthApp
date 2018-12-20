@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Linking, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
+import i18n from '../utils/i18n';
 
 class AcademicsPage extends Component {
   render() {
@@ -26,7 +27,7 @@ class AcademicsPage extends Component {
             style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/contact-us/staff-directory.aspx')}
           >
-            <Text style={textStyle}>Staff Directory</Text>
+            <Text style={textStyle}>{i18n.t('STAFF_DIRECTORY')}</Text>
             <Icon name='link' />
           </TouchableOpacity>
         </CardSection>
@@ -35,7 +36,7 @@ class AcademicsPage extends Component {
             style={buttonStyle}
             onPress={() => this.props.navigation.navigate('Bells')}
           >
-            <Text style={textStyle}>Bell Schedule</Text>
+            <Text style={textStyle}>{i18n.t('BELL_SCHEDULE')}</Text>
           </TouchableOpacity>
         </CardSection>
         <CardSection>
@@ -43,7 +44,7 @@ class AcademicsPage extends Component {
             style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/Nashua/Media/PDF-files/For%20Students/Nashua-North-2018-2019-Agenda-Book.pdf')}
           >
-            <Text style={textStyle}>Student Handbook</Text>
+            <Text style={textStyle}>{i18n.t('STUDENT_HANDBOOK')}</Text>
             <Icon name='link' />
           </TouchableOpacity>
         </CardSection>
@@ -52,7 +53,7 @@ class AcademicsPage extends Component {
             style={buttonStyle}
             onPress={() => Linking.openURL('http://www.nashua.edu/getmedia/02fd65e0-fd7a-45d0-ba05-e996d016c390/2017-POS_MSTR_012916_WEB_1A')}
           >
-            <Text style={textStyle}>Program of Studies</Text>
+            <Text style={textStyle}>{i18n.t('PROGRAM_OF_STUDIES')}</Text>
             <Icon name='link' />
           </TouchableOpacity>
         </CardSection>

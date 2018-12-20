@@ -8,14 +8,20 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
+import algoliasearch from 'algoliasearch';
 import { Confirm } from './common';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
 import EditContent from './AddStuff/EditContent';
-
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
+const algolia = algoliasearch(
+  ALGOLIA_APP_ID,
+  ALGOLIA_API_KEY
+);
+const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
 class UsersAnnouncements extends Component {
   constructor(props) {
@@ -28,6 +34,7 @@ class UsersAnnouncements extends Component {
       showModal: false,
       item: {}
     };
+    // this.setModalVisible = this.setModalVisible.bind(this);
   }
 
   componentWillMount() {
@@ -43,8 +50,12 @@ class UsersAnnouncements extends Component {
     this.setState({ showModal: false, item: {} });
   }
 
-  setModalVisible() {
-    this.setState({ imageModal: false });
+  setDeleteModalVisible(bool, item) {
+    this.setState({ showModal: bool, item });
+  }
+
+  setImageModalVisible(modal, url) {
+    this.setState({ imageModal: modal, imageUrl: url });
   }
 
   getUsersAnnouncements() {
@@ -64,7 +75,7 @@ class UsersAnnouncements extends Component {
               i++;
             }
           }
-          this.setState({ announcementArray: array });
+          this.setState({ announcementArray: array.reverse() });
         })
     );
   }
@@ -75,13 +86,14 @@ class UsersAnnouncements extends Component {
     console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    firebase.database().ref(`/Users/${uid}/Announcements/${item.id}`).remove()
+    firebase.database().ref(`/Users/${uid}/Announcements/${this.state.item.id}`).remove()
       .then(() => { console.log('Remove from user succeeded.'); })
       .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
-    firebase.database().ref(`/Announcements/${item.id}`).remove()
+    firebase.database().ref(`/Announcements/${this.state.item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
     this.getUsersAnnouncements();
+    index.deleteObject(this.state.item.id, (err) => console.log(err));
   }
 
   handleRefresh = () => {
@@ -95,10 +107,10 @@ class UsersAnnouncements extends Component {
       return (
         <AnnounceCardImage
           button title={item.title} time={item.dateString}
-          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
         >
           <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.uri })}
+            onPress={this.setImageModalVisible.bind(this, true, item.uri)}
           >
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
@@ -111,10 +123,10 @@ class UsersAnnouncements extends Component {
       return (
         <AnnounceCardImage
           button title={item.title} time={item.dateString}
-          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
         >
           <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
+            onPress={this.setImageModalVisible.bind(this, true, item.url)}
           >
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
@@ -127,7 +139,7 @@ class UsersAnnouncements extends Component {
       return (
         <AnnounceCardAllText
           button title={item.title} time={item.dateString}
-          onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+          onPress={this.setDeleteModalVisible.bind(this, true, item)}
         >
           {item.info}
         </AnnounceCardAllText>
@@ -153,12 +165,12 @@ class UsersAnnouncements extends Component {
         </Confirm>
         <Modal
           visible={this.state.imageModal}
-          onRequestClose={() => this.setModalVisible}
+          onRequestClose={this.setImageModalVisible.bind(this, false, null)}
         >
           <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
             <TouchableOpacity
               modalBackStyle={styles.modalBackStyle}
-              onPress={() => this.setState({ imageModal: false, imageUrl: null })}
+              onPress={this.setImageModalVisible.bind(this, false, null)}
             >
               <View style={{ flex: -1, margin: 5, paddingLeft: 10, alignContent: 'flex-start' }}>
                 <Icon name={'chevron-left'} color={'white'} size={30} />

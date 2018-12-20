@@ -114,7 +114,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
               </CardSection>
               <CardSection style={{ flex: 1, justifyContent: 'space-between' }}>
                 <Text style={{ fontSize: 15 }}>
-                  Location: <Highlight attribute="location" hit={item} />
+                  <Highlight attribute="location" hit={item} />
                 </Text>
                 <Text style={{ fontSize: 15 }}>{item.date}</Text>
               </CardSection>
