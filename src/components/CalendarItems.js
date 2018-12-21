@@ -50,6 +50,7 @@ class CalendarItems extends Component {
     RNCalendarEvents.authorizeEventStore();
     console.log(RNCalendarEvents.authorizationStatus());
     console.log(end);
+    //for some reason the line below returns a promise with an array with 0 items
     console.log(RNCalendarEvents.findCalendars());
     RNCalendarEvents.saveEvent('title', {
       location: 'location',
