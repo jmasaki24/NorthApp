@@ -80,7 +80,6 @@ class AddEvent extends Component {
   }
 
   render() {
-    console.log('render called');
     return (
       <ScrollView style={{ flex: 1 }}>
         {this.renderCalendar()}
@@ -95,7 +94,7 @@ class AddEvent extends Component {
           <Text style={styles.dateText}>{this.props.date}</Text>
           <Button
             onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
-            buttonStyle={{ justifyContent: 'center', alignItems: 'center' }}
+            buttonStyle={{ justifyContent: 'center', alignItems: 'center', flex: 1.2 }}
           >
             Select Date
           </Button>

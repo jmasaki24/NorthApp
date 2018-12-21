@@ -72,7 +72,6 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
       onEndReached={onEndReached}
       keyExtractor={(item, index) => item.objectID}
       renderItem={({ item }) => {
-        console.log('rendering');
         // announcements have a {dateString, info, title, idefault, uid, uri or url}
         if (item.hasOwnProperty('dateString')) {
           return (

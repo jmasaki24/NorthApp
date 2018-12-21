@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableHighlight } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
@@ -135,14 +135,15 @@ const MenuStack = createStackNavigator({
   headerLayoutPreset: 'center',
   navigationOptions: ({ navigation }) => ({
     headerTitle:
-      <TouchableOpacity onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
+      <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image
           source={Titan}
           style={{ height: 40, width: 40 }}
         />
-      </TouchableOpacity>,
-    headerBackImage:      
-          <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />
+      </TouchableHighlight>,
+    headerBackImage:
+          <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />,
+    gesturesEnabled: true
   })
 });
 

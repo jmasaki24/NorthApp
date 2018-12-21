@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 class CalendarItems extends Component {
   constructor(props) {
@@ -37,6 +38,27 @@ class CalendarItems extends Component {
       console.log(this.state);
   }
 
+  exportEvent(item) {
+    console.log(item);
+    const y = item.date.substring(0, item.date.indexOf('-'));
+    const m = item.date.substring(item.date.indexOf('-') + 1, item.date.lastIndexOf('-'));
+    const d = item.date.substring(item.date.lastIndexOf('-') + 1);
+    const date = new Date(y, m - 1, d);
+    const end = new Date(y, m - 1, d);
+    console.log(date);
+    end.setHours(end.getHours() + 1);
+    RNCalendarEvents.authorizeEventStore();
+    console.log(RNCalendarEvents.authorizationStatus());
+    console.log(end);
+    console.log(RNCalendarEvents.findCalendars());
+    RNCalendarEvents.saveEvent('title', {
+      location: 'location',
+      notes: 'notes',
+      startDate: '2016-10-01T09:45:00.000UTC',
+      endDate: '2016-10-01T10:45:00.000UTC'
+    });
+  }
+
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -58,6 +80,9 @@ class CalendarItems extends Component {
         <Text style={styles.itemTitleStyle}>{item.title}</Text>
         <Text>{item.location}</Text>
         <Text>{item.info}</Text>
+        <TouchableOpacity onPress={() => this.exportEvent(item)}>
+          <Text>Export To Calendar</Text>
+        </TouchableOpacity>
       </View>
     );
   }
