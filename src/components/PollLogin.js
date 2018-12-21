@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import IDnums from '../JSON/TempID.json';
@@ -7,9 +7,18 @@ import IDnums from '../JSON/TempID.json';
 class PollPage extends Component {
   state = { ID: '', IDmatches: null, alreadyVoted: null, loading: false };
 
+  // componentWillMount() {
+  //  //get ID list from firebase
+  // }
+
+  // init() {
+  //   //in order to execute firebase database rules must be changes to => ".write": true
+  //   firebase.database().ref('/Voting/seniors').push({ temp: 0 });
+  // }
+
   authLogin() {
+    this.setState({ IDmatches: null, alreadyVoted: null, loading: true });
     const len = IDnums.length;
-    this.setState({ loading: true });
 
     for (let i = 0; i < len; i++) {
       if (IDnums[i].ID === this.state.ID) {
@@ -28,22 +37,22 @@ class PollPage extends Component {
   }
 
   errorMes() {
-    console.log(this.state);
+    const { errorText } = styles;
     if (this.state.alreadyVoted) {
       return (
-        <CardSection>
-          <Text>
+        <View>
+          <Text style={errorText}>
             You cannot vote again
           </Text>
-        </CardSection>
+        </View>
       );
     } else if (this.state.IDmatches === false) {
       return (
-        <CardSection>
-          <Text>
+        <View>
+          <Text style={errorText}>
             Sorry, couldn't login for reasons
           </Text>
-        </CardSection>
+        </View>
       );
     }
   }
@@ -88,12 +97,22 @@ class PollPage extends Component {
             value={this.state.ID}
           />
           {this.renderButton()}
-          {this.errorMes()}
         </Card>
+        {this.errorMes()}
       </SafeAreaView>
     );
   }
 }
+
+// <CardSection>
+//   <Button
+//     buttonStyle={styles.buttonStyle}
+//     textStyle={{ color: 'black' }}
+//     onPress={() => this.init()}
+//   >
+//     Push Basic to FB
+//   </Button>
+// </CardSection>
 
 const styles = {
   headerStyle: {
@@ -105,6 +124,11 @@ const styles = {
   buttonStyle: {
     justifyContent: 'center',
     borderColor: 'white'
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center'
   }
 };
 
