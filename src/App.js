@@ -56,10 +56,10 @@ database.ref('/Announcements').on('child_changed', announcements => {
   index
     .saveObjects(records)
     .then(() => {
-      console.log('Announcements imported into Algolia');
+      // console.log('Announcements imported into Algolia');
     })
     .catch(error => {
-      console.error('Error when importing announcement into Algolia', error);
+      // console.error('Error when importing announcement into Algolia', error);
       process.exit(1);
     });
 });
@@ -81,10 +81,10 @@ database.ref('/Calendar').on('child_changed', calendar => {
   index
     .saveObjects(records)
     .then(() => {
-      console.log('Calendar imported into Algolia');
+      // console.log('Calendar imported into Algolia');
     })
     .catch(error => {
-      console.error('Error when importing event into Algolia', error);
+      // console.error('Error when importing event into Algolia', error);
       process.exit(1);
     });
 });

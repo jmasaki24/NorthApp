@@ -29,7 +29,7 @@ class Admin extends Component {
             firebaseData = snapshot.val();
             this.setState({ u: firebaseData.Username });
           });
-        console.log(this.state.u);
+        // console.log(this.state.u);
       } else {
         this.setState({ loggedIn: false });
       }
@@ -135,9 +135,21 @@ const AdminStack = createStackNavigator({
   Photos: PhotosPage
   },
   {
-    navigationOptions: () => ({
-      // title: `${navigation.state.routeName}`  // I want to add a username somewhere on screen -JM
-      header: null
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+      title: 'Admin',  // I want to add a username somewhere on screen -JM
+      headerTitle: () => {
+        if (navigation.state.routeName === 'Announce') {
+          return <Text>Create an Announcement</Text>;
+        } else if (navigation.state.routeName === 'Event') {
+          return <Text>Create a Calendar Event</Text>;
+        } else if (navigation.state.routeName === 'UsersAnnouncements') {
+          return <Text>Created Announcements</Text>;
+        } else if (navigation.state.routeName === 'UsersEvents') {
+          return <Text>Past Created Events</Text>;
+        }
+        return <Text> lol </Text>;
+      }
     }),
 
 });

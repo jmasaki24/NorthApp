@@ -18,7 +18,7 @@ class Clubs extends Component {
   modalHandler(item) {
     this.setState({ showModal: true });
     this.props.openClub(item);
-    console.log(item);
+    // console.log(item);
   }
 
   renderItem({ item }) {

@@ -31,14 +31,13 @@ class AddContent extends Component {
     this.setState({ showModal: true });
   }
 
-  //REDUX IS THE PROBLEM
   onTitleChange(text) {
-    console.log(text);
+    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    console.log(text);
+    // console.log(text);
     this.props.infoAction(text);
   }
 
@@ -80,7 +79,7 @@ class AddContent extends Component {
   }
 
   render() {
-    console.log(`render called ${this.props.title}`);
+    // console.log(`render called ${this.props.title}`);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -168,7 +167,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { title, info, img, isDefault, pushing } = state.announce;
-  console.log(state.announce);
+  // console.log(state.announce);
   return { title, info, img, isDefault, pushing };
 };
 

@@ -60,7 +60,7 @@ class UsersEvents extends Component {
               i++;
             }
           }
-          this.setState({ eventArray: array });
+          this.setState({ eventArray: array.reverse() });
         })
     );
   }
@@ -110,7 +110,7 @@ class UsersEvents extends Component {
           <View style={{ flex: 1 }} />
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
-              {item.date}
+              {item.date} {item.time}
             </Text>
           </View>
         </CardSection>

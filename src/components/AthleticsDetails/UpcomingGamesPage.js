@@ -13,11 +13,11 @@ class UpcomingGamesPage extends Component {
   componentWillMount() {
     this.props.getUpcomingGames();
     this.props.load(true);
-    console.log(this.props.upcomingGames);
+    // console.log(this.props.upcomingGames);
   }
 
   renderItem({ item }) {
-    console.log(item);
+    // console.log(item);
     let sport = 'N/A';
     let otherTeam = 'N/A';
     let time = 'N/A';
@@ -71,7 +71,7 @@ class UpcomingGamesPage extends Component {
   }
 
   render() {
-    console.log(this.props.upcomingGames);
+    // console.log(this.props.upcomingGames);
     if (this.props.loading) {
       return <Spinner />;
     }
