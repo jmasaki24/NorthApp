@@ -16,7 +16,7 @@ const CalendarStack = createStackNavigator({
   Calendar
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableOpacity onPress={() => navigation.goBack(null)}>
         <Image

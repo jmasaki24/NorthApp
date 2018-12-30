@@ -3,7 +3,7 @@ import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import RNLanguages from 'react-native-languages';
 import i18n from './utils/i18n.js';
@@ -97,7 +97,7 @@ const RootStack = createBottomTabNavigator({
   }, {
     initalRouteName: 'Menu',
     tabBarOptions: { activeTintColor: 'black', inactiveTintColor: 'gray', },
-    navigationOptions: ({ navigation }) => ({
+    defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
         let iconName = '';
@@ -119,6 +119,8 @@ const RootStack = createBottomTabNavigator({
   })
 });
 
+const AppContainer = createAppContainer(RootStack);
+
 export default class App extends Component {
   componentWillMount() {
     RNLanguages.addEventListener('change', this._onLanguagesChange);
@@ -136,7 +138,7 @@ export default class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <RootStack />
+        <AppContainer />
       </Provider>
     );
   }

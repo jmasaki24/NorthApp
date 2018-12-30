@@ -133,7 +133,7 @@ const MenuStack = createStackNavigator({
   PollPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image

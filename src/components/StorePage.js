@@ -100,7 +100,7 @@ const StoreStack = createStackNavigator({
 },
 {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  defaultNavigationOptions: {
     headerTitle:
       <Text style={{ fontSize: 18, alignSelf: 'center', }}>T-Stop Apparrel Store</Text>,
     headerBackImage:
