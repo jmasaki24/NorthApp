@@ -4,19 +4,19 @@ import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
-import ContactPage from './ContactPage';
-import AcademicsPage from './AcademicsPage';
-import ClubsPage from './Clubs';
-import BellSchedule from './Bells';
-import StoreStack from './StorePage';
-import AdminStack from './Admin';
-import AthleticsPage from './AthleticsPage';
+import ContactPage from './Menu/ContactPage';
+import AcademicsPage from './Menu/AcademicsPage';
+import ClubsPage from './Menu/Clubs';
+import BellSchedule from './Menu/Bells';
+import StoreStack from './Menu/StorePage';
+import AdminStack from './Menu/Admin';
+import AthleticsPage from './Menu/AthleticsPage';
 import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
 import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
-import PollLogin from './PollLogin';
-import PollPage from './PollPage';
+import PollLogin from './Menu/PollLogin';
+import PollPage from './Menu/PollPage';
 import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance

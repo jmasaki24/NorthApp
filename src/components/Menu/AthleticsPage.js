@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Linking } from 'react-native';
-import { Card, CardSection, Button } from './common';
-import SeasonSelect from './AthleticsDetails/SeasonSelect';
-import i18n from '../utils/i18n.js';
+import { Card, CardSection, Button } from '../common';
+import SeasonSelect from '../AthleticsDetails/SeasonSelect';
+import i18n from '../../utils/i18n.js';
 
 class AthleticsPage extends Component {
   renderItem() {

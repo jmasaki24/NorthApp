@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Input, Button, Spinner } from './common';
-import IDnums from '../JSON/TempID.json';
+import { Card, CardSection, Input, Button, Spinner } from '../common';
+import IDnums from '../../JSON/TempID.json';
 
 class PollPage extends Component {
   state = { ID: '', IDmatches: null, alreadyVoted: null, loading: false };

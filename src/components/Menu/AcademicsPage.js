@@ -5,8 +5,8 @@
 import React, { Component } from 'react';
 import { Linking, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { Card, CardSection } from './common';
-import i18n from '../utils/i18n';
+import { Card, CardSection } from '../common';
+import i18n from '../../utils/i18n';
 
 class AcademicsPage extends Component {
   render() {

@@ -9,10 +9,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
 import algoliasearch from 'algoliasearch';
-import { Confirm } from './common';
+import { Confirm } from '../common';
 import AnnounceCardAllText from './AnnounceCardAllText';
 import AnnounceCardImage from './AnnounceCardImage';
-import EditContent from './AddStuff/EditContent';
+import EditContent from '../AddStuff/EditContent';
 import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
 console.disableYellowBox = true;
 

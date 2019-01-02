@@ -7,7 +7,7 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
-import { Confirm, Card, CardSection } from './common';
+import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
