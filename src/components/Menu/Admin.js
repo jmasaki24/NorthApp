@@ -11,8 +11,8 @@ import AddContent from '../AddStuff/AddContent';
 import DefaultImagesPage from '../AddStuff/DefaultImages';
 import PhotosPage from '../AddStuff/Photos';
 import AddEvent from '../AddStuff/AddEvent';
-import UsersAnnouncements from '../UsersAnnouncements';
-import UsersEvents from '../UsersEvents';
+import UsersAnnouncements from './UsersAnnouncements';
+import UsersEvents from './UsersEvents';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
