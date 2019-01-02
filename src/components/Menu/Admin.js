@@ -5,14 +5,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
 import { LoginForm, Spinner, Button } from '../common';
-import AddContent from '../AddStuff/AddContent';
-import DefaultImagesPage from '../AddStuff/DefaultImages';
-import PhotosPage from '../AddStuff/Photos';
-import AddEvent from '../AddStuff/AddEvent';
-import UsersAnnouncements from '../UsersAnnouncements';
-import UsersEvents from '../UsersEvents';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
@@ -41,9 +34,9 @@ class Admin extends Component {
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
           <ScrollView>
             <Text style={styles.description}>
-              Hi there. This is the admin page.
-              From here you can add an announcement to the homepage, or add an event to the calendar.
-              If you need help, feel free to send an email to northcodingteam@gmail.com
+              Hi there. This is the admin page From here you can add an announcement
+              to the homepage, or add an event to the calendar. If you need help,
+              feel free to send an email to northcodingteam@gmail.com
             </Text>
             <Button
               buttonStyle={styles.buttonStyle}
@@ -124,34 +117,5 @@ const styles = {
     margin: 10,
   }
 };
-// ES6 shortcut: when a key and its value are the same, it can be simplified e.g. UsersAnnouncements
-const AdminStack = createStackNavigator({
-  AdminHome: Admin,
-  Announce: AddContent,
-  Event: AddEvent,
-  UsersAnnouncements,
-  UsersEvents,
-  DefaultImages: DefaultImagesPage,
-  Photos: PhotosPage
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      header: null,
-      title: 'Admin',  // I want to add a username somewhere on screen -JM
-      headerTitle: () => {
-        if (navigation.state.routeName === 'Announce') {
-          return <Text>Create an Announcement</Text>;
-        } else if (navigation.state.routeName === 'Event') {
-          return <Text>Create a Calendar Event</Text>;
-        } else if (navigation.state.routeName === 'UsersAnnouncements') {
-          return <Text>Created Announcements</Text>;
-        } else if (navigation.state.routeName === 'UsersEvents') {
-          return <Text>Past Created Events</Text>;
-        }
-        return <Text> lol </Text>;
-      }
-    }),
 
-});
-
-export default AdminStack;
+export default Admin;

@@ -58,19 +58,31 @@ class AddEvent extends Component {
   }
 
   onSwitchChange(bool) {
-    this.props.addEventHour('All Day');
+    // temp for when you switch off All Day it remembers where you were
+    const h = this.props.hour;
+    const m = this.props.minute;
+    const p = this.props.period;
+
+    if (bool) {
+      this.props.addEventHour('All Day');
+    } else {
+      this.props.addEventHour(h);
+      this.props.addEventMinute(m);
+      this.props.addEventPeriod(p);
+    }
     this.setState({ switch: bool });
   }
 
   selectTime() {
+    console.log('hello');
     if (!this.state.switch) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 2, flexDirection: 'row' }}>
           <Picker
             onValueChange={this.onHourChange.bind(this)}
-            selectedValue={this.props.hour}
-            style={{ flex: 1 }}
-            enabled={false}
+            selectedValue={'02'}
+            style={{ flex: 1, borderBottomColor: 'black', borderRadius: 10 }}
+            enabled={!this.state.switch}
           >
             <Picker.Item label="1" value="01" /><Picker.Item label="2" value="02" />
             <Picker.Item label="3" value="03" /><Picker.Item label="4" value="04" />
@@ -169,7 +181,7 @@ class AddEvent extends Component {
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
             value={this.state.switch}
-            style={{ flex: -1 }}
+            style={{ flex: 0 }}
             thumbColor='#02BAFB'
           />
         </CardSection>
