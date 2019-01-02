@@ -17,8 +17,8 @@ class AddContent extends Component {
   state = { showModal: false };
 
   onAccept() {
-    const { title, info, uri, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, uri, isDefault });
+    const { title, info, img, isDefault } = this.props;
+    this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
@@ -27,22 +27,27 @@ class AddContent extends Component {
     this.setState({ showModal: false });
   }
 
-  //REDUX IS THE PROBLEM
+  onSubmitPress() {
+    this.setState({ showModal: true });
+  }
+
   onTitleChange(text) {
+    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
+    // console.log(text);
     this.props.infoAction(text);
   }
 
   selectedImageDisplay() {
-    if (this.props.uri !== '') {
+    if (this.props.img !== '') {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={{ height: height / 4, width: width / 2.5 }}
-            source={{ uri: this.props.uri }}
+            source={{ uri: this.props.img }}
           />
         </CardSection>
       );
@@ -65,7 +70,7 @@ class AddContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={this.setState({ showModal: !this.state.showModal })}
+          onPress={this.onSubmitPress.bind(this)}
         >
           Submit Announcement
         </Button>
@@ -74,34 +79,24 @@ class AddContent extends Component {
   }
 
   render() {
-    console.log(this.props.title);
-    console.log(this.props.info);
+    // console.log(`render called ${this.props.title}`);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
-          <CardSection>
-            <Input
-              label="Title"
-              placeholder="Title"
-              viewStyle={{ height: 60 }}
-              multiline
-              onChangeText={(text) => {
-                console.log(text);
-                this.onTitleChange.bind(this, text);
-              }}
-              value={this.props.title}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              label="Text"
-              placeholder="Info Goes Here"
-              viewStyle={{ height: 150 }}
-              multiline
-              onChangeText={() => this.onInfoChange.bind(this)}
-              value={this.props.info}
-            />
-          </CardSection>
+          <Input
+            label="Title"
+            placeholder="Title"
+            multiline
+            onChangeText={this.onTitleChange.bind(this)}
+            value={this.props.title}
+          />
+          <Input
+            label="Text"
+            placeholder="Info Goes Here"
+            multiline
+            onChangeText={this.onInfoChange.bind(this)}
+            value={this.props.info}
+          />
           {this.selectedImageDisplay()}
           <CardSection>
             <Button
@@ -121,22 +116,21 @@ class AddContent extends Component {
           >
             Are you sure you would like to add this content?
           </Confirm>
-
-          <Modal
-            visible={this.props.pushing}
-            transparent
-            onRequestClose={() => console.log('close pushing modal')}
-          >
-            <SafeAreaView style={styles.pushingViewStyle}>
-              <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
-                <Spinner style={{ flex: -1 }} />
-                <View style={{ flex: -1 }}>
-                  <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
-                </View>
-              </View>
-            </SafeAreaView>
-          </Modal>
         </Card>
+        <Modal
+          visible={this.props.pushing}
+          transparent
+          onRequestClose={() => console.log('close pushing modal')}
+        >
+          <SafeAreaView style={styles.pushingViewStyle}>
+            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+              <Spinner style={{ flex: -1 }} />
+              <View style={{ flex: -1 }}>
+                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </ScrollView>
     );
   }
@@ -172,9 +166,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault, pushing } = state.announce;
-  console.log(state.announce);
-  return { title, info, uri, isDefault, pushing };
+  const { title, info, img, isDefault, pushing } = state.announce;
+  // console.log(state.announce);
+  return { title, info, img, isDefault, pushing };
 };
 
 export default withNavigation(connect(mapStateToProps, {

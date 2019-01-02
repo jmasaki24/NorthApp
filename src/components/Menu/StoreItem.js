@@ -4,8 +4,8 @@
 
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
-import pinkBapeT from '../images/pinkBapeT.jpg';
-import { Card } from './common';
+import pinkBapeT from '../../images/pinkBapeT.jpg';
+import { Card } from '../common';
 
 //use a flatlist to render sizesquares as received by data with actions/redux later
 

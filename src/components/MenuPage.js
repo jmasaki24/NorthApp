@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableHighlight } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
-import ContactPage from './ContactPage';
-import AcademicsPage from './AcademicsPage';
-import ClubsPage from './Clubs';
-import BellSchedule from './Bells';
-import StoreStack from './StorePage';
-import AdminStack from './Admin';
-import AthleticsPage from './AthleticsPage';
+import ContactPage from './Menu/ContactPage';
+import AcademicsPage from './Menu/AcademicsPage';
+import ClubsPage from './Menu/Clubs';
+import BellSchedule from './Menu/Bells';
+import StoreStack from './Menu/StorePage';
+import AdminStack from './Menu/Admin';
+import AthleticsPage from './Menu/AthleticsPage';
 import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
 import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
+import PollLogin from './Menu/PollLogin';
+import PollPage from './Menu/PollPage';
+import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
 
@@ -29,7 +32,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Athletics')}
           >
-            Athletics
+            {i18n.t('ATHLETICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -38,7 +41,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Academics')}
           >
-            Academics
+            {i18n.t('ACADEMICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -47,7 +50,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Store')}
           >
-            Store
+            {i18n.t('STORE')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -56,7 +59,16 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Clubs')}
           >
-            Clubs
+            {i18n.t('CLUBS')}
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Polls')}
+          >
+            {i18n.t('VOTING')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -65,7 +77,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Contact')}
           >
-            Contact Us
+            {i18n.t('CONTACT')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -74,7 +86,7 @@ class MenuPage extends Component {
             textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Admin')}
           >
-            Admin
+            {i18n.t('ADMINISTRATION')}
           </Button>
         </CardSection>
         <Text style={{ alignSelf: 'center' }}>Copyright NHSN 2018</Text>
@@ -116,19 +128,22 @@ const MenuStack = createStackNavigator({
     IndivSportsPage,
       ScorePage,
       SchedulePage,
-  Admin: AdminStack
+  Admin: AdminStack,
+  Polls: PollLogin,
+  PollPage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
-      //<TouchableOpacity onPress={() => navigation.popToTop()}>
-      <TouchableOpacity onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
+      <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
         <Image
           source={Titan}
           style={{ height: 40, width: 40 }}
         />
-      </TouchableOpacity>,
-    headerBackImage: <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />
+      </TouchableHighlight>,
+    headerBackImage:
+          <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />,
+    gesturesEnabled: true
   })
 });
 

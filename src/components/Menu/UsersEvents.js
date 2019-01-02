@@ -7,7 +7,7 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
-import { Confirm, Card, CardSection } from './common';
+import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
@@ -60,7 +60,7 @@ class UsersEvents extends Component {
               i++;
             }
           }
-          this.setState({ eventArray: array });
+          this.setState({ eventArray: array.reverse() });
         })
     );
   }
@@ -98,7 +98,7 @@ class UsersEvents extends Component {
           <Text style={{ fontSize: 18, flex: 1, color: 'black', alignSelf: 'center' }}>
             {item.location}
           </Text>
-          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.description}</Text>
+          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.info}</Text>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ flex: -1 }}>
@@ -110,7 +110,7 @@ class UsersEvents extends Component {
           <View style={{ flex: 1 }} />
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
-              {item.date}
+              {item.date} {item.time}
             </Text>
           </View>
         </CardSection>

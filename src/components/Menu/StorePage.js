@@ -7,7 +7,7 @@ import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import StoreItem from './StoreItem';
-import StoreItems from '../JSON/storeItems.json';
+import StoreItems from '../../JSON/storeItems.json';
 
 //remove this after updating to a stable release of react native
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
@@ -100,7 +100,7 @@ const StoreStack = createStackNavigator({
 },
 {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  defaultNavigationOptions: {
     headerTitle:
       <Text style={{ fontSize: 18, alignSelf: 'center', }}>T-Stop Apparrel Store</Text>,
     headerBackImage:

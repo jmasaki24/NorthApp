@@ -1,6 +1,5 @@
 /**
 * Author: Jamie Maddock
-* Date: //You can fill this part in Jamie
 */
 
 import React from 'react';
@@ -17,7 +16,7 @@ const CalendarStack = createStackNavigator({
   Calendar
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableOpacity onPress={() => navigation.goBack(null)}>
         <Image

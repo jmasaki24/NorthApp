@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 class CalendarItems extends Component {
   constructor(props) {
@@ -24,17 +25,55 @@ class CalendarItems extends Component {
         firebaseData = snapshot.val();
         const calendarData = {};
         // looping through an object in JavaScript https://zellwk.com/blog/looping-through-js-objects/
-        // could use Object.map() method instead.
+        // could and should (?) use Object.map() method instead.
 
         for (const date in firebaseData) {
           if (firebaseData.hasOwnProperty(date)) {
             calendarData[date] = Object.values(firebaseData[date]);
           }
         }
-        console.log(calendarData);
         this.setState({ items: calendarData, refreshing: false });
       });
-      console.log(this.state);
+  }
+
+  // notes for iOS, description for android
+  exportEvent(item) {
+    const y = item.date.substring(0, item.date.indexOf('-'));
+    const m = item.date.substring(item.date.indexOf('-') + 1, item.date.lastIndexOf('-'));
+    const d = item.date.substring(item.date.lastIndexOf('-') + 1);
+    const start = new Date(y, m - 1, d);
+    const end = start;
+
+    if (item.time === 'All Day') {
+      end.setHours(start.getHours() + 1);
+      RNCalendarEvents.authorizeEventStore().then(() => {
+        RNCalendarEvents.saveEvent(item.title, {
+          allDay: true,
+          location: item.location,
+          notes: item.info,
+          description: item.info,
+          startDate: start,
+          endDate: end
+        });
+      }).catch(err => console.log(err));
+    } else {
+      if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
+        start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':')), 1) + 12);
+      } else {
+         start.setHours(item.time.substring(0, item.time.indexOf(':')));
+       }
+      start.setMinutes(item.time.substring(item.time.indexOf(':') + 1, item.time.indexOf(' ')));
+      end.setHours(start.getHours() + 1);
+      RNCalendarEvents.authorizeEventStore().then(() => {
+        RNCalendarEvents.saveEvent(item.title, {
+          location: item.location,
+          notes: item.info,
+          description: item.info,
+          startDate: start,
+          endDate: end
+        });
+      });
+    }
   }
 
   timeToString(time) {
@@ -54,9 +93,17 @@ class CalendarItems extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, { height: 90 }]}>
-        <Text>{item.title}</Text>
-        <Text>{item.description}</Text>
+      <View style={[styles.item]}>
+        <Text style={styles.itemTitleStyle}>{item.title}</Text>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          <Text style={{ marginRight: 10 }}>{item.time}</Text><Text>{item.location}</Text>
+        </View>
+        <Text>{item.info}</Text>
+        <TouchableOpacity
+          style={{ alignSelf: 'center' }} onPress={() => this.exportEvent(item)}
+        >
+          <Text>Export To Calendar</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -71,7 +118,7 @@ class CalendarItems extends Component {
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyData.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
-        onDayPress={() => { console.log(this.state); }}
+        // onDayPress={() => { console.log(this.state); }}
       />
     );
   }
@@ -92,8 +139,11 @@ const styles = {
     paddingTop: 30,
     alignItems: 'center'
   },
+  itemTitleStyle: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    alignSelf: 'center'
+  }
 };
-
-// export default connect(mapStateToProps, { getCalendar })(CalendarItems);
 
 export default CalendarItems;

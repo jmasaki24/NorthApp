@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Text, View, ScrollView } from 'react-native';
-import { Card, CardSection } from './common';
+import { Card, CardSection } from '../common';
 
 const Bells = () => {
   const { titleStyle, sectionStyle, viewStyle, subHeadingStyle, infoStyle } = styles;

@@ -6,13 +6,13 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { createStackNavigator } from 'react-navigation';
-import { LoginForm, Spinner, Button } from './common';
-import AddContent from './AddStuff/AddContent';
-import DefaultImagesPage from './AddStuff/DefaultImages';
-import PhotosPage from './AddStuff/Photos';
-import AddEvent from './AddStuff/AddEvent';
-import UsersAnnouncements from './UsersAnnouncements';
-import UsersEvents from './UsersEvents';
+import { LoginForm, Spinner, Button } from '../common';
+import AddContent from '../AddStuff/AddContent';
+import DefaultImagesPage from '../AddStuff/DefaultImages';
+import PhotosPage from '../AddStuff/Photos';
+import AddEvent from '../AddStuff/AddEvent';
+import UsersAnnouncements from '../UsersAnnouncements';
+import UsersEvents from '../UsersEvents';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
@@ -29,7 +29,7 @@ class Admin extends Component {
             firebaseData = snapshot.val();
             this.setState({ u: firebaseData.Username });
           });
-        console.log(this.state.u);
+        // console.log(this.state.u);
       } else {
         this.setState({ loggedIn: false });
       }
@@ -135,9 +135,21 @@ const AdminStack = createStackNavigator({
   Photos: PhotosPage
   },
   {
-    navigationOptions: () => ({
-      // title: `${navigation.state.routeName}`  // I want to add a username somewhere on screen -JM
-      header: null
+    navigationOptions: ({ navigation }) => ({
+      header: null,
+      title: 'Admin',  // I want to add a username somewhere on screen -JM
+      headerTitle: () => {
+        if (navigation.state.routeName === 'Announce') {
+          return <Text>Create an Announcement</Text>;
+        } else if (navigation.state.routeName === 'Event') {
+          return <Text>Create a Calendar Event</Text>;
+        } else if (navigation.state.routeName === 'UsersAnnouncements') {
+          return <Text>Created Announcements</Text>;
+        } else if (navigation.state.routeName === 'UsersEvents') {
+          return <Text>Past Created Events</Text>;
+        }
+        return <Text> lol </Text>;
+      }
     }),
 
 });

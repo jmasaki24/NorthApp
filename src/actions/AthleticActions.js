@@ -103,7 +103,7 @@ export const getSportScores = (url) => {
         });
       })
       .catch(() => {
-        console.log('failed to scrape');
+        // console.log('failed to scrape');
         return {
           type: GET_SPORT_SCORES,
           payload: []
@@ -160,7 +160,7 @@ export const getSportSchedules = (url) => {
         });
       })
       .catch(() => {
-        console.log('failed');
+        // console.log('failed');
         return {
           type: GET_SPORT_SCHEDULE,
           payload: []

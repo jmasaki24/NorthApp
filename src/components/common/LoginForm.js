@@ -52,27 +52,23 @@ class LoginForm extends Component {
   render() {
     return (
       <Card>
-        <CardSection>
-          <Input
+        <Input
             placeholder="user@email.com"
             label="Email"
             keyboardType="email-address"
             autoCorrect={false}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
-          />
-        </CardSection>
+        />
 
-        <CardSection>
-          <Input
-            secureTextEntry
-            placeholder="password"
-            label="Password"
-            autoCorrect={false}
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-          />
-        </CardSection>
+        <Input
+          secureTextEntry
+          placeholder="password"
+          label="Password"
+          autoCorrect={false}
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
+        />
 
         <Text style={styles.errorTextStyle}>
           {this.state.error}

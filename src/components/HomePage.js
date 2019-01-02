@@ -16,7 +16,7 @@ const HomeStack = createStackNavigator({
   Home: HomePage
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: {
+  defaultNavigationOptions: {
     headerTitle:
       <Image
         style={{ height: 60, width: 110 }}
