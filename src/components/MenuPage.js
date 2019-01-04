@@ -9,7 +9,7 @@ import AcademicsPage from './Menu/AcademicsPage';
 import ClubsPage from './Menu/Clubs';
 import BellSchedule from './Menu/Bells';
 import StoreStack from './Menu/StorePage';
-import AdminStack from './Menu/Admin';
+import Admin from './Menu/Admin';
 import AthleticsPage from './Menu/AthleticsPage';
 import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
 import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
@@ -17,6 +17,12 @@ import ScorePage from './AthleticsDetails/ScorePage';
 import SchedulePage from './AthleticsDetails/SchedulePage';
 import PollLogin from './Menu/PollLogin';
 import PollPage from './Menu/PollPage';
+import AddContent from './AddStuff/AddContent';
+import DefaultImagesPage from './AddStuff/DefaultImages';
+import PhotosPage from './AddStuff/Photos';
+import AddEvent from './AddStuff/AddEvent';
+import UsersAnnouncements from './Menu/UsersAnnouncements';
+import UsersEvents from './Menu/UsersEvents';
 import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
@@ -84,7 +90,7 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Admin')}
+            onPress={() => this.props.navigation.navigate('AdminHome')}
           >
             {i18n.t('ADMINISTRATION')}
           </Button>
@@ -128,7 +134,13 @@ const MenuStack = createStackNavigator({
     IndivSportsPage,
       ScorePage,
       SchedulePage,
-  Admin: AdminStack,
+  AdminHome: Admin,
+  Announce: AddContent,
+  Event: AddEvent,
+  UsersAnnouncements,
+  UsersEvents,
+  DefaultImages: DefaultImagesPage,
+  Photos: PhotosPage,
   Polls: PollLogin,
   PollPage
 }, {
