@@ -87,8 +87,9 @@ class PLogin extends Component {
   }
 
   render() {
+    const grade = this.props.identifyer.grade;
     if (this.props.auth) {
-      this.props.navigation.navigate('PollPage');
+      this.props.navigation.navigate('PollPage', { grade });
       this.props.authSwitch(null);
     }
 
@@ -143,20 +144,16 @@ const styles = {
   }
 };
 
-<<<<<<< HEAD
 const mapStateToProps = (state) => {
   const { auth, identifyer, loading, ID } = state.polls;
   return { auth, identifyer, loading, ID };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const PollLogin = withNavigation(connect(mapStateToProps, {
   pollAuth,
   pollLoad,
   idChange,
   authSwitch
-})(PollPage));
-=======
-const PollLogin = withNavigation(PLogin);
+})(PLogin));
 
 export { PollLogin };
->>>>>>> c4faf48aebcb55f9d72dccf6206c8fd5162b4937
