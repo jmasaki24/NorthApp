@@ -16,4 +16,4 @@ class PollPage extends Component {
   }
 }
 
-export default PollPage;
+export { PollPage };

@@ -10,7 +10,7 @@ import Permissions from 'react-native-permissions';
 import { Spinner, CardSection, Button } from '../common';
 import { addImage, isDefaultImage } from '../../actions';
 
-class Photos extends Component {
+class DevicePhotos extends Component {
   state = { photoPermission: '' };
 
   componentWillMount() {
@@ -90,4 +90,6 @@ const mapStateToProps = (state) => {
   return { uri };
 };
 
-export default connect(mapStateToProps, { addImage, isDefaultImage })(Photos);
+const Photos = connect(mapStateToProps, { addImage, isDefaultImage })(DevicePhotos);
+
+export { Photos };

@@ -10,7 +10,7 @@ import SportSelect from './SportSelect';
 import FallData from './SportsJSON/FallSportsButton.json';
 import WinterData from './SportsJSON/WinterSportsButton.json';
 import SpringData from './SportsJSON/SpringSportsButton.json';
-import i18n from '../../utils/i18n'
+import i18n from '../../utils/i18n';
 
 class SeasonSelect extends Component {
   state = { expandFall: false, expandWinter: false, expandSpring: false }

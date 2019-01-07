@@ -13,7 +13,8 @@ import { infoAction, titleAction, pushAnnouncement, pushingBool }
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
+// named CAnnounce because have to use another name in the export. yes, it's weird...
+class CAnnounce extends Component {
   state = { showModal: false };
 
   onAccept() {
@@ -171,9 +172,11 @@ const mapStateToProps = (state) => {
   return { title, info, img, isDefault, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const CreateAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   pushAnnouncement,
   pushingBool
-})(AddContent));
+})(CAnnounce));
+
+export { CreateAnnounce };

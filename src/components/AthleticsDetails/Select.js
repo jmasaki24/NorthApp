@@ -20,7 +20,7 @@ class Select extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={childButtonTextStyle}
-            onPress={() => this.props.navigation.navigate('IndivSportsPage', { item, sport, sportName })}
+            onPress={() => this.props.navigation.navigate('IndivSports', { item, sport, sportName })}
           >
             {item.title}
           </Button>

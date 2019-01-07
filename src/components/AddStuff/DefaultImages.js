@@ -120,4 +120,6 @@ const mapStateToProps = ({ announce }) => {
   return { uri, isDefault };
 };
 
-export default connect(mapStateToProps, { addImage, isDefaultImage })(List);
+const DefaultImages = connect(mapStateToProps, { addImage, isDefaultImage })(List);
+
+export { DefaultImages };

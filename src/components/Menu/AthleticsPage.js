@@ -4,7 +4,7 @@ import { Card, CardSection, Button } from '../common';
 import SeasonSelect from '../AthleticsDetails/SeasonSelect';
 import i18n from '../../utils/i18n.js';
 
-class AthleticsPage extends Component {
+class Athletics extends Component {
   renderItem() {
     return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />;
   }
@@ -69,4 +69,4 @@ const styles = {
   }
 };
 
-export default AthleticsPage;
+export { Athletics };

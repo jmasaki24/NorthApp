@@ -63,4 +63,7 @@ const styles = {
   }
 };
 
-export default withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));
+const IndivSports =
+  withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));
+
+export { IndivSports };

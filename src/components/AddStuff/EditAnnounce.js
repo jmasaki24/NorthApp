@@ -1,24 +1,32 @@
-/**
- * Basically copied AddContent.js
- * Date: 10/29/2018
- * Author: Jamie Maddock
-*/
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { addDescription, addTitle, editAnnouncement, pushToFBStorage, pushingBool }
+import { infoAction, titleAction, pushAnnouncement, pushingBool }
   from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-class EContent extends Component {
-  state = { showModal: false };
+
+class EAnnounce extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+
+    const item = this.props.navigation.getParam('item', 'Item Not Found');
+    console.log(item);
+    this.props.titleAction(item.title);
+    this.props.infoAction(item.info);
+  }
+
+  componentWillUnmount() {
+
+  }
 
   onAccept() {
-    const { title, info, uri, isDefault } = this.props;
-    this.props.editAnnouncement({ title, info, uri, isDefault });
+    const { title, info, img, isDefault } = this.props;
+    this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
   }
@@ -27,21 +35,27 @@ class EContent extends Component {
     this.setState({ showModal: false });
   }
 
+  onSubmitPress() {
+    this.setState({ showModal: true });
+  }
+
   onTitleChange(text) {
-    this.props.addTitle(text);
+    // console.log(text);
+    this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    this.props.addDescription(text);
+    // console.log(text);
+    this.props.infoAction(text);
   }
 
   selectedImageDisplay() {
-    if (this.props.uri !== '') {
+    if (this.props.img !== '') {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
             style={{ height: height / 4, width: width / 2.5 }}
-            source={{ uri: this.props.uri }}
+            source={{ uri: this.props.img }}
           />
         </CardSection>
       );
@@ -64,38 +78,31 @@ class EContent extends Component {
         <Button
           buttonStyle={styles.buttonStyle}
           textStyle={{ color: 'black' }}
-          onPress={() => this.setState({ showModal: !this.state.showModal })}
+          onPress={this.onSubmitPress.bind(this)}
         >
           Submit Announcement
         </Button>
       </CardSection>
     );
   }
-
   render() {
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
-          <CardSection>
-            <Input
-              label="Title"
-              placeholder="Title"
-              viewStyle={{ height: 60 }}
-              multiline
-              onChangeText={this.onTitleChange.bind(this)}
-              value={this.props.title}
-            />
-          </CardSection>
-          <CardSection>
-            <Input
-              label="Text"
-              placeholder="Info Goes Here"
-              viewStyle={{ height: 150 }}
-              multiline
-              onChangeText={this.onInfoChange.bind(this)}
-              value={this.props.info}
-            />
-          </CardSection>
+          <Input
+            label="Title"
+            placeholder="Title"
+            multiline
+            onChangeText={this.onTitleChange.bind(this)}
+            value={this.props.title}
+          />
+          <Input
+            label="Text"
+            placeholder="Info Goes Here"
+            multiline
+            onChangeText={this.onInfoChange.bind(this)}
+            value={this.props.info}
+          />
           {this.selectedImageDisplay()}
           <CardSection>
             <Button
@@ -115,22 +122,21 @@ class EContent extends Component {
           >
             Are you sure you would like to add this content?
           </Confirm>
-
-          <Modal
-            visible={this.props.pushing}
-            transparent
-            onRequestClose={this.onDecline()}
-          >
-            <SafeAreaView style={styles.pushingViewStyle}>
-              <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
-                <Spinner style={{ flex: -1 }} />
-                <View style={{ flex: -1 }}>
-                  <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
-                </View>
-              </View>
-            </SafeAreaView>
-          </Modal>
         </Card>
+        <Modal
+          visible={this.props.pushing}
+          transparent
+          onRequestClose={() => console.log('close pushing modal')}
+        >
+          <SafeAreaView style={styles.pushingViewStyle}>
+            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+              <Spinner style={{ flex: -1 }} />
+              <View style={{ flex: -1 }}>
+                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </ScrollView>
     );
   }
@@ -166,11 +172,16 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, uri, isDefault, pushing } = state.announce;
-  return { title, info, uri, isDefault, pushing };
+  const { title, info, img, isDefault, pushing } = state.announce;
+  // console.log(state.announce);
+  return { title, info, img, isDefault, pushing };
 };
 
-const EditContent = withNavigation(connect(mapStateToProps,
-  { addDescription, addTitle, editAnnouncement, pushToFBStorage, pushingBool })(EContent));
+const EditAnnounce = withNavigation(connect(mapStateToProps, {
+  infoAction,
+  titleAction,
+  pushAnnouncement,
+  pushingBool
+})(EAnnounce));
 
-export { EditContent };
+export { EditAnnounce };

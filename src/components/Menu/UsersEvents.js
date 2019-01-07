@@ -88,7 +88,7 @@ class UsersEvents extends Component {
   }
 
   renderItem({ item }) {
-    //      onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+    console.log(item.time);
     return (
       <Card>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -101,16 +101,19 @@ class UsersEvents extends Component {
           <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.info}</Text>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ flex: -1 }}>
+          <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around' }}>
             <Icon.Button
-              name="trash-alt" iconStyle={{ marginRight: 0 }}
+              name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+            />
+            <Icon.Button
+              name="trash-alt" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
               onPress={() => { this.setState({ showModal: true, item: { item } }); }}
             />
           </View>
           <View style={{ flex: 1 }} />
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
-              {item.date} {item.time}
+              {item.time} {item.date}
             </Text>
           </View>
         </CardSection>
@@ -179,4 +182,4 @@ const styles = {
 };
 // export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);
 
-export default UsersEvents;
+export { UsersEvents };
