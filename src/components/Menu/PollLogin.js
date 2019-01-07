@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
-import IDnums from '../../JSON/TempID.json';
+import { pollAuth, pollLoad, idChange, authSwitch } from '../../actions';
 
 class PollPage extends Component {
   state = { ID: '', IDmatches: null, alreadyVoted: null, loading: false };
 
-  // componentWillMount() {
-  //  //get ID list from firebase
-  // }
+  onIDChange(text) {
+    this.props.idChange(text);
+  }
 
   init() {
     //in order to execute firebase database rules must be changes to => ".write": true
@@ -35,49 +36,31 @@ class PollPage extends Component {
     firebase.database().ref('/Voting/freshmen/senate').push({ temp: 0 });
   }
 
-  authLogin() {
-    this.setState({ IDmatches: null, alreadyVoted: null, loading: true });
-    const len = IDnums.length;
-
-    for (let i = 0; i < len; i++) {
-      if (IDnums[i].ID === this.state.ID) {
-        this.setState({ IDmatches: true, loading: false, alreadyVoted: IDnums[i].hasVoted });
-        break;
-      }
-      this.setState({ IDmatches: false });
-    }
-    this.setState({ loading: false, ID: '' });
-  }
-
-  nav() {
-    if (this.state.IDmatches === true && this.state.alreadyVoted === false) {
-      this.props.navigation.navigate('PollPage');
-    }
-  }
-
   errorMes() {
     const { errorText } = styles;
-    if (this.state.alreadyVoted) {
-      return (
-        <View>
-          <Text style={errorText}>
-            You cannot vote again
-          </Text>
-        </View>
-      );
-    } else if (this.state.IDmatches === false) {
-      return (
-        <View>
-          <Text style={errorText}>
-            Sorry, couldn't login for reasons
-          </Text>
-        </View>
-      );
+    if (this.props.identifyer !== null) {
+      if (this.props.identifyer.hasVoted) {
+        return (
+          <View>
+            <Text style={errorText}>
+              You cannot vote again
+            </Text>
+          </View>
+        );
+      } else if (this.props.auth === false) {
+        return (
+          <View>
+            <Text style={errorText}>
+              Sorry, couldn't login for reasons
+            </Text>
+          </View>
+        );
+      }
     }
   }
 
   renderButton() {
-    if (this.state.loading) {
+    if (this.props.loading) {
       return (
         <CardSection>
           <Spinner />
@@ -85,21 +68,31 @@ class PollPage extends Component {
       );
     }
     return (
-      <CardSection>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={{ color: 'black' }}
-          onPress={() => this.authLogin()}
-        >
-          Login
-        </Button>
-      </CardSection>
+      <View>
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => {
+              this.props.pollLoad(true);
+              this.props.pollAuth(this.props.ID);
+            }}
+          >
+            Login
+          </Button>
+        </CardSection>
+        {this.errorMes()}
+      </View>
     );
   }
 
   render() {
+    if (this.props.auth) {
+      this.props.navigation.navigate('PollPage');
+      this.props.authSwitch(null);
+    }
+
     const { headerStyle } = styles;
-    this.nav();
     return (
       <SafeAreaView>
         <Card>
@@ -112,12 +105,11 @@ class PollPage extends Component {
             label='Student ID'
             placeholder='12345789'
             keyboardType='number-pad'
-            onChangeText={(text) => this.setState({ ID: text })}
-            value={this.state.ID}
+            onChangeText={this.onIDChange.bind(this)}
+            value={this.props.ID}
           />
           {this.renderButton()}
         </Card>
-        {this.errorMes()}
       </SafeAreaView>
     );
   }
@@ -151,4 +143,14 @@ const styles = {
   }
 };
 
-export default withNavigation(PollPage);
+const mapStateToProps = (state) => {
+  const { auth, identifyer, loading, ID } = state.polls;
+  return { auth, identifyer, loading, ID };
+};
+
+export default withNavigation(connect(mapStateToProps, {
+  pollAuth,
+  pollLoad,
+  idChange,
+  authSwitch
+})(PollPage));

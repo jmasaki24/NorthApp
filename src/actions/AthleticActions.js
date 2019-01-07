@@ -5,6 +5,7 @@
 import axios from 'axios';
 import cheerio from 'react-native-cheerio';
 import {
+  UPCOMING_GAMES_URL,
   GET_UPCOMING_GAMES,
   GET_SPORT_SCORES,
   LOADING,
@@ -12,9 +13,6 @@ import {
   GET_SPORT_SCHEDULE,
   REMOVE_SCHEDULE
 } from './types';
-import {
-  UPCOMING_GAMES_URL
-} from './scrapeURLS';
 
 export const getUpcomingGames = () => {
   const finalArray = [];

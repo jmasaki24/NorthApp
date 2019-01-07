@@ -1,46 +1,57 @@
 [
   {
     "ID": "000000000",
-    "hasVoted": false
+    "hasVoted": true,
+     "grade": 11
   },
   {
     "ID": "000000001",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000002",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000003",
-    "hasVoted": true
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000004",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000005",
-    "hasVoted": true
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000006",
-    "hasVoted": true
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000007",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000008",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000009",
-    "hasVoted": true
+    "hasVoted": false,
+    "grade": 11
   },
   {
     "ID": "000000010",
-    "hasVoted": false
+    "hasVoted": false,
+    "grade": 11
   },
 ];

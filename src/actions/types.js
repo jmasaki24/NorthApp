@@ -21,9 +21,15 @@ export const ADD_EVENT_PERIOD = 'add_event_period';
 export const PUSH_EVENT = 'push_event';
 export const GET_CALENDAR = 'get_calendar';
 
+export const UPCOMING_GAMES_URL = 'https://www.nashuanorthathletics.com/main/eventSlider';
 export const GET_UPCOMING_GAMES = 'get_upcoming_games';
 export const GET_SPORT_SCORES = 'get_sport_scores';
-export const LOADING = 'loading';
 export const REMOVE_SCORES = 'remove_scores';
 export const GET_SPORT_SCHEDULE = 'get_sport_schedule';
 export const REMOVE_SCHEDULE = 'remove_scedule';
+
+export const POLL_LOGIN = 'poll_login';
+export const ID_INPUT = 'id_input';
+export const AUTH_EDIT = 'auth_edit';
+
+export const LOADING = 'loading';
