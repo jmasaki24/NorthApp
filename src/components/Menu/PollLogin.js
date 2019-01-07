@@ -87,8 +87,8 @@ class PLogin extends Component {
   }
 
   render() {
-    const grade = this.props.identifyer.grade;
     if (this.props.auth) {
+      const grade = this.props.identifyer.grade;
       this.props.navigation.navigate('PollPage', { grade });
       this.props.authSwitch(null);
     }
