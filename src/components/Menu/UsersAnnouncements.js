@@ -7,16 +7,16 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
 import algoliasearch from 'algoliasearch';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
 import { Confirm } from '../common';
 import AnnounceCardAllText from '../AnnounceCardAllText';
 import AnnounceCardImage from '../AnnounceCardImage';
-import EditContent from '../AddStuff/EditContent';
-import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
+
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
+// need algolia for when you edit i think
 const algolia = algoliasearch(
   ALGOLIA_APP_ID,
   ALGOLIA_API_KEY
@@ -103,47 +103,29 @@ class UsersAnnouncements extends Component {
   }
 
   renderItem({ item }) {
-    if (item.isDefault) {
+    if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
           button title={item.title} time={item.dateString}
-          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
+          info={item.info} onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
         >
-          <TouchableOpacity
-            onPress={this.setImageModalVisible.bind(this, true, item.uri)}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.uri }}
-            />
-          </TouchableOpacity>
+          <Image
+            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+            source={{ uri: item.uri }}
+          />
         </AnnounceCardImage>
       );
-    } else if (item.isDefault === false) {
-      return (
-        <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
-        >
-          <TouchableOpacity
-            onPress={this.setImageModalVisible.bind(this, true, item.url)}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.url }}
-            />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
-    } // if no image, the code below runs
-      return (
-        <AnnounceCardAllText
-          button title={item.title} time={item.dateString}
-          onPress={this.setDeleteModalVisible.bind(this, true, item)}
-        >
-          {item.info}
-        </AnnounceCardAllText>
-      );
+    }
+    return (
+      <AnnounceCardAllText
+        button info={item.info} title={item.title} time={item.dateString}
+        // onEditPress needs to have the fat arrow but for some reason onDelPress can't
+        onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
+      >
+        {item.info}
+      </AnnounceCardAllText>
+    );
   }
 
   render() {
@@ -200,16 +182,5 @@ const styles = {
     padding: 5
   }
 };
-// export default connect(mapStateToProps, { getUsersAnnouncements })(UsersAnnouncements);
 
-const UsersStack = createStackNavigator({
-    UsersAnnouncements,
-    Edit: EditContent
-  },
-  {
-    navigationOptions: () => ({
-      header: null
-    })
-});
-
-export default UsersStack;
+export { UsersAnnouncements };

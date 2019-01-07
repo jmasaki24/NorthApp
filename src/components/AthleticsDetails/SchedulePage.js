@@ -10,7 +10,7 @@ import { removeSchedules } from '../../actions';
 import { Card, CardSection, Spinner } from '../common';
 import ScheduleDropDown from './ScheduleDropDown';
 
-class SchedulePage extends Component {
+class SchedulePg extends Component {
   componentWillUnmount() {
     this.props.removeSchedules();
   }
@@ -91,4 +91,6 @@ const mapStateToProps = (state) => {
   return { schedule, loading };
 };
 
-export default connect(mapStateToProps, { removeSchedules })(SchedulePage);
+const SchedulePage = connect(mapStateToProps, { removeSchedules })(SchedulePg);
+
+export { SchedulePage };

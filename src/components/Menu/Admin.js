@@ -34,21 +34,21 @@ class Admin extends Component {
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
           <ScrollView>
             <Text style={styles.description}>
-              Hi there. This is the admin page From here you can add an announcement
+              Hi there. This is the admin page. From here you can add an announcement
               to the homepage, or add an event to the calendar. If you need help,
               feel free to send an email to northcodingteam@gmail.com
             </Text>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('Announce')}
+              onPress={() => this.props.navigation.navigate('CreateAnnounce')}
             >
               Create Announcement
             </Button>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('Event')}
+              onPress={() => this.props.navigation.navigate('CreateEvent')}
             >
               Create Event
             </Button>
@@ -118,4 +118,4 @@ const styles = {
   }
 };
 
-export default Admin;
+export { Admin };

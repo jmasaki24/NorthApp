@@ -15,7 +15,7 @@ import {
 
 import { CardSection, Input, Button, Confirm, } from '../common';
 
-class AddEvent extends Component {
+class CEvent extends Component {
   state = { showModal: false, showCalendar: false, switch: false }
 
   onAccept() {
@@ -261,7 +261,7 @@ const mapStateToProps = (state) => {
   return { date, title, location, info, pushing, hour, minute, period };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventHour,
@@ -270,4 +270,6 @@ export default withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   pushEvent
-})(AddEvent));
+})(CEvent));
+
+export { CreateEvent };

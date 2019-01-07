@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { removeScores } from '../../actions';
 import { Card, CardSection, ScoreCard, Spinner } from '../common';
 
-class ScorePage extends Component {
+class ScorePg extends Component {
   componentWillUnmount() {
     this.props.removeScores();
   }
@@ -19,7 +19,7 @@ class ScorePage extends Component {
     let loses = 0;
     let ties = 0;
     const scoreArray = this.props.scores;
-    
+
     for (let i = 0; i < scoreArray.length; i++) {
       const WLT = scoreArray[i].score.split(' ')[3];
 
@@ -100,4 +100,6 @@ const mapStateToProps = (state) => {
   return { scores, loading };
 };
 
-export default connect(mapStateToProps, { removeScores })(ScorePage);
+const ScorePage = connect(mapStateToProps, { removeScores })(ScorePg);
+
+export { ScorePage };

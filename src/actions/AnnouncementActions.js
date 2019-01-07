@@ -10,9 +10,17 @@ import {
   GET_SUCCESS,
   PUSHING_BOOLEAN,
   GET_USERS_ANNOUNCEMENTS,
-  //EDIT_ANNOUNCEMENT,
-  ADD_INFO
+  EDIT_ANNOUNCEMENT,
+  ADD_INFO,
+  CLEAR
 } from './types';
+
+export const clear = () => {
+  console.log('CLEARED FORM');
+  return {
+    type: CLEAR,
+  };
+};
 
 export const isDefaultImage = (bool) => {
   return {
@@ -44,11 +52,7 @@ export const addImage = (uri) => {
   };
 };
 
-export const editAnnouncement = ({ title, info, uri, isDefault, id }) => {
-  return null; //coming soon?
-};
-
-export const pushAnnouncement = ({ title, info, img, isDefault }) => {
+export const editAnnouncement = ({ title, info, img, isDefault, key }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let date = new Date();
@@ -60,12 +64,10 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
       if (isDefault) {
           const uri = img;
           const announcementData = { title, info, uri, isDefault, uid, dateString };
-          const newAnnouncementKey =
-            firebase.database().ref().child('Announcements').push().key;
 
           const updates = {};
-          updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
-          updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+          updates[`/Announcements/${key}`] = announcementData;
+          updates[`/Users/${uid}/Announcements/${key}`]
             = announcementData;
 
           firebase.database().ref().update(updates)
@@ -91,16 +93,14 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
                   imageRef.getDownloadURL()
                     .then((uri) => {
                       const announcementData = { title, info, uri, isDefault, uid, dateString };
-                      const newAnnouncementKey =
-                        firebase.database().ref().child('Announcements').push().key;
 
                       const updates = {};
-                      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
-                      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+                      updates[`/Announcements/${key}`] = announcementData;
+                      updates[`/Users/${uid}/Announcements/${key}`]
                         = announcementData;
 
                       firebase.database().ref().update(updates)
-                        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+                        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
                         .catch();
                     });
                 })
@@ -116,17 +116,98 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
       }
     } else {
       const announcementData = { title, info, isDefault, uid, dateString };
-      const newAnnouncementKey =
-        firebase.database().ref().child('Announcements').push().key;
 
       const updates = {};
-      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
-      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+      updates[`/Announcements/${key}`] = announcementData;
+      updates[`/Users/${uid}/Announcements/${key}`]
         = announcementData;
 
       firebase.database().ref().update(updates)
         .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
         .catch();
+    }
+  };
+};
+
+export const pushAnnouncement = ({ title, info, img, isDefault }) => {
+  const { currentUser } = firebase.auth();
+  const uid = currentUser.uid;
+  let date = new Date();
+  date = date.toString().split(' ');
+  const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
+
+  return (dispatch) => {
+    if (img !== '') {
+      if (isDefault) {
+        const uri = img;
+        const announcementData = { title, info, uri, isDefault, uid, dateString };
+        const newAnnouncementKey =
+        firebase.database().ref().child('Announcements').push().key;
+
+        const updates = {};
+        updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+        updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+        = announcementData;
+
+        firebase.database().ref().update(updates)
+        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+        .catch();
+      } else {
+        const Blob = RNFetchBlob.polyfill.Blob;
+        const fs = RNFetchBlob.fs;
+        window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+        window.Blob = Blob;
+        const mime = 'image/jpeg';
+        const name = `${+new Date()}-${img}`;
+        return new Promise((resolve, reject) => {
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const imageRef = firebase.storage().ref('napp_user_images').child(name);
+          fs.readFile(uploadUri, 'base64')
+          .then((data) => {
+            return Blob.build(data, { type: `${mime};BASE64` });
+          })
+          .then((blob) => {
+            imageRef.put(blob, { contentType: mime })
+            .then(() => {
+              imageRef.getDownloadURL()
+              .then((uri) => {
+                const announcementData = { title, info, uri, isDefault, uid, dateString };
+                const newAnnouncementKey =
+                firebase.database().ref().child('Announcements').push().key;
+
+                const updates = {};
+                updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+                updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+                = announcementData;
+
+                firebase.database().ref().update(updates)
+                .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+                .catch();
+              });
+            })
+            .catch();
+          })
+          .then((url) => {
+            resolve(url);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+        });
+      }
+    } else {
+      const announcementData = { title, info, isDefault, uid, dateString };
+      const newAnnouncementKey =
+      firebase.database().ref().child('Announcements').push().key;
+
+      const updates = {};
+      updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
+      updates[`/Users/${uid}/Announcements/${newAnnouncementKey}`]
+      = announcementData;
+
+      firebase.database().ref().update(updates)
+      .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
+      .catch();
     }
   };
 };

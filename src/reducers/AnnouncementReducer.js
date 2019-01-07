@@ -6,7 +6,8 @@ import {
   GET_SUCCESS,
   PUSHING_BOOLEAN,
   EDIT_ANNOUNCEMENT,
-  ADD_INFO
+  ADD_INFO,
+  CLEAR
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -37,6 +38,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE, pushing: false };
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };
+    case CLEAR:
+      return { ...INITIAL_STATE };
     default:
       return state;
   }

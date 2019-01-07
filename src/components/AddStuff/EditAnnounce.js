@@ -1,8 +1,3 @@
-/**
-* Date: 10/29/2018
-* Author: Matt Peters
-*/
-
 import React, { Component } from 'react';
 import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,8 +8,21 @@ import { infoAction, titleAction, pushAnnouncement, pushingBool }
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
-  state = { showModal: false };
+
+class EAnnounce extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+
+    const item = this.props.navigation.getParam('item', 'Item Not Found');
+    console.log(item);
+    this.props.titleAction(item.title);
+    this.props.infoAction(item.info);
+  }
+
+  componentWillUnmount() {
+
+  }
 
   onAccept() {
     const { title, info, img, isDefault } = this.props;
@@ -32,10 +40,12 @@ class AddContent extends Component {
   }
 
   onTitleChange(text) {
+    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
+    // console.log(text);
     this.props.infoAction(text);
   }
 
@@ -75,9 +85,7 @@ class AddContent extends Component {
       </CardSection>
     );
   }
-
   render() {
-    // console.log(`render called ${this.props.title}`);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -169,9 +177,11 @@ const mapStateToProps = (state) => {
   return { title, info, img, isDefault, pushing };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const EditAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   pushAnnouncement,
   pushingBool
-})(AddContent));
+})(EAnnounce));
+
+export { EditAnnounce };

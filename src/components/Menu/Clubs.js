@@ -8,7 +8,7 @@ import { Button, CardSection } from '../common';
 
 const data = clubList;
 
-class Clubs extends Component {
+class ClubList extends Component {
   state = { showModal: false, key: '001' }
 
   setModalVisible(visible) {
@@ -116,4 +116,6 @@ const mapStateToProps = (state) => {
   return { item };
 };
 
-export default connect(mapStateToProps, { openClub })(Clubs);
+const Clubs = connect(mapStateToProps, { openClub })(ClubList);
+
+export { Clubs };

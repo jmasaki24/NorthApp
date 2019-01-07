@@ -112,4 +112,6 @@ const mapStateToProps = (state) => {
   return { upcomingGames, loading };
 };
 
-export default connect(mapStateToProps, { getUpcomingGames, load })(UpcomingGamesPage);
+const UpcomingGames = connect(mapStateToProps, { getUpcomingGames, load })(UpcomingGamesPage);
+
+export { UpcomingGames };

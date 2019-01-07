@@ -4,25 +4,11 @@ import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
-import ContactPage from './Menu/ContactPage';
-import AcademicsPage from './Menu/AcademicsPage';
-import ClubsPage from './Menu/Clubs';
-import BellSchedule from './Menu/Bells';
+import { AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
+  PollLogin, PollPage, UsersAnnouncements, UsersEvents } from './Menu';
 import StoreStack from './Menu/StorePage';
-import Admin from './Menu/Admin';
-import AthleticsPage from './Menu/AthleticsPage';
-import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
-import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
-import ScorePage from './AthleticsDetails/ScorePage';
-import SchedulePage from './AthleticsDetails/SchedulePage';
-import PollLogin from './Menu/PollLogin';
-import PollPage from './Menu/PollPage';
-import AddContent from './AddStuff/AddContent';
-import DefaultImagesPage from './AddStuff/DefaultImages';
-import PhotosPage from './AddStuff/Photos';
-import AddEvent from './AddStuff/AddEvent';
-import UsersAnnouncements from './Menu/UsersAnnouncements';
-import UsersEvents from './Menu/UsersEvents';
+import { UpcomingGames, IndivSports, ScorePage, SchedulePage } from './AthleticsDetails';
+import { CreateAnnounce, EditAnnounce, CreateEvent, DefaultImages, Photos } from './AddStuff';
 import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
@@ -127,20 +113,21 @@ const MenuStack = createStackNavigator({
   Contact: ContactPage,
   Academics: AcademicsPage,
   Bells: BellSchedule,
-  Clubs: ClubsPage,
+  Clubs,
   Store: StoreStack,
-  Athletics: AthleticsPage,
-    UpcomingGames: UpcomingGamesPage,
-    IndivSportsPage,
+  Athletics,
+    UpcomingGames,
+    IndivSports,
       ScorePage,
       SchedulePage,
   AdminHome: Admin,
-  Announce: AddContent,
-  Event: AddEvent,
+  CreateAnnounce,
+  CreateEvent,
   UsersAnnouncements,
+  EditAnnounce,
   UsersEvents,
-  DefaultImages: DefaultImagesPage,
-  Photos: PhotosPage,
+  DefaultImages,
+  Photos,
   Polls: PollLogin,
   PollPage
 }, {

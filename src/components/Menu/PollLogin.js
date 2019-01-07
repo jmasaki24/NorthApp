@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
 import { pollAuth, pollLoad, idChange, authSwitch } from '../../actions';
 
-class PollPage extends Component {
+class PLogin extends Component {
   state = { ID: '', IDmatches: null, alreadyVoted: null, loading: false };
 
   onIDChange(text) {
@@ -143,6 +143,7 @@ const styles = {
   }
 };
 
+<<<<<<< HEAD
 const mapStateToProps = (state) => {
   const { auth, identifyer, loading, ID } = state.polls;
   return { auth, identifyer, loading, ID };
@@ -154,3 +155,8 @@ export default withNavigation(connect(mapStateToProps, {
   idChange,
   authSwitch
 })(PollPage));
+=======
+const PollLogin = withNavigation(PLogin);
+
+export { PollLogin };
+>>>>>>> c4faf48aebcb55f9d72dccf6206c8fd5162b4937

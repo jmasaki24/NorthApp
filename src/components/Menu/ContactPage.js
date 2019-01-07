@@ -49,4 +49,4 @@ const styles = {
   }
 };
 
-export default ContactPage;
+export { ContactPage };
