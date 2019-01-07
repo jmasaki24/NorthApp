@@ -49,21 +49,21 @@ class UpcomingGamesPage extends Component {
     return (
       <Card>
         <CardSection style={cardSectionStyle}>
-          <View>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={bodyTitleStyle}>Sport: </Text>
-            <Text style={bodyTextStyle}>  {sport}</Text>
+            <Text style={bodyTextStyle}>{sport}</Text>
           </View>
-          <View>
-            <Text style={bodyTitleStyle}>Against:</Text>
-            <Text style={bodyTextStyle}>  {otherTeam}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={bodyTitleStyle}>Against: </Text>
+            <Text style={bodyTextStyle}>{otherTeam}</Text>
           </View>
-          <View>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={bodyTitleStyle}>Date: </Text>
-            <Text style={bodyTextStyle}>  {day}</Text>
+            <Text style={bodyTextStyle}>{day}</Text>
           </View>
-          <View>
-            <Text style={bodyTitleStyle}>Time: </Text>
-            <Text style={bodyTextStyle}>  {time}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={bodyTitleStyle}>Time:</Text>
+            <Text style={bodyTextStyle}>{time}</Text>
           </View>
         </CardSection>
       </Card>
@@ -99,7 +99,7 @@ const styles = {
     fontWeight: 'bold'
   },
   bodyTextStyle: {
-    fontSize: 16,
+    fontSize: 18,
     color: 'black'
   },
   cardSectionStyle: {
