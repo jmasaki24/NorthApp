@@ -32,5 +32,6 @@ export const REMOVE_SCHEDULE = 'remove_scedule';
 export const POLL_LOGIN = 'poll_login';
 export const ID_INPUT = 'id_input';
 export const AUTH_EDIT = 'auth_edit';
+export const PULL_POLL = 'pull-poll';
 
 export const LOADING = 'loading';

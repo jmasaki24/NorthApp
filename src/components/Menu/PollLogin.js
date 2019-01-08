@@ -91,6 +91,7 @@ class PLogin extends Component {
       const grade = this.props.identifyer.grade;
       this.props.navigation.navigate('PollPage', { grade });
       this.props.authSwitch(null);
+      this.props.pollLoad(true);
     }
 
     const { headerStyle } = styles;

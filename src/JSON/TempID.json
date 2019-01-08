@@ -42,16 +42,16 @@
   {
     "ID": "000000008",
     "hasVoted": false,
-    "grade": 11
+    "grade": 9
   },
   {
     "ID": "000000009",
     "hasVoted": false,
-    "grade": 11
+    "grade": 10
   },
   {
     "ID": "000000010",
     "hasVoted": false,
-    "grade": 11
+    "grade": 12
   },
 ];

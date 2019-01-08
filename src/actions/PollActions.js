@@ -1,9 +1,10 @@
-//import firebase from 'firebase';
+import firebase from 'firebase';
 import {
   POLL_LOGIN,
   LOADING,
   ID_INPUT,
-  AUTH_EDIT
+  AUTH_EDIT,
+  PULL_POLL
 } from './types';
 import tempIDs from '../JSON/TempID.json';
 
@@ -64,5 +65,25 @@ export const authSwitch = (bool) => {
   return {
     type: AUTH_EDIT,
     payload: bool
+  };
+};
+
+export const pullPoll = (grade) => {
+  let wordGrade = '';
+  if (grade === 9) {
+    wordGrade = 'freshmen';
+  } else if (grade === 10) {
+    wordGrade = 'sophmores';
+  } else if (grade === 11) {
+    wordGrade = 'juniors';
+  } else if (grade === 12) {
+    wordGrade = 'seniors';
+  }
+
+  return (dispatch) => {
+    firebase.database().ref(`/Voting/${wordGrade}`)
+      .once('value', snapshot => {
+        dispatch({ type: PULL_POLL, payload: snapshot.val() });
+      });
   };
 };
