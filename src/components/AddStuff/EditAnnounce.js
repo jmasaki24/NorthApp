@@ -3,7 +3,7 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, pushAnnouncement, pushingBool }
+import { infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage }
   from '../../actions';
 
 const { height, width } = Dimensions.get('window');
@@ -18,17 +18,17 @@ class EAnnounce extends Component {
     console.log(item);
     this.props.titleAction(item.title);
     this.props.infoAction(item.info);
-  }
-
-  componentWillUnmount() {
-
+    this.props.addImage(item.uri);
+    this.props.addID(item.id);
   }
 
   onAccept() {
-    const { title, info, img, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, img, isDefault });
+    const { title, info, img, isDefault, id } = this.props;
+    console.log('hello!!!');
+    this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -40,17 +40,15 @@ class EAnnounce extends Component {
   }
 
   onTitleChange(text) {
-    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    // console.log(text);
     this.props.infoAction(text);
   }
 
   selectedImageDisplay() {
-    if (this.props.img !== '') {
+    if (this.props.img) {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -64,11 +62,12 @@ class EAnnounce extends Component {
 
   renderButton() {
     //USE react native API NetInfo in conditional to determine if push should be done
+    // WARNING: user can just put a space ' ' and they can push
     if ((this.props.title === '') && (this.props.info === '')) {
       return (
         <CardSection>
           <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>Submit Announcement</Text>
+            <Text style={styles.textStyle}>Change Announcement</Text>
           </View>
         </CardSection>
       );
@@ -80,12 +79,13 @@ class EAnnounce extends Component {
           textStyle={{ color: 'black' }}
           onPress={this.onSubmitPress.bind(this)}
         >
-          Submit Announcement
+          Change Announcement
         </Button>
       </CardSection>
     );
   }
   render() {
+    console.log(this.props);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -172,16 +172,17 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, pushing } = state.announce;
-  // console.log(state.announce);
-  return { title, info, img, isDefault, pushing };
+  const { title, info, img, isDefault, pushing, id } = state.announce;
+  return { title, info, img, isDefault, pushing, id };
 };
 
 const EditAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
-  pushAnnouncement,
-  pushingBool
+  editAnnouncement,
+  pushingBool,
+  addID,
+  addImage
 })(EAnnounce));
 
 export { EditAnnounce };

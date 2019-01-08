@@ -12,13 +12,21 @@ import {
   GET_USERS_ANNOUNCEMENTS,
   EDIT_ANNOUNCEMENT,
   ADD_INFO,
-  CLEAR
+  CLEAR,
+  ADD_ID
 } from './types';
 
 export const clear = () => {
   console.log('CLEARED FORM');
   return {
     type: CLEAR,
+  };
+};
+
+export const addID = (id) => {
+  return {
+    type: ADD_ID,
+    payload: id
   };
 };
 
@@ -52,27 +60,23 @@ export const addImage = (uri) => {
   };
 };
 
-export const editAnnouncement = ({ title, info, img, isDefault, key }) => {
+export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
+  console.log('edit');
 
   return (dispatch) => {
-    if (img !== '') {
+    if (img) {
       if (isDefault) {
           const uri = img;
-          const announcementData = { title, info, uri, isDefault, uid, dateString };
-
-          const updates = {};
-          updates[`/Announcements/${key}`] = announcementData;
-          updates[`/Users/${uid}/Announcements/${key}`]
-            = announcementData;
-
-          firebase.database().ref().update(updates)
-            .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-            .catch();
+          const announcementData = { title, info, uri, isDefault, uid, dateString, id };
+          firebase.database().ref(`/Announcements/${id}`).set(announcementData);
+          firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+            .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
+            .catch(error => console.log(error));
       } else {
         const Blob = RNFetchBlob.polyfill.Blob;
         const fs = RNFetchBlob.fs;
@@ -92,16 +96,13 @@ export const editAnnouncement = ({ title, info, img, isDefault, key }) => {
                 .then(() => {
                   imageRef.getDownloadURL()
                     .then((uri) => {
-                      const announcementData = { title, info, uri, isDefault, uid, dateString };
-
-                      const updates = {};
-                      updates[`/Announcements/${key}`] = announcementData;
-                      updates[`/Users/${uid}/Announcements/${key}`]
-                        = announcementData;
-
-                      firebase.database().ref().update(updates)
-                        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
-                        .catch();
+                      const announcementData = {
+                        title, info, uri, isDefault, uid, dateString, id };
+                        firebase.database().ref(`/Announcements/${id}`).set(announcementData);
+                        firebase.database().ref(`/Users/${uid}/Announcements/${id}`)
+                          .set(announcementData)
+                          .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
+                          .catch(error => console.log(error));
                     });
                 })
                 .catch();
@@ -114,17 +115,15 @@ export const editAnnouncement = ({ title, info, img, isDefault, key }) => {
             });
         });
       }
-    } else {
-      const announcementData = { title, info, isDefault, uid, dateString };
+    } else { // for allText announcements
+      const announcementData = { title, info, isDefault, uid, dateString, id };
 
-      const updates = {};
-      updates[`/Announcements/${key}`] = announcementData;
-      updates[`/Users/${uid}/Announcements/${key}`]
-        = announcementData;
-
-      firebase.database().ref().update(updates)
-        .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-        .catch();
+      firebase.database().ref(`/Announcements/${id}`).set(announcementData)
+        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('not here'); })
+        .catch(error => console.log(error));
+      firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('here'); })
+        .catch(error => console.log(error));
     }
   };
 };
@@ -135,14 +134,16 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
+  console.log('push');
 
   return (dispatch) => {
     if (img !== '') {
       if (isDefault) {
         const uri = img;
-        const announcementData = { title, info, uri, isDefault, uid, dateString };
         const newAnnouncementKey =
         firebase.database().ref().child('Announcements').push().key;
+        const announcementData = {
+          title, info, uri, isDefault, uid, dateString, id: newAnnouncementKey };
 
         const updates = {};
         updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
@@ -171,9 +172,10 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
             .then(() => {
               imageRef.getDownloadURL()
               .then((uri) => {
-                const announcementData = { title, info, uri, isDefault, uid, dateString };
                 const newAnnouncementKey =
                 firebase.database().ref().child('Announcements').push().key;
+                const announcementData = {
+                  title, info, uri, isDefault, uid, dateString, id: newAnnouncementKey };
 
                 const updates = {};
                 updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
@@ -196,9 +198,10 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
         });
       }
     } else {
-      const announcementData = { title, info, isDefault, uid, dateString };
       const newAnnouncementKey =
       firebase.database().ref().child('Announcements').push().key;
+      console.log(newAnnouncementKey);
+      const announcementData = { title, info, isDefault, uid, dateString, id: newAnnouncementKey };
 
       const updates = {};
       updates[`/Announcements/${newAnnouncementKey}`] = announcementData;

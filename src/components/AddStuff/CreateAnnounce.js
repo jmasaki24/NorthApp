@@ -33,12 +33,10 @@ class CAnnounce extends Component {
   }
 
   onTitleChange(text) {
-    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    // console.log(text);
     this.props.infoAction(text);
   }
 

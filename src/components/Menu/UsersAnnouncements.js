@@ -37,7 +37,7 @@ class UsersAnnouncements extends Component {
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUsersAnnouncements();
   }
 
@@ -75,6 +75,7 @@ class UsersAnnouncements extends Component {
               i++;
             }
           }
+          console.log(array);
           this.setState({ announcementArray: array.reverse() });
         })
     );
@@ -106,8 +107,9 @@ class UsersAnnouncements extends Component {
     if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+          button info={item.info} title={item.title} time={item.dateString}
+          onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
         >
           <Image
             style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}

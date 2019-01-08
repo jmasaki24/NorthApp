@@ -26,12 +26,13 @@ const AnnounceCardImage = (props) => {
           </View>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ flex: -1, flexDirection: 'row'  }} >
+          <View style={{ flex: -1, flexDirection: 'row' }}>
             <Icon.Button
-              name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+              name="edit" onPress={props.onEditPress}
+              iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
             />
             <Icon.Button
-              name="trash-alt" onPress={props.onPress}
+              name="trash-alt" onPress={props.onDelPress}
               iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
             />
           </View>
