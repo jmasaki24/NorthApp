@@ -17,13 +17,13 @@ class List extends Component {
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
-    this.props.navigation.navigate('Announce');
+    this.props.navigation.goBack();
   }
 
   onCancelPress() {
     this.props.isDefaultImage(null);
     this.props.addImage('');
-    this.props.navigation.navigate('Announce');
+    this.props.navigation.goBack();
   }
 
   renderItem({ item }) {
@@ -69,7 +69,7 @@ class List extends Component {
             textStyle={{ color: 'black' }}
             onPress={() => this.onCancelPress()}
           >
-            Cancel
+            Cancel/No Image
           </Button>
         </CardSection>
       </View>

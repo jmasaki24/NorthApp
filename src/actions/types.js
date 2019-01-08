@@ -8,6 +8,7 @@ export const GET_SUCCESS = 'get_success';
 export const PUSHING_BOOLEAN = 'pushing_boolean';
 export const GET_USERS_ANNOUNCEMENTS = 'get_users_announcements';
 export const EDIT_ANNOUNCEMENT = 'edit_announcement';
+export const ADD_ID = 'add_item_id';
 export const CLEAR = 'clear_values_in_form';
 
 export const OPEN_CLUB = 'open_club';

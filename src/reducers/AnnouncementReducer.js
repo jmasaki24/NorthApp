@@ -7,7 +7,8 @@ import {
   PUSHING_BOOLEAN,
   EDIT_ANNOUNCEMENT,
   ADD_INFO,
-  CLEAR
+  CLEAR,
+  ADD_ID
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -17,11 +18,14 @@ const INITIAL_STATE = {
   isDefault: null,
   photoKey: null,
   refreshing: false,
-  pushing: false
+  pushing: false,
+  id: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ADD_ID:
+      return { ...state, id: action.payload };
     case ADD_IMAGE:
       return { ...state, img: action.payload };
     case ADD_INFO:
@@ -35,6 +39,7 @@ export default (state = INITIAL_STATE, action) => {
     case PUSH_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
     case EDIT_ANNOUNCEMENT:
+      console.log('in here');
       return { ...state, ...INITIAL_STATE, pushing: false };
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };
