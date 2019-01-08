@@ -166,7 +166,6 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { title, info, img, isDefault, pushing } = state.announce;
-  // console.log(state.announce);
   return { title, info, img, isDefault, pushing };
 };
 
