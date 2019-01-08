@@ -1,6 +1,11 @@
 # NorthApp
 NorthApp est. fall 2018
 
+Hi there, GitHub surfer. If you have any experience with JavaScript or React Native, feel free to go through our code and pick out any errors/poor use of code within this project.
+
+Thanks!
+
+
 One fall day in 2017, a principal of a suburban/small town high school was looking for ideas.
 Ideas to improve his school, a school amidst droves of weakness, left by the past administration.
 
