@@ -2,14 +2,16 @@ import {
   POLL_LOGIN,
   LOADING,
   ID_INPUT,
-  AUTH_EDIT
+  AUTH_EDIT,
+  PULL_POLL
 } from '../actions/types';
 
 const INITIAL_STATE = {
   auth: null,
   identifyer: null,
   loading: false,
-  ID: ''
+  ID: '',
+  poll: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case AUTH_EDIT:
       return { ...state, auth: action.payload };
+    case PULL_POLL:
+      return { ...state, poll: action.payload, loading: false };
     default:
       return state;
   }
