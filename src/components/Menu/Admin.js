@@ -32,6 +32,7 @@ class Admin extends Component {
   renderHome() {
       return (
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
+          <Text style={styles.titleText}>Admin Home</Text>
           <ScrollView>
             <Text style={styles.description}>
               Hi there. This is the admin page. From here you can add an announcement
@@ -115,6 +116,11 @@ const styles = {
   description: {
     fontSize: 20,
     margin: 10,
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
 };
 

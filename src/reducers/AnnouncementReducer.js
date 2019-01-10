@@ -39,7 +39,6 @@ export default (state = INITIAL_STATE, action) => {
     case PUSH_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
     case EDIT_ANNOUNCEMENT:
-      console.log('in here');
       return { ...state, ...INITIAL_STATE, pushing: false };
     case GET_SUCCESS:
       return { ...state, refreshing: action.payload };

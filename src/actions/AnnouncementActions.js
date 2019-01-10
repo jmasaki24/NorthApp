@@ -17,7 +17,6 @@ import {
 } from './types';
 
 export const clear = () => {
-  console.log('CLEARED FORM');
   return {
     type: CLEAR,
   };
@@ -119,10 +118,10 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
       const announcementData = { title, info, isDefault, uid, dateString, id };
 
       firebase.database().ref(`/Announcements/${id}`).set(announcementData)
-        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('not here'); })
+        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
         .catch(error => console.log(error));
       firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
-        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('here'); })
+        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
         .catch(error => console.log(error));
     }
   };
@@ -249,9 +248,9 @@ export const getSuccess = () => {
   };
 };
 
-export const pushingBool = (bool) => {
-  return {
+export const pushingBool = (bool) => (
+  {
     type: PUSHING_BOOLEAN,
     payload: bool
-  };
-};
+  }
+);

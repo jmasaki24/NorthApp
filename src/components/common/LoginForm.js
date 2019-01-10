@@ -33,6 +33,13 @@ class LoginForm extends Component {
     });
   }
 
+  renderError() {
+    if (this.state.error) {
+      return <Text style={styles.errorTextStyle}>{this.state.error}</Text>;
+    }
+    return null;
+  }
+
   renderButton() {
     if (this.state.loading) {
       return <Spinner />;
@@ -70,13 +77,10 @@ class LoginForm extends Component {
           onChangeText={password => this.setState({ password })}
         />
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
-
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           {this.renderButton()}
         </CardSection>
+        {this.renderError()}
       </Card>
     );
   }

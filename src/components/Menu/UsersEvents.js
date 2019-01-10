@@ -88,11 +88,10 @@ class UsersEvents extends Component {
   }
 
   renderItem({ item }) {
-    console.log(item.time);
     return (
       <Card>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.titleText}>{item.title}</Text>
+          <Text style={styles.cardTitleText}>{item.title}</Text>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0, flexDirection: 'column' }}>
           <Text style={{ fontSize: 18, flex: 1, color: 'black', alignSelf: 'center' }}>
@@ -104,16 +103,17 @@ class UsersEvents extends Component {
           <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around' }}>
             <Icon.Button
               name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+              onPress={() => this.props.navigation.navigate('EditEvent', { item })}
             />
             <Icon.Button
               name="trash-alt" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
-              onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+              onPress={() => this.setState({ showModal: true, item: { item } })}
             />
           </View>
           <View style={{ flex: 1 }} />
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
-              {item.time} {item.date}
+              {item.date} {item.time}
             </Text>
           </View>
         </CardSection>
@@ -123,7 +123,8 @@ class UsersEvents extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}>Your Events</Text>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.eventArray}
@@ -174,10 +175,15 @@ const styles = {
     borderWidth: 2,
     padding: 5
   },
-  titleText: {
+  cardTitleText: {
     color: '#000',
     fontSize: 25,
     fontWeight: 'bold'
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
 };
 // export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);

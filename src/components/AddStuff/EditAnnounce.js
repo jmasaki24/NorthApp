@@ -3,7 +3,7 @@ import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from '
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage }
+import { infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage, clear }
   from '../../actions';
 
 const { height, width } = Dimensions.get('window');
@@ -22,9 +22,12 @@ class EAnnounce extends Component {
     this.props.addID(item.id);
   }
 
+  componentWillUnmount() {
+    this.props.clear();
+  }
+
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;
-    console.log('hello!!!');
     this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
@@ -120,7 +123,7 @@ class EAnnounce extends Component {
             onAccept={this.onAccept.bind(this)}
             onDecline={this.onDecline.bind(this)}
           >
-            Are you sure you would like to add this content?
+            Are you sure you would like to change this announcement?
           </Confirm>
         </Card>
         <Modal
@@ -182,7 +185,8 @@ const EditAnnounce = withNavigation(connect(mapStateToProps, {
   editAnnouncement,
   pushingBool,
   addID,
-  addImage
+  addImage,
+  clear
 })(EAnnounce));
 
 export { EditAnnounce };

@@ -3,7 +3,7 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
+import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, Text }
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
@@ -75,7 +75,6 @@ class UsersAnnouncements extends Component {
               i++;
             }
           }
-          console.log(array);
           this.setState({ announcementArray: array.reverse() });
         })
     );
@@ -93,13 +92,14 @@ class UsersAnnouncements extends Component {
     firebase.database().ref(`/Announcements/${this.state.item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    this.getUsersAnnouncements();
     index.deleteObject(this.state.item.id, (err) => console.log(err));
+    this.getUsersAnnouncements();
   }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.getUsersAnnouncements();
+    // TODO: make getUsersAnnouncements() return a promise
     this.setState({ refreshing: false });
   }
 
@@ -132,7 +132,8 @@ class UsersAnnouncements extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}> Your Announcements </Text>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.announcementArray}
@@ -182,6 +183,11 @@ const styles = {
     marginTop: 5,
     borderWidth: 2,
     padding: 5
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
 };
 

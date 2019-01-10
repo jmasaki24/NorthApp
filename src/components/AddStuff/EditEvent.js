@@ -9,18 +9,48 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
-  addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingBool }
+  addEventDate, addEventTitle, addEventLocation, addEventInfo, addID, clear,
+  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingBool, }
   from '../../actions';
 
 import { CardSection, Input, Button, Confirm, } from '../common';
 
-class CEvent extends Component {
-  state = { showModal: false, showCalendar: false, switch: false }
+class EEvent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false, showCalendar: false, switch: false };
+
+    const item = this.props.navigation.getParam('item', 'Item Not Found');
+    console.log(item);
+    this.props.addEventDate(item.date);
+    this.props.addEventTitle(item.title);
+    this.props.addEventLocation(item.location);
+    this.props.addEventInfo(item.info);
+    this.props.addID(item.id);
+  }
+
+  componentDidMount() {
+    const item = this.props.navigation.getParam('item', 'Item Not Found');
+
+    if (item.time === 'All Day') {
+      this.setState({ switch: true });
+    } else if (item.time) {
+      const colonPos = item.time.indexOf(':');
+      const spacePos = item.time.indexOf(' ');
+      const time = item.time;
+      this.props.addEventHour(time.substring(0, colonPos));
+      this.props.addEventMinute(time.substring(colonPos + 1, spacePos));
+      this.props.addEventPeriod(time.substring(spacePos + 1));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clear();
+  }
 
   onAccept() {
-    const { date, title, location, info, hour, minute, period } = this.props;
-    this.props.pushEvent({ date, title, location, info, hour, minute, period });
+    const { date, title, location, info, hour, minute, period, id } = this.props;
+    this.props.editEvent({ date, title, location, info, hour, minute, period, id });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
     this.props.navigation.pop();
@@ -77,9 +107,6 @@ class CEvent extends Component {
 
   selectTime() {
     if (!this.state.switch) {
-      console.log(this.props.hour);
-      console.log(this.props.minute);
-      console.log(this.props.period);
       return (
         <View style={{ flex: 2, flexDirection: 'row' }}>
           <Picker
@@ -144,7 +171,7 @@ class CEvent extends Component {
             textStyle={{ color: 'black', alignSelf: 'center' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
-            Create Event
+            Change Event
           </Button>
         </CardSection>
       );
@@ -152,7 +179,7 @@ class CEvent extends Component {
     return (
       <CardSection>
         <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>Create Event</Text>
+          <Text style={styles.textStyle}>Change Event</Text>
         </View>
       </CardSection>
     );
@@ -206,7 +233,7 @@ class CEvent extends Component {
           onAccept={this.onAccept.bind(this)}
           onDecline={this.onDecline.bind(this)}
         >
-          Are you sure you would like to add this event?
+          Are you sure you would like to change this event?
         </Confirm>
       </ScrollView>
     );
@@ -259,12 +286,12 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, pushing, hour, minute, period } = state.event;
+  const { date, title, location, info, pushing, hour, minute, period, id } = state.event;
   // console.log(state.event);
-  return { date, title, location, info, pushing, hour, minute, period };
+  return { date, title, location, info, pushing, hour, minute, period, id };
 };
 
-const CreateEvent = withNavigation(connect(mapStateToProps, {
+const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventHour,
@@ -272,8 +299,10 @@ const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventPeriod,
   addEventLocation,
   addEventInfo,
-  pushEvent,
-  pushingBool
-})(CEvent));
+  editEvent,
+  pushingBool,
+  addID,
+  clear
+})(EEvent));
 
-export { CreateEvent };
+export { EditEvent };

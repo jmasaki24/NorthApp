@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Linking } from 'react-native';
+import { View, ScrollView, Linking, Text } from 'react-native';
 import { Card, CardSection, Button } from '../common';
 import SeasonSelect from '../AthleticsDetails/SeasonSelect';
 import i18n from '../../utils/i18n.js';
@@ -13,6 +13,7 @@ class Athletics extends Component {
     const { buttonStyle, buttonTextStyle } = styles;
     return (
       <ScrollView style={{ flex: 1 }}>
+        <Text style={styles.titleText}>Athletics</Text>
         <Card style={{ marginBottom: 20 }}>
           <CardSection>
             <Button
@@ -66,6 +67,11 @@ const styles = {
   },
   buttonTextStyle: {
     color: 'black'
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
 };
 

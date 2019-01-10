@@ -22,6 +22,7 @@ class CAnnounce extends Component {
     this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -41,7 +42,7 @@ class CAnnounce extends Component {
   }
 
   selectedImageDisplay() {
-    if (this.props.img !== '') {
+    if (this.props.img) {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image

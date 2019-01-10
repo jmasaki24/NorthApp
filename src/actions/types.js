@@ -22,6 +22,7 @@ export const ADD_EVENT_MINUTE = 'add_event_minute';
 export const ADD_EVENT_PERIOD = 'add_event_period';
 export const PUSH_EVENT = 'push_event';
 export const GET_CALENDAR = 'get_calendar';
+export const EDIT_EVENT = 'edit_event';
 
 export const UPCOMING_GAMES_URL = 'https://www.nashuanorthathletics.com/main/eventSlider';
 export const GET_UPCOMING_GAMES = 'get_upcoming_games';

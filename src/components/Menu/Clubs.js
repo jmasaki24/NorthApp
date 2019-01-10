@@ -43,6 +43,7 @@ class ClubList extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Text style={styles.titleText}>NHSN Clubs</Text>
         <Modal
           visible={this.state.showModal}
           animationType='slide'
@@ -108,6 +109,11 @@ const styles = {
   buttonStyle: {
     justifyContent: 'center',
     marginTop: 50
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
 };
 

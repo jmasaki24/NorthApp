@@ -8,7 +8,8 @@ import { AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
   PollLogin, PollPage, UsersAnnouncements, UsersEvents } from './Menu';
 import StoreStack from './Menu/StorePage';
 import { UpcomingGames, IndivSports, ScorePage, SchedulePage } from './AthleticsDetails';
-import { CreateAnnounce, EditAnnounce, CreateEvent, DefaultImages, Photos } from './AddStuff';
+import { CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, Photos }
+  from './AddStuff';
 import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
@@ -126,12 +127,14 @@ const MenuStack = createStackNavigator({
   UsersAnnouncements,
   EditAnnounce,
   UsersEvents,
+  EditEvent,
   DefaultImages,
   Photos,
   Polls: PollLogin,
   PollPage
 }, {
   headerLayoutPreset: 'center',
+  headerMode: 'float',
   defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
