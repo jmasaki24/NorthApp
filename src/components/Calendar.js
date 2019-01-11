@@ -1,5 +1,6 @@
 /**
 * Author: Jamie Maddock
+* Like HomePage, this is just used to separate navigation props with redux props.
 */
 
 import React from 'react';

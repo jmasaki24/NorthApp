@@ -36,17 +36,21 @@ class CalendarItems extends Component {
       });
   }
 
-  // notes for iOS, description for android
+  // PROP: notes for iOS, description for android
   exportEvent(item) {
     const y = item.date.substring(0, item.date.indexOf('-'));
     const m = item.date.substring(item.date.indexOf('-') + 1, item.date.lastIndexOf('-'));
     const d = item.date.substring(item.date.lastIndexOf('-') + 1);
     const start = new Date(y, m - 1, d);
-    const end = start;
+    // don't do const end = start; bc then they're pointing to the same object
+    const end = new Date(y, m - 1, d);
+    console.log(start);
+    console.log(end);
 
     if (item.time === 'All Day') {
       end.setHours(start.getHours() + 1);
-      RNCalendarEvents.authorizeEventStore().then(() => {
+      RNCalendarEvents.authorizeEventStore().then((k) => {
+        console.log(k);
         RNCalendarEvents.saveEvent(item.title, {
           allDay: true,
           location: item.location,
@@ -58,13 +62,18 @@ class CalendarItems extends Component {
       }).catch(err => console.log(err));
     } else {
       if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
-        start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':')), 1) + 12);
+        // parseInt(string, radix) the radix param causes a return of NaN
+        start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':'))) + 12);
       } else {
          start.setHours(item.time.substring(0, item.time.indexOf(':')));
        }
       start.setMinutes(item.time.substring(item.time.indexOf(':') + 1, item.time.indexOf(' ')));
       end.setHours(start.getHours() + 1);
+      end.setMinutes(start.getMinutes());
       RNCalendarEvents.authorizeEventStore().then(() => {
+        console.log(item);
+        console.log(start);
+        console.log(end);
         RNCalendarEvents.saveEvent(item.title, {
           location: item.location,
           notes: item.info,
