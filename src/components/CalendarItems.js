@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
-import RNCalendarEvents from 'react-native-calendar-events';
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
 class CalendarItems extends Component {
   constructor(props) {
@@ -44,22 +44,29 @@ class CalendarItems extends Component {
     const start = new Date(y, m - 1, d);
     // don't do const end = start; bc then they're pointing to the same object
     const end = new Date(y, m - 1, d);
-    console.log(start);
-    console.log(end);
+
+    const eventConfig = {
+      allDay: false,
+      title: item.title,
+      startDate: start,
+      endDate: end,
+      location: item.location,
+      // notes: item.info,
+      description: item.info,
+    };
 
     if (item.time === 'All Day') {
       end.setHours(start.getHours() + 1);
-      RNCalendarEvents.authorizeEventStore().then((k) => {
-        console.log(k);
-        RNCalendarEvents.saveEvent(item.title, {
-          allDay: true,
-          location: item.location,
-          notes: item.info,
-          description: item.info,
-          startDate: start,
-          endDate: end
+      eventConfig.allDay = true;
+
+      AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+        .then((eventInfo: { calendarItemIdentifier: string, eventIdentifier: string }) => {
+        console.warn(JSON.stringify(eventInfo));
+        })
+        .catch((error: string) => {
+          // handle error such as when user rejected permissions
+          console.warn(error);
         });
-      }).catch(err => console.log(err));
     } else {
       if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
         // parseInt(string, radix) the radix param causes a return of NaN
@@ -70,18 +77,15 @@ class CalendarItems extends Component {
       start.setMinutes(item.time.substring(item.time.indexOf(':') + 1, item.time.indexOf(' ')));
       end.setHours(start.getHours() + 1);
       end.setMinutes(start.getMinutes());
-      RNCalendarEvents.authorizeEventStore().then(() => {
-        console.log(item);
-        console.log(start);
-        console.log(end);
-        RNCalendarEvents.saveEvent(item.title, {
-          location: item.location,
-          notes: item.info,
-          description: item.info,
-          startDate: start,
-          endDate: end
+
+      AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+        .then((eventInfo: { calendarItemIdentifier: string, eventIdentifier: string }) => {
+        console.warn(JSON.stringify(eventInfo));
+        })
+        .catch((error: string) => {
+          // handle error such as when user rejected permissions
+          console.warn(error);
         });
-      });
     }
   }
 
