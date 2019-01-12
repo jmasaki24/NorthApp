@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class CalendarItems extends Component {
   constructor(props) {
@@ -107,22 +108,25 @@ class CalendarItems extends Component {
   renderItem(item) {
     return (
       <View style={[styles.item]}>
-        <Text style={styles.itemTitleStyle}>{item.title}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Text style={styles.itemTitleStyle}>{item.title}</Text>
+          <Icon.Button
+            name={'calendar-export'} size={20} style={{ flex: -1 }}
+            iconStyle={{ marginRight: 0, color: '#999', flex: -1 }} backgroundColor='#fff'
+            onPress={() => this.exportEvent(item)}
+          />
+        </View>
         <View style={{ flexDirection: 'row', flex: 1 }}>
           <Text style={{ marginRight: 10 }}>{item.time}</Text><Text>{item.location}</Text>
         </View>
         <Text>{item.info}</Text>
-        <TouchableOpacity
-          style={{ alignSelf: 'center' }} onPress={() => this.exportEvent(item)}
-        >
-          <Text>Export To Calendar</Text>
-        </TouchableOpacity>
       </View>
     );
   }
 
 
   render() {
+    console.log(this.state.items);
     return (
       <Agenda
         items={this.state.items}
@@ -155,7 +159,8 @@ const styles = {
   itemTitleStyle: {
     fontWeight: 'bold',
     textDecorationLine: 'underline',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    flex: 2
   }
 };
 

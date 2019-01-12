@@ -65,14 +65,14 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
-  console.log('edit');
 
   return (dispatch) => {
     if (img) {
       if (isDefault) {
           const uri = img;
           const announcementData = { title, info, uri, isDefault, uid, dateString, id };
-          firebase.database().ref(`/Announcements/${id}`).set(announcementData);
+          firebase.database().ref(`/Announcements/${id}`).set(announcementData).then()
+          .catch(error => console.log(error));
           firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
             .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
             .catch(error => console.log(error));
@@ -133,7 +133,6 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
-  console.log('push');
 
   return (dispatch) => {
     if (img !== '') {

@@ -7,11 +7,20 @@ import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaVie
   from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
+import algoliasearch from 'algoliasearch';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
 import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
+
+// need algolia for when you edit i think
+const algolia = algoliasearch(
+  ALGOLIA_APP_ID,
+  ALGOLIA_API_KEY
+);
+const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
 class UsersEvents extends Component {
   constructor(props) {
@@ -78,6 +87,7 @@ class UsersEvents extends Component {
     firebase.database().ref(`/Calendar/${item.date}/${item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
+    index.deleteObject(this.state.item.id, (err) => console.log(err));
     this.getUsersEvents();
   }
 

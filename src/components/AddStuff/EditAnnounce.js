@@ -88,7 +88,6 @@ class EAnnounce extends Component {
     );
   }
   render() {
-    console.log(this.props);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>

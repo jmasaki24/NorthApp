@@ -61,7 +61,6 @@ class EEvent extends Component {
   }
 
   onDateChange(day) {
-    // console.log(day.dateString);
     this.props.addEventDate(day.dateString);
   }
 
@@ -287,7 +286,6 @@ const styles = {
 
 const mapStateToProps = (state) => {
   const { date, title, location, info, pushing, hour, minute, period, id } = state.event;
-  // console.log(state.event);
   return { date, title, location, info, pushing, hour, minute, period, id };
 };
 

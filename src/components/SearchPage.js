@@ -66,13 +66,25 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
     }
   };
 
+  const imageSpace = (uri) => {
+    if (uri) {
+      return (
+        <Image
+          resizeMode="contain"
+          style={{ height: 90, flex: 1 }}
+          source={{ uri }}
+        />
+      );
+    }
+  };
+
   return (
     <FlatList
       data={hits}
       onEndReached={onEndReached}
       keyExtractor={(item, index) => item.objectID}
       renderItem={({ item }) => {
-        // announcements have a {dateString, info, title, idefault, uid, uri or url}
+        // announcements have a {dateString, info, title, idefault, uid, uri}
         if (item.hasOwnProperty('dateString')) {
           return (
             <Card>
@@ -82,11 +94,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
                 </Text>
               </CardSection>
               <CardSection style={{ borderBottomWidth: 0, alignItems: 'center' }}>
-                  <Image
-                    resizeMode="contain"
-                    style={{ height: 90, flex: 1 }}
-                    source={{ uri: item.uri }}
-                  />
+                {imageSpace(item.uri)}
                 <Text style={{ color: 'black', fontSize: 18, flex: 2 }}>
                   <Highlight attribute="info" hit={item} />
                 </Text>
