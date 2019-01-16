@@ -16,22 +16,22 @@ class PLogin extends Component {
   init() {
     //in order to execute firebase database rules must be changes to => ".write": true
     firebase.database().ref('/Voting/seniors/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/seniors/VicePresident').push({ temp: 0 });
+    firebase.database().ref('/Voting/seniors/Vice President').push({ temp: 0 });
     firebase.database().ref('/Voting/seniors/Treasurer').push({ temp: 0 });
     firebase.database().ref('/Voting/seniors/Senate').push({ temp: 0 });
 
     firebase.database().ref('/Voting/sophmores/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/sophmores/VicePresident').push({ temp: 0 });
+    firebase.database().ref('/Voting/sophmores/Vice President').push({ temp: 0 });
     firebase.database().ref('/Voting/sophmores/Treasurer').push({ temp: 0 });
     firebase.database().ref('/Voting/sophmores/Senate').push({ temp: 0 });
 
     firebase.database().ref('/Voting/juniors/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/juniors/VicePresident').push({ temp: 0 });
+    firebase.database().ref('/Voting/juniors/Vice President').push({ temp: 0 });
     firebase.database().ref('/Voting/juniors/Treasurer').push({ temp: 0 });
     firebase.database().ref('/Voting/juniors/Senate').push({ temp: 0 });
 
     firebase.database().ref('/Voting/freshmen/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/freshmen/VicePresident').push({ temp: 0 });
+    firebase.database().ref('/Voting/freshmen/Vice President').push({ temp: 0 });
     firebase.database().ref('/Voting/freshmen/Treasurer').push({ temp: 0 });
     firebase.database().ref('/Voting/freshmen/Senate').push({ temp: 0 });
   }
@@ -91,7 +91,6 @@ class PLogin extends Component {
       const grade = this.props.identifyer.grade;
       this.props.navigation.navigate('PollPage', { grade });
       this.props.authSwitch(null);
-      this.props.pollLoad(true);
     }
 
     const { headerStyle } = styles;

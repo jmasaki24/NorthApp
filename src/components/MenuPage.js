@@ -5,7 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
 import { AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
-  PollLogin, PollPage, UsersAnnouncements, UsersEvents } from './Menu';
+  PollLogin, PollPage, UsersAnnouncements, UsersEvents, Vote } from './Menu';
 import StoreStack from './Menu/StorePage';
 import { UpcomingGames, IndivSports, ScorePage, SchedulePage } from './AthleticsDetails';
 import { CreateAnnounce, EditAnnounce, CreateEvent, DefaultImages, Photos } from './AddStuff';
@@ -110,26 +110,27 @@ const styles = {
 
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
-  Contact: ContactPage,
-  Academics: AcademicsPage,
-  Bells: BellSchedule,
-  Clubs,
-  Store: StoreStack,
-  Athletics,
-    UpcomingGames,
-    IndivSports,
-      ScorePage,
-      SchedulePage,
-  AdminHome: Admin,
-  CreateAnnounce,
-  CreateEvent,
-  UsersAnnouncements,
-  EditAnnounce,
-  UsersEvents,
-  DefaultImages,
-  Photos,
-  Polls: PollLogin,
-  PollPage
+    Contact: ContactPage,
+    Academics: AcademicsPage,
+      Bells: BellSchedule,
+      Clubs,
+    Store: StoreStack,
+    Athletics,
+      UpcomingGames,
+      IndivSports,
+        ScorePage,
+        SchedulePage,
+    AdminHome: Admin,
+      CreateAnnounce,
+      CreateEvent,
+      UsersAnnouncements,
+      EditAnnounce,
+      UsersEvents,
+      DefaultImages,
+      Photos,
+    Polls: PollLogin,
+      PollPage,
+      Vote
 }, {
   headerLayoutPreset: 'center',
   defaultNavigationOptions: ({ navigation }) => ({
