@@ -102,7 +102,9 @@ class CalendarItems extends Component {
 
   renderEmptyData() {
     return (
-      <View style={styles.emptyDate}><Text>No Events Today :/</Text></View>
+      <View style={styles.emptyDate}>
+        <Text>No Events Today :/</Text>
+      </View>
     );
   }
 
@@ -127,7 +129,6 @@ class CalendarItems extends Component {
 
 
   render() {
-    console.log(this.state.items);
     return (
       <Agenda
         items={this.state.items}
@@ -136,7 +137,6 @@ class CalendarItems extends Component {
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyData.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
-        // onDayPress={() => { console.log(this.state); }}
       />
     );
   }

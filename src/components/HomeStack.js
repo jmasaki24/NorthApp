@@ -3,29 +3,35 @@
 */
 
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import HomePageItems from './HomePageItems';
 import LogoTitans from '../images/logoTitans.jpg';
+import Certificates from './Certificates';
 
 const HomePage = () => (
   <HomePageItems />
 );
 
 const HomeStack = createStackNavigator({
-  Home: HomePage
+  Home: HomePage,
+  Certificates,
 }, {
   headerLayoutPreset: 'center',
-  defaultNavigationOptions: {
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
-      <Image
-        style={{ height: 60, width: 110 }}
-        source={LogoTitans}
-      />,
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Certificates')}
+      >
+        <Image
+          style={{ height: 60, width: 110 }}
+          source={LogoTitans}
+        />  
+      </TouchableOpacity>,
     headerStyle: {
       height: 65
     }
-  }
+  })
 });
 
 

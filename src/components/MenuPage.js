@@ -15,22 +15,12 @@ import {
 } from './AddStuff';
 import i18n from '../utils/i18n';
 
-//want to make this a flatlist afterwards? not sure if it will improve performance
-
+// TODO: make this a flatlist, or something to improve readability and maybe performance
 class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle, pageStyle } = styles;
     return (
       <View style={pageStyle}>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Athletics')}
-          >
-            {i18n.t('ATHLETICS')}
-          </Button>
-        </CardSection>
         <CardSection style={{ padding: 0 }}>
           <Button
             buttonStyle={buttonStyle}
@@ -44,9 +34,18 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Store')}
+            onPress={() => this.props.navigation.navigate('AdminHome')}
           >
-            {i18n.t('STORE')}
+            {i18n.t('ADMINISTRATION')}
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Athletics')}
+          >
+            {i18n.t('ATHLETICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -62,15 +61,6 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Polls')}
-          >
-            {i18n.t('VOTING')}
-          </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Contact')}
           >
             {i18n.t('CONTACT')}
@@ -80,9 +70,18 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('AdminHome')}
+            onPress={() => this.props.navigation.navigate('Store')}
           >
-            {i18n.t('ADMINISTRATION')}
+            {i18n.t('STORE')}
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Polls')}
+          >
+            {i18n.t('VOTING')}
           </Button>
         </CardSection>
         <Text style={{ alignSelf: 'center' }}>Copyright NHSN 2018</Text>
@@ -125,14 +124,14 @@ const MenuStack = createStackNavigator({
       ScorePage,
       SchedulePage,
   AdminHome: Admin,
-  CreateAnnounce,
-  CreateEvent,
-  UsersAnnouncements,
-  EditAnnounce,
-  UsersEvents,
-  EditEvent,
-  DefaultImages,
-  Photos,
+    CreateAnnounce,
+      DefaultImages,
+      Photos,
+    CreateEvent,
+    UsersAnnouncements,
+    EditAnnounce,
+    UsersEvents,
+    EditEvent,
   Polls: PollLogin,
   PollPage
 }, {
