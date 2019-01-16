@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
@@ -29,7 +29,8 @@ class CalendarItems extends Component {
         // could and should (?) use Object.map() method instead.
 
         for (const date in firebaseData) {
-          if (firebaseData.hasOwnProperty(date)) {
+          const has = firebaseData.hasOwnProperty;
+          if (has) {
             calendarData[date] = Object.values(firebaseData[date]);
           }
         }
@@ -70,7 +71,7 @@ class CalendarItems extends Component {
         });
     } else {
       if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
-        // parseInt(string, radix) the radix param causes a return of NaN
+        // parseInt(string, 0) the radix param causes a return of NaN... maybe radix should be 10?
         start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':'))) + 12);
       } else {
          start.setHours(item.time.substring(0, item.time.indexOf(':')));
@@ -141,27 +142,27 @@ class CalendarItems extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
     flex: 1,
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
-    marginTop: 17
+    marginTop: 17,
   },
   emptyDate: {
     height: 15,
     flex: 1,
     paddingTop: 30,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   itemTitleStyle: {
     fontWeight: 'bold',
     textDecorationLine: 'underline',
     alignSelf: 'center',
-    flex: 2
+    flex: 2,
   }
-};
+});
 
 export default CalendarItems;

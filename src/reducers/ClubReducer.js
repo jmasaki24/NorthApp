@@ -1,3 +1,5 @@
+// TODO: Figure out if we need this reducer
+
 import { OPEN_CLUB } from '../actions/types';
 
 const INITIAL_STATE = {

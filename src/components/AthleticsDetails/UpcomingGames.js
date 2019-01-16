@@ -4,9 +4,9 @@
 */
 
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Spinner } from '../common';
+import { Card, CardSection, Spinner, } from '../common';
 import { getUpcomingGames, load } from '../../actions';
 
 class UpcomingGamesPage extends Component {
@@ -92,20 +92,20 @@ class UpcomingGamesPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   bodyTitleStyle: {
     color: 'black',
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   bodyTextStyle: {
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   cardSectionStyle: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { upcomingGames, loading } = state.athleticsInfo;

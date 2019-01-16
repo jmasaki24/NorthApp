@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { Linking, TouchableOpacity, Text, View } from 'react-native';
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from '../common';
 import i18n from '../../utils/i18n';
@@ -65,7 +65,7 @@ class AcademicsPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'white',
     flex: 1,
@@ -80,7 +80,7 @@ const styles = {
     marginLeft: 5,
     marginRight: 5,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   textStyle: {
     color: '#000',
@@ -94,6 +94,6 @@ const styles = {
     margin: 10,
     fontSize: 30,
   }
-};
+});
 
 export { AcademicsPage };

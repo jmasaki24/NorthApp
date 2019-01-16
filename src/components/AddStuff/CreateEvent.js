@@ -4,16 +4,15 @@
 */
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View, Picker, Switch } from 'react-native';
+import { Picker, ScrollView, StyleSheet, Switch, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingBool }
-  from '../../actions';
-
-import { CardSection, Input, Button, Confirm, } from '../common';
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingBool
+} from '../../actions';
+import { Button, CardSection, Confirm, Input, } from '../common';
 
 class CEvent extends Component {
   state = { showModal: false, showCalendar: false, switch: false }
@@ -31,7 +30,6 @@ class CEvent extends Component {
   }
 
   onDateChange(day) {
-    // console.log(day.dateString);
     this.props.addEventDate(day.dateString);
   }
 
@@ -77,9 +75,6 @@ class CEvent extends Component {
 
   selectTime() {
     if (!this.state.switch) {
-      console.log(this.props.hour);
-      console.log(this.props.minute);
-      console.log(this.props.period);
       return (
         <View style={{ flex: 2, flexDirection: 'row' }}>
           <Picker
@@ -213,18 +208,18 @@ class CEvent extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   dateText: {
     flex: 1,
     marginLeft: 20,
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   inputSection: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonStyle: {
     flex: 1,
@@ -234,7 +229,7 @@ const styles = {
     paddingLeft: 10,
     margin: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -242,25 +237,24 @@ const styles = {
     fontSize: 16,
     fontWeight: '600',
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   labelStyle: {
     fontSize: 18,
     color: 'black',
     paddingLeft: 20,
-    flex: 1
+    flex: 1,
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { date, title, location, info, pushing, hour, minute, period } = state.event;
-  // console.log(state.event);
   return { date, title, location, info, pushing, hour, minute, period };
 };
 

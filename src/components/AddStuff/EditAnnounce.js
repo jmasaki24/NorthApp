@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
+import {
+  Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage, clear }
-  from '../../actions';
+import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
+import {
+  infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage, clear, isDefaultImage
+} from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
@@ -20,6 +23,7 @@ class EAnnounce extends Component {
     this.props.infoAction(item.info);
     this.props.addImage(item.uri);
     this.props.addID(item.id);
+    this.props.isDefaultImage(item.isDefault);
   }
 
   componentWillUnmount() {
@@ -144,19 +148,20 @@ class EAnnounce extends Component {
   }
 }
 
-const styles = {
+// TODO: could probably export styles to a root style.js so we aren't redundant. Same for event.
+const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   pushingViewStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -165,13 +170,13 @@ const styles = {
     fontWeight: '600',
     marginRight: 10,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   buttonStyle: {
     borderColor: 'white',
     justifyContent: 'center',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { title, info, img, isDefault, pushing, id } = state.announce;
@@ -185,7 +190,8 @@ const EditAnnounce = withNavigation(connect(mapStateToProps, {
   pushingBool,
   addID,
   addImage,
-  clear
+  clear,
+  isDefaultImage
 })(EAnnounce));
 
 export { EditAnnounce };

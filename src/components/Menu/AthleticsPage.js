@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Linking, Text } from 'react-native';
-import { Card, CardSection, Button } from '../common';
+import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import { Button, Card, CardSection, } from '../common';
 import SeasonSelect from '../AthleticsDetails/SeasonSelect';
 import i18n from '../../utils/i18n.js';
 
@@ -14,6 +14,16 @@ class Athletics extends Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         <Text style={styles.titleText}>Athletics</Text>
+        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
+          <Text>via </Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://nashuanorthathletics.com')}
+          >
+            <Text style={{ textDecorationLine: 'underline', color: '#0000EE' }}>
+              nashuanorthathletics.com
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Card style={{ marginBottom: 20 }}>
           <CardSection>
             <Button
@@ -61,18 +71,19 @@ class Athletics extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonTextStyle: {
-    color: 'black'
+    color: 'black',
   },
   titleText: {
     alignSelf: 'center',
     margin: 10,
+    marginBottom: 5,
     fontSize: 30,
   }
-};
+});
 
 export { Athletics };

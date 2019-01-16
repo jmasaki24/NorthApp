@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const Button = (props) => {
   const { buttonStyle, textStyle } = styles;
@@ -23,7 +23,7 @@ const Button = (props) => {
 };
 
 //These are default style settings if not given any
-const styles = {
+const styles = StyleSheet.create({
   textStyle: {
     alignSelf: 'center',
     color: '#007aff',
@@ -45,8 +45,8 @@ const styles = {
     marginLeft: 5,
     marginRight: 5,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   }
-};
+});
 
 export { Button };

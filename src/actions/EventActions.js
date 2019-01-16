@@ -7,9 +7,9 @@ import {
   ADD_EVENT_HOUR,
   ADD_EVENT_MINUTE,
   ADD_EVENT_PERIOD,
+  EDIT_EVENT,
   PUSH_EVENT,
   GET_CALENDAR,
-  EDIT_EVENT,
 } from './types';
 
 export const addEventDate = (date) => (

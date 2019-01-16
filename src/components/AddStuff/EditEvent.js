@@ -4,14 +4,14 @@
 */
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View, Picker, Switch } from 'react-native';
+import { Picker, ScrollView, StyleSheet, Switch, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo, addID, clear,
-  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingBool, }
-  from '../../actions';
+  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingBool,
+} from '../../actions';
 
 import { CardSection, Input, Button, Confirm, } from '../common';
 
@@ -239,18 +239,18 @@ class EEvent extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   dateText: {
     flex: 1,
     marginLeft: 20,
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   inputSection: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonStyle: {
     flex: 1,
@@ -260,7 +260,7 @@ const styles = {
     paddingLeft: 10,
     margin: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -268,21 +268,21 @@ const styles = {
     fontSize: 16,
     fontWeight: '600',
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   labelStyle: {
     fontSize: 18,
     color: 'black',
     paddingLeft: 20,
-    flex: 1
+    flex: 1,
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { date, title, location, info, pushing, hour, minute, period, id } = state.event;

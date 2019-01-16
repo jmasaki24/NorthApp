@@ -3,9 +3,9 @@
 * Authors: Jamie Maddock && Matt Peters
 */
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, } from 'react-native';
 import firebase from 'firebase';
-import { LoginForm, Spinner, Button } from '../common';
+import { Button, LoginForm, Spinner, } from '../common';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
@@ -40,7 +40,7 @@ class Admin extends Component {
               feel free to send an email to northcodingteam@gmail.com
             </Text>
             <Button
-              buttonStyle={styles.buttonStyle}
+              buttonStyle={[styles.buttonStyle, { borderTopWidth: 1 }]}
               textStyle={styles.textStyle}
               onPress={() => this.props.navigation.navigate('CreateAnnounce')}
             >
@@ -95,23 +95,24 @@ class Admin extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     //borderColor: 'white',
     borderWidth: 1,
+    borderTopWidth: 0,
     borderColor: 'black',
     backgroundColor: 'white',
     borderRadius: 0,
     paddingLeft: 10,
     margin: 0,
     flex: 0,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
     color: 'black',
     alignSelf: 'flex-start',
     fontSize: 18,
-    margin: 5
+    margin: 5,
   },
   description: {
     fontSize: 20,
@@ -122,6 +123,6 @@ const styles = {
     margin: 10,
     fontSize: 30,
   }
-};
+});
 
 export { Admin };

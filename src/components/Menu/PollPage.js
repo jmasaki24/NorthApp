@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { SafeAreaView, Text, } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Spinner, Button } from '../common';
+import { Button, Card, CardSection, Spinner, } from '../common';
 import { pullPoll } from '../../actions';
 
 class VotingPage extends Component {

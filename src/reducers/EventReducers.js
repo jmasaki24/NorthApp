@@ -1,4 +1,5 @@
 import {
+  ADD_ID,
   ADD_EVENT_DATE,
   ADD_EVENT_TITLE,
   ADD_EVENT_LOCATION,
@@ -6,10 +7,9 @@ import {
   ADD_EVENT_HOUR,
   ADD_EVENT_MINUTE,
   ADD_EVENT_PERIOD,
-  PUSH_EVENT,
-  ADD_ID,
+  CLEAR,
   EDIT_EVENT,
-  CLEAR
+  PUSH_EVENT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -42,12 +42,12 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, minute: action.payload };
     case ADD_EVENT_PERIOD:
       return { ...state, period: action.payload };
-    case PUSH_EVENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
-    case EDIT_EVENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
     case CLEAR:
       return { ...INITIAL_STATE };
+    case EDIT_EVENT:
+      return { ...state, ...INITIAL_STATE, pushing: false };
+    case PUSH_EVENT:
+      return { ...state, ...INITIAL_STATE, pushing: false };
     default:
       return state;
   }

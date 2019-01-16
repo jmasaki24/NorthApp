@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text, } from 'react-native';
 import firebase from 'firebase';
 import { Button } from './Button';
 import { Card } from './Card';
@@ -86,21 +86,21 @@ class LoginForm extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
-    color: 'red'
+    color: 'red',
   },
   buttonStyle: {
     borderColor: 'white',
-	justifyContent: 'center'
+	justifyContent: 'center',
   },
   buttonTextStyle: {
     alignSelf: 'center',
-    color: 'black'
+    color: 'black',
   }
-};
+});
 
 
 export { LoginForm };

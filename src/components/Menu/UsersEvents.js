@@ -3,8 +3,9 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, Text }
-  from 'react-native';
+import {
+  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet, Text
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
 import algoliasearch from 'algoliasearch';
@@ -63,7 +64,8 @@ class UsersEvents extends Component {
         .on('value', snapshot => {
           firebaseData = snapshot.val();
           for (const key in firebaseData) {
-            if (firebaseData[key].hasOwnProperty) {
+            const has = firebaseData[key].hasOwnProperty;
+            if (has) {
               firebaseData[key].id = key;
               array[i] = firebaseData[key];
               i++;
@@ -87,8 +89,10 @@ class UsersEvents extends Component {
     firebase.database().ref(`/Calendar/${item.date}/${item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    index.deleteObject(this.state.item.id, (err) => console.log(err));
+    index.deleteObject(item.id, (err) => console.log(err));
+    console.log(item.id);
     this.getUsersEvents();
+    this.setState({ item: {} });
   }
 
   handleRefresh = () => {
@@ -173,7 +177,7 @@ class UsersEvents extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -183,19 +187,19 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
+    padding: 5,
   },
   cardTitleText: {
     color: '#000',
     fontSize: 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   titleText: {
     alignSelf: 'center',
     margin: 10,
     fontSize: 30,
   }
-};
+});
 // export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);
 
 export { UsersEvents };

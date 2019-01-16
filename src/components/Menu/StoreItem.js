@@ -3,19 +3,17 @@
 */
 
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Image, StyleSheet, Text, View, } from 'react-native';
 import pinkBapeT from '../../images/pinkBapeT.jpg';
 import { Card } from '../common';
 
 //use a flatlist to render sizesquares as received by data with actions/redux later
 
-const SizeSquare = ({ size }) => {
-  return (
+const SizeSquare = ({ size }) => (
     <View style={styles.sizeSquareStyle}>
       <Text style={{ fontSize: 20, color: '#000' }}> {size} </Text>
     </View>
-  );
-};
+);
 
 
 class StoreItem extends Component {
@@ -42,7 +40,7 @@ class StoreItem extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   titleText: {
     fontSize: 28,
     color: '#000',
@@ -59,7 +57,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 2.5,
-    marginRight: 2.5
+    marginRight: 2.5,
   },
   imageStyle: {
     shadowColor: '#000',
@@ -83,8 +81,8 @@ const styles = {
     elevation: 0,
     marginLeft: 0,
     marginRight: 0,
-    marginTop: 0
+    marginTop: 0,
   }
-};
+});
 
 export default StoreItem;

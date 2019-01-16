@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableHighlight } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
-import { AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
-  PollLogin, PollPage, UsersAnnouncements, UsersEvents } from './Menu';
+import {
+  AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
+  PollLogin, PollPage, UsersAnnouncements, UsersEvents
+} from './Menu';
 import StoreStack from './Menu/StorePage';
-import { UpcomingGames, IndivSports, ScorePage, SchedulePage } from './AthleticsDetails';
-import { CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, Photos }
-  from './AddStuff';
+import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
+import {
+  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, Photos
+} from './AddStuff';
 import i18n from '../utils/i18n';
 
 //want to make this a flatlist afterwards? not sure if it will improve performance
@@ -88,10 +91,10 @@ class MenuPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   pageStyle: {
     backgroundColor: '#FEFEFC',
-    flex: 1
+    flex: 1,
   },
   buttonStyle: {
     //borderColor: 'white',
@@ -99,15 +102,15 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: 0,
     paddingLeft: 10,
-    margin: 0
+    margin: 0,
   },
   textStyle: {
     color: 'black',
     alignSelf: 'flex-start',
     fontSize: 18,
-    margin: 5
+    margin: 5,
   }
-};
+});
 
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
@@ -118,7 +121,7 @@ const MenuStack = createStackNavigator({
   Store: StoreStack,
   Athletics,
     UpcomingGames,
-    IndivSports,
+    IndivSportsPage,
       ScorePage,
       SchedulePage,
   AdminHome: Admin,

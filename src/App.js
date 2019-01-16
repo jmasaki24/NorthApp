@@ -13,9 +13,9 @@ FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
 import i18n from './utils/i18n.js';
 
 import reducers from './reducers';
-import HomeStack from './components/HomePage';
+import HomeStack from './components/HomeStack';
 import MenuStack from './components/MenuPage';
-import CalendarStack from './components/Calendar';
+import CalendarStack from './components/CalendarStack';
 import SearchStack from './components/SearchPage';
 
 // configure firebase, want to use dotenv but not sure if it works
@@ -68,7 +68,8 @@ database.ref('/Calendar').on('value', calendar => {
   const records = [];
   calendar.forEach(date => {
       for (const event in calendar.val()[date.key]) {
-        if (calendar.val()[date.key].hasOwnProperty(event)) {
+        const has = calendar.val()[date.key].hasOwnProperty;
+        if (has) {
           const o = calendar.val()[date.key][event];
           o.objectID = event;
           records.push(o);

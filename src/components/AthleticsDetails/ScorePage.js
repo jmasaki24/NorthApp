@@ -4,7 +4,7 @@
 */
 
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView, View, Text } from 'react-native';
+import { FlatList, SafeAreaView, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { removeScores } from '../../actions';
 import { Card, CardSection, ScoreCard, Spinner } from '../common';
