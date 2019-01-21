@@ -7,7 +7,7 @@ import { Image, TouchableOpacity, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import HomePageItems from './HomePageItems';
 import LogoTitans from '../images/logoTitans.jpg';
-import Certificates from './Certificates';
+import Licenses from '../Licenses/Licenses';
 
 const HomePage = () => (
   <HomePageItems />
@@ -15,18 +15,18 @@ const HomePage = () => (
 
 const HomeStack = createStackNavigator({
   Home: HomePage,
-  Certificates,
+  Licenses,
 }, {
   headerLayoutPreset: 'center',
   defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableOpacity
-        onPress={() => navigation.navigate('Certificates')}
+        onPress={() => navigation.navigate('Licenses')}
       >
         <Image
           style={{ height: 60, width: 110 }}
           source={LogoTitans}
-        />  
+        />
       </TouchableOpacity>,
     headerStyle: {
       height: 65
