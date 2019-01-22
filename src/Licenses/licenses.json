@@ -1,0 +1,132 @@
+{
+    "algoliasearch@3.32.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/algolia/algoliasearch-client-js",
+        "licenseUrl": "https://github.com/algolia/algoliasearch-client-js/raw/master/LICENSE.txt",
+        "parents": "test3"
+    },
+    "axios@0.18.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/axios/axios",
+        "licenseUrl": "https://github.com/axios/axios/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "firebase@5.0.3": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/firebase/firebase-js-sdk",
+        "licenseUrl": "https://github.com/firebase/firebase-js-sdk",
+        "parents": "test3"
+    },
+    "i18n-js@3.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/fnando/i18n-js",
+        "licenseUrl": "https://github.com/fnando/i18n-js",
+        "parents": "test3"
+    },
+    "react-instantsearch-native@5.3.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/algolia/react-instantsearch",
+        "licenseUrl": "https://github.com/algolia/react-instantsearch",
+        "parents": "test3"
+    },
+    "react-native-add-calendar-event@2.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/vonovak/react-native-add-calendar-event",
+        "licenseUrl": "https://github.com/vonovak/react-native-add-calendar-event/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-calendars@1.21.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/wix/react-native-calendars",
+        "licenseUrl": "https://github.com/wix/react-native-calendars/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-camera-roll-multi-picker@1.2.41": {
+        "licenses": "MIT",
+        "repository": "https://github.com/yehudahkay/react-native-camera-roll-picker",
+        "licenseUrl": "https://github.com/yehudahkay/react-native-camera-roll-picker/raw/master/LICENSE.md",
+        "parents": "test3"
+    },
+    "react-native-cheerio@1.0.0-rc.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/leon-4A6C/react-native-cheerio",
+        "licenseUrl": "https://github.com/leon-4A6C/react-native-cheerio/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-communications@2.2.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/anarchicknight/react-native-communications",
+        "licenseUrl": "https://github.com/anarchicknight/react-native-communications/blob/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-dotenv@0.2.0": {
+        "licenses": "MIT",
+        "parents": "test3"
+    },
+    "react-native-gesture-handler@1.0.12": {
+        "licenses": "MIT",
+        "repository": "https://github.com/kmagiera/react-native-gesture-handler",
+        "licenseUrl": "https://github.com/kmagiera/react-native-gesture-handler/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-languages@3.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/react-community/react-native-languages",
+        "licenseUrl": "https://github.com/react-community/react-native-languages",
+        "parents": "test3"
+    },
+    "react-native-permissions@1.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/yonahforst/react-native-permissions",
+        "licenseUrl": "https://github.com/yonahforst/react-native-permissions/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native-vector-icons@6.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/oblador/react-native-vector-icons",
+        "licenseUrl": "https://github.com/oblador/react-native-vector-icons/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-native@0.57.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react-native",
+        "licenseUrl": "https://github.com/facebook/react-native/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-navigation@3.0.9": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/react-navigation/react-navigation",
+        "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "react-redux@5.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/reactjs/react-redux",
+        "licenseUrl": "https://github.com/reactjs/react-redux/raw/master/LICENSE.md",
+        "parents": "test3"
+    },
+    "react@16.6.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/react",
+        "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
+        "parents": "test3"
+    },
+    "redux-thunk@2.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/reduxjs/redux-thunk",
+        "licenseUrl": "https://github.com/reduxjs/redux-thunk/raw/master/LICENSE.md",
+        "parents": "test3"
+    },
+    "redux@4.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/reduxjs/redux",
+        "licenseUrl": "https://github.com/reduxjs/redux/raw/master/LICENSE.md",
+        "parents": "test3"
+    },
+    "rn-fetch-blob@0.10.15": {
+        "licenses": "MIT",
+        "repository": "https://github.com/joltup/rn-fetch-blob",
+        "licenseUrl": "https://github.com/joltup/rn-fetch-blob/raw/master/LICENSE",
+        "parents": "test3"
+    }
+}
