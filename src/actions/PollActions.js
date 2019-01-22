@@ -4,7 +4,8 @@ import {
   LOADING,
   ID_INPUT,
   AUTH_EDIT,
-  PULL_POLL
+  PULL_POLL,
+  SELECT_RUNNER
 } from './types';
 import tempIDs from '../JSON/TempID.json';
 
@@ -87,3 +88,28 @@ export const pullPoll = (grade) => {
       });
   };
 };
+
+export const selectRunner = (stateKey, value) => {
+  return {
+    type: SELECT_RUNNER,
+    payload: { stateKey, value }
+  };
+};
+
+// export const vote = (grade, gradePoll, selectedPresident, selectedSenate, selectedTreasurer, selectedVicePresident) => {
+//   let wordGrade = '';
+//   if (grade === 9) {
+//     wordGrade = 'freshmen';
+//   } else if (grade === 10) {
+//     wordGrade = 'sophmores';
+//   } else if (grade === 11) {
+//     wordGrade = 'juniors';
+//   } else if (grade === 12) {
+//     wordGrade = 'seniors';
+//   }
+//
+//   // return (dispatch) => {
+//   //   firebase.database().ref(`/Voting/${wordGrade}`);
+//   // };
+//   return null;
+// };

@@ -4,16 +4,19 @@
 */
 
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
+import {
+  Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, pushAnnouncement, pushingBool }
-  from '../../actions';
+import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
+import {
+  infoAction, titleAction, pushAnnouncement, pushingBool
+} from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-// named CAnnounce because have to use another name in the export. yes, it's weird...
+// named CAnnounce because have to use another name in the export. yes, it's weird.
 class CAnnounce extends Component {
   state = { showModal: false };
 
@@ -22,6 +25,7 @@ class CAnnounce extends Component {
     this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -41,7 +45,7 @@ class CAnnounce extends Component {
   }
 
   selectedImageDisplay() {
-    if (this.props.img !== '') {
+    if (this.props.img) {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -135,19 +139,19 @@ class CAnnounce extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   pushingViewStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -156,13 +160,13 @@ const styles = {
     fontWeight: '600',
     marginRight: 10,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   buttonStyle: {
     borderColor: 'white',
     justifyContent: 'center',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { title, info, img, isDefault, pushing } = state.announce;

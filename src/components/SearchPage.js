@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  Image, StyleSheet, View, FlatList, Text, TextInput, Modal, SafeAreaView, TouchableOpacity,
-  Dimensions
+  Dimensions, FlatList, Image, Modal, Text, TextInput,
+  TouchableOpacity, SafeAreaView, StyleSheet, View,
 } from 'react-native';
 import { InstantSearch, connectInfiniteHits, connectSearchBox, connectHighlight
 } from 'react-instantsearch-native';
@@ -13,7 +13,7 @@ import { Card, CardSection } from './common';
 const { width } = Dimensions.get('window');
 
 const Highlight = connectHighlight(
-  ({ highlight, attribute, hit, highlightProperty }) => {
+  ({ highlight, attribute, hit, }) => {
     const parsedHit = highlight({
       attribute,
       hit,
@@ -66,13 +66,25 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
     }
   };
 
+  const imageSpace = (uri) => {
+    if (uri) {
+      return (
+        <Image
+          resizeMode="contain"
+          style={{ height: 90, flex: 1 }}
+          source={{ uri }}
+        />
+      );
+    }
+  };
+
   return (
     <FlatList
       data={hits}
       onEndReached={onEndReached}
       keyExtractor={(item, index) => item.objectID}
       renderItem={({ item }) => {
-        // announcements have a {dateString, info, title, idefault, uid, uri or url}
+        // announcements have a {dateString, info, title, idefault, uid, uri}
         if (item.hasOwnProperty('dateString')) {
           return (
             <Card>
@@ -82,11 +94,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
                 </Text>
               </CardSection>
               <CardSection style={{ borderBottomWidth: 0, alignItems: 'center' }}>
-                  <Image
-                    resizeMode="contain"
-                    style={{ height: 90, flex: 1 }}
-                    source={{ uri: item.uri }}
-                  />
+                {imageSpace(item.uri)}
                 <Text style={{ color: 'black', fontSize: 18, flex: 2 }}>
                   <Highlight attribute="info" hit={item} />
                 </Text>
@@ -198,6 +206,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
+    padding: 5,
   }
 });

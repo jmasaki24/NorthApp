@@ -1,64 +1,63 @@
+// Should the names of the types and actions be more consistent???
+// sorted by category for now
+
 import firebase from '@firebase/app';
 import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from 'react-native';
 import {
+  ADD_ID,
   ADD_IMAGE,
+  ADD_INFO,
   ADD_TITLE,
-  PUSH_ANNOUNCEMENT,
+  CLEAR,
   DEFAULT_IMAGE_BOOL,
+  EDIT_ANNOUNCEMENT,
   GET_FROM_FIREBASE,
   GET_SUCCESS,
+  PUSH_ANNOUNCEMENT,
   PUSHING_BOOLEAN,
-  GET_USERS_ANNOUNCEMENTS,
-  EDIT_ANNOUNCEMENT,
-  ADD_INFO,
-  CLEAR,
-  ADD_ID
 } from './types';
 
-export const clear = () => {
-  console.log('CLEARED FORM');
-  return {
+export const clear = () => (
+  {
     type: CLEAR,
-  };
-};
+  }
+);
 
-export const addID = (id) => {
-  return {
+export const addID = (id) => (
+  {
     type: ADD_ID,
-    payload: id
-  };
-};
+    payload: id,
+  }
+);
 
-export const isDefaultImage = (bool) => {
-  return {
-    type: DEFAULT_IMAGE_BOOL,
-    payload: bool
-  };
-};
-
-export const titleAction = (text) => {
-  // console.log(text);
-  return {
-    type: ADD_TITLE,
-    payload: text
-  };
-};
-
-export const infoAction = (text) => {
-  // console.log(text);
-  return {
-    type: ADD_INFO,
-    payload: text
-  };
-};
-
-export const addImage = (uri) => {
-  return {
+export const addImage = (uri) => (
+  {
     type: ADD_IMAGE,
-    payload: uri
-  };
-};
+    payload: uri,
+  }
+);
+
+export const isDefaultImage = (bool) => (
+  {
+    type: DEFAULT_IMAGE_BOOL,
+    payload: bool,
+  }
+);
+
+export const infoAction = (text) => (
+  {
+    type: ADD_INFO,
+    payload: text,
+  }
+);
+
+export const titleAction = (text) => (
+  {
+    type: ADD_TITLE,
+    payload: text,
+  }
+);
 
 export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
   const { currentUser } = firebase.auth();
@@ -66,14 +65,13 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
-  console.log('edit');
-
   return (dispatch) => {
     if (img) {
       if (isDefault) {
           const uri = img;
           const announcementData = { title, info, uri, isDefault, uid, dateString, id };
-          firebase.database().ref(`/Announcements/${id}`).set(announcementData);
+          firebase.database().ref(`/Announcements/${id}`).set(announcementData).then()
+          .catch(error => console.log(error));
           firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
             .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
             .catch(error => console.log(error));
@@ -88,9 +86,7 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
           const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
-            .then((data) => {
-              return Blob.build(data, { type: `${mime};BASE64` });
-            })
+            .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
             .then((blob) => {
               imageRef.put(blob, { contentType: mime })
                 .then(() => {
@@ -119,10 +115,10 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
       const announcementData = { title, info, isDefault, uid, dateString, id };
 
       firebase.database().ref(`/Announcements/${id}`).set(announcementData)
-        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('not here'); })
+        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
         .catch(error => console.log(error));
       firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
-        .then(() => { dispatch({ type: EDIT_ANNOUNCEMENT }); console.log('here'); })
+        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
         .catch(error => console.log(error));
     }
   };
@@ -134,7 +130,6 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   let date = new Date();
   date = date.toString().split(' ');
   const dateString = (`${date[0]} ${date[1]} ${date[2]}`);
-  console.log('push');
 
   return (dispatch) => {
     if (img !== '') {
@@ -164,9 +159,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
           const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
-          .then((data) => {
-            return Blob.build(data, { type: `${mime};BASE64` });
-          })
+          .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
           .then((blob) => {
             imageRef.put(blob, { contentType: mime })
             .then(() => {
@@ -215,13 +208,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   };
 };
 
-export const isDefault = (bool) => {
-  return {
-    type: DEFAULT_IMAGE_BOOL,
-    payload: bool
-  };
-};
-
+// FIXME: this type doesn't do anything in the reducer. does it need to?
 export const getAnnouncements = () => {
  return (dispatch) => {
    firebase.database().ref('/Announcements')
@@ -231,27 +218,16 @@ export const getAnnouncements = () => {
  };
 };
 
-export const getUsersAnnouncements = () => {
-  const { currentUser } = firebase.auth();
-  const uid = currentUser.uid;
-  return (dispatch) => {
-    firebase.database().ref(`/Users/${uid}/Announcements`)
-      .on('value', snapshot => {
-        dispatch({ type: GET_USERS_ANNOUNCEMENTS, payload: snapshot.val() });
-      });
-  };
-};
-
-export const getSuccess = () => {
-  return {
+export const getSuccess = () => (
+  {
     type: GET_SUCCESS,
-    payload: false
-  };
-};
+    payload: false,
+  }
+);
 
-export const pushingBool = (bool) => {
-  return {
+export const pushingBool = (bool) => (
+  {
     type: PUSHING_BOOLEAN,
     payload: bool
-  };
-};
+  }
+);

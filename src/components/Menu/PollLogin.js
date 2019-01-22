@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import firebase from 'firebase';
-import { Card, CardSection, Input, Button, Spinner } from '../common';
+import { Button, Card, CardSection, Input, Spinner, } from '../common';
 import { pollAuth, pollLoad, idChange, authSwitch } from '../../actions';
 
 class PLogin extends Component {
@@ -126,7 +126,7 @@ class PLogin extends Component {
 //   </Button>
 // </CardSection>
 
-const styles = {
+const styles = StyleSheet.create({
   headerStyle: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -142,7 +142,7 @@ const styles = {
     fontSize: 16,
     textAlign: 'center'
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { auth, identifyer, loading, ID } = state.polls;

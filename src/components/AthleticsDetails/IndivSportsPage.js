@@ -4,10 +4,10 @@
 */
 
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Button } from '../common';
+import { Button, Card, CardSection, } from '../common';
 import { getSportScores, getSportSchedules, load } from '../../actions';
 
 class SportsPage extends Component {
@@ -24,7 +24,7 @@ class SportsPage extends Component {
           </Text>
         </CardSection>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          <CardSection style={{ flex: 1, borderBottomWidth: 0, borderRightWidth: 0.5, borderColor: '#333' }}>
+          <CardSection style={styles.scoreButton}>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={{ color: 'black' }}
@@ -56,14 +56,20 @@ class SportsPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'white',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  scoreButton: {
+    flex: 1,
+    borderBottomWidth: 0,
+    borderRightWidth: 0.5,
+    borderColor: '#333',
   }
-};
+});
 
-const IndivSports =
+const IndivSportsPage =
   withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));
 
-export { IndivSports };
+export { IndivSportsPage };

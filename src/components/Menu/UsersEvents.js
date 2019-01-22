@@ -3,15 +3,25 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, Text }
-  from 'react-native';
+import {
+  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet, Text
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
+import algoliasearch from 'algoliasearch';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
 import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
+
+// need algolia for when you edit i think
+const algolia = algoliasearch(
+  ALGOLIA_APP_ID,
+  ALGOLIA_API_KEY
+);
+const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
 
 class UsersEvents extends Component {
   constructor(props) {
@@ -54,7 +64,8 @@ class UsersEvents extends Component {
         .on('value', snapshot => {
           firebaseData = snapshot.val();
           for (const key in firebaseData) {
-            if (firebaseData[key].hasOwnProperty) {
+            const has = firebaseData[key].hasOwnProperty;
+            if (has) {
               firebaseData[key].id = key;
               array[i] = firebaseData[key];
               i++;
@@ -78,7 +89,10 @@ class UsersEvents extends Component {
     firebase.database().ref(`/Calendar/${item.date}/${item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
+    index.deleteObject(item.id, (err) => console.log(err));
+    console.log(item.id);
     this.getUsersEvents();
+    this.setState({ item: {} });
   }
 
   handleRefresh = () => {
@@ -88,11 +102,10 @@ class UsersEvents extends Component {
   }
 
   renderItem({ item }) {
-    console.log(item.time);
     return (
       <Card>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.titleText}>{item.title}</Text>
+          <Text style={styles.cardTitleText}>{item.title}</Text>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0, flexDirection: 'column' }}>
           <Text style={{ fontSize: 18, flex: 1, color: 'black', alignSelf: 'center' }}>
@@ -104,16 +117,17 @@ class UsersEvents extends Component {
           <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around' }}>
             <Icon.Button
               name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+              onPress={() => this.props.navigation.navigate('EditEvent', { item })}
             />
             <Icon.Button
               name="trash-alt" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
-              onPress={() => { this.setState({ showModal: true, item: { item } }); }}
+              onPress={() => this.setState({ showModal: true, item: { item } })}
             />
           </View>
           <View style={{ flex: 1 }} />
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
-              {item.time} {item.date}
+              {item.date} {item.time}
             </Text>
           </View>
         </CardSection>
@@ -123,7 +137,8 @@ class UsersEvents extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}>Your Events</Text>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.eventArray}
@@ -162,7 +177,7 @@ class UsersEvents extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -172,14 +187,19 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
+    padding: 5,
   },
-  titleText: {
+  cardTitleText: {
     color: '#000',
     fontSize: 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
-};
+});
 // export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);
 
 export { UsersEvents };

@@ -5,8 +5,9 @@
  * Author: Matt Peters
  */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
-  from 'react-native';
+import {
+  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet,
+} from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AnnounceCardAllText from './AnnounceCardAllText';
@@ -125,7 +126,7 @@ class HomePageItems extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -135,9 +136,9 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
+    padding: 5,
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const data = Object.values(state.HPannouncements).reverse();

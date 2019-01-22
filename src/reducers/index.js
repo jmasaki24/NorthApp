@@ -8,9 +8,9 @@ import PollReducer from './PollReducer';
 
 export default combineReducers({
   announce: AnnouncementReducer,
-  HPannouncements: HomePageAnnouncementReducer,
+  athleticsInfo: AthleticsReducer,
   club: ClubReducer,
   event: EventReducer,
-  athleticsInfo: AthleticsReducer,
-  polls: PollReducer
+  HPannouncements: HomePageAnnouncementReducer,
+  polls: PollReducer,
 });

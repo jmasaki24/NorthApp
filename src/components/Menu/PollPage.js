@@ -39,7 +39,7 @@ class VotingPage extends Component {
   }
 
   render() {
-    console.log(this.props.poll);
+    console.log(this.props);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         {this.renderStuff()}
@@ -89,8 +89,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { loading, poll } = state.polls;
-  return { loading, poll };
+  const { loading, poll, selectedPresident, selectedSenate, selectedTreasurer, selectedVicePresident } = state.polls;
+  return { loading, poll, selectedPresident, selectedSenate, selectedTreasurer, selectedVicePresident };
 };
 
 const PollPage = withNavigation(connect(mapStateToProps, { pullPoll, pollLoad })(VotingPage));

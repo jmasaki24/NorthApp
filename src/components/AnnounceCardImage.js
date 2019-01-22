@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
@@ -70,17 +70,12 @@ const AnnounceCardImage = (props) => {
   );
 };
 
-  const styles = {
+  const styles = StyleSheet.create({
     titleText: {
       color: '#000',
       fontSize: 25,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     }
-  };
+  });
 
   export default AnnounceCardImage;
-
-  // <Image
-  //   style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-  //   source={props.image}
-  // />

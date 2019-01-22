@@ -3,9 +3,9 @@
 */
 
 import React, { Component } from 'react';
-import { LayoutAnimation } from 'react-native';
+import { LayoutAnimation, StyleSheet, } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { Card, CardSection, Button } from '../common';
+import { Button, Card, CardSection, } from '../common';
 import SportSelect from './SportSelect';
 import FallData from './SportsJSON/FallSportsButton.json';
 import WinterData from './SportsJSON/WinterSportsButton.json';
@@ -87,14 +87,14 @@ class SeasonSelect extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonTextStyle: {
     color: 'black',
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   }
-};
+});
 
 export default SeasonSelect;

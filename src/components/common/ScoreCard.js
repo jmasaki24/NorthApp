@@ -4,7 +4,7 @@
 */
 
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 import { Card } from './Card';
 import { CardSection } from './CardSection';
 
@@ -42,27 +42,27 @@ class ScoreCard extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 23,
     fontWeight: 'bold',
     flex: 1,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   viewStyle: {
     alignItems: 'center',
     flex: 3,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   scoreStyle: {
     fontSize: 50,
-    color: 'black'
+    color: 'black',
   },
   vsStyle: {
     color: 'black',
-    fontSize: 30
+    fontSize: 30,
   }
-};
+});
 
 export { ScoreCard };

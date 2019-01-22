@@ -3,13 +3,14 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
-  from 'react-native';
+import {
+  Dimensions, FlatList, Image, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
 import algoliasearch from 'algoliasearch';
-import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
-import { Confirm } from '../common';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, } from 'react-native-dotenv';
+import { Confirm, } from '../common';
 import AnnounceCardAllText from '../AnnounceCardAllText';
 import AnnounceCardImage from '../AnnounceCardImage';
 
@@ -32,7 +33,14 @@ class UsersAnnouncements extends Component {
       imageUrl: null,
       announcementArray: {},
       showModal: false,
-      item: {}
+      item: {
+        inital: {
+          title: 'Not Connected',
+          info: 'Please wait or connect to the Internet',
+          img: '',
+          isDefault: null
+        }
+      }
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -68,14 +76,15 @@ class UsersAnnouncements extends Component {
       firebase.database().ref(`/Users/${uid}/Announcements`)
         .on('value', snapshot => {
           firebaseData = snapshot.val();
+          // firebaseData.keys().map() or .forEach()
           for (const key in firebaseData) {
-            if (firebaseData[key].hasOwnProperty) {
+            const has = firebaseData[key].hasOwnProperty;
+            if (has) {
               firebaseData[key].id = key;
               array[i] = firebaseData[key];
               i++;
             }
           }
-          console.log(array);
           this.setState({ announcementArray: array.reverse() });
         })
     );
@@ -93,13 +102,14 @@ class UsersAnnouncements extends Component {
     firebase.database().ref(`/Announcements/${this.state.item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    this.getUsersAnnouncements();
     index.deleteObject(this.state.item.id, (err) => console.log(err));
+    this.getUsersAnnouncements();
   }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.getUsersAnnouncements();
+    // TODO: make getUsersAnnouncements() return a promise
     this.setState({ refreshing: false });
   }
 
@@ -132,7 +142,8 @@ class UsersAnnouncements extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}> Your Announcements </Text>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.announcementArray}
@@ -171,7 +182,7 @@ class UsersAnnouncements extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -181,8 +192,13 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
+    padding: 5,
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
   }
-};
+});
 
 export { UsersAnnouncements };

@@ -3,7 +3,7 @@
 */
 
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
@@ -55,12 +55,12 @@ const AnnounceCardAllText = (props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   titleText: {
     color: '#000',
     fontSize: 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   }
-};
+});
 
 export default AnnounceCardAllText;
