@@ -3,20 +3,21 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
-  from 'react-native';
+import {
+  Dimensions, FlatList, Image, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
 import algoliasearch from 'algoliasearch';
-import { Confirm } from '../common';
-import AnnounceCardAllText from './AnnounceCardAllText';
-import AnnounceCardImage from './AnnounceCardImage';
-import EditContent from '../AddStuff/EditContent';
-import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, } from 'react-native-dotenv';
+import { Confirm, } from '../common';
+import AnnounceCardAllText from '../AnnounceCardAllText';
+import AnnounceCardImage from '../AnnounceCardImage';
+
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
+// need algolia for when you edit i think
 const algolia = algoliasearch(
   ALGOLIA_APP_ID,
   ALGOLIA_API_KEY
@@ -32,12 +33,19 @@ class UsersAnnouncements extends Component {
       imageUrl: null,
       announcementArray: {},
       showModal: false,
-      item: {}
+      item: {
+        inital: {
+          title: 'Not Connected',
+          info: 'Please wait or connect to the Internet',
+          img: '',
+          isDefault: null
+        }
+      }
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getUsersAnnouncements();
   }
 
@@ -68,8 +76,10 @@ class UsersAnnouncements extends Component {
       firebase.database().ref(`/Users/${uid}/Announcements`)
         .on('value', snapshot => {
           firebaseData = snapshot.val();
+          // firebaseData.keys().map() or .forEach()
           for (const key in firebaseData) {
-            if (firebaseData[key].hasOwnProperty) {
+            const has = firebaseData[key].hasOwnProperty;
+            if (has) {
               firebaseData[key].id = key;
               array[i] = firebaseData[key];
               i++;
@@ -92,63 +102,48 @@ class UsersAnnouncements extends Component {
     firebase.database().ref(`/Announcements/${this.state.item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    this.getUsersAnnouncements();
     index.deleteObject(this.state.item.id, (err) => console.log(err));
+    this.getUsersAnnouncements();
   }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.getUsersAnnouncements();
+    // TODO: make getUsersAnnouncements() return a promise
     this.setState({ refreshing: false });
   }
 
   renderItem({ item }) {
-    if (item.isDefault) {
+    if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
+          button info={item.info} title={item.title} time={item.dateString}
+          onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
         >
-          <TouchableOpacity
-            onPress={this.setImageModalVisible.bind(this, true, item.uri)}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.uri }}
-            />
-          </TouchableOpacity>
+          <Image
+            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+            source={{ uri: item.uri }}
+          />
         </AnnounceCardImage>
       );
-    } else if (item.isDefault === false) {
-      return (
-        <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onPress={this.setDeleteModalVisible.bind(this, true, item)}
-        >
-          <TouchableOpacity
-            onPress={this.setImageModalVisible.bind(this, true, item.url)}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.url }}
-            />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
-    } // if no image, the code below runs
-      return (
-        <AnnounceCardAllText
-          button title={item.title} time={item.dateString}
-          onPress={this.setDeleteModalVisible.bind(this, true, item)}
-        >
-          {item.info}
-        </AnnounceCardAllText>
-      );
+    }
+    return (
+      <AnnounceCardAllText
+        button info={item.info} title={item.title} time={item.dateString}
+        // onEditPress needs to have the fat arrow but for some reason onDelPress can't
+        onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
+      >
+        {item.info}
+      </AnnounceCardAllText>
+    );
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}> Your Announcements </Text>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.announcementArray}
@@ -187,7 +182,7 @@ class UsersAnnouncements extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -197,19 +192,13 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
-  }
-};
-// export default connect(mapStateToProps, { getUsersAnnouncements })(UsersAnnouncements);
-
-const UsersStack = createStackNavigator({
-    UsersAnnouncements,
-    Edit: EditContent
+    padding: 5,
   },
-  {
-    navigationOptions: () => ({
-      header: null
-    })
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
+  }
 });
 
-export default UsersStack;
+export { UsersAnnouncements };

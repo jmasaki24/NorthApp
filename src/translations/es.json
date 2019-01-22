@@ -3,7 +3,7 @@
   "ACADEMICS": "Académico",
   "STORE": "Almacén",
   "CLUBS": "Clubs",
-  "VOTING": "Votación",
+  "VOTING": "Estudiante Votanda",
   "CONTACT": "Contáctenos",
   "ADMINISTRATION": "Administración",
   "UPCOMING_GAMES": "Próximos juegos",
@@ -16,5 +16,5 @@
   "STAFF_DIRECTORY": "Directorio del Personal",
   "BELL_SCHEDULE":  "Horario Diario",
   "STUDENT_HANDBOOK": "Manual del Estudiante",
-  "PROGRAM_OF_STUDIES": "Programa de Estudios",  
+  "PROGRAM_OF_STUDIES": "Programa de Estudios",
 }

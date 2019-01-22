@@ -4,13 +4,13 @@
 */
 
 import React, { Component } from 'react';
-import { FlatList, SafeAreaView, Text } from 'react-native';
+import { FlatList, SafeAreaView, Text, } from 'react-native';
 import { connect } from 'react-redux';
 import { removeSchedules } from '../../actions';
-import { Card, CardSection, Spinner } from '../common';
+import { Card, CardSection, Spinner, } from '../common';
 import ScheduleDropDown from './ScheduleDropDown';
 
-class SchedulePage extends Component {
+class SchedulePg extends Component {
   componentWillUnmount() {
     this.props.removeSchedules();
   }
@@ -37,7 +37,7 @@ class SchedulePage extends Component {
       opponent = opponent.replace('vs ', '');
     }
 
-    const buttonText = `${item.homeAway} vs ${opponent}`;
+    const buttonText = `${date} ${item.homeAway} vs ${opponent}`;
     return (
       <ScheduleDropDown
         buttonText={buttonText}
@@ -91,4 +91,6 @@ const mapStateToProps = (state) => {
   return { schedule, loading };
 };
 
-export default connect(mapStateToProps, { removeSchedules })(SchedulePage);
+const SchedulePage = connect(mapStateToProps, { removeSchedules })(SchedulePg);
+
+export { SchedulePage };

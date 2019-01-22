@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 
 const Header = (props) => {
   const { textStyle, viewStyle } = styles;
@@ -11,7 +11,7 @@ const Header = (props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     backgroundColor: '#F8F8F8',
     justifyContent: 'center',
@@ -22,11 +22,11 @@ const styles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    postition: 'relative'
+    // postition: 'relative',
   },
   textStyle: {
-    fontSize: 30
+    fontSize: 30,
   }
-};
+});
 
 export { Header };

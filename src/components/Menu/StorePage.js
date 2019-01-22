@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { Image, Text, View, FlatList, TouchableOpacity, YellowBox } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import StoreItem from './StoreItem';
@@ -55,7 +55,7 @@ class StorePage extends Component {
 }
 
 
-const styles = {
+const styles = StyleSheet.create({
   listItem: {
     flex: 1,
     marginBottom: 10,
@@ -74,7 +74,7 @@ const styles = {
   text: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   image: {
     flex: 1,
@@ -84,7 +84,7 @@ const styles = {
     borderRadius: 0,
     backgroundColor: null,
     margin: 0,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonText: {
     color: '#000',
@@ -92,7 +92,7 @@ const styles = {
     fontSize: 12,
     padding: 0,
   }
-};
+});
 
 const StoreStack = createStackNavigator({
   Store: StorePage,

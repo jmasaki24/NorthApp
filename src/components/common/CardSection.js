@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 
 const CardSection = (props) =>
 (
@@ -13,7 +13,7 @@ const CardSection = (props) =>
     </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     borderBottomWidth: 1,
     padding: 5,
@@ -23,6 +23,6 @@ const styles = {
     borderColor: '#ddd',
     //position: 'relative'
   }
-};
+});
 
 export { CardSection };

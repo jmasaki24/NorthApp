@@ -1,11 +1,11 @@
 /**
 * @param Obj inputStyle  for native textput
-*@param obj labelStyle for the <text> initially in the input
+* @param obj labelStyle for the <text> initially in the input
 * @param obj containerStyle
 */
 
 import React from 'react';
-import { TextInput, Text } from 'react-native';
+import { StyleSheet, Text, TextInput, } from 'react-native';
 import { CardSection } from '../common';
 
 const Input = ({
@@ -86,21 +86,21 @@ const Input = ({
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   inputStyle: {
     color: '#000',
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
     lineHeight: 16,
-    flex: 2
+    flex: 2,
   },
   labelStyle: {
     fontSize: 18,
     color: 'black',
     paddingLeft: 20,
-    flex: 1
+    flex: 1,
   }
-};
+});
 
 export { Input };

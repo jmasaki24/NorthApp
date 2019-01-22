@@ -3,14 +3,14 @@
 * Author: Matt Peters
 */
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
+import { Platform, StyleSheet, View, } from 'react-native';
 import { connect } from 'react-redux';
 import CameraRollPicker from 'react-native-camera-roll-multi-picker';
 import Permissions from 'react-native-permissions';
-import { Spinner, CardSection, Button } from '../common';
+import { Button, CardSection, Spinner, } from '../common';
 import { addImage, isDefaultImage } from '../../actions';
 
-class Photos extends Component {
+class DevicePhotos extends Component {
   state = { photoPermission: '' };
 
   componentWillMount() {
@@ -29,7 +29,7 @@ class Photos extends Component {
     //console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);
-    this.props.navigation.navigate('Announce');
+    this.props.navigation.goBack();
   }
 
   onCancelPress() {
@@ -78,16 +78,18 @@ class Photos extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'white',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { uri } = state.announce;
   return { uri };
 };
 
-export default connect(mapStateToProps, { addImage, isDefaultImage })(Photos);
+const Photos = connect(mapStateToProps, { addImage, isDefaultImage })(DevicePhotos);
+
+export { Photos };

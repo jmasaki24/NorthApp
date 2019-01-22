@@ -1,40 +1,26 @@
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableHighlight } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
 import { CardSection, Button, } from './common';
-import ContactPage from './Menu/ContactPage';
-import AcademicsPage from './Menu/AcademicsPage';
-import ClubsPage from './Menu/Clubs';
-import BellSchedule from './Menu/Bells';
+import {
+  AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
+  PollLogin, PollPage, UsersAnnouncements, UsersEvents
+} from './Menu';
 import StoreStack from './Menu/StorePage';
-import AdminStack from './Menu/Admin';
-import AthleticsPage from './Menu/AthleticsPage';
-import UpcomingGamesPage from './AthleticsDetails/UpcomingGamesPage';
-import IndivSportsPage from './AthleticsDetails/IndivSportsPage';
-import ScorePage from './AthleticsDetails/ScorePage';
-import SchedulePage from './AthleticsDetails/SchedulePage';
-import PollLogin from './Menu/PollLogin';
-import PollPage from './Menu/PollPage';
+import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
+import {
+  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, Photos
+} from './AddStuff';
 import i18n from '../utils/i18n';
 
-//want to make this a flatlist afterwards? not sure if it will improve performance
-
+// TODO: make this a flatlist, or something to improve readability and maybe performance
 class MenuPage extends Component {
   render() {
     const { buttonStyle, textStyle, pageStyle } = styles;
     return (
       <View style={pageStyle}>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Athletics')}
-          >
-            {i18n.t('ATHLETICS')}
-          </Button>
-        </CardSection>
         <CardSection style={{ padding: 0 }}>
           <Button
             buttonStyle={buttonStyle}
@@ -48,9 +34,18 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Store')}
+            onPress={() => this.props.navigation.navigate('AdminHome')}
           >
-            {i18n.t('STORE')}
+            {i18n.t('ADMINISTRATION')}
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Athletics')}
+          >
+            {i18n.t('ATHLETICS')}
           </Button>
         </CardSection>
         <CardSection style={{ padding: 0 }}>
@@ -66,15 +61,6 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Polls')}
-          >
-            {i18n.t('VOTING')}
-          </Button>
-        </CardSection>
-        <CardSection style={{ padding: 0 }}>
-          <Button
-            buttonStyle={buttonStyle}
-            textStyle={textStyle}
             onPress={() => this.props.navigation.navigate('Contact')}
           >
             {i18n.t('CONTACT')}
@@ -84,9 +70,18 @@ class MenuPage extends Component {
           <Button
             buttonStyle={buttonStyle}
             textStyle={textStyle}
-            onPress={() => this.props.navigation.navigate('Admin')}
+            onPress={() => this.props.navigation.navigate('Store')}
           >
-            {i18n.t('ADMINISTRATION')}
+            {i18n.t('STORE')}
+          </Button>
+        </CardSection>
+        <CardSection style={{ padding: 0 }}>
+          <Button
+            buttonStyle={buttonStyle}
+            textStyle={textStyle}
+            onPress={() => this.props.navigation.navigate('Polls')}
+          >
+            {i18n.t('VOTING')}
           </Button>
         </CardSection>
         <Text style={{ alignSelf: 'center' }}>Copyright NHSN 2018</Text>
@@ -95,10 +90,10 @@ class MenuPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   pageStyle: {
     backgroundColor: '#FEFEFC',
-    flex: 1
+    flex: 1,
   },
   buttonStyle: {
     //borderColor: 'white',
@@ -106,33 +101,42 @@ const styles = {
     backgroundColor: 'white',
     borderRadius: 0,
     paddingLeft: 10,
-    margin: 0
+    margin: 0,
   },
   textStyle: {
     color: 'black',
     alignSelf: 'flex-start',
     fontSize: 18,
-    margin: 5
+    margin: 5,
   }
-};
+});
 
 const MenuStack = createStackNavigator({
   Menu: MenuPage,
   Contact: ContactPage,
   Academics: AcademicsPage,
   Bells: BellSchedule,
-  Clubs: ClubsPage,
+  Clubs,
   Store: StoreStack,
-  Athletics: AthleticsPage,
-    UpcomingGames: UpcomingGamesPage,
+  Athletics,
+    UpcomingGames,
     IndivSportsPage,
       ScorePage,
       SchedulePage,
-  Admin: AdminStack,
+  AdminHome: Admin,
+    CreateAnnounce,
+      DefaultImages,
+      Photos,
+    CreateEvent,
+    UsersAnnouncements,
+    EditAnnounce,
+    UsersEvents,
+    EditEvent,
   Polls: PollLogin,
   PollPage
 }, {
   headerLayoutPreset: 'center',
+  headerMode: 'float',
   defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>

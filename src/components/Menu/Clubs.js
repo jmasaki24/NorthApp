@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { FlatList, Text, TouchableOpacity, View, Modal, SafeAreaView } from 'react-native';
-import { connect } from 'react-redux';
+import {
+  FlatList, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { connect } from 'react-redux';
 import clubList from '../../JSON/clubList.json';
 import { openClub } from '../../actions';
 import { Button, CardSection } from '../common';
 
 const data = clubList;
 
-class Clubs extends Component {
+class ClubList extends Component {
   state = { showModal: false, key: '001' }
 
   setModalVisible(visible) {
@@ -43,6 +45,7 @@ class Clubs extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Text style={styles.titleText}>NHSN Clubs</Text>
         <Modal
           visible={this.state.showModal}
           animationType='slide'
@@ -60,7 +63,7 @@ class Clubs extends Component {
             <Text style={{ fontSize: 18 }}>
               {this.props.item.description}
             </Text>
-            <CardSection style={{ borderBottomWidth: 0, backgroundColor: 'white', borderColor: 'white' }}>
+            <CardSection style={styles.closeButtonStyle}>
               <Button
                 buttonStyle={styles.buttonStyle}
                 onPress={() => { this.setModalVisible(!this.state.showModal); }}
@@ -81,7 +84,7 @@ class Clubs extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   listItemContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -103,17 +106,29 @@ const styles = {
   modalContainer: {
     justifyContent: 'flex-start',
     flex: 1,
-    padding: 20
+    padding: 20,
   },
   buttonStyle: {
     justifyContent: 'center',
-    marginTop: 50
+    marginTop: 50,
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
+  },
+  closeButtonStyle: {
+    borderBottomWidth: 0,
+    backgroundColor: 'white',
+    borderColor: 'white',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { item } = state.club;
   return { item };
 };
 
-export default connect(mapStateToProps, { openClub })(Clubs);
+const Clubs = connect(mapStateToProps, { openClub })(ClubList);
+
+export { Clubs };

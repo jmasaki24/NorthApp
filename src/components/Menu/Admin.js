@@ -3,16 +3,9 @@
 * Authors: Jamie Maddock && Matt Peters
 */
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, } from 'react-native';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
-import { LoginForm, Spinner, Button } from '../common';
-import AddContent from '../AddStuff/AddContent';
-import DefaultImagesPage from '../AddStuff/DefaultImages';
-import PhotosPage from '../AddStuff/Photos';
-import AddEvent from '../AddStuff/AddEvent';
-import UsersAnnouncements from '../UsersAnnouncements';
-import UsersEvents from '../UsersEvents';
+import { Button, LoginForm, Spinner, } from '../common';
 
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
@@ -39,23 +32,24 @@ class Admin extends Component {
   renderHome() {
       return (
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
+          <Text style={styles.titleText}>Admin Home</Text>
           <ScrollView>
             <Text style={styles.description}>
-              Hi there. This is the admin page.
-              From here you can add an announcement to the homepage, or add an event to the calendar.
-              If you need help, feel free to send an email to northcodingteam@gmail.com
+              Hi there. This is the admin page. From here you can add an announcement
+              to the homepage, or add an event to the calendar. If you need help,
+              feel free to send an email to northcodingteam@gmail.com
             </Text>
             <Button
-              buttonStyle={styles.buttonStyle}
+              buttonStyle={[styles.buttonStyle, { borderTopWidth: 1 }]}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('Announce')}
+              onPress={() => this.props.navigation.navigate('CreateAnnounce')}
             >
               Create Announcement
             </Button>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('Event')}
+              onPress={() => this.props.navigation.navigate('CreateEvent')}
             >
               Create Event
             </Button>
@@ -101,57 +95,34 @@ class Admin extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     //borderColor: 'white',
     borderWidth: 1,
+    borderTopWidth: 0,
     borderColor: 'black',
     backgroundColor: 'white',
     borderRadius: 0,
     paddingLeft: 10,
     margin: 0,
     flex: 0,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
     color: 'black',
     alignSelf: 'flex-start',
     fontSize: 18,
-    margin: 5
+    margin: 5,
   },
   description: {
     fontSize: 20,
     margin: 10,
-  }
-};
-// ES6 shortcut: when a key and its value are the same, it can be simplified e.g. UsersAnnouncements
-const AdminStack = createStackNavigator({
-  AdminHome: Admin,
-  Announce: AddContent,
-  Event: AddEvent,
-  UsersAnnouncements,
-  UsersEvents,
-  DefaultImages: DefaultImagesPage,
-  Photos: PhotosPage
   },
-  {
-    navigationOptions: ({ navigation }) => ({
-      header: null,
-      title: 'Admin',  // I want to add a username somewhere on screen -JM
-      headerTitle: () => {
-        if (navigation.state.routeName === 'Announce') {
-          return <Text>Create an Announcement</Text>;
-        } else if (navigation.state.routeName === 'Event') {
-          return <Text>Create a Calendar Event</Text>;
-        } else if (navigation.state.routeName === 'UsersAnnouncements') {
-          return <Text>Created Announcements</Text>;
-        } else if (navigation.state.routeName === 'UsersEvents') {
-          return <Text>Past Created Events</Text>;
-        }
-        return <Text> lol </Text>;
-      }
-    }),
-
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
+  }
 });
 
-export default AdminStack;
+export { Admin };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text, } from 'react-native';
 import firebase from 'firebase';
 import { Button } from './Button';
 import { Card } from './Card';
@@ -31,6 +31,13 @@ class LoginForm extends Component {
       loading: false,
       error: ''
     });
+  }
+
+  renderError() {
+    if (this.state.error) {
+      return <Text style={styles.errorTextStyle}>{this.state.error}</Text>;
+    }
+    return null;
   }
 
   renderButton() {
@@ -70,33 +77,30 @@ class LoginForm extends Component {
           onChangeText={password => this.setState({ password })}
         />
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
-
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           {this.renderButton()}
         </CardSection>
+        {this.renderError()}
       </Card>
     );
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
-    color: 'red'
+    color: 'red',
   },
   buttonStyle: {
     borderColor: 'white',
-	justifyContent: 'center'
+	justifyContent: 'center',
   },
   buttonTextStyle: {
     alignSelf: 'center',
-    color: 'black'
+    color: 'black',
   }
-};
+});
 
 
 export { LoginForm };

@@ -1,26 +1,41 @@
-/**
-* Date: 10/29/2018
-* Author: Matt Peters
-*/
-
 import React, { Component } from 'react';
-import { View, Text, Dimensions, Image, ScrollView, Modal, SafeAreaView } from 'react-native';
+import {
+  Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Input, Button, Confirm, Spinner } from '../common';
-import { infoAction, titleAction, pushAnnouncement, pushingBool }
-  from '../../actions';
+import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
+import {
+  infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage, clear, isDefaultImage
+} from '../../actions';
 
 const { height, width } = Dimensions.get('window');
 
-class AddContent extends Component {
-  state = { showModal: false };
+
+class EAnnounce extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showModal: false };
+
+    const item = this.props.navigation.getParam('item', 'Item Not Found');
+    console.log(item);
+    this.props.titleAction(item.title);
+    this.props.infoAction(item.info);
+    this.props.addImage(item.uri);
+    this.props.addID(item.id);
+    this.props.isDefaultImage(item.isDefault);
+  }
+
+  componentWillUnmount() {
+    this.props.clear();
+  }
 
   onAccept() {
-    const { title, info, img, isDefault } = this.props;
-    this.props.pushAnnouncement({ title, info, img, isDefault });
+    const { title, info, img, isDefault, id } = this.props;
+    this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
     this.props.pushingBool(true);
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -32,17 +47,15 @@ class AddContent extends Component {
   }
 
   onTitleChange(text) {
-    // console.log(text);
     this.props.titleAction(text);
   }
 
   onInfoChange(text) {
-    // console.log(text);
     this.props.infoAction(text);
   }
 
   selectedImageDisplay() {
-    if (this.props.img !== '') {
+    if (this.props.img) {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -56,11 +69,12 @@ class AddContent extends Component {
 
   renderButton() {
     //USE react native API NetInfo in conditional to determine if push should be done
+    // WARNING: user can just put a space ' ' and they can push
     if ((this.props.title === '') && (this.props.info === '')) {
       return (
         <CardSection>
           <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>Submit Announcement</Text>
+            <Text style={styles.textStyle}>Change Announcement</Text>
           </View>
         </CardSection>
       );
@@ -72,14 +86,12 @@ class AddContent extends Component {
           textStyle={{ color: 'black' }}
           onPress={this.onSubmitPress.bind(this)}
         >
-          Submit Announcement
+          Change Announcement
         </Button>
       </CardSection>
     );
   }
-
   render() {
-    // console.log(`render called ${this.props.title}`);
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -114,7 +126,7 @@ class AddContent extends Component {
             onAccept={this.onAccept.bind(this)}
             onDecline={this.onDecline.bind(this)}
           >
-            Are you sure you would like to add this content?
+            Are you sure you would like to change this announcement?
           </Confirm>
         </Card>
         <Modal
@@ -136,19 +148,20 @@ class AddContent extends Component {
   }
 }
 
-const styles = {
+// TODO: could probably export styles to a root style.js so we aren't redundant. Same for event.
+const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   pushingViewStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -157,23 +170,28 @@ const styles = {
     fontWeight: '600',
     marginRight: 10,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   buttonStyle: {
     borderColor: 'white',
     justifyContent: 'center',
   }
-};
+});
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, pushing } = state.announce;
-  // console.log(state.announce);
-  return { title, info, img, isDefault, pushing };
+  const { title, info, img, isDefault, pushing, id } = state.announce;
+  return { title, info, img, isDefault, pushing, id };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const EditAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
-  pushAnnouncement,
-  pushingBool
-})(AddContent));
+  editAnnouncement,
+  pushingBool,
+  addID,
+  addImage,
+  clear,
+  isDefaultImage
+})(EAnnounce));
+
+export { EditAnnounce };

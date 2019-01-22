@@ -7,6 +7,7 @@ import {
   ADD_EVENT_HOUR,
   ADD_EVENT_MINUTE,
   ADD_EVENT_PERIOD,
+  EDIT_EVENT,
   PUSH_EVENT,
   GET_CALENDAR,
 } from './types';
@@ -60,6 +61,25 @@ export const addEventPeriod = (hour) => (
   }
 );
 
+export const editEvent = ({ date, title, location, info, hour, minute, period, id }) => {
+  const { currentUser } = firebase.auth();
+  const uid = currentUser.uid;
+  let time;
+  if (hour === 'All Day') {
+    time = 'All Day';
+  } else {
+    time = `${hour}:${minute} ${period}`;
+  }
+  const eventData = { date, title, location, info, uid, time, id };
+
+  return (dispatch) => {
+    firebase.database().ref(`/Calendar/${date}/${id}`).set(eventData);
+    firebase.database().ref(`/Users/${uid}/Events/${id}`).set(eventData)
+      .then(() => dispatch({ type: EDIT_EVENT }))
+      .catch(error => console.log(error));
+  };
+};
+
 export const pushEvent = ({ date, title, location, info, hour, minute, period }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
@@ -69,8 +89,8 @@ export const pushEvent = ({ date, title, location, info, hour, minute, period })
   } else {
     time = `${hour}:${minute} ${period}`;
   }
-  const eventData = { date, title, location, info, uid, time };
   const newEventKey = firebase.database().ref().child(`Calendar/${date}`).push().key;
+  const eventData = { date, title, location, info, uid, time, id: newEventKey };
 
   const updates = {};
   updates[`/Users/${uid}/Events/${newEventKey}`] = eventData;

@@ -4,24 +4,25 @@
 */
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View, Picker, Switch } from 'react-native';
+import { Picker, ScrollView, StyleSheet, Switch, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent }
-  from '../../actions';
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingBool
+} from '../../actions';
+import { Button, CardSection, Confirm, Input, } from '../common';
 
-import { CardSection, Input, Button, Confirm, } from '../common';
-
-class AddEvent extends Component {
+class CEvent extends Component {
   state = { showModal: false, showCalendar: false, switch: false }
 
   onAccept() {
     const { date, title, location, info, hour, minute, period } = this.props;
     this.props.pushEvent({ date, title, location, info, hour, minute, period });
     this.setState({ showModal: false });
+    this.props.pushingBool(true);
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -29,7 +30,6 @@ class AddEvent extends Component {
   }
 
   onDateChange(day) {
-    // console.log(day.dateString);
     this.props.addEventDate(day.dateString);
   }
 
@@ -58,19 +58,30 @@ class AddEvent extends Component {
   }
 
   onSwitchChange(bool) {
-    this.props.addEventHour('All Day');
+    // temp for when you switch off All Day it remembers where you were
+    const h = this.props.hour;
+    const m = this.props.minute;
+    const p = this.props.period;
+
+    if (bool) {
+      this.props.addEventHour('All Day');
+    } else {
+      this.props.addEventHour(h);
+      this.props.addEventMinute(m);
+      this.props.addEventPeriod(p);
+    }
     this.setState({ switch: bool });
   }
 
   selectTime() {
     if (!this.state.switch) {
       return (
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={{ flex: 2, flexDirection: 'row' }}>
           <Picker
             onValueChange={this.onHourChange.bind(this)}
             selectedValue={this.props.hour}
-            style={{ flex: 1 }}
-            enabled={false}
+            style={{ flex: 1, marginLeft: 30 }}
+            enabled={!this.state.switch}
           >
             <Picker.Item label="1" value="01" /><Picker.Item label="2" value="02" />
             <Picker.Item label="3" value="03" /><Picker.Item label="4" value="04" />
@@ -120,24 +131,24 @@ class AddEvent extends Component {
   }
 
   renderButton() {
-    if (this.props.title === '' || this.props.date === '') {
+    if (this.props.title && this.props.date) {
       return (
         <CardSection>
-          <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>Create Event</Text>
-          </View>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black', alignSelf: 'center' }}
+            onPress={() => this.setState({ showModal: !this.state.showModal })}
+          >
+            Create Event
+          </Button>
         </CardSection>
       );
     }
     return (
       <CardSection>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          textStyle={{ color: 'black', alignSelf: 'center' }}
-          onPress={() => this.setState({ showModal: !this.state.showModal })}
-        >
-          Create Event
-        </Button>
+        <View style={styles.viewStyle}>
+          <Text style={styles.textStyle}>Create Event</Text>
+        </View>
       </CardSection>
     );
   }
@@ -163,13 +174,12 @@ class AddEvent extends Component {
           </Button>
         </CardSection>
         <CardSection style={styles.inputSection}>
-          <Text style={styles.labelStyle}>Time: </Text>
           {this.selectTime()}
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
             value={this.state.switch}
-            style={{ flex: -1 }}
+            style={{ flex: 0 }}
             thumbColor='#02BAFB'
           />
         </CardSection>
@@ -198,18 +208,18 @@ class AddEvent extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   dateText: {
     flex: 1,
     marginLeft: 20,
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   inputSection: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonStyle: {
     flex: 1,
@@ -219,7 +229,7 @@ const styles = {
     paddingLeft: 10,
     margin: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -227,29 +237,28 @@ const styles = {
     fontSize: 16,
     fontWeight: '600',
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   labelStyle: {
     fontSize: 18,
     color: 'black',
     paddingLeft: 20,
-    flex: 1
+    flex: 1,
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { date, title, location, info, pushing, hour, minute, period } = state.event;
-  // console.log(state.event);
   return { date, title, location, info, pushing, hour, minute, period };
 };
 
-export default withNavigation(connect(mapStateToProps, {
+const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventHour,
@@ -257,5 +266,8 @@ export default withNavigation(connect(mapStateToProps, {
   addEventPeriod,
   addEventLocation,
   addEventInfo,
-  pushEvent
-})(AddEvent));
+  pushEvent,
+  pushingBool
+})(CEvent));
+
+export { CreateEvent };

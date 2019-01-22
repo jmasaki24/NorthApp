@@ -3,10 +3,12 @@
 * Author: Matt Peters
 */
 import React, { Component } from 'react';
-import { Dimensions, Image, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import {
+  Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import Info from '../../JSON/AnnounceImage.json';
-import { CardSection, Button } from '../common';
+import { Button, CardSection, } from '../common';
 import { addImage, isDefaultImage } from '../../actions';
 
 const data = Info;
@@ -17,13 +19,13 @@ class List extends Component {
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
-    this.props.navigation.navigate('Announce');
+    this.props.navigation.goBack();
   }
 
   onCancelPress() {
     this.props.isDefaultImage(null);
     this.props.addImage('');
-    this.props.navigation.navigate('Announce');
+    this.props.navigation.goBack();
   }
 
   renderItem({ item }) {
@@ -69,7 +71,7 @@ class List extends Component {
             textStyle={{ color: 'black' }}
             onPress={() => this.onCancelPress()}
           >
-            Cancel
+            Cancel/No Image
           </Button>
         </CardSection>
       </View>
@@ -77,7 +79,7 @@ class List extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   listItem: {
     flex: 1,
     marginBottom: 5,
@@ -91,33 +93,35 @@ const styles = {
   },
   list: {
     flex: 1,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
   text: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   image: {
     flex: 1,
     height: 160,
     width: 160,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   touchStyle: {
     flex: 1,
     alignSelf: 'center',
-    margin: 5
+    margin: 5,
   },
   buttonStyle: {
     borderColor: 'white',
     justifyContent: 'center',
   }
-};
+});
 
 const mapStateToProps = ({ announce }) => {
   const { uri, isDefault } = announce;
   return { uri, isDefault };
 };
 
-export default connect(mapStateToProps, { addImage, isDefaultImage })(List);
+const DefaultImages = connect(mapStateToProps, { addImage, isDefaultImage })(List);
+
+export { DefaultImages };
