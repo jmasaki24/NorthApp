@@ -6,6 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import RNLanguages from 'react-native-languages';
+import SplashScreen from 'react-native-splash-screen';
 import algoliasearch from 'algoliasearch';
 import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, FB_API_KEY, FB_PROJECT_ID,
 FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
@@ -126,9 +127,14 @@ export default class App extends Component {
     RNLanguages.addEventListener('change', this._onLanguagesChange);
   }
 
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
   componentWillUnmount() {
     RNLanguages.removeEventListener('change', this._onLanguagesChange);
   }
+
 
   _onLanguagesChange = ({ language }) => {
    i18n.locale = language;

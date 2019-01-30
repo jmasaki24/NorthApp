@@ -3,12 +3,13 @@
 */
 
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View, } from 'react-native';
-import pinkBapeT from '../../images/pinkBapeT.jpg';
+import { Dimensions, FlatList, Image, StyleSheet, Text, View, } from 'react-native';
+import firebase from 'firebase';
 import { Card } from '../common';
 
-//use a flatlist to render sizesquares as received by data with actions/redux later
+const { height, width } = Dimensions.get('window');
 
+//use a flatlist to render sizesquares as received by data with actions/redux later
 const SizeSquare = ({ size }) => (
     <View style={styles.sizeSquareStyle}>
       <Text style={{ fontSize: 20, color: '#000' }}> {size} </Text>
@@ -17,22 +18,60 @@ const SizeSquare = ({ size }) => (
 
 
 class StoreItem extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    const item = this.props.navigation.state.params;
+    this.state = { item, data: [] };
+  }
+
+  componentWillMount() {
+    this.renderImages();
+  }
+
+  renderImages() {
+    const item = this.props.navigation.state.params.item;
+    const storage = firebase.storage();
+    const array = this.state.data;
+    item.colors.map(color => {
+      storage.ref(`/napp_store_images/${item.image}/${color}${item.image}.jpg`)
+        .getDownloadURL().then(url => {
+          array.push(url);
+          this.setState({ data: array });
+        });
+    });
+    this.setState({ data: array });
+  }
+
+  renderItem(item) {
+    // flatlist passes an object with item prop... not sure why
     return (
-      <View style={{ flex: 1, }}>
-        <Image
-          resizeMode="cover"
-          style={styles.imageStyle}
-          source={pinkBapeT}
+      <Image
+        resizeMode="cover"
+        style={styles.imageStyle}
+        source={{ uri: item.item }}
+      />
+    );
+  }
+
+  render() {
+    const { item } = this.state.item;
+    return (
+      <View style={{ flex: 1 }}>
+        <FlatList
+          horizontal
+          style={{ flex: 1 }}
+          data={this.state.data}
+          renderItem={uri => this.renderItem(uri)}
         />
         <Card style={styles.descripStyle}>
-          <Text style={styles.titleText}>Big Head Ape Tee Pink</Text>
-          <Text style={{ fontSize: 18, color: '#000' }}> $20 </Text>
+          <Text style={styles.titleText}>{item.name}</Text>
+          <Text style={{ fontSize: 18, color: '#000' }}>${item.price}</Text>
           <View style={styles.sizeRowStyle}>
             <Text style={{ fontSize: 20 }}> Available Sizes: </Text>
             <SizeSquare size='S' />
             <SizeSquare size='M' />
             <SizeSquare size='L' />
+            <SizeSquare size='XL' />
           </View>
         </Card>
       </View>
@@ -64,13 +103,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    flex: 2,
-    maxHeight: 350,
-    width: undefined,
+    flex: 1,
+    width,
+    height: width * 0.9,
   },
   descripStyle: {
     padding: 15,
-
+    flex: 0,
     borderWidth: 0,
     borderRadius: 0,
     borderColor: null,

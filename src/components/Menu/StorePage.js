@@ -6,18 +6,70 @@ import React, { Component } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import firebase from 'firebase';
 import StoreItem from './StoreItem';
-import StoreItems from '../../JSON/storeItems.json';
+import { Spinner } from '../common';
 
 //remove this after updating to a stable release of react native
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated']);
 
-const data = StoreItems;
 const numColumns = 2;
 
 class StorePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {
+        t: { price: 0.0, name: 'item', uri: 'uri',
+        }
+      }
+    };
+  }
+
+  componentWillMount() {
+    this.getStore();
+  }
+
+  getStore() {
+    const storage = firebase.storage();
+    const array = [];
+    let i = 0;
+    return (
+      firebase.database().ref('/Store')
+      .on('value', snapshot => {
+        const firebaseData = snapshot.val();
+/**
+*        Promise.all(Object.keys(firebaseData).map(async key => {
+*          const color = firebaseData[key].colors['0'];
+*          const image = firebaseData[key].image;
+*          const url = await storage
+*            .ref(`/napp_store_images/${firebaseData[key].image}/${color}${image}.jpg`)
+*            .getDownloadURL();
+*          firebaseData[key].uri = url;
+*        })).then(() => {
+*          this.setState({ items: firebaseData });
+*        });
+*/
+        for (const key in firebaseData) {
+          if (firebaseData[key].hasOwnProperty) {
+            const color = firebaseData[key].colors['0'];
+            const image = firebaseData[key].image;
+
+            storage.ref(`/napp_store_images/${firebaseData[key].image}/${color}${image}.jpg`)
+              .getDownloadURL().then(url => {
+                firebaseData[key].uri = url
+                array[i] = firebaseData[key];
+                i++;
+                this.setState({ items: array.reverse() });
+              });
+          }
+        }
+      })
+    );
+  }
+
   renderItem({ item }) {
-    const { key, price, uri } = item;
+    const { name, price, uri } = item;
     return (
       <View
         style={styles.listItem}
@@ -27,11 +79,11 @@ class StorePage extends Component {
           style={styles.image}
           source={{ uri }}
         />
-        <Text style={styles.text}>{key}</Text>
-        <Text style={styles.text}>{price}</Text>
+        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>${price}</Text>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => this.props.navigation.navigate('Item')}
+          onPress={() => this.props.navigation.navigate('Item', { item })}
 
         >
           <Text style={styles.buttonText}>
@@ -42,14 +94,23 @@ class StorePage extends Component {
     );
   }
 
-  render() {
+  renderList() {
     return (
-      <FlatList
-        style={styles.list}
-        data={data}
-        renderItem={item => this.renderItem(item, this.props.navigation)}
-        numColumns={numColumns}
-      />
+      <View style={{ flex: 1, backgroundColor: '#F6F6F8' }}>
+        <FlatList
+          style={styles.list}
+          data={this.state.items}
+          renderItem={item => this.renderItem(item, this.props.navigation)}
+          numColumns={numColumns}
+        />
+      </View>
+    );
+  }
+
+  render() {
+    const { items } = this.state;
+    return items[0] ? this.renderList() : (
+        <Spinner />
     );
   }
 }
@@ -65,7 +126,7 @@ const styles = StyleSheet.create({
     maxWidth: 223,
     height: 304,
     maxHeight: 304,
-    backgroundColor: '#eee',
+    backgroundColor: '#F6F6F8',
   },
   list: {
     flex: 1,
@@ -102,7 +163,7 @@ const StoreStack = createStackNavigator({
   headerLayoutPreset: 'center',
   defaultNavigationOptions: {
     headerTitle:
-      <Text style={{ fontSize: 18, alignSelf: 'center', }}>T-Stop Apparrel Store</Text>,
+      <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
     headerBackImage:
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <FontAwesome5 style={{ marginRight: 3 }} name={'caret-left'} color={'black'} size={33} />

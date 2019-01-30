@@ -38,3 +38,5 @@ export const PULL_POLL = 'pull-poll';
 export const SELECT_RUNNER = 'select_runner';
 
 export const LOADING = 'loading';
+
+export const GET_STORE = 'get_store';
