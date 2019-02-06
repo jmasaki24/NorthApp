@@ -1,3 +1,8 @@
+/**
+* I was thinking this page could use a redesign with rectangle buttons,
+* since there are 7 buttons it'd be a 2-3-2 or something that had more color
+* colored rectangles with icons or backgroundimage?
+*/
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';

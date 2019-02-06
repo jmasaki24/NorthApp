@@ -1,3 +1,9 @@
+/**
+* author: jamie Maddock
+* hate to say i authored this one... it could definitely use a new ui as well as
+* not using redux, just r-nav can pass params... then maybe it could a pure component
+*/
+
 import React, { Component } from 'react';
 import {
   FlatList, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,

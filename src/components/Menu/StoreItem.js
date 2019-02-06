@@ -3,7 +3,7 @@
 */
 
 import React, { Component } from 'react';
-import { Dimensions, FlatList, Image, StyleSheet, Text, View, } from 'react-native';
+import { Dimensions, FlatList, Image, Linking, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
 import firebase from 'firebase';
 import { Card } from '../common';
 
@@ -72,6 +72,9 @@ class StoreItem extends Component {
             <SizeSquare size='M' />
             <SizeSquare size='L' />
             <SizeSquare size='XL' />
+            <TouchableOpacity onPress={() => Linking.openUrl('https://teespring.com/stores/real-south-boys-merch')}>
+              <Text style={{ textDecorationLine: 'underline', marginLeft: 10 }}>Buy Now</Text>
+            </TouchableOpacity>
           </View>
         </Card>
       </View>

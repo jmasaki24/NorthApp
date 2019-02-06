@@ -1,38 +1,33 @@
 import {
-  POLL_LOGIN,
-  LOADING,
+  VOTE_CAST,
   ID_INPUT,
-  AUTH_EDIT,
+  LOADING,
+  POLL_LOGIN,
   PULL_POLL,
-  SELECT_RUNNER
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  auth: null,
-  identifyer: null,
+  auth: null, // bool
   loading: false,
-  ID: '',
-  poll: null,
-  selectedPresident: null,
-  selectedSenate: null,
-  selectedTreasurer: null,
-  selectedVicePresident: null
+  voter: null, // obj about voter
+  id: '',
+  polls: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case POLL_LOGIN:
-      return { ...state, auth: action.payload.auth, identifyer: action.payload.identifyer, loading: false, ID: '' };
+    case VOTE_CAST:
+      return { ...INITIAL_STATE };
     case ID_INPUT:
-      return { ...state, ID: action.payload };
+      return { ...state, id: action.payload };
     case LOADING:
-      return { ...state, loading: true };
-    case AUTH_EDIT:
-      return { ...state, auth: action.payload };
+      return { ...state, loading: action.payload };
+    case POLL_LOGIN: {
+      const { auth, voter, id } = action.payload;
+      return { ...state, auth, voter, id, loading: false, };
+    }
     case PULL_POLL:
-      return { ...state, poll: action.payload, loading: false };
-    case SELECT_RUNNER:
-      return { ...state, [action.payload.stateKey]: action.payload.value };
+      return { ...state, polls: action.payload, loading: false };
     default:
       return state;
   }

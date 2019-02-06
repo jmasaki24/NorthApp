@@ -10,7 +10,7 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
     <Modal
       visible={visible}
       transparent
-      //animationType="slide"
+      animationType="slide"
       onRequestClose={() => console.log('Close Confirm')}
     >
       <View style={containerStyle}>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     justifyContent: 'center',
-  }
+  },
 });
 
 export { Confirm };

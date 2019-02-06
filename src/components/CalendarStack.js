@@ -1,6 +1,9 @@
 /**
 * Author: Jamie Maddock
 * Like HomePage, this is just used to separate navigation props with redux props.
+* is it necessary? that's a problem for whoever's reading this to figure out
+* also, it's called calendarStack bc i thought we'd expand the calendaritem, like a new page
+* to view the event in detail
 */
 
 import React from 'react';

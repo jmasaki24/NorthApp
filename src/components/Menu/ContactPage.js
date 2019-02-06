@@ -1,5 +1,6 @@
 /**
 * Author: Jamie Maddock
+* could totally be a pure component
 */
 
 import React, { Component } from 'react';
@@ -29,8 +30,8 @@ class ContactPage extends Component {
         >
           Send Email
         </FontAwesome5.Button>
-        <Text style={basicText}> Development Team: </Text>
-        <Text style={basicText}> Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
+        <Text style={basicText}>Authors:</Text>
+        <Text style={basicText}>Jamie Maddock and Matthew Peters</Text>
       </View>
     );
   }

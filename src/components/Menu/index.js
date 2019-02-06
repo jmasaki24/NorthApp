@@ -10,4 +10,3 @@ export * from './PollPage';
 // export * from './StorePage';
 export * from './UsersAnnouncements';
 export * from './UsersEvents';
-export * from './Vote';

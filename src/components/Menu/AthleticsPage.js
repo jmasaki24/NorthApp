@@ -4,11 +4,8 @@ import { Button, Card, CardSection, } from '../common';
 import SeasonSelect from '../AthleticsDetails/SeasonSelect';
 import i18n from '../../utils/i18n.js';
 
+// could possibly be a pure.component?
 class Athletics extends Component {
-  renderItem() {
-    return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />;
-  }
-
   render() {
     const { buttonStyle, buttonTextStyle } = styles;
     return (

@@ -25,9 +25,8 @@ class CalendarItems extends Component {
       .once('value', snapshot => {
         firebaseData = snapshot.val();
         const calendarData = {};
-        // looping through an object in JavaScript https://zellwk.com/blog/looping-through-js-objects/
-        // could and should (?) use Object.map() method instead.
 
+        // could and should (?) use Object.map() method instead.
         for (const date in firebaseData) {
           const has = firebaseData.hasOwnProperty;
           if (has) {
@@ -72,7 +71,7 @@ class CalendarItems extends Component {
     } else {
       if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
         // parseInt(string, 0) the radix param causes a return of NaN... maybe radix should be 10?
-        start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':'))) + 12);
+        start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':')), 10) + 12);
       } else {
          start.setHours(item.time.substring(0, item.time.indexOf(':')));
        }

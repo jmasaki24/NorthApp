@@ -33,9 +33,8 @@ export const GET_CALENDAR = 'get_calendar';
 
 export const POLL_LOGIN = 'poll_login';
 export const ID_INPUT = 'id_input';
-export const AUTH_EDIT = 'auth_edit';
-export const PULL_POLL = 'pull-poll';
-export const SELECT_RUNNER = 'select_runner';
+export const PULL_POLL = 'pull_poll';
+export const VOTE_CAST = 'vote_cast';
 
 export const LOADING = 'loading';
 

@@ -1,5 +1,8 @@
 /**
 * Author: Matt Peters
+* could use a ui redesign, also would some sort of list thing be better for performance?
+* would a pure.component be more effective than a... const? who knows
+* just some things to consider =jm
 */
 
 import React from 'react';

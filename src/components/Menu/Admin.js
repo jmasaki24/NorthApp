@@ -10,6 +10,7 @@ import { Button, LoginForm, Spinner, } from '../common';
 class Admin extends Component {
   state = { loggedIn: null, u: 'Loading...' }
 
+// this whole mess is to try and display a username if you're logged in. not needed...
   componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

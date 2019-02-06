@@ -1,3 +1,6 @@
+/**
+* huge thanks to algolia here, mostly a copy paste
+*/
 import React from 'react';
 import {
   Dimensions, FlatList, Image, Modal, Text, TextInput,

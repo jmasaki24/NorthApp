@@ -1,98 +1,201 @@
+// uses app-level state (redux) and local state because going through everything is a grind
+
 import React, { Component } from 'react';
-import { Text, SafeAreaView, ScrollView } from 'react-native';
+import { Modal, Picker, Text, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Spinner, Button } from '../common';
-import { Vote } from './Vote';
-import { pullPoll, pollLoad } from '../../actions';
+import { Button, CardSection, Spinner, } from '../common';
+import { pullPoll, isLoading, castVote } from '../../actions';
 
 class VotingPage extends Component {
+  state = { showModal: false };
+
   componentWillMount() {
-    this.props.pollLoad(true);
-    this.props.pullPoll(this.props.navigation.state.params.grade);
-  }
-
-  renderPoll() {
-    let pollArray = Object.keys(this.props.poll);
-    pollArray = pollArray.filter(word => word !== 'pollOpen');
-
-    return pollSection(pollArray, this.props.poll);
-  }
-
-  renderStuff() {
-    if (this.props.poll !== null) {
-      if (this.props.poll.pollOpen) {
-        return (
-          <ScrollView>
-            {this.renderPoll()}
-          </ScrollView>
-        );
+    const poll = this.props.navigation.state.params.poll;
+    this.setState({ poll });
+    const questions = {};
+    const questionKeys = Object.keys(poll).reduce((result, key) => {
+      if (/^question*/.test(key)) {
+        result.push(key);
+        questions[key] = '';
       }
-      return (
-        <Text style={{ textAlign: 'center', color: 'black' }}>
-          Sorry, no polls yet.
-        </Text>
-      );
-    } else if (this.props.loading) {
+      return result;
+    }, []);
+    this.setState({ questionKeys, questions });
+  }
+
+  onAccept() {
+    this.props.castVote(this.state.poll, this.state.questions);
+    this.setState({ showModal: false });
+  }
+
+  onDecline() {
+    this.setState({ showModal: false });
+  }
+
+  confirmVoteModal() {
+    return this.state.questionKeys.map(q => (
+      <View key={q} style={{ flex: 0 }}>
+          <Text style={styles.textStyle}>
+            {this.state.poll[q].title}: {this.state.questions[q]}
+          </Text>
+          </View>
+        ));
+  }
+
+  renderAnswers(question) {
+     // filter() bc object.keys must return something for every key, RN Picker can't render null
+     return (
+       Object.keys(question).filter(key => key !== 'title').map(key => (
+             <Picker.Item key={key} label={key} value={key} />
+      )));
+   }
+
+  renderQuestions(poll) {
+    // first get an array of the keys to the questions
+    const questionKeys = Object.keys(poll).reduce((result, key) => {
+      if (/^question*/.test(key)) {
+        result.push(key);
+        // this.setState({ [key]: '' });
+      }
+      return result;
+    }, []);
+
+    return (questionKeys.map(q => (
+        <CardSection style={styles.questionContainer} key={q}>
+          <Text style={styles.sectionHeadStyle}>{poll[q].title}</Text>
+          <Picker
+            style={{ flex: 1 }}
+            selectedValue={this.state.questions[q]}
+            onValueChange={value =>
+              this.setState({ questions: Object.assign(this.state.questions, { [q]: value }) })}
+          >
+            <Picker.Item label='Select or Leave Blank' value='' />
+            {this.renderAnswers(poll[q])}
+          </Picker>
+        </CardSection>
+      )));
+  }
+
+  renderButton() {
+    if (this.props.loading) {
       return <Spinner />;
     }
+    return (
+      <Button
+      onPress={() => this.setState({ showModal: true })}
+        buttonStyle={{ padding: 10, margin: 10 }}
+        textStyle={{ fontSize: 24 }}
+      >
+        (Vote) does nothing yet
+      </Button>
+    );
   }
 
   render() {
-    console.log(this.props);
+    const poll = this.props.navigation.state.params.poll;
+    console.log(this.state);
+    const { titleText, containerStyle, buttonStyle } = styles;
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        {this.renderStuff()}
-        <Card>
-          <CardSection>
-            <Button>
-              (Vote) does nothing yet
-            </Button>
-          </CardSection>
-        </Card>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', }}>
+        <ScrollView style={{ flex: 0 }}>
+          <Text style={titleText}>{poll.title}</Text>
+          {this.renderQuestions(poll)}
+        </ScrollView>
+        {this.renderButton()}
+
+        <Modal
+          visible={this.state.showModal}
+          animationType="slide"
+          onRequestClose={() => this.setState({ showModal: false })}
+          presentationStyle='overFullScreen'
+        >
+          <View style={containerStyle}>
+            <CardSection style={styles.confirmModalQuestions}>
+              <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Your Answers Are: </Text>
+              {this.confirmVoteModal()}
+            </CardSection>
+
+            <CardSection style={styles.confirmModalBottom}>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5 }}>
+                Please confirm your selection
+              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Button onPress={this.onAccept.bind(this)} buttonStyle={buttonStyle}>Vote</Button>
+                <Button onPress={this.onDecline.bind(this)} buttonStyle={buttonStyle}>Cancel</Button>
+              </View>
+            </CardSection>
+          </View>
+        </Modal>
+
       </SafeAreaView>
     );
   }
 }
 
-const pollSection = (pollArray, pops) => {
-  return pollArray.map((item) =>
-    <Card>
-      <CardSection style={{ flex: 1, flexDirection: 'column' }}>
-        <Text style={styles.sectionHeadStyle}>
-          {item}
-        </Text>
-        <VotePicker item={item} pops={pops} />
-      </CardSection>
-    </Card>
-  );
-};
-
-const VotePicker = ({ item, pops }) => {
-  const keyArr = Object.keys(pops);
-  const canArr = Object.values(pops);
-  for (let i = 0; i < keyArr.length; i++) {
-    if (keyArr[i] === item) {
-      return (
-        <Vote candidates={canArr[i]} category={item} />
-      );
-    }
-  }
-};
-
-const styles = {
+const styles = StyleSheet.create({
+  buttonStyle: {
+    justifyContent: 'center',
+  },
+  containerStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    position: 'relative',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  confirmModalQuestions: {
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+  },
+  confirmModalBottom: {
+    flex: 0,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   sectionHeadStyle: {
     color: 'black',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  titleCardStyle: {
+    margin: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+
+    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  },
+  titleText: {
     fontSize: 24,
-    textAlign: 'center'
-  }
-};
+    color: 'black',
+    alignSelf: 'center',
+    flex: 1,
+  },
+  questionContainer: {
+    flexDirection: 'column',
+    borderWidth: 1,
+    marginTop: 5,
+    marginHorizontal: 5,
+    flex: 1,
+  },
+  textStyle: {
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 40,
+  },
+});
 
 const mapStateToProps = (state) => {
-  const { loading, poll, selectedPresident, selectedSenate, selectedTreasurer, selectedVicePresident } = state.polls;
-  return { loading, poll, selectedPresident, selectedSenate, selectedTreasurer, selectedVicePresident };
+  const { loading, polls, } = state.polls;
+  console.log(state.polls);
+  return { loading, polls, };
 };
 
-const PollPage = withNavigation(connect(mapStateToProps, { pullPoll, pollLoad })(VotingPage));
+const PollPage = withNavigation(connect(mapStateToProps, {
+  pullPoll, isLoading, castVote })(VotingPage));
 
 export { PollPage };

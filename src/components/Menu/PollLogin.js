@@ -1,53 +1,40 @@
+// handles the login page and the home page for polls/student Voting
+// author jamie maddock, feb 1st 2019
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import firebase from 'firebase';
 import { Button, Card, CardSection, Input, Spinner, } from '../common';
-import { pollAuth, pollLoad, idChange, authSwitch } from '../../actions';
+import { pollAuth, isLoading, idChange, pullPoll } from '../../actions';
 
 class PLogin extends Component {
   state = { ID: '', IDmatches: null, alreadyVoted: null, loading: false };
+
+// should probably call this.props.pullPoll in PollActions.js or something bc this is sketchy...
+// without the !(this.props.polls) it leads to infinite re-renders (i think)
+  componentDidUpdate() {
+    if (this.props.auth && !(this.props.polls)) {
+      this.props.isLoading(true);
+      this.props.pullPoll(Object.values(this.props.voter)[0]);
+    }
+  }
 
   onIDChange(text) {
     this.props.idChange(text);
   }
 
-  init() {
-    //in order to execute firebase database rules must be changes to => ".write": true
-    firebase.database().ref('/Voting/seniors/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/seniors/Vice President').push({ temp: 0 });
-    firebase.database().ref('/Voting/seniors/Treasurer').push({ temp: 0 });
-    firebase.database().ref('/Voting/seniors/Senate').push({ temp: 0 });
+  onButtonPress(id) {
+    this.props.isLoading(true);
+    this.props.pollAuth(id);
+  }
 
-    firebase.database().ref('/Voting/sophmores/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/sophmores/Vice President').push({ temp: 0 });
-    firebase.database().ref('/Voting/sophmores/Treasurer').push({ temp: 0 });
-    firebase.database().ref('/Voting/sophmores/Senate').push({ temp: 0 });
-
-    firebase.database().ref('/Voting/juniors/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/juniors/Vice President').push({ temp: 0 });
-    firebase.database().ref('/Voting/juniors/Treasurer').push({ temp: 0 });
-    firebase.database().ref('/Voting/juniors/Senate').push({ temp: 0 });
-
-    firebase.database().ref('/Voting/freshmen/President').push({ temp: 0 });
-    firebase.database().ref('/Voting/freshmen/Vice President').push({ temp: 0 });
-    firebase.database().ref('/Voting/freshmen/Treasurer').push({ temp: 0 });
-    firebase.database().ref('/Voting/freshmen/Senate').push({ temp: 0 });
+  onPollSelect(poll) {
+    this.props.navigation.navigate('PollPage', { poll });
   }
 
   errorMes() {
     const { errorText } = styles;
-    if (this.props.identifyer !== null) {
-      if (this.props.identifyer.hasVoted) {
-        return (
-          <View>
-            <Text style={errorText}>
-              You cannot vote again
-            </Text>
-          </View>
-        );
-      } else if (this.props.auth === false) {
+    if (this.props.voter && this.props.auth !== true) {
         return (
           <View>
             <Text style={errorText}>
@@ -57,7 +44,6 @@ class PLogin extends Component {
         );
       }
     }
-  }
 
   renderButton() {
     if (this.props.loading) {
@@ -73,10 +59,7 @@ class PLogin extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => {
-              this.props.pollLoad(true);
-              this.props.pollAuth(this.props.ID);
-            }}
+            onPress={() => this.onButtonPress(this.props.id)}
           >
             Login
           </Button>
@@ -86,13 +69,43 @@ class PLogin extends Component {
     );
   }
 
+  renderPoll(polls) {
+    return Object.keys(polls).map(key => (
+        <CardSection key={key} style={styles.titleCardStyle}>
+          <TouchableOpacity onPress={() => this.onPollSelect(polls[key])}>
+            <Text style={styles.titleTextStyle}>{polls[key].title}</Text>
+          </TouchableOpacity>
+        </CardSection>
+      ));
+  }
+
+  renderStuff() {
+    if (this.props.polls) {
+      const openPolls = {};
+      Object.keys(this.props.polls).forEach(key => {
+        if (this.props.polls[key].isOpen) {
+          console.log(key);
+          openPolls[key] = this.props.polls[key];
+          openPolls[key].key = key;
+        }
+      });
+      return this.renderPoll(openPolls);
+    } else if (this.props.loading) {
+      return <Spinner />;
+    }
+  }
+
   render() {
     if (this.props.auth) {
-      const grade = this.props.identifyer.grade;
-      this.props.navigation.navigate('PollPage', { grade });
-      this.props.authSwitch(null);
+      return (
+        <View style={{ flex: 1 }}>
+          <Text style={styles.titleText}>Select a Survey</Text>
+          <ScrollView>
+            {this.renderStuff()}
+          </ScrollView>
+        </View>
+      );
     }
-
     const { headerStyle } = styles;
     return (
       <SafeAreaView>
@@ -107,7 +120,7 @@ class PLogin extends Component {
             placeholder='12345789'
             keyboardType='number-pad'
             onChangeText={this.onIDChange.bind(this)}
-            value={this.props.ID}
+            value={this.props.id}
           />
           {this.renderButton()}
         </Card>
@@ -115,16 +128,6 @@ class PLogin extends Component {
     );
   }
 }
-
-// <CardSection>
-//   <Button
-//     buttonStyle={styles.buttonStyle}
-//     textStyle={{ color: 'black' }}
-//     onPress={() => this.init()}
-//   >
-//     Push Basic to FB
-//   </Button>
-// </CardSection>
 
 const styles = StyleSheet.create({
   headerStyle: {
@@ -141,19 +144,41 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
     textAlign: 'center'
-  }
+  },
+  titleTextStyle: {
+    color: 'black',
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  titleCardStyle: {
+    margin: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    backgroundColor: '#FFF',
+
+    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  },
+  titleText: {
+    fontSize: 30,
+    color: 'black',
+    alignSelf: 'center',
+  },
 });
 
 const mapStateToProps = (state) => {
-  const { auth, identifyer, loading, ID } = state.polls;
-  return { auth, identifyer, loading, ID };
+  const { auth, voter, loading, id, polls } = state.polls;
+  return { auth, voter, loading, id, polls };
 };
 
 const PollLogin = withNavigation(connect(mapStateToProps, {
   pollAuth,
-  pollLoad,
+  isLoading,
   idChange,
-  authSwitch
+  pullPoll,
 })(PLogin));
 
 export { PollLogin };
