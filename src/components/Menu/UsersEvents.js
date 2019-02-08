@@ -3,39 +3,45 @@
  * Author: Jamie Maddock
 */
 import React, { Component } from 'react';
-import { FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView }
-  from 'react-native';
+import {
+  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet, Text
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
-import { createStackNavigator } from 'react-navigation';
-import { Confirm } from './common';
-import AnnounceCardAllText from './AnnounceCardAllText';
-import AnnounceCardImage from './AnnounceCardImage';
-import EditContent from './AddStuff/EditContent';
+import algoliasearch from 'algoliasearch';
+import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME } from 'react-native-dotenv';
+import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
 const { width } = Dimensions.get('window');
 
-class UsersAnnouncements extends Component {
+// need algolia for when you edit i think
+const algolia = algoliasearch(
+  ALGOLIA_APP_ID,
+  ALGOLIA_API_KEY
+);
+const index = algolia.initIndex(ALGOLIA_INDEX_NAME);
+
+class UsersEvents extends Component {
   constructor(props) {
     super(props);
     this.state = {
       refreshing: false,
       imageModal: false,
       imageUrl: null,
-      announcementArray: {},
+      eventArray: {},
       showModal: false,
       item: {}
     };
   }
 
   componentWillMount() {
-    this.getUsersAnnouncements();
+    this.getUsersEvents();
   }
 
   onAccept() {
-    this.deleteAnnouncement();
+    this.deleteEvent();
     this.setState({ showModal: false });
   }
 
@@ -47,99 +53,95 @@ class UsersAnnouncements extends Component {
     this.setState({ imageModal: false });
   }
 
-  getUsersAnnouncements() {
+  getUsersEvents() {
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
     let firebaseData = {};
     const array = [];
     let i = 0;
     return (
-      firebase.database().ref(`/Users/${uid}/Announcements`)
+      firebase.database().ref(`/Users/${uid}/Events`)
         .on('value', snapshot => {
           firebaseData = snapshot.val();
           for (const key in firebaseData) {
-            if (firebaseData[key].hasOwnProperty) {
+            const has = firebaseData[key].hasOwnProperty;
+            if (has) {
               firebaseData[key].id = key;
               array[i] = firebaseData[key];
               i++;
             }
           }
-          this.setState({ announcementArray: array });
+          this.setState({ eventArray: array.reverse() });
         })
     );
   }
 
-  deleteAnnouncement() {
+  deleteEvent() {
     console.log(this.state.item);
     const { item } = this.state.item;
     console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    firebase.database().ref(`/Users/${uid}/Announcements/${item.id}`).remove()
+    firebase.database().ref(`/Users/${uid}/Events/${item.id}`).remove()
       .then(() => { console.log('Remove from user succeeded.'); })
       .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
-    firebase.database().ref(`/Announcements/${item.id}`).remove()
+// oh no how do i get to it in the calendar bucket
+    firebase.database().ref(`/Calendar/${item.date}/${item.id}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    this.getUsersAnnouncements();
+    index.deleteObject(item.id, (err) => console.log(err));
+    console.log(item.id);
+    this.getUsersEvents();
+    this.setState({ item: {} });
   }
 
   handleRefresh = () => {
     this.setState({ refreshing: true });
-    this.getUsersAnnouncements();
+    this.getUsersEvents();
     this.setState({ refreshing: false });
   }
 
   renderItem({ item }) {
-    if (item.isDefault) {
-      return (
-        <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
-        >
-          <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.uri })}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.uri }}
+    return (
+      <Card>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={styles.cardTitleText}>{item.title}</Text>
+        </CardSection>
+        <CardSection style={{ borderBottomWidth: 0, flexDirection: 'column' }}>
+          <Text style={{ fontSize: 18, flex: 1, color: 'black', alignSelf: 'center' }}>
+            {item.location}
+          </Text>
+          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.info}</Text>
+        </CardSection>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around' }}>
+            <Icon.Button
+              name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+              onPress={() => this.props.navigation.navigate('EditEvent', { item })}
             />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
-    } else if (item.isDefault === false) {
-      return (
-        <AnnounceCardImage
-          button title={item.title} time={item.dateString}
-          info={item.info} onPress={() => { this.setState({ showModal: true, item: { item } }); }}
-        >
-          <TouchableOpacity
-            onPress={() => this.setState({ imageModal: true, imageUrl: item.url })}
-          >
-            <Image
-              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-              source={{ uri: item.url }}
+            <Icon.Button
+              name="trash-alt" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+              onPress={() => this.setState({ showModal: true, item: { item } })}
             />
-          </TouchableOpacity>
-        </AnnounceCardImage>
-      );
-    } // if no image, the code below runs
-      return (
-        <AnnounceCardAllText
-          button title={item.title} time={item.dateString}
-          onPress={() => { this.setState({ showModal: true, item: { item } }); }}
-        >
-          {item.info}
-        </AnnounceCardAllText>
-      );
+          </View>
+          <View style={{ flex: 1 }} />
+          <View style={{ flex: -1 }}>
+            <Text style={{ fontSize: 14 }}>
+              {item.date} {item.time}
+            </Text>
+          </View>
+        </CardSection>
+      </Card>
+    );
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={styles.titleText}>Your Events</Text>
         <FlatList
           style={{ flex: 1 }}
-          data={this.state.announcementArray}
+          data={this.state.eventArray}
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
@@ -175,7 +177,7 @@ class UsersAnnouncements extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   modalBackStyle: {
     flex: 1,
     flexDirection: 'column',
@@ -185,19 +187,19 @@ const styles = {
     marginHorizontal: 5,
     marginTop: 5,
     borderWidth: 2,
-    padding: 5
-  }
-};
-// export default connect(mapStateToProps, { getUsersAnnouncements })(UsersAnnouncements);
-
-const UsersStack = createStackNavigator({
-    UsersAnnouncements,
-    Edit: EditContent
+    padding: 5,
   },
-  {
-    navigationOptions: () => ({
-      header: null
-    })
+  cardTitleText: {
+    color: '#000',
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    fontSize: 30,
+  }
 });
+// export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);
 
-export default UsersStack;
+export { UsersEvents };

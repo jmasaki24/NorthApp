@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text, } from 'react-native';
 import firebase from 'firebase';
 import { Button } from './Button';
 import { Card } from './Card';
@@ -33,6 +33,13 @@ class LoginForm extends Component {
     });
   }
 
+  renderError() {
+    if (this.state.error) {
+      return <Text style={styles.errorTextStyle}>{this.state.error}</Text>;
+    }
+    return null;
+  }
+
   renderButton() {
     if (this.state.loading) {
       return <Spinner />;
@@ -52,55 +59,48 @@ class LoginForm extends Component {
   render() {
     return (
       <Card>
-        <CardSection>
-          <Input
+        <Input
             placeholder="user@email.com"
             label="Email"
             keyboardType="email-address"
             autoCorrect={false}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
-          />
-        </CardSection>
+        />
 
-        <CardSection>
-          <Input
-            secureTextEntry
-            placeholder="password"
-            label="Password"
-            autoCorrect={false}
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-          />
-        </CardSection>
+        <Input
+          secureTextEntry
+          placeholder="password"
+          label="Password"
+          autoCorrect={false}
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
+        />
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
-
-        <CardSection>
+        <CardSection style={{ borderBottomWidth: 0 }}>
           {this.renderButton()}
         </CardSection>
+        {this.renderError()}
       </Card>
     );
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
-    color: 'red'
+    color: 'red',
   },
   buttonStyle: {
     borderColor: 'white',
-	justifyContent: 'center'
+	justifyContent: 'center',
   },
   buttonTextStyle: {
     alignSelf: 'center',
-    color: 'black'
+    color: 'black',
   }
-};
+});
 
 
 export { LoginForm };

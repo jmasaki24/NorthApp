@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Linking } from 'react-native';
-import { Card, CardSection, Button } from './common';
-import SeasonSelect from './AthleticsDetails/SeasonSelect';
+import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import { Button, Card, CardSection, } from '../common';
+import SeasonSelect from '../AthleticsDetails/SeasonSelect';
+import i18n from '../../utils/i18n.js';
 
-class AthleticsPage extends Component {
-  renderItem() {
-    return <CardSection style={{ width: 75, height: 50, borderRightWidth: 3 }} />;
-  }
-
+// could possibly be a pure.component?
+class Athletics extends Component {
   render() {
     const { buttonStyle, buttonTextStyle } = styles;
     return (
       <ScrollView style={{ flex: 1 }}>
+        <Text style={styles.titleText}>Athletics</Text>
+        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
+          <Text>via </Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://nashuanorthathletics.com')}
+          >
+            <Text style={{ textDecorationLine: 'underline', color: '#0000EE' }}>
+              nashuanorthathletics.com
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Card style={{ marginBottom: 20 }}>
           <CardSection>
             <Button
@@ -19,7 +28,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => this.props.navigation.navigate('UpcomingGames')}
             >
-              Upcoming Games
+              {i18n.t('UPCOMING_GAMES')}
             </Button>
           </CardSection>
         </Card>
@@ -32,7 +41,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/siteRepository/21551/userfiles/North-Coaches-2018-19.pdf')}
             >
-              Coach Directory
+              {i18n.t('COACHES_DIRECTORY')}
             </Button>
           </CardSection>
           <CardSection>
@@ -41,7 +50,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.nashuanorthathletics.com/main/otherad/contentID/41289580')}
             >
-              Policies
+              {i18n.t('POLICIES')}
             </Button>
           </CardSection>
           <CardSection>
@@ -50,7 +59,7 @@ class AthleticsPage extends Component {
               textStyle={buttonTextStyle}
               onPress={() => Linking.openURL('https://www.familyid.com/programs/high-school-north-winter-2018-19')}
             >
-              Signup/Registration
+              {i18n.t('REGISTRATION')}
             </Button>
           </CardSection>
         </Card>
@@ -59,13 +68,19 @@ class AthleticsPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonTextStyle: {
-    color: 'black'
+    color: 'black',
+  },
+  titleText: {
+    alignSelf: 'center',
+    margin: 10,
+    marginBottom: 5,
+    fontSize: 30,
   }
-};
+});
 
-export default AthleticsPage;
+export { Athletics };

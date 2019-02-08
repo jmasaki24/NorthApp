@@ -4,10 +4,10 @@
 */
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { CardSection, Button } from '../common';
+import { Button, CardSection, } from '../common';
 
 class Select extends Component {
   state = { pressed: false };
@@ -53,24 +53,24 @@ class Select extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonTextStyle: {
     color: 'black',
     fontSize: 16,
     fontWeight: 'normal',
     alignSelf: 'flex-start',
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   childButtonTextStyle: {
     color: 'black',
     fontSize: 15,
     fontWeight: 'normal',
     alignSelf: 'flex-start',
-    paddingLeft: 40
+    paddingLeft: 40,
   }
-};
+});
 
 export default withNavigation(Select);

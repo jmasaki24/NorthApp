@@ -3,14 +3,14 @@
 */
 
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
 const AnnounceCardAllText = (props) => {
   if (props.button) {
     return (
-      <Card>
+      <Card style={{ elevation: 2 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>{props.title}</Text>
         </CardSection>
@@ -18,9 +18,14 @@ const AnnounceCardAllText = (props) => {
           <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{props.children}</Text>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ flex: -1 }}>
+          <View style={{ flex: -1, flexDirection: 'row' }}>
             <Icon.Button
-              name="trash-alt" onPress={props.onPress} iconStyle={{ marginRight: 0 }}
+              name="edit" onPress={props.onEditPress}
+              iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+            />
+            <Icon.Button
+              name="trash-alt" onPress={props.onDelPress}
+              iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
             />
           </View>
           <View style={{ flex: 1 }} />
@@ -34,7 +39,7 @@ const AnnounceCardAllText = (props) => {
     );
   }
   return (
-    <Card>
+    <Card style={{ elevation: 6 }}>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.titleText}>{props.title}</Text>
       </CardSection>
@@ -50,12 +55,12 @@ const AnnounceCardAllText = (props) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   titleText: {
     color: '#000',
     fontSize: 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   }
-};
+});
 
 export default AnnounceCardAllText;

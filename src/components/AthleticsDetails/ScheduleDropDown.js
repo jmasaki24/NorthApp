@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { CardSection, Button } from '../common';
+import { Button, CardSection, } from '../common';
 
 class ScheduleDropDown extends Component {
   state = { expanded: false };
@@ -56,19 +56,20 @@ class ScheduleDropDown extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonTextStyle: {
     fontSize: 16,
-    color: 'black'
+    color: 'black',
+    flex: 1,
   },
   dataStyle: {
     fontSize: 14,
     color: 'black',
-    paddingLeft: 20
+    paddingLeft: 20,
   }
-};
+});
 
 export default ScheduleDropDown;

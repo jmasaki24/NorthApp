@@ -4,10 +4,10 @@
 */
 
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { Card, CardSection, Button } from '../common';
+import { Button, Card, CardSection, } from '../common';
 import { getSportScores, getSportSchedules, load } from '../../actions';
 
 class SportsPage extends Component {
@@ -15,7 +15,7 @@ class SportsPage extends Component {
     const characteristics = this.props.navigation.state.params;
     const sport = `${characteristics.item.title} ${characteristics.sportName}`;
     return (
-      <Card>
+      <Card style={{ flex: 1 }}>
         <CardSection>
           <Text
             style={{ fontSize: 20, color: 'black', textAlign: 'center' }}
@@ -23,42 +23,53 @@ class SportsPage extends Component {
             {sport}
           </Text>
         </CardSection>
-        <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black' }}
-            onPress={() => {
-              this.props.load(true);
-              this.props.getSportScores(this.props.navigation.state.params.item.link);
-              this.props.navigation.navigate('ScorePage', { sport });
-            }}
-          >
-            Scores
-          </Button>
-        </CardSection>
-        <CardSection>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            textStyle={{ color: 'black' }}
-            onPress={() => {
-              this.props.load(true);
-              this.props.getSportSchedules(this.props.navigation.state.params.item.link);
-              this.props.navigation.navigate('SchedulePage', { sport });
-            }}
-          >
-            Schedule
-          </Button>
-        </CardSection>
+        <View style={{ flexDirection: 'row', flex: 1 }}>
+          <CardSection style={styles.scoreButton}>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={{ color: 'black' }}
+              onPress={() => {
+                this.props.load(true);
+                this.props.getSportScores(this.props.navigation.state.params.item.link);
+                this.props.navigation.navigate('ScorePage', { sport });
+              }}
+            >
+              Scores
+            </Button>
+          </CardSection>
+          <CardSection style={{ flex: 1 }}>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              textStyle={{ color: 'black' }}
+              onPress={() => {
+                this.props.load(true);
+                this.props.getSportSchedules(this.props.navigation.state.params.item.link);
+                this.props.navigation.navigate('SchedulePage', { sport });
+              }}
+            >
+              Schedule
+            </Button>
+          </CardSection>
+        </View>
       </Card>
     );
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   buttonStyle: {
     borderColor: 'white',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  scoreButton: {
+    flex: 1,
+    borderBottomWidth: 0,
+    borderRightWidth: 0.5,
+    borderColor: '#333',
   }
-};
+});
 
-export default withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));
+const IndivSportsPage =
+  withNavigation(connect(null, { getSportScores, getSportSchedules, load })(SportsPage));
+
+export { IndivSportsPage };

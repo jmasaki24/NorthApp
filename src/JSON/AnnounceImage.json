@@ -13,7 +13,8 @@
     "key":"NoSchool",
     "uri":"https://techflourish.com/images/labor-day-no-school-clipart-9.png",
     "text":"No School"
-  },{
+  },
+  {
     "key":"Music",
     "uri":"http://www.i2clipart.com/cliparts/6/2/d/6/12804562d6b25fb08bff6933f4499e291bcb51.png",
     "text":"Music"
@@ -27,6 +28,16 @@
     "key":"GNE",
     "uri":"https://afinde-production.s3.amazonaws.com/uploads/1fd57482-649a-4740-99ad-2e20933841a7.jpg",
     "text":"Good News"
+  },
+  {
+    "key":"Athletics",
+    "uri":"https://i.pinimg.com/originals/e0/38/7b/e0387b9c6cc7a269ba92f92f8b8321ac.png",
+    "text":"Athletics"
+  },
+  {
+    "key":"Academics",
+    "uri":"",
+    "text":"Academics"
   }
 ];
 

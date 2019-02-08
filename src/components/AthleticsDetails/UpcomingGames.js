@@ -4,20 +4,20 @@
 */
 
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { FlatList, StyleSheet, Text, View, } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Spinner } from '../common';
+import { Card, CardSection, Spinner, } from '../common';
 import { getUpcomingGames, load } from '../../actions';
 
 class UpcomingGamesPage extends Component {
   componentWillMount() {
     this.props.getUpcomingGames();
     this.props.load(true);
-    console.log(this.props.upcomingGames);
+    // console.log(this.props.upcomingGames);
   }
 
   renderItem({ item }) {
-    console.log(item);
+    // console.log(item);
     let sport = 'N/A';
     let otherTeam = 'N/A';
     let time = 'N/A';
@@ -49,21 +49,21 @@ class UpcomingGamesPage extends Component {
     return (
       <Card>
         <CardSection style={cardSectionStyle}>
-          <View>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={bodyTitleStyle}>Sport: </Text>
-            <Text style={bodyTextStyle}>  {sport}</Text>
+            <Text style={bodyTextStyle}>{sport}</Text>
           </View>
-          <View>
-            <Text style={bodyTitleStyle}>Against:</Text>
-            <Text style={bodyTextStyle}>  {otherTeam}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={bodyTitleStyle}>Against: </Text>
+            <Text style={bodyTextStyle}>{otherTeam}</Text>
           </View>
-          <View>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={bodyTitleStyle}>Date: </Text>
-            <Text style={bodyTextStyle}>  {day}</Text>
+            <Text style={bodyTextStyle}>{day}</Text>
           </View>
-          <View>
-            <Text style={bodyTitleStyle}>Time: </Text>
-            <Text style={bodyTextStyle}>  {time}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={bodyTitleStyle}>Time:</Text>
+            <Text style={bodyTextStyle}>{time}</Text>
           </View>
         </CardSection>
       </Card>
@@ -71,7 +71,7 @@ class UpcomingGamesPage extends Component {
   }
 
   render() {
-    console.log(this.props.upcomingGames);
+    // console.log(this.props.upcomingGames);
     if (this.props.loading) {
       return <Spinner />;
     }
@@ -92,24 +92,26 @@ class UpcomingGamesPage extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   bodyTitleStyle: {
     color: 'black',
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   bodyTextStyle: {
-    fontSize: 16,
-    color: 'black'
+    fontSize: 18,
+    color: 'black',
   },
   cardSectionStyle: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   }
-};
+});
 
 const mapStateToProps = (state) => {
   const { upcomingGames, loading } = state.athleticsInfo;
   return { upcomingGames, loading };
 };
 
-export default connect(mapStateToProps, { getUpcomingGames, load })(UpcomingGamesPage);
+const UpcomingGames = connect(mapStateToProps, { getUpcomingGames, load })(UpcomingGamesPage);
+
+export { UpcomingGames };

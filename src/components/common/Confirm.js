@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal } from 'react-native';
+import { Modal, StyleSheet, Text, View, } from 'react-native';
 import { CardSection } from './CardSection';
 import { Button } from './Button';
 
@@ -10,7 +10,7 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
     <Modal
       visible={visible}
       transparent
-      //animationType="slide"
+      animationType="slide"
       onRequestClose={() => console.log('Close Confirm')}
     >
       <View style={containerStyle}>
@@ -27,25 +27,25 @@ const Confirm = ({ children, visible, onAccept, onDecline }) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   cardSectionStyle: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   textStyle: {
     flex: 1,
     fontSize: 18,
     textAlign: 'center',
-    lineHeight: 40
+    lineHeight: 40,
   },
   containerStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.75)',
     position: 'relative',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonStyle: {
-    justifyContent: 'center'
-  }
-};
+    justifyContent: 'center',
+  },
+});
 
 export { Confirm };

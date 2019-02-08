@@ -1,9 +1,10 @@
 /**
 * Author: Jamie Maddock
+* could totally be a pure component
 */
 
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 import { email } from 'react-native-communications';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -29,24 +30,24 @@ class ContactPage extends Component {
         >
           Send Email
         </FontAwesome5.Button>
-        <Text style={basicText}> Development Team: </Text>
-        <Text style={basicText}> Jamie Maddock, Matthew Peters, Swathi Chandran </Text>
+        <Text style={basicText}>Authors:</Text>
+        <Text style={basicText}>Jamie Maddock and Matthew Peters</Text>
       </View>
     );
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   basicText: {
     marginTop: 10,
     color: 'black',
-    fontSize: 16
+    fontSize: 16,
   },
   pageStyle: {
     padding: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   }
-};
+});
 
-export default ContactPage;
+export { ContactPage };

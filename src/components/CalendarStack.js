@@ -1,6 +1,9 @@
 /**
 * Author: Jamie Maddock
-* Date: //You can fill this part in Jamie
+* Like HomePage, this is just used to separate navigation props with redux props.
+* is it necessary? that's a problem for whoever's reading this to figure out
+* also, it's called calendarStack bc i thought we'd expand the calendaritem, like a new page
+* to view the event in detail
 */
 
 import React from 'react';
@@ -17,7 +20,7 @@ const CalendarStack = createStackNavigator({
   Calendar
 }, {
   headerLayoutPreset: 'center',
-  navigationOptions: ({ navigation }) => ({
+  defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableOpacity onPress={() => navigation.goBack(null)}>
         <Image

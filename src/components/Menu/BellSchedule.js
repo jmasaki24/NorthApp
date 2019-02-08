@@ -1,12 +1,15 @@
 /**
 * Author: Matt Peters
+* could use a ui redesign, also would some sort of list thing be better for performance?
+* would a pure.component be more effective than a... const? who knows
+* just some things to consider =jm
 */
 
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import { Card, CardSection } from './common';
+import { ScrollView, StyleSheet, Text, View, } from 'react-native';
+import { Card, CardSection } from '../common';
 
-const Bells = () => {
+const BellSchedule = () => {
   const { titleStyle, sectionStyle, viewStyle, subHeadingStyle, infoStyle } = styles;
   return (
     <ScrollView>
@@ -213,10 +216,10 @@ const Bells = () => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   titleStyle: {
     fontWeight: 'bold',
-    fontSize: 30
+    fontSize: 30,
   },
   sectionStyle: {
     flex: 1,
@@ -224,26 +227,26 @@ const styles = {
     borderLeftWidth: 1,
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   viewStyle: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    flex: 1
+    flex: 1,
   },
   subHeadingStyle: {
     fontSize: 20,
     color: 'black',
     fontWeight: '300',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   infoStyle: {
     borderColor: '#fff',
     color: 'black',
     borderBottomWidth: 2,
-    fontSize: 16
+    fontSize: 16,
   }
-};
+});
 
-export default Bells;
+export { BellSchedule };

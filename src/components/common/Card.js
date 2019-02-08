@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View, } from 'react-native';
 
 const Card = (props) => (
   <View style={[styles.containerStyle, props.style]}>
@@ -12,7 +12,7 @@ const Card = (props) => (
   </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     borderWidth: 1,
     borderRadius: 2,
@@ -25,10 +25,9 @@ const styles = {
     shadowRadius: 2,
 
     elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10
+    marginHorizontal: 5,
+    marginTop: 10,
   }
-};
+});
 
 export { Card };
