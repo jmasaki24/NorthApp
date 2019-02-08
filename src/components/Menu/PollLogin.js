@@ -84,7 +84,7 @@ class PLogin extends Component {
       const openPolls = {};
       Object.keys(this.props.polls).forEach(key => {
         if (this.props.polls[key].isOpen) {
-          console.log(key);
+          // console.log(key);
           openPolls[key] = this.props.polls[key];
           openPolls[key].key = key;
         }

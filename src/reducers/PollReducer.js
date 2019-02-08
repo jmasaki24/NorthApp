@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case VOTE_CAST:
-      return { ...INITIAL_STATE };
+      return { ...state, loading: false };
     case ID_INPUT:
       return { ...state, id: action.payload };
     case LOADING:

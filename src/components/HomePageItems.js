@@ -101,6 +101,7 @@ class HomePageItems extends Component {
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
+          // keyExtractor={item => (item.id)}
         />
         <Modal
           visible={this.state.imageModal}

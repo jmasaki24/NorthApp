@@ -7,6 +7,7 @@ import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import RNLanguages from 'react-native-languages';
 import SplashScreen from 'react-native-splash-screen';
+import { StatusBar, View } from 'react-native';
 import algoliasearch from 'algoliasearch';
 import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, FB_API_KEY, FB_PROJECT_ID,
 FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
@@ -144,7 +145,10 @@ export default class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <AppContainer />
+        <View style={{ flex: 1 }}>
+          <StatusBar backgroundColor='#34658D' barStyle='light-content' />
+          <AppContainer />
+        </View>
       </Provider>
     );
   }

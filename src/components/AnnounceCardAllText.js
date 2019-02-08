@@ -10,7 +10,7 @@ import { Card, CardSection } from './common';
 const AnnounceCardAllText = (props) => {
   if (props.button) {
     return (
-      <Card>
+      <Card style={{ elevation: 2 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>{props.title}</Text>
         </CardSection>
@@ -39,7 +39,7 @@ const AnnounceCardAllText = (props) => {
     );
   }
   return (
-    <Card>
+    <Card style={{ elevation: 6 }}>
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.titleText}>{props.title}</Text>
       </CardSection>

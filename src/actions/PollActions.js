@@ -7,29 +7,33 @@ import {
   VOTE_CAST,
 } from './types';
 
+// since we got two transactions, nested Promise.all works
 export const castVote = (poll, questions) => {
   const db = firebase.database().ref('/Voting');
 
   return (dispatch) => {
-    Promise.all(
-      Object.keys(questions).map(q => {
-        console.log(questions);
-        console.log(q);
-        if (questions[q]) {
-          console.log(db.child(`/${poll.location}/${poll.key}/${q}/${questions[q]}`));
-          db.child(`/${poll.location}/${poll.key}/${q}/${questions[q]}`).transaction((num) => {
-            console.log(num);
-            return num + 1;
-          }).then((obj) => {
-            console.log(obj);
-          }).catch(() => {
-            console.log('big catch');
-          });
-        }
-        return Promise.resolve(); // returns null, could do Array.reduce()...
-      })
-    ).then(() => {
+    Promise.all([
+      db.child(`/${poll.location}/${poll.key}/hasVoted`).transaction((arr) => {
+        console.log('here');
+        console.log(arr);
+      }),
+      Promise.all(
+        Object.keys(questions).map(q => {
+          if (questions[q]) {
+            db.child(`/${poll.location}/${poll.key}/${q}/${questions[q]}`).transaction(num => {
+              return num + 1;
+            }).then((obj) => {
+              console.log(obj);
+            }).catch(() => {
+              console.log('big catch');
+            });
+          }
+          return Promise.resolve(); // returns null, could do Array.reduce()...
+        })
+      ),
+    ]).then(() => {
       console.log('then');
+
       dispatch({ type: VOTE_CAST });
     }).catch(() => {
       console.log('catch');
@@ -37,19 +41,15 @@ export const castVote = (poll, questions) => {
   };
 };
 
-export const idChange = (text) => {
-  return {
+export const idChange = (text) => ({
     type: ID_INPUT,
     payload: text
-  };
-};
+  });
 
-export const isLoading = (bool) => {
-  return {
+export const isLoading = (bool) => ({
     type: LOADING,
     payload: bool
-  };
-};
+  });
 
 export const pollAuth = (input) => {
   let exists = false;

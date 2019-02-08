@@ -8,7 +8,7 @@ import { Button, CardSection, Spinner, } from '../common';
 import { pullPoll, isLoading, castVote } from '../../actions';
 
 class VotingPage extends Component {
-  state = { showModal: false };
+  state = { showModal: false, poll: {}, questionKeys: [], questions: {} };
 
   componentWillMount() {
     const poll = this.props.navigation.state.params.poll;
@@ -26,7 +26,8 @@ class VotingPage extends Component {
 
   onAccept() {
     this.props.castVote(this.state.poll, this.state.questions);
-    this.setState({ showModal: false });
+    this.setState({ showModal: false, poll: {}, questionKeys: [], questions: {} });
+    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -35,7 +36,7 @@ class VotingPage extends Component {
 
   confirmVoteModal() {
     return this.state.questionKeys.map(q => (
-      <View key={q} style={{ flex: 0 }}>
+      <View key={q} style={{ flex: 0, alignSelf: 'flex-start' }}>
           <Text style={styles.textStyle}>
             {this.state.poll[q].title}: {this.state.questions[q]}
           </Text>
@@ -94,7 +95,7 @@ class VotingPage extends Component {
 
   render() {
     const poll = this.props.navigation.state.params.poll;
-    console.log(this.state);
+    // console.log(this.state);
     const { titleText, containerStyle, buttonStyle } = styles;
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', }}>
@@ -112,15 +113,13 @@ class VotingPage extends Component {
         >
           <View style={containerStyle}>
             <CardSection style={styles.confirmModalQuestions}>
-              <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Your Answers Are: </Text>
+              <Text style={styles.modalText}>Your Answers Are: </Text>
               {this.confirmVoteModal()}
             </CardSection>
 
             <CardSection style={styles.confirmModalBottom}>
-              <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 5 }}>
-                Please confirm your selection
-              </Text>
-              <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.modalText}>Please confirm your selection</Text>
+              <View style={{ flexDirection: 'row', marginTop: 5 }}>
                 <Button onPress={this.onAccept.bind(this)} buttonStyle={buttonStyle}>Vote</Button>
                 <Button onPress={this.onDecline.bind(this)} buttonStyle={buttonStyle}>Cancel</Button>
               </View>
@@ -153,10 +152,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  modalText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+  },
+  questionContainer: {
+    flexDirection: 'column',
+    borderWidth: 1,
+    marginTop: 5,
+    marginHorizontal: 5,
+    flex: 1,
+  },
   sectionHeadStyle: {
     color: 'black',
     fontSize: 18,
     textAlign: 'center',
+  },
+  textStyle: {
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 40,
   },
   titleCardStyle: {
     margin: 5,
@@ -175,23 +191,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
-  questionContainer: {
-    flexDirection: 'column',
-    borderWidth: 1,
-    marginTop: 5,
-    marginHorizontal: 5,
-    flex: 1,
-  },
-  textStyle: {
-    fontSize: 18,
-    textAlign: 'center',
-    lineHeight: 40,
-  },
 });
 
 const mapStateToProps = (state) => {
   const { loading, polls, } = state.polls;
-  console.log(state.polls);
+  // console.log(state.polls);
   return { loading, polls, };
 };
 
