@@ -4,7 +4,9 @@
 * colored rectangles with icons or backgroundimage?
 */
 import React, { Component } from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, } from 'react-native';
+import {
+  Image, ImageBackground, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View,
+} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Titan from '../images/titanT.png';
@@ -25,9 +27,9 @@ import chalkboard from '../images/chalkboard.jpg';
 // TODO: make this a flatlist, or something to improve readability and maybe performance
 class MenuPage extends Component {
   render() {
-    const { buttonStyle, textStyle, pageStyle } = styles;
+    const { imageStyle, textStyle, middleImage } = styles;
     return (
-      <View style={pageStyle}>
+      <View style={styles.pageStyle}>
       <View style={{ flexDirection: 'row', flex: 1 }}>
           <Card style={styles.topCards}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Clubs')}>
@@ -40,29 +42,31 @@ class MenuPage extends Component {
             </TouchableOpacity>
           </Card>
         </View>
-        <ImageBackground
-          source={chalkboard}
-          style={styles.middleCardImage}
-          imageStyle={[styles.imageStyle, { borderWidth: 0 }]}
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Academics')}
+          style={styles.middleTouch}
         >
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Academics')}>
-            <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ACADEMICS')}</Text>
-          </TouchableOpacity>
-        </ImageBackground>
-        <ImageBackground
-          source={stadiumlights}
-          style={styles.middleCardImage}
-          imageStyle={styles.imageStyle}
+          <ImageBackground source={chalkboard} style={middleImage} imageStyle={imageStyle}>
+              <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ACADEMICS')}</Text>
+          </ImageBackground>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Athletics')}
+          style={styles.middleTouch}
         >
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Athletics')}>
-            <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ATHLETICS')}</Text>
-          </TouchableOpacity>
-        </ImageBackground>
-        <CardSection style={styles.middleCards}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')}>
-            <Text style={textStyle}>{i18n.t('STORE')}</Text>
-          </TouchableOpacity>
-        </CardSection>
+          <ImageBackground source={stadiumlights} style={middleImage} imageStyle={imageStyle}>
+              <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ATHLETICS')}</Text>
+          </ImageBackground>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Store')}
+          style={[styles.middleTouch, { backgroundColor: '#0D4877' }]}
+        >
+          <View style={middleImage}>
+              <Text style={[textStyle, { color: 'white' }]}>{i18n.t('STORE')}</Text>
+          </View>
+        </TouchableOpacity>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <CardSection style={styles.bottomCards}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact')}>
@@ -82,33 +86,6 @@ class MenuPage extends Component {
 }
 
 const styles = StyleSheet.create({
-  pageStyle: {
-    backgroundColor: '#FFFFFF',
-    flex: 1,
-  },
-  buttonStyle: {
-    //borderColor: 'white',
-    borderWidth: null,
-    // backgroundColor: 'white',
-    borderRadius: 0,
-    paddingLeft: 10,
-    margin: 0,
-    alignItems: 'center',
-  },
-  textStyle: {
-    alignSelf: 'flex-start',
-    margin: 5,
-    color: 'black',
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  imageStyle: {
-    resizeMode: 'cover',
-    borderWidth: 3,
-    borderColor: '#007AFF',
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
   bottomCards: {
     margin: 5,
     flex: 1,
@@ -117,7 +94,7 @@ const styles = StyleSheet.create({
 
     borderWidth: 3,
     borderBottomWidth: 3,
-    borderColor: '#34658D',
+    borderColor: '#0D4877',
     borderRadius: 10,
 
     shadowRadius: 10,
@@ -126,45 +103,46 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     elevation: 5,
   },
-  middleCardImage: {
+  imageStyle: {
+    resizeMode: 'cover',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.5,
-    margin: 5,
+    borderColor: '#000',
+    borderRadius: 10,
   },
-  middleCards: {
-    margin: 5,
+  middleImage: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#84BFFF',
+    borderRadius: 10,
+  },
+  middleTouch: {
+    flex: 1,
+    borderRadius: 10,
+    margin: 10,
+    backgroundColor: 'white',
 
-    // borderWidth: 3,
-    borderBottomWidth: 0,
-    borderColor: '#007AFF',
-    borderRadius: 30,
-
+    elevation: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 10, height: 10 },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
-    shadowRadius: 10,
-    elevation: 2,
+  },
+  pageStyle: {
+    backgroundColor: '#FFFFFF',
+    flex: 1,
+  },
+  textStyle: {
+    alignSelf: 'center',
+    margin: 5,
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '600',
   },
   topCards: {
     margin: 5,
+    marginHorizontal: 5,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
-    // borderWidth: 3,
-    // borderBottomWidth: 3,
-    // borderColor: '#34658D',
-    // borderRadius: 10,
-
     elevation: 2,
   },
 });

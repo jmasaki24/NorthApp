@@ -1,3 +1,5 @@
+// used for the Create_Announcements,
+
 import {
   ADD_ID,
   ADD_IMAGE,
@@ -6,7 +8,6 @@ import {
   CLEAR,
   DEFAULT_IMAGE_BOOL,
   EDIT_ANNOUNCEMENT,
-  GET_SUCCESS,
   PUSH_ANNOUNCEMENT,
   PUSHING_BOOLEAN,
 } from '../actions/types';
@@ -17,9 +18,9 @@ const INITIAL_STATE = {
   img: '',
   isDefault: null,
   photoKey: null,
-  refreshing: false,
   pushing: false,
   id: '',
+  error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -38,8 +39,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isDefault: action.payload };
     case EDIT_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
-    case GET_SUCCESS:
-      return { ...state, refreshing: action.payload };
     case PUSHING_BOOLEAN:
       return { ...state, pushing: action.payload };
     case PUSH_ANNOUNCEMENT:

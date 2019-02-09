@@ -16,13 +16,12 @@ export const castVote = (poll, questions) => {
       db.child(`/${poll.location}/${poll.key}/hasVoted`).transaction((arr) => {
         console.log('here');
         console.log(arr);
-      }),
+      }, () => console.log('what')),
       Promise.all(
         Object.keys(questions).map(q => {
           if (questions[q]) {
-            db.child(`/${poll.location}/${poll.key}/${q}/${questions[q]}`).transaction(num => {
-              return num + 1;
-            }).then((obj) => {
+            db.child(`/${poll.location}/${poll.key}/${q}/${questions[q]}`).transaction(n => n + 1)
+            .then((obj) => {
               console.log(obj);
             }).catch(() => {
               console.log('big catch');
@@ -33,7 +32,6 @@ export const castVote = (poll, questions) => {
       ),
     ]).then(() => {
       console.log('then');
-
       dispatch({ type: VOTE_CAST });
     }).catch(() => {
       console.log('catch');

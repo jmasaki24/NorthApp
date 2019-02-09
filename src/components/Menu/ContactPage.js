@@ -1,9 +1,11 @@
 /**
 * Author: Jamie Maddock
-* could totally be a pure component
+* could honestly be a stateless component... maybe.
+* doesn't get called until needed because of lazy react-navigation
+* has no state or props...
 */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import { email } from 'react-native-communications';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -12,7 +14,7 @@ const emailHandler = () => {
   email(['northcodingteam@gmail.com'], null, null, 'Nashua North Mobile App', 'Hello developers,');
 };
 
-class ContactPage extends Component {
+class ContactPage extends PureComponent {
   render() {
     const { basicText, pageStyle } = styles;
 

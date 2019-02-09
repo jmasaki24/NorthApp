@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -123,7 +123,7 @@ const RootStack = createBottomTabNavigator({
 
 const AppContainer = createAppContainer(RootStack);
 
-export default class App extends Component {
+export default class App extends PureComponent {
   componentWillMount() {
     RNLanguages.addEventListener('change', this._onLanguagesChange);
   }

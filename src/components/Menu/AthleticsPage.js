@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
 import { Button, Card, CardSection, } from '../common';
 import SeasonSelect from '../AthleticsDetails/SeasonSelect';
 import i18n from '../../utils/i18n.js';
 
-// could possibly be a pure.component?
-class Athletics extends Component {
+class Athletics extends PureComponent {
   render() {
+    console.log('render');
     const { buttonStyle, buttonTextStyle } = styles;
     return (
       <ScrollView style={{ flex: 1 }}>

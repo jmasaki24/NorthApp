@@ -66,7 +66,7 @@ class UsersEvents extends Component {
           for (const key in firebaseData) {
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
-              firebaseData[key].id = key;
+              firebaseData[key].key = key; //named key for FlatList
               array[i] = firebaseData[key];
               i++;
             }
@@ -103,7 +103,7 @@ class UsersEvents extends Component {
 
   renderItem({ item }) {
     return (
-      <Card>
+      <Card key={item.id}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.cardTitleText}>{item.title}</Text>
         </CardSection>

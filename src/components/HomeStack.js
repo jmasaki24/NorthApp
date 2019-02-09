@@ -24,7 +24,7 @@ const HomeStack = createStackNavigator({
         onPress={() => navigation.navigate('Licenses')}
       >
         <Image
-          style={{ height: 60, width: 110 }}
+          style={{ resizeMode: 'contain', height: 60, width: 110 }}
           source={LogoTitans}
         />
       </TouchableOpacity>,

@@ -1,74 +1,69 @@
 /**
 * Author: Matt Peters
+* FIXME: something is causing this to re-render event tho it's a PureComponent
+* ALLText doesn't re-render, perhaps it has something to do with the image?
 */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
-// title, uri, children, tags ; are props
-const AnnounceCardImage = (props) => {
+
+const renderBottomSection = (props) => {
   if (props.button) {
     return (
-      <Card style={{ elevation: 5, margin: 10 }}>
+      <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: -1, flexDirection: 'row' }}>
+          <Icon.Button
+            name="edit" onPress={props.onEditPress}
+            iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+          />
+          <Icon.Button
+            name="trash-alt" onPress={props.onDelPress}
+            iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
+          />
+        </View>
+        <View style={{ flex: 1 }} />
+        <View style={{ flex: -1 }}>
+          <Text style={{ fontSize: 14 }}>
+            {props.time}
+          </Text>
+        </View>
+      </CardSection>
+  );
+  }
+  return (
+    <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 14 }}>
+        {props.time}
+      </Text>
+    </CardSection>
+  );
+};
+// title, uri, children, tags ; are props
+class AnnounceCardImage extends PureComponent {
+  render() {
+    return (
+      <Card style={{ elevation: 5, marginHorizontal: 10 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>
-            {props.title}
+            {this.props.title}
           </Text>
         </CardSection>
         <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
           <View style={{ flex: 1 }}>
-            {props.children}
+            {this.props.children}
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 18, color: 'black' }}>{props.info}</Text>
+            <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>
           </View>
         </CardSection>
-        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ flex: -1, flexDirection: 'row' }}>
-            <Icon.Button
-              name="edit" onPress={props.onEditPress}
-              iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
-            />
-            <Icon.Button
-              name="trash-alt" onPress={props.onDelPress}
-              iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
-            />
-          </View>
-          <View style={{ flex: 1 }} />
-          <View style={{ flex: -1 }}>
-            <Text style={{ fontSize: 14 }}>
-              {props.time}
-            </Text>
-          </View>
-        </CardSection>
+        {renderBottomSection(this.props)}
       </Card>
     );
   }
-  return (
-    <Card style={{ elevation: 5, marginHorizontal: 10 }}>
-      <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={styles.titleText}>
-          {props.title}
-        </Text>
-      </CardSection>
-      <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
-        <View style={{ flex: 1 }}>
-          {props.children}
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 18, color: 'black' }}>{props.info}</Text>
-        </View>
-      </CardSection>
-      <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-        <Text style={{ fontSize: 14 }}>
-          {props.time}
-        </Text>
-      </CardSection>
-    </Card>
-  );
-};
+}
 
   const styles = StyleSheet.create({
     titleText: {

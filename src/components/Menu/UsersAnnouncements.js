@@ -80,7 +80,7 @@ class UsersAnnouncements extends Component {
           for (const key in firebaseData) {
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
-              firebaseData[key].id = key;
+              firebaseData[key].key = key; // named key for FlatList
               array[i] = firebaseData[key];
               i++;
             }
@@ -131,7 +131,7 @@ class UsersAnnouncements extends Component {
     return (
       <AnnounceCardAllText
         button info={item.info} title={item.title} time={item.dateString}
-        // onEditPress needs to have the fat arrow but for some reason onDelPress can't
+        // onEditPress needs the fat arrow else it gets called but for some reason onDelPress can't
         onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
         onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
       >

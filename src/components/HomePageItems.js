@@ -31,7 +31,8 @@ class HomePageItems extends Component {
   setModalVisible() {
     this.setState({ imageModal: false });
   }
-
+  // I would rather have no state change, and have a shouldComponentUpdate so that we don't have
+  // to re-render every single announcement every time we refresh unless there's something new
   handleRefresh = () => {
     this.setState({ refreshing: true });
     this.props.getAnnouncements();
@@ -101,7 +102,6 @@ class HomePageItems extends Component {
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
-          // keyExtractor={item => (item.id)}
         />
         <Modal
           visible={this.state.imageModal}

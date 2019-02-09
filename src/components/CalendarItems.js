@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import firebase from 'firebase';
 import { Agenda } from 'react-native-calendars';
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-class CalendarItems extends Component {
+class CalendarItems extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ class CalendarItems extends Component {
         firebaseData = snapshot.val();
         const calendarData = {};
 
-        // could and should (?) use Object.map() method instead.
+        // could and should (?) use Object.map() or .forEach() instead
         for (const date in firebaseData) {
           const has = firebaseData.hasOwnProperty;
           if (has) {
@@ -109,7 +109,7 @@ class CalendarItems extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item]}>
+      <View key={item.id} style={[styles.item]}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Text style={styles.itemTitleStyle}>{item.title}</Text>
           <Icon.Button

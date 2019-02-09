@@ -12,8 +12,8 @@ import {
   CLEAR,
   DEFAULT_IMAGE_BOOL,
   EDIT_ANNOUNCEMENT,
-  GET_FROM_FIREBASE,
   GET_SUCCESS,
+  GET_FAIL,
   PUSH_ANNOUNCEMENT,
   PUSHING_BOOLEAN,
 } from './types';
@@ -138,7 +138,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
         const newAnnouncementKey =
         firebase.database().ref().child('Announcements').push().key;
         const announcementData = {
-          title, info, uri, isDefault, uid, dateString, id: newAnnouncementKey };
+          title, info, uri, isDefault, uid, dateString, key: newAnnouncementKey };
 
         const updates = {};
         updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
@@ -168,7 +168,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
                 const newAnnouncementKey =
                 firebase.database().ref().child('Announcements').push().key;
                 const announcementData = {
-                  title, info, uri, isDefault, uid, dateString, id: newAnnouncementKey };
+                  title, info, uri, isDefault, uid, dateString, key: newAnnouncementKey };
 
                 const updates = {};
                 updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
@@ -194,7 +194,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
       const newAnnouncementKey =
       firebase.database().ref().child('Announcements').push().key;
       console.log(newAnnouncementKey);
-      const announcementData = { title, info, isDefault, uid, dateString, id: newAnnouncementKey };
+      const announcementData = { title, info, isDefault, uid, dateString, key: newAnnouncementKey };
 
       const updates = {};
       updates[`/Announcements/${newAnnouncementKey}`] = announcementData;
@@ -208,22 +208,16 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   };
 };
 
-// FIXME: this type doesn't do anything in the reducer. does it need to?
+// goes to HPannouncement reducer
+// don't try to shorten it, action must not return a promise (.once() returns a promise)
 export const getAnnouncements = () => {
- return (dispatch) => {
-   firebase.database().ref('/Announcements')
+  return (dispatch) => {
+    firebase.database().ref('/Announcements')
     .once('value', snapshot => {
-      dispatch({ type: GET_FROM_FIREBASE, payload: snapshot.val() });
+      dispatch({ type: GET_SUCCESS, payload: snapshot.val() });
     });
- };
+  };
 };
-
-export const getSuccess = () => (
-  {
-    type: GET_SUCCESS,
-    payload: false,
-  }
-);
 
 export const pushingBool = (bool) => (
   {

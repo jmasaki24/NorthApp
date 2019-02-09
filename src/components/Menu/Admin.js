@@ -2,28 +2,18 @@
 * Date: 11/3/18
 * Authors: Jamie Maddock && Matt Peters
 */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ScrollView, StyleSheet, Text, View, } from 'react-native';
 import firebase from 'firebase';
 import { Button, LoginForm, Spinner, } from '../common';
 
-class Admin extends Component {
-  state = { loggedIn: null, u: 'Loading...' }
+class Admin extends PureComponent {
+  state = { loggedIn: null, }
 
-// this whole mess is to try and display a username if you're logged in. not needed...
   componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn: true });
-        const { currentUser } = firebase.auth();
-        const uid = currentUser.uid;
-        let firebaseData = {};
-        firebase.database().ref(`/Users/${uid}`)
-          .on('value', snapshot => {
-            firebaseData = snapshot.val();
-            this.setState({ u: firebaseData.Username });
-          });
-        // console.log(this.state.u);
       } else {
         this.setState({ loggedIn: false });
       }
@@ -92,6 +82,7 @@ class Admin extends Component {
   }
 
   render() {
+    console.log('render');
     return this.renderContent();
   }
 }
