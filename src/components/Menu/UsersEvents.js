@@ -63,7 +63,7 @@ class UsersEvents extends Component {
       firebase.database().ref(`/Users/${uid}/Events`)
         .on('value', snapshot => {
           firebaseData = snapshot.val();
-          for (const key in firebaseData) {
+          for (const key in firebaseData) { // .map()???
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
               firebaseData[key].key = key; //named key for FlatList
@@ -82,15 +82,15 @@ class UsersEvents extends Component {
     console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    firebase.database().ref(`/Users/${uid}/Events/${item.id}`).remove()
-      .then(() => { console.log('Remove from user succeeded.'); })
-      .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
-// oh no how do i get to it in the calendar bucket
-    firebase.database().ref(`/Calendar/${item.date}/${item.id}`).remove()
-      .then(() => { console.log('Remove from main succeeded.'); })
-      .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
+    // could probably promise.all() so that we can return an success/fail message
+    firebase.database().ref(`/Users/${uid}/Events/${item.key}`).remove()
+      .then(() => console.log('Remove from user succeeded.'))
+      .catch(() => console.log('Remove fuser failed: '));
+    firebase.database().ref(`/Calendar/${item.date}/${item.key}`).remove()
+      .then(() => console.log('Remove from main succeeded.'))
+      .catch(() => console.log('Remove fmain failed:'));
     index.deleteObject(item.id, (err) => console.log(err));
-    console.log(item.id);
+    console.log(item.key);
     this.getUsersEvents();
     this.setState({ item: {} });
   }

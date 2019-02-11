@@ -91,18 +91,20 @@ class UsersAnnouncements extends Component {
   }
 
   deleteAnnouncement() {
-    console.log(this.state.item);
-    const { item } = this.state.item;
+    console.log(this.state);
+    const { item } = this.state;
     console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    firebase.database().ref(`/Users/${uid}/Announcements/${this.state.item.id}`).remove()
+    firebase.database().ref(`/Users/${uid}/Announcements/${item.key}`).remove()
       .then(() => { console.log('Remove from user succeeded.'); })
       .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
-    firebase.database().ref(`/Announcements/${this.state.item.id}`).remove()
+    firebase.database().ref(`/Announcements/${item.key}`).remove()
       .then(() => { console.log('Remove from main succeeded.'); })
       .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    index.deleteObject(this.state.item.id, (err) => console.log(err));
+    index.deleteObject(this.state.item.key, (err, content) => (
+      err ? console.log(err) : console.log(content)
+    ));
     this.getUsersAnnouncements();
   }
 

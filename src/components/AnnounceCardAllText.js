@@ -44,12 +44,12 @@ const renderBottomSection = (props) => {
 class AnnounceCardAllText extends PureComponent {
   render() {
     return (
-      <Card style={{ elevation: 6 }}>
+      <Card style={{ elevation: 5, marginHorizontal: 10 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>{this.props.title}</Text>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0 }}>
-          <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{this.props.children}</Text>
+          <Text style={styles.descripText}>{this.props.children}</Text>
         </CardSection>
         {renderBottomSection(this.props)}
       </Card>
@@ -62,7 +62,13 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 25,
     fontWeight: 'bold',
-  }
+  },
+  descripText: {
+    fontSize: 18,
+    flex: 1,
+    color: 'black',
+    margin: 5,
+  },
 });
 
 export default AnnounceCardAllText;
