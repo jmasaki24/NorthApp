@@ -82,7 +82,6 @@ class Admin extends PureComponent {
   }
 
   render() {
-    console.log('render');
     return this.renderContent();
   }
 }

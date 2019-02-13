@@ -4,24 +4,33 @@
 */
 
 import React, { Component } from 'react';
-import { Picker, ScrollView, StyleSheet, Switch, Text, View, } from 'react-native';
+import {
+  Animated, Dimensions, Easing, Modal, Picker, SafeAreaView,
+  ScrollView, StyleSheet, Switch, Text, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo, addID, clear,
-  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingBool,
+  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingEvent,
 } from '../../actions';
 
-import { CardSection, Input, Button, Confirm, } from '../common';
+import { Button, CardSection, Confirm, Input, Spinner } from '../common';
+
+const { height } = Dimensions.get('window');
 
 class EEvent extends Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, showCalendar: false, switch: false };
+    this.state = {
+      showModal: false,
+      showCalendar: false,
+      switch: false,
+      failMsgHeight: new Animated.Value(0)
+    };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
-    console.log(item);
     this.props.addEventDate(item.date);
     this.props.addEventTitle(item.title);
     this.props.addEventLocation(item.location);
@@ -31,7 +40,6 @@ class EEvent extends Component {
 
   componentDidMount() {
     const item = this.props.navigation.getParam('item', 'Item Not Found');
-
     if (item.time === 'All Day') {
       this.setState({ switch: true });
     } else if (item.time) {
@@ -50,10 +58,9 @@ class EEvent extends Component {
 
   onAccept() {
     const { date, title, location, info, hour, minute, period, id } = this.props;
+    this.props.pushingEvent(true);
     this.props.editEvent({ date, title, location, info, hour, minute, period, id });
     this.setState({ showModal: false });
-    this.props.pushingBool(true);
-    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -185,6 +192,22 @@ class EEvent extends Component {
   }
 
   render() {
+    const { failMsgHeight } = this.state;
+    if (this.props.error) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
         {this.renderCalendar()}
@@ -234,6 +257,20 @@ class EEvent extends Component {
         >
           Are you sure you would like to change this event?
         </Confirm>
+        <Modal
+          visible={this.props.isPushingA}
+          transparent
+          onRequestClose={() => this.props.pushingEvent(false)}
+        >
+          <SafeAreaView style={styles.pushingViewStyle}>
+            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+              <Spinner style={{ flex: -1 }} />
+              <View style={{ flex: -1 }}>
+                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </ScrollView>
     );
   }
@@ -285,8 +322,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, pushing, hour, minute, period, id } = state.event;
-  return { date, title, location, info, pushing, hour, minute, period, id };
+  const { date, title, location, info, isPushingE, hour, minute, period, id, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, id, error };
 };
 
 const EditEvent = withNavigation(connect(mapStateToProps, {
@@ -298,7 +335,7 @@ const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   editEvent,
-  pushingBool,
+  pushingEvent,
   addID,
   clear
 })(EEvent));

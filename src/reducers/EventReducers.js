@@ -10,6 +10,8 @@ import {
   CLEAR,
   EDIT_EVENT,
   PUSH_EVENT,
+  PUSH_EVENT_FAIL,
+  IS_PUSHING_E
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,11 +22,13 @@ const INITIAL_STATE = {
   hour: '12',
   minute: '00',
   period: 'AM',
-  pushing: false,
-  id: ''
+  isPushingE: false,
+  id: '',
+  error: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(state);
   switch (action.type) {
     case ADD_ID:
       return { ...state, id: action.payload };
@@ -47,7 +51,13 @@ export default (state = INITIAL_STATE, action) => {
     case EDIT_EVENT:
       return { ...state, ...INITIAL_STATE, pushing: false };
     case PUSH_EVENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
+      { console.log('push e');
+        return { ...state, ...INITIAL_STATE, pushing: false }; }
+    case PUSH_EVENT_FAIL:
+      { console.log('push e fail');
+        return { ...state, pushing: false, error: true }; }
+    case IS_PUSHING_E:
+      return { ...state, isPushingE: action.payload };
     default:
       return state;
   }

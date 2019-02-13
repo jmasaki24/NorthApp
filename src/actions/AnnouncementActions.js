@@ -15,7 +15,8 @@ import {
   GET_SUCCESS,
   GET_FAIL,
   PUSH_ANNOUNCEMENT,
-  PUSHING_BOOLEAN,
+  PUSH_ANNOUNCEMENT_FAIL,
+  IS_PUSHING_A,
 } from './types';
 
 export const clear = () => (
@@ -70,11 +71,11 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
       if (isDefault) {
           const uri = img;
           const announcementData = { title, info, uri, isDefault, uid, dateString, id };
-          firebase.database().ref(`/Announcements/${id}`).set(announcementData).then()
-          .catch(error => console.log(error));
-          firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
-            .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
-            .catch(error => console.log(error));
+          Promise.all([
+            firebase.database().ref(`/Announcements/${id}`).set(announcementData),
+            firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+          ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
+            .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
       } else {
         const Blob = RNFetchBlob.polyfill.Blob;
         const fs = RNFetchBlob.fs;
@@ -94,11 +95,12 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
                     .then((uri) => {
                       const announcementData = {
                         title, info, uri, isDefault, uid, dateString, id };
-                        firebase.database().ref(`/Announcements/${id}`).set(announcementData);
-                        firebase.database().ref(`/Users/${uid}/Announcements/${id}`)
+                        Promise.all([
+                          firebase.database().ref(`/Announcements/${id}`).set(announcementData),
+                          firebase.database().ref(`/Users/${uid}/Announcements/${id}`)
                           .set(announcementData)
-                          .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
-                          .catch(error => console.log(error));
+                        ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
+                          .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
                     });
                 })
                 .catch();
@@ -114,12 +116,11 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
     } else { // for allText announcements
       const announcementData = { title, info, isDefault, uid, dateString, id };
 
-      firebase.database().ref(`/Announcements/${id}`).set(announcementData)
-        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
-        .catch(error => console.log(error));
-      firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
-        .then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
-        .catch(error => console.log(error));
+      Promise.all([
+        firebase.database().ref(`/Announcements/${id}`).set(announcementData),
+        firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+      ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
+      .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
     }
   };
 };
@@ -147,7 +148,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
 
         firebase.database().ref().update(updates)
         .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-        .catch();
+        .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
       } else {
         const Blob = RNFetchBlob.polyfill.Blob;
         const fs = RNFetchBlob.fs;
@@ -177,7 +178,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
 
                 firebase.database().ref().update(updates)
                 .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-                .catch();
+                .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
               });
             })
             .catch();
@@ -193,7 +194,6 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
     } else {
       const newAnnouncementKey =
       firebase.database().ref().child('Announcements').push().key;
-      console.log(newAnnouncementKey);
       const announcementData = { title, info, isDefault, uid, dateString, key: newAnnouncementKey };
 
       const updates = {};
@@ -203,25 +203,30 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
 
       firebase.database().ref().update(updates)
       .then(() => dispatch({ type: PUSH_ANNOUNCEMENT }))
-      .catch();
+      .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
     }
   };
 };
 
-// goes to HPannouncement reducer
-// don't try to shorten it, action must not return a promise (.once() returns a promise)
+export const pushingAnnouncement = (bool) => (
+  {
+    type: IS_PUSHING_A,
+    payload: bool
+  }
+);
+
+
+// the following goes to HPannouncement reducer
+
+// don't try to fix the únexpected block statement' action must not return a promise
+//  (.once() returns a promise)
 export const getAnnouncements = () => {
   return (dispatch) => {
     firebase.database().ref('/Announcements')
     .once('value', snapshot => {
       dispatch({ type: GET_SUCCESS, payload: snapshot.val() });
+    }, () => {
+      dispatch({ type: GET_FAIL, payload: true });
     });
   };
 };
-
-export const pushingBool = (bool) => (
-  {
-    type: PUSHING_BOOLEAN,
-    payload: bool
-  }
-);

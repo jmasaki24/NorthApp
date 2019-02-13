@@ -5,27 +5,26 @@
 
 import React, { Component } from 'react';
 import {
-  Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
+  Animated, Easing, Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, pushAnnouncement, pushingBool
+  infoAction, titleAction, pushAnnouncement, pushingAnnouncement
 } from '../../actions';
 
-const { height, width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 // named CAnnounce because have to use another name in the export. yes, it's weird.
 class CAnnounce extends Component {
-  state = { showModal: false };
+  state = { showModal: false, failMsgHeight: new Animated.Value(0) };
 
   onAccept() {
     const { title, info, img, isDefault } = this.props;
+    this.props.pushingAnnouncement(true);
     this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
-    this.props.pushingBool(true);
-    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -82,9 +81,29 @@ class CAnnounce extends Component {
   }
 
   render() {
-    // console.log(`render called ${this.props.title}`);
+    const { failMsgHeight } = this.state;
+    if (this.props.error) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
+        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Error: could not push
+          </Text>
+        </Animated.View>
         <Card>
           <Input
             label="Title"
@@ -121,9 +140,9 @@ class CAnnounce extends Component {
           </Confirm>
         </Card>
         <Modal
-          visible={this.props.pushing}
+          visible={this.props.isPushingA}
           transparent
-          onRequestClose={() => console.log('close pushing modal')}
+          onRequestClose={() => this.props.pushingAnnouncement(false)}
         >
           <SafeAreaView style={styles.pushingViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -169,15 +188,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, pushing } = state.announce;
-  return { title, info, img, isDefault, pushing };
+  const { title, info, img, isDefault, isPushingA, error } = state.announce;
+  return { title, info, img, isDefault, isPushingA, error };
 };
 
 const CreateAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   pushAnnouncement,
-  pushingBool
+  pushingAnnouncement,
 })(CAnnounce));
 
 export { CreateAnnounce };

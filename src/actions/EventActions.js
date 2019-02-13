@@ -9,6 +9,8 @@ import {
   ADD_EVENT_PERIOD,
   EDIT_EVENT,
   PUSH_EVENT,
+  PUSH_EVENT_FAIL,
+  IS_PUSHING_E,
   GET_CALENDAR,
 } from './types';
 
@@ -73,10 +75,11 @@ export const editEvent = ({ date, title, location, info, hour, minute, period, i
   const eventData = { date, title, location, info, uid, time, id };
 
   return (dispatch) => {
-    firebase.database().ref(`/Calendar/${date}/${id}`).set(eventData);
-    firebase.database().ref(`/Users/${uid}/Events/${id}`).set(eventData)
-      .then(() => dispatch({ type: EDIT_EVENT }))
-      .catch(error => console.log(error));
+    Promise.all([
+      firebase.database().ref(`/Calendar/${date}/${id}`).set(eventData),
+      firebase.database().ref(`/Users/${uid}/Events/${id}`).set(eventData)
+    ]).then(() => dispatch({ type: EDIT_EVENT }))
+      .catch(() => dispatch({ type: PUSH_EVENT_FAIL }));
   };
 };
 
@@ -99,7 +102,7 @@ export const pushEvent = ({ date, title, location, info, hour, minute, period })
   return (dispatch) => {
     firebase.database().ref().update(updates)
       .then(() => dispatch({ type: PUSH_EVENT }))
-      .catch();
+      .catch(() => dispatch({ type: PUSH_EVENT_FAIL }));
   };
 };
 
@@ -111,3 +114,10 @@ export const getCalendar = () => {
     });
   };
 };
+
+export const pushingEvent = (bool) => (
+  {
+    type: IS_PUSHING_E,
+    payload: bool
+  }
+);

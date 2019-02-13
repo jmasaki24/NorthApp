@@ -6,7 +6,8 @@
  */
 import React, { Component } from 'react';
 import {
-  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet,
+  Animated, Dimensions, Easing, FlatList, Image, Modal, TouchableOpacity,
+  SafeAreaView, StyleSheet, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -16,12 +17,14 @@ import { getAnnouncements } from '../actions';
 
 console.disableYellowBox = true;
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class HomePageItems extends Component {
   constructor(props) {
     super(props);
-    this.state = { refreshing: false, imageModal: false, imageUri: null };
+    this.state = {
+      refreshing: false, imageModal: false, imageUri: null, failMsgHeight: new Animated.Value(0),
+    };
   }
 
   componentWillMount() {
@@ -94,8 +97,29 @@ class HomePageItems extends Component {
   }
 
   render() {
+    const { failMsgHeight } = this.state;
+    if (this.props.error) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <View style={{ flex: 1 }}>
+        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Error: could not load
+          </Text>
+        </Animated.View>
         <FlatList
           style={{ flex: 1 }}
           data={this.props.data}
@@ -142,8 +166,12 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const data = Object.values(state.HPannouncements).reverse();
-  return { data };
+  let data = [];
+  if (state.HPannouncements.data) { // data may be null/undefined, which leads to error for .values
+   data = Object.values(state.HPannouncements.data).reverse();
+  }
+  const error = state.HPannouncements.error;
+  return { data, error };
 };
 
 export default connect(mapStateToProps, { getAnnouncements })(HomePageItems);

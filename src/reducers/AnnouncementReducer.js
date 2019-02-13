@@ -9,7 +9,8 @@ import {
   DEFAULT_IMAGE_BOOL,
   EDIT_ANNOUNCEMENT,
   PUSH_ANNOUNCEMENT,
-  PUSHING_BOOLEAN,
+  PUSH_ANNOUNCEMENT_FAIL,
+  IS_PUSHING_A,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -18,12 +19,13 @@ const INITIAL_STATE = {
   img: '',
   isDefault: null,
   photoKey: null,
-  pushing: false,
+  isPushingA: false,
   id: '',
-  error: '',
+  error: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log(state);
   switch (action.type) {
     case ADD_ID:
       return { ...state, id: action.payload };
@@ -38,11 +40,15 @@ export default (state = INITIAL_STATE, action) => {
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };
     case EDIT_ANNOUNCEMENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
-    case PUSHING_BOOLEAN:
-      return { ...state, pushing: action.payload };
+      return { ...state, ...INITIAL_STATE, isPushingA: false };
     case PUSH_ANNOUNCEMENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
+      { console.log('push annnou');
+        return { ...state, ...INITIAL_STATE, isPushingA: false, error: false }; }
+    case PUSH_ANNOUNCEMENT_FAIL:
+      { console.log('push annou fail');
+        return { ...state, error: true, isPushingA: false }; }
+    case IS_PUSHING_A:
+      return { ...state, isPushingA: action.payload };
     default:
       return state;
   }

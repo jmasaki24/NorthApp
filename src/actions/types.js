@@ -5,11 +5,12 @@ export const ADD_TITLE = 'add_title';
 export const CLEAR = 'clear_values_in_form';
 export const DEFAULT_IMAGE_BOOL = 'deafult_image_bool';
 export const EDIT_ANNOUNCEMENT = 'edit_announcement';
-export const GET_FAIL = 'get_fail';
+export const GET_FAIL = 'fail_msg';
 export const GET_SUCCESS = 'get_success';
 export const GET_USERS_ANNOUNCEMENTS = 'get_users_announcements';
 export const PUSH_ANNOUNCEMENT = 'push_announcement';
-export const PUSHING_BOOLEAN = 'pushing_boolean';
+export const PUSH_ANNOUNCEMENT_FAIL = 'push_announcement_fail';
+export const IS_PUSHING_A = 'is_pushing_announcement';
 
 export const GET_SPORT_SCHEDULE = 'get_sport_schedule';
 export const GET_SPORT_SCORES = 'get_sport_scores';
@@ -29,6 +30,8 @@ export const ADD_EVENT_MINUTE = 'add_event_minute';
 export const ADD_EVENT_PERIOD = 'add_event_period';
 export const EDIT_EVENT = 'edit_event';
 export const PUSH_EVENT = 'push_event';
+export const PUSH_EVENT_FAIL = 'push_event_fail';
+export const IS_PUSHING_E = 'is_pushing_event';
 export const GET_CALENDAR = 'get_calendar';
 
 export const POLL_LOGIN = 'poll_login';

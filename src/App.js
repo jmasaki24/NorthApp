@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import RNLanguages from 'react-native-languages';
+import * as RNLocalize from 'react-native-localize';
 import SplashScreen from 'react-native-splash-screen';
 import { StatusBar, View } from 'react-native';
 import algoliasearch from 'algoliasearch';
@@ -125,7 +125,7 @@ const AppContainer = createAppContainer(RootStack);
 
 export default class App extends PureComponent {
   componentWillMount() {
-    RNLanguages.addEventListener('change', this._onLanguagesChange);
+    RNLocalize.addEventListener('change', this._onLanguagesChange);
   }
 
   componentDidMount() {
@@ -133,7 +133,7 @@ export default class App extends PureComponent {
   }
 
   componentWillUnmount() {
-    RNLanguages.removeEventListener('change', this._onLanguagesChange);
+    RNLocalize.removeEventListener('change', this._onLanguagesChange);
   }
 
 

@@ -4,25 +4,34 @@
 */
 
 import React, { Component } from 'react';
-import { Picker, ScrollView, StyleSheet, Switch, Text, View, } from 'react-native';
+import {
+  Animated, Dimensions, Easing, Modal, Picker, SafeAreaView,
+  ScrollView, StyleSheet, Switch, Text, View,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingBool
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingEvent,
 } from '../../actions';
-import { Button, CardSection, Confirm, Input, } from '../common';
+import { Button, CardSection, Confirm, Input, Spinner } from '../common';
+
+const { height } = Dimensions.get('window');
 
 class CEvent extends Component {
-  state = { showModal: false, showCalendar: false, switch: false }
+  state = {
+    showModal: false,
+    showCalendar: false,
+    switch: false,
+    failMsgHeight: new Animated.Value(0)
+  }
 
   onAccept() {
     const { date, title, location, info, hour, minute, period } = this.props;
+    this.props.pushingEvent(true);
     this.props.pushEvent({ date, title, location, info, hour, minute, period });
     this.setState({ showModal: false });
-    this.props.pushingBool(true);
-    this.props.navigation.pop();
   }
 
   onDecline() {
@@ -154,8 +163,30 @@ class CEvent extends Component {
   }
 
   render() {
+    const { failMsgHeight } = this.state;
+    if (this.props.error) {
+      console.log('er');
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
+        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Error: could not load
+          </Text>
+        </Animated.View>
         {this.renderCalendar()}
         <Input
           placeholder="Event Name"
@@ -203,6 +234,20 @@ class CEvent extends Component {
         >
           Are you sure you would like to add this event?
         </Confirm>
+        <Modal
+          visible={this.props.isPushingA}
+          transparent
+          onRequestClose={() => this.props.pushingEvent(false)}
+        >
+          <SafeAreaView style={styles.pushingViewStyle}>
+            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+              <Spinner style={{ flex: -1 }} />
+              <View style={{ flex: -1 }}>
+                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
+              </View>
+            </View>
+          </SafeAreaView>
+        </Modal>
       </ScrollView>
     );
   }
@@ -254,8 +299,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, pushing, hour, minute, period } = state.event;
-  return { date, title, location, info, pushing, hour, minute, period };
+  const { date, title, location, info, isPushingE, hour, minute, period, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, error };
 };
 
 const CreateEvent = withNavigation(connect(mapStateToProps, {
@@ -267,7 +312,7 @@ const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   pushEvent,
-  pushingBool
+  pushingEvent,
 })(CEvent));
 
 export { CreateEvent };

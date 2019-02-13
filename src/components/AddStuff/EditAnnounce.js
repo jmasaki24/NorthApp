@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Dimensions, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
+  Animated, Dimensions, Easing, Image, Modal, SafeAreaView, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, editAnnouncement, pushingBool, addID, addImage, clear, isDefaultImage
+  infoAction, titleAction, editAnnouncement, pushingAnnouncement, addID, addImage,
+  clear, isDefaultImage
 } from '../../actions';
 
 const { height, width } = Dimensions.get('window');
@@ -15,10 +16,9 @@ const { height, width } = Dimensions.get('window');
 class EAnnounce extends Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false };
+    this.state = { showModal: false, failMsgHeight: new Animated.Value(0) };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
-    console.log(item);
     this.props.titleAction(item.title);
     this.props.infoAction(item.info);
     this.props.addImage(item.uri);
@@ -34,7 +34,7 @@ class EAnnounce extends Component {
     const { title, info, img, isDefault, id } = this.props;
     this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
-    this.props.pushingBool(true);
+    this.props.pushingAnnouncement(true);
     this.props.navigation.pop();
   }
 
@@ -92,6 +92,22 @@ class EAnnounce extends Component {
     );
   }
   render() {
+    const { failMsgHeight } = this.state;
+    if (this.props.error) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
         <Card>
@@ -130,9 +146,9 @@ class EAnnounce extends Component {
           </Confirm>
         </Card>
         <Modal
-          visible={this.props.pushing}
+          visible={this.props.isPushingA}
           transparent
-          onRequestClose={() => console.log('close pushing modal')}
+          onRequestClose={() => this.props.pushingAnnouncement(false)}
         >
           <SafeAreaView style={styles.pushingViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -179,15 +195,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, pushing, id } = state.announce;
-  return { title, info, img, isDefault, pushing, id };
+  const { title, info, img, isDefault, isPushingA, id, error } = state.announce;
+  return { title, info, img, isDefault, isPushingA, id, error };
 };
 
 const EditAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   editAnnouncement,
-  pushingBool,
+  pushingAnnouncement,
   addID,
   addImage,
   clear,
