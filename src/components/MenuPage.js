@@ -23,8 +23,8 @@ import i18n from '../utils/i18n';
 import stadiumlights from '../images/fieldlights.jpg';
 import chalkboard from '../images/chalkboard.jpg';
 import vote from '../images/checkbox.png';
-import store from '../images/storebutton2.png';
-import clubs from '../images/clubicons2.png';
+import store from '../images/storebutton.png';
+import clubs from '../images/clubicons.png';
 
 class MenuPage extends Component {
   render() {
