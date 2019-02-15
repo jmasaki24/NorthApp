@@ -23,12 +23,11 @@ const INITIAL_STATE = {
   minute: '00',
   period: 'AM',
   isPushingE: false,
-  id: '',
+  key: '',
   error: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(state);
   switch (action.type) {
     case ADD_ID:
       return { ...state, id: action.payload };
@@ -49,13 +48,11 @@ export default (state = INITIAL_STATE, action) => {
     case CLEAR:
       return { ...INITIAL_STATE };
     case EDIT_EVENT:
-      return { ...state, ...INITIAL_STATE, pushing: false };
+      return { ...state, ...INITIAL_STATE, isPushingE: false };
     case PUSH_EVENT:
-      { console.log('push e');
-        return { ...state, ...INITIAL_STATE, pushing: false }; }
+        return { ...state, ...INITIAL_STATE, isPushingE: false };
     case PUSH_EVENT_FAIL:
-      { console.log('push e fail');
-        return { ...state, pushing: false, error: true }; }
+        return { ...state, isPushingE: false, error: true };
     case IS_PUSHING_E:
       return { ...state, isPushingE: action.payload };
     default:

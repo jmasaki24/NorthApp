@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
 import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import {
+  createBottomTabNavigator, createAppContainer, createMaterialBottomTabNavigator
+} from 'react-navigation';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import * as RNLocalize from 'react-native-localize';
 import SplashScreen from 'react-native-splash-screen';
@@ -98,7 +101,7 @@ const RootStack = createBottomTabNavigator({
     Menu: MenuStack,
   }, {
     initalRouteName: 'Menu',
-    tabBarOptions: { activeTintColor: 'black', inactiveTintColor: 'gray', },
+    // tabBarOptions: { activeTintColor: 'black', inactiveTintColor: 'gray', },
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
@@ -142,7 +145,7 @@ export default class App extends PureComponent {
   };
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(ReduxThunk)));
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>

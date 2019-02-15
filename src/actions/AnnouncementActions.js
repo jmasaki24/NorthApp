@@ -5,9 +5,9 @@ import firebase from '@firebase/app';
 import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from 'react-native';
 import {
-  ADD_ID,
   ADD_IMAGE,
   ADD_INFO,
+  ADD_KEY,
   ADD_TITLE,
   CLEAR,
   DEFAULT_IMAGE_BOOL,
@@ -25,17 +25,17 @@ export const clear = () => (
   }
 );
 
-export const addID = (id) => (
-  {
-    type: ADD_ID,
-    payload: id,
-  }
-);
-
 export const addImage = (uri) => (
   {
     type: ADD_IMAGE,
     payload: uri,
+  }
+);
+
+export const addKey = (key) => (
+  {
+    type: ADD_KEY,
+    payload: key,
   }
 );
 

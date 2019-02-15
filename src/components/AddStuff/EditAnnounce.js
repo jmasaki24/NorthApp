@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, editAnnouncement, pushingAnnouncement, addID, addImage,
+  infoAction, titleAction, editAnnouncement, pushingAnnouncement, addKey, addImage,
   clear, isDefaultImage
 } from '../../actions';
 
@@ -22,7 +22,7 @@ class EAnnounce extends Component {
     this.props.titleAction(item.title);
     this.props.infoAction(item.info);
     this.props.addImage(item.uri);
-    this.props.addID(item.id);
+    this.props.addKey(item.key);
     this.props.isDefaultImage(item.isDefault);
   }
 
@@ -31,8 +31,8 @@ class EAnnounce extends Component {
   }
 
   onAccept() {
-    const { title, info, img, isDefault, id } = this.props;
-    this.props.editAnnouncement({ title, info, img, isDefault, id });
+    const { title, info, img, isDefault, key } = this.props;
+    this.props.editAnnouncement({ title, info, img, isDefault, key });
     this.setState({ showModal: false });
     this.props.pushingAnnouncement(true);
     this.props.navigation.pop();
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, isPushingA, id, error } = state.announce;
-  return { title, info, img, isDefault, isPushingA, id, error };
+  const { title, info, img, isDefault, isPushingA, key, error } = state.announce;
+  return { title, info, img, isDefault, isPushingA, key, error };
 };
 
 const EditAnnounce = withNavigation(connect(mapStateToProps, {
@@ -204,7 +204,7 @@ const EditAnnounce = withNavigation(connect(mapStateToProps, {
   titleAction,
   editAnnouncement,
   pushingAnnouncement,
-  addID,
+  addKey,
   addImage,
   clear,
   isDefaultImage

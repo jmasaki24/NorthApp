@@ -165,7 +165,6 @@ class CEvent extends Component {
   render() {
     const { failMsgHeight } = this.state;
     if (this.props.error) {
-      console.log('er');
       // animate the showing of the failMSG
       failMsgHeight.setValue(0); // reset the animated value
       Animated.spring(failMsgHeight, {
@@ -184,7 +183,7 @@ class CEvent extends Component {
       <ScrollView style={{ flex: 1 }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Error: could not load
+            Error: Could not push
           </Text>
         </Animated.View>
         {this.renderCalendar()}
@@ -235,7 +234,7 @@ class CEvent extends Component {
           Are you sure you would like to add this event?
         </Confirm>
         <Modal
-          visible={this.props.isPushingA}
+          visible={this.props.isPushingE}
           transparent
           onRequestClose={() => this.props.pushingEvent(false)}
         >
