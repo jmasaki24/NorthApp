@@ -114,14 +114,14 @@ class HomePageItems extends Component {
       }).start();
     }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingBottom: 5, }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
             Error: could not load
           </Text>
         </Animated.View>
         <FlatList
-          style={{ flex: 1 }}
+          style={{ flex: 1, paddingBottom: 5 }}
           data={this.props.data}
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}

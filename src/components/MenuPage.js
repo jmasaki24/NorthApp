@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
 
-    // borderRadius: 10,
+    borderRadius: 10,
     // borderTopWidth: 2,
     borderWidth: 1,
     borderColor: '#CCC',
 
-    // shadowRadius: 10,
+    shadowRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.5,
@@ -117,17 +117,17 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     flex: 1,
     borderColor: '#CCC',
-    // borderRadius: 10,
+    borderRadius: 10,
   },
   middleImage: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderRadius: 10,
+    borderRadius: 10,
   },
   middleTouch: {
     flex: 2,
-    // borderRadius: 10,
+    borderRadius: 10,
     margin: 10,
     backgroundColor: 'white',
 

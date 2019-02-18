@@ -4,9 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import {
-  createBottomTabNavigator, createAppContainer, createMaterialBottomTabNavigator
-} from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer,} from 'react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import * as RNLocalize from 'react-native-localize';
 import SplashScreen from 'react-native-splash-screen';
@@ -16,6 +15,7 @@ import { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX_NAME, FB_API_KEY, FB_PRO
 FB_AUTH_DOMAIN, FB_DATABASE_URL, FB_STORAGE_BUCKET, FB_MESSAGING_SENDER_ID }
   from 'react-native-dotenv';
 import i18n from './utils/i18n.js';
+import { colors } from './colors';
 
 import reducers from './reducers';
 import HomeStack from './components/HomeStack';
@@ -94,14 +94,15 @@ database.ref('/Calendar').on('value', calendar => {
     });
 });
 
-const RootStack = createBottomTabNavigator({
+const RootStack = createMaterialBottomTabNavigator({
     Home: HomeStack,
     Search: SearchStack,
     Calendar: CalendarStack,
     Menu: MenuStack,
   }, {
     initalRouteName: 'Menu',
-    // tabBarOptions: { activeTintColor: 'black', inactiveTintColor: 'gray', },
+    barStyle: { backgroundColor: colors.cerulean },
+    inactiveColor: colors.darkCerulean,
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
