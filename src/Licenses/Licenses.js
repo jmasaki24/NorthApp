@@ -67,7 +67,10 @@ export default class Licenses extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ margin: 10 }}>Here are the open-source projects we use!</Text>
+        <Text style={{ marginTop: 10, marginHorizontal: 10 }}>
+          Here are the open-source projects we use!</Text>
+        <Text style={{ marginBotton: 10, marginHorizontal: 10 }}>
+          We included this page as a "Thank you" (and for legal reasons)</Text>
         <FlatList
           style={styles.list}
           keyExtractor={({ key }) => key}

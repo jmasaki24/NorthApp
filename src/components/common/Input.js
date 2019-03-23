@@ -17,9 +17,14 @@ const Input = ({
   multiline,
   autocorrect,
   keyboardType,
-  onChange
+  onChange,
+  inputFlexNum,
 }) => {
   const { inputStyle, labelStyle } = styles;
+  let inputFlex = 2;
+  if (inputFlexNum >= 1) {
+    inputFlex = inputFlexNum;
+  }
   if (label !== '') {
     return (
       // <View style={[containerStyle, viewStyle]}>
@@ -38,12 +43,12 @@ const Input = ({
       //   />
       // </View>
       <CardSection style={{ alignItems: 'center' }}>
-        <Text style={labelStyle}>{label}</Text>
+      <Text numberOfLines={1} style={labelStyle}>{label}</Text>
         <TextInput
           secureTextEntry={secureTextEntry}
           placeholder={placeholder}
           autocorret={autocorrect || true}
-          style={inputStyle}
+          style={[inputStyle, { flex: inputFlex }]}
           value={value}
           onChangeText={onChangeText}
           multiline={multiline || false}

@@ -192,6 +192,7 @@ class CEvent extends Component {
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
+          inputFlexNum={4}
         />
         <CardSection style={styles.inputSection}>
           <Text style={styles.dateText}>Date:</Text>
@@ -224,6 +225,7 @@ class CEvent extends Component {
           label='Desciption:'
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
+          inputFlexNum={3}
         />
         {this.renderButton()}
         <Confirm

@@ -223,12 +223,10 @@ const MenuStack = createStackNavigator({
   defaultNavigationOptions: ({ navigation }) => ({
     headerTitle:
       <TouchableHighlight onPress={() => navigation.dangerouslyGetParent().navigate('Home')}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
           <Image
             source={Titan}
             style={{ height: 40, width: 40 }}
           />
-        </View>
       </TouchableHighlight>,
     headerBackImage:
           <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />,

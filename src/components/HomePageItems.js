@@ -121,7 +121,7 @@ class HomePageItems extends Component {
           </Text>
         </Animated.View>
         <FlatList
-          style={{ flex: 1, paddingBottom: 5 }}
+          style={{ flex: 1 }}
           data={this.props.data}
           renderItem={item => this.renderItem(item)}
           refreshing={this.state.refreshing}

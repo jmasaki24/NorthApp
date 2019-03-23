@@ -111,6 +111,7 @@ class CAnnounce extends Component {
             multiline
             onChangeText={this.onTitleChange.bind(this)}
             value={this.props.title}
+            inputFlexNum={4}
           />
           <Input
             label="Text"
@@ -118,6 +119,7 @@ class CAnnounce extends Component {
             multiline
             onChangeText={this.onInfoChange.bind(this)}
             value={this.props.info}
+            inputFlexNum={4}
           />
           {this.selectedImageDisplay()}
           <CardSection>
