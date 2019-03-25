@@ -29,7 +29,7 @@ class DevicePhotos extends Component {
     //console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('CreateAnnounce');
   }
 
   onCancelPress() {
