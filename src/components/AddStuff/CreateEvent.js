@@ -195,7 +195,7 @@ class CEvent extends Component {
           inputFlexNum={4}
         />
         <CardSection style={styles.inputSection}>
-          <Text style={styles.dateText}>Date:</Text>
+          <Text style={styles.labelStyle}>Date:</Text>
           <Text style={styles.dateText}>{this.props.date}</Text>
           <Button
             onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
@@ -204,8 +204,8 @@ class CEvent extends Component {
             Select Date
           </Button>
         </CardSection>
-        <CardSection style={styles.inputSection}>
-          {this.selectTime()}
+        {this.selectTime()}
+        <CardSection style={{ justifyContent: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   dateText: {
     flex: 1,
     marginLeft: 20,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
   },
   inputSection: {
