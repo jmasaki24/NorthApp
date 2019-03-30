@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
-  addEventDate, addEventTitle, addEventLocation, addEventInfo, addID, clear,
+  addEventDate, addEventTitle, addEventLocation, addEventInfo, addKey, clear,
   addEventHour, addEventMinute, addEventPeriod, editEvent, pushingEvent,
 } from '../../actions';
 
@@ -35,7 +35,7 @@ class EEvent extends Component {
     this.props.addEventTitle(item.title);
     this.props.addEventLocation(item.location);
     this.props.addEventInfo(item.info);
-    this.props.addID(item.id);
+    this.props.addKey(item.key);
   }
 
   componentDidMount() {
@@ -57,9 +57,9 @@ class EEvent extends Component {
   }
 
   onAccept() {
-    const { date, title, location, info, hour, minute, period, id } = this.props;
+    const { date, title, location, info, hour, minute, period, key } = this.props;
     this.props.pushingEvent(true);
-    this.props.editEvent({ date, title, location, info, hour, minute, period, id });
+    this.props.editEvent({ date, title, location, info, hour, minute, period, key });
     this.setState({ showModal: false });
   }
 
@@ -218,7 +218,7 @@ class EEvent extends Component {
           value={this.props.title}
         />
         <CardSection style={styles.inputSection}>
-          <Text style={styles.dateText}>Date:</Text>
+          <Text style={styles.labelStyle}>Date:</Text>
           <Text style={styles.dateText}>{this.props.date}</Text>
           <Button
             onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
@@ -227,8 +227,8 @@ class EEvent extends Component {
             Select Date
           </Button>
         </CardSection>
-        <CardSection style={styles.inputSection}>
-          {this.selectTime()}
+        {this.selectTime()}
+        <CardSection style={{ justifyContent: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
@@ -258,7 +258,7 @@ class EEvent extends Component {
           Are you sure you would like to change this event?
         </Confirm>
         <Modal
-          visible={this.props.isPushingA}
+          visible={this.props.isPushingE}
           transparent
           onRequestClose={() => this.props.pushingEvent(false)}
         >
@@ -277,10 +277,20 @@ class EEvent extends Component {
 }
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    flex: 1,
+    borderWidth: null,
+    backgroundColor: 'white',
+    borderRadius: 0,
+    paddingLeft: 10,
+    margin: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   dateText: {
     flex: 1,
     marginLeft: 20,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
   },
   inputSection: {
@@ -289,13 +299,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  buttonStyle: {
+  labelStyle: {
+    fontSize: 18,
+    color: 'black',
+    paddingLeft: 20,
     flex: 1,
-    borderWidth: null,
-    backgroundColor: 'white',
-    borderRadius: 0,
-    paddingLeft: 10,
-    margin: 0,
+  },
+  pushingViewStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
+    position: 'relative',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -313,17 +326,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
-  labelStyle: {
-    fontSize: 18,
-    color: 'black',
-    paddingLeft: 20,
-    flex: 1,
-  }
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, isPushingE, hour, minute, period, id, error } = state.event;
-  return { date, title, location, info, isPushingE, hour, minute, period, id, error };
+  const { date, title, location, info, isPushingE, hour, minute, period, key, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, key, error };
 };
 
 const EditEvent = withNavigation(connect(mapStateToProps, {
@@ -336,7 +343,7 @@ const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventInfo,
   editEvent,
   pushingEvent,
-  addID,
+  addKey,
   clear
 })(EEvent));
 

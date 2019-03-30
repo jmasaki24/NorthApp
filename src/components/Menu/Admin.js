@@ -23,7 +23,6 @@ class Admin extends PureComponent {
   renderHome() {
       return (
         <View style={{ flex: 1, backgroundColor: '#FEFEFC' }}>
-          <Text style={styles.titleText}>Admin Home</Text>
           <ScrollView>
             <Text style={styles.description}>
               Hi there. This is the admin page. From here you can add an announcement

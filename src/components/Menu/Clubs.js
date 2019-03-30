@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000',
     margin: 5,
-    textDecorationLine: 'underline',
   },
   modalContainer: {
     justifyContent: 'flex-start',

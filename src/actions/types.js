@@ -1,6 +1,6 @@
-export const ADD_ID = 'add_item_id';
 export const ADD_IMAGE = 'add_image';
 export const ADD_INFO = 'add_info';
+export const ADD_KEY = 'add_item_id';
 export const ADD_TITLE = 'add_title';
 export const CLEAR = 'clear_values_in_form';
 export const DEFAULT_IMAGE_BOOL = 'deafult_image_bool';

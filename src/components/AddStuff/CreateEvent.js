@@ -165,7 +165,6 @@ class CEvent extends Component {
   render() {
     const { failMsgHeight } = this.state;
     if (this.props.error) {
-      console.log('er');
       // animate the showing of the failMSG
       failMsgHeight.setValue(0); // reset the animated value
       Animated.spring(failMsgHeight, {
@@ -184,7 +183,7 @@ class CEvent extends Component {
       <ScrollView style={{ flex: 1 }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Error: could not load
+            Error: Could not push
           </Text>
         </Animated.View>
         {this.renderCalendar()}
@@ -193,9 +192,10 @@ class CEvent extends Component {
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
+          inputFlexNum={4}
         />
         <CardSection style={styles.inputSection}>
-          <Text style={styles.dateText}>Date:</Text>
+          <Text style={styles.labelStyle}>Date:</Text>
           <Text style={styles.dateText}>{this.props.date}</Text>
           <Button
             onPress={() => this.setState({ showCalendar: !this.state.showCalendar })}
@@ -204,8 +204,8 @@ class CEvent extends Component {
             Select Date
           </Button>
         </CardSection>
-        <CardSection style={styles.inputSection}>
-          {this.selectTime()}
+        {this.selectTime()}
+        <CardSection style={{ justifyContent: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
@@ -225,6 +225,7 @@ class CEvent extends Component {
           label='Desciption:'
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
+          inputFlexNum={3}
         />
         {this.renderButton()}
         <Confirm
@@ -235,7 +236,7 @@ class CEvent extends Component {
           Are you sure you would like to add this event?
         </Confirm>
         <Modal
-          visible={this.props.isPushingA}
+          visible={this.props.isPushingE}
           transparent
           onRequestClose={() => this.props.pushingEvent(false)}
         >
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
   dateText: {
     flex: 1,
     marginLeft: 20,
-    fontSize: 18,
+    fontSize: 16,
     color: 'black',
   },
   inputSection: {

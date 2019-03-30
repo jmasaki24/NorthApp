@@ -4,7 +4,8 @@
 */
 import React, { Component } from 'react';
 import {
-  Dimensions, FlatList, Image, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
+  Animated, Dimensions, Easing, FlatList, Image, Modal, SafeAreaView,
+  StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
@@ -16,7 +17,7 @@ import AnnounceCardImage from '../AnnounceCardImage';
 
 console.disableYellowBox = true;
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 // need algolia for when you edit i think
 const algolia = algoliasearch(
   ALGOLIA_APP_ID,
@@ -40,7 +41,9 @@ class UsersAnnouncements extends Component {
           img: '',
           isDefault: null
         }
-      }
+      },
+      failMsgHeight: new Animated.Value(0),
+      deleteFail: false,
     };
     // this.setModalVisible = this.setModalVisible.bind(this);
   }
@@ -91,21 +94,18 @@ class UsersAnnouncements extends Component {
   }
 
   deleteAnnouncement() {
-    console.log(this.state);
     const { item } = this.state;
-    console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    firebase.database().ref(`/Users/${uid}/Announcements/${item.key}`).remove()
-      .then(() => { console.log('Remove from user succeeded.'); })
-      .catch((error) => { console.log(`Remove fuser failed: ${error.message}`); });
-    firebase.database().ref(`/Announcements/${item.key}`).remove()
-      .then(() => { console.log('Remove from main succeeded.'); })
-      .catch((error) => { console.log(`Remove fmain failed: ${error.message}`); });
-    index.deleteObject(this.state.item.key, (err, content) => (
-      err ? console.log(err) : console.log(content)
-    ));
-    this.getUsersAnnouncements();
+    Promise.all([
+      firebase.database().ref(`/Users/${uid}/Announcements/${item.key}`).remove(),
+      firebase.database().ref(`/Announcements/${item.key}`).remove(),
+      index.deleteObject(item.key)
+    ]).then(() => {
+      this.getUsersEvents();
+      this.setState({ item: {}, deleteFail: false });
+    })
+    .catch(() => this.setState({ deleteFail: true, item: {} }));
   }
 
   handleRefresh = () => {
@@ -143,9 +143,29 @@ class UsersAnnouncements extends Component {
   }
 
   render() {
+    const { failMsgHeight, deleteFail } = this.state;
+    if (deleteFail) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text style={styles.titleText}> Your Announcements </Text>
+      <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#FFF' }}>
+      <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+        <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+          Error: couldn't do it
+        </Text>
+      </Animated.View>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.announcementArray}
@@ -196,11 +216,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 5,
   },
-  titleText: {
-    alignSelf: 'center',
-    margin: 10,
-    fontSize: 30,
-  }
 });
 
 export { UsersAnnouncements };

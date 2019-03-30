@@ -9,7 +9,7 @@
     "version": "3.32.0",
     "repository": "https://github.com/algolia/algoliasearch-client-js",
     "licenseUrl": "https://github.com/algolia/algoliasearch-client-js/raw/master/LICENSE.txt",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-instantsearch-native@5.3.2",
@@ -21,7 +21,7 @@
     "version": "5.3.2",
     "repository": "https://github.com/algolia/react-instantsearch",
     "licenseUrl": "https://github.com/algolia/react-instantsearch",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-communications@2.2.1",
@@ -33,7 +33,7 @@
     "version": "2.2.1",
     "repository": "https://github.com/anarchicknight/react-native-communications",
     "licenseUrl": "https://github.com/anarchicknight/react-native-communications/blob/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "axios@0.18.0",
@@ -45,7 +45,31 @@
     "version": "0.18.0",
     "repository": "https://github.com/axios/axios",
     "licenseUrl": "https://github.com/axios/axios/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
+  },
+  {
+    "key": "react-native-paper@2.11.1",
+    "name": "react-native-paper",
+    "image": "http://github.com/Callstack.png",
+    "userUrl": "http://github.com/Callstack",
+    "username": "Callstack",
+    "licenses": "MIT",
+    "version": "2.11.1",
+    "repository": "https://github.com/callstack/react-native-paper",
+    "licenseUrl": "https://github.com/callstack/react-native-paper/raw/master/LICENSE.md",
+    "parents": "nashuanorth"
+  },
+  {
+    "key": "react-native-splash-screen@3.1.1",
+    "name": "react-native-splash-screen",
+    "image": "http://github.com/Crazycodeboy.png",
+    "userUrl": "http://github.com/Crazycodeboy",
+    "username": "Crazycodeboy",
+    "licenses": "MIT",
+    "version": "3.1.1",
+    "repository": "https://github.com/crazycodeboy/react-native-splash-screen",
+    "licenseUrl": "https://github.com/crazycodeboy/react-native-splash-screen/raw/master/LICENSE",
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native@0.57.7",
@@ -57,7 +81,7 @@
     "version": "0.57.7",
     "repository": "https://github.com/facebook/react-native",
     "licenseUrl": "https://github.com/facebook/react-native/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react@16.6.1",
@@ -69,7 +93,7 @@
     "version": "16.6.1",
     "repository": "https://github.com/facebook/react",
     "licenseUrl": "https://github.com/facebook/react/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "firebase@5.0.3",
@@ -81,7 +105,7 @@
     "version": "5.0.3",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "licenseUrl": "https://github.com/firebase/firebase-js-sdk",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "i18n-js@3.1.0",
@@ -93,7 +117,7 @@
     "version": "3.1.0",
     "repository": "https://github.com/fnando/i18n-js",
     "licenseUrl": "https://github.com/fnando/i18n-js",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "rn-fetch-blob@0.10.15",
@@ -105,7 +129,7 @@
     "version": "0.10.15",
     "repository": "https://github.com/joltup/rn-fetch-blob",
     "licenseUrl": "https://github.com/joltup/rn-fetch-blob/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-gesture-handler@1.0.12",
@@ -117,7 +141,7 @@
     "version": "1.0.12",
     "repository": "https://github.com/kmagiera/react-native-gesture-handler",
     "licenseUrl": "https://github.com/kmagiera/react-native-gesture-handler/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-cheerio@1.0.0-rc.4",
@@ -129,7 +153,7 @@
     "version": "1.0.0-rc.4",
     "repository": "https://github.com/leon-4A6C/react-native-cheerio",
     "licenseUrl": "https://github.com/leon-4A6C/react-native-cheerio/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-vector-icons@6.1.0",
@@ -141,31 +165,43 @@
     "version": "6.1.0",
     "repository": "https://github.com/oblador/react-native-vector-icons",
     "licenseUrl": "https://github.com/oblador/react-native-vector-icons/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
-    "key": "react-native-languages@3.0.1",
-    "name": "react-native-languages",
+    "key": "react-native-localize@1.0.2",
+    "name": "react-native-localize",
     "image": "http://github.com/React-native-community.png",
     "userUrl": "http://github.com/React",
     "username": "React-Native-Community",
     "licenses": "MIT",
-    "version": "3.0.1",
-    "repository": "https://github.com/react-community/react-native-languages",
-    "licenseUrl": "https://github.com/react-community/react-native-languages",
-    "parents": "test3"
+    "version": "1.0.2",
+    "repository": "https://github.com/react-native-community/react-native-localize",
+    "licenseUrl": "https://github.com/react-native-community/react-native-localize",
+    "parents": "nashuanorth"
   },
   {
     "key": "react-navigation@3.0.9",
     "name": "react-navigation",
     "image": "http://github.com/React-navigation.png",
-    "userUrl": "http://github.com/React",
+    "userUrl": "http://github.com/React-navigation",
     "username": "React-Navigation",
     "licenses": "BSD-2-Clause",
     "version": "3.0.9",
     "repository": "https://github.com/react-navigation/react-navigation",
     "licenseUrl": "https://github.com/react-navigation/react-navigation/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
+  },
+  {
+    "key": "react-navigation-material-bottom-tabs@1.0.0",
+    "name": "react-navigation-material-bottom-tabs",
+    "image": "http://github.com/React-navigation.png",
+    "userUrl": "http://github.com/React-navigation",
+    "username": "React-Navigation",
+    "licenses": "MIT",
+    "version": "1.0.0",
+    "repository": "https://github.com/react-navigation/react-navigation-material-bottom-tabs",
+    "licenseUrl": "https://github.com/react-navigation/react-navigation-material-bottom-tabs/raw/master/LICENSE.md",
+    "parents": "nashuanorth"
   },
   {
     "key": "react-redux@5.0.7",
@@ -177,7 +213,7 @@
     "version": "5.0.7",
     "repository": "https://github.com/reactjs/react-redux",
     "licenseUrl": "https://github.com/reactjs/react-redux/raw/master/LICENSE.md",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "redux-thunk@2.3.0",
@@ -189,7 +225,7 @@
     "version": "2.3.0",
     "repository": "https://github.com/reduxjs/redux-thunk",
     "licenseUrl": "https://github.com/reduxjs/redux-thunk/raw/master/LICENSE.md",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "redux@4.0.1",
@@ -201,7 +237,7 @@
     "version": "4.0.1",
     "repository": "https://github.com/reduxjs/redux",
     "licenseUrl": "https://github.com/reduxjs/redux/raw/master/LICENSE.md",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-add-calendar-event@2.2.0",
@@ -213,7 +249,7 @@
     "version": "2.2.0",
     "repository": "https://github.com/vonovak/react-native-add-calendar-event",
     "licenseUrl": "https://github.com/vonovak/react-native-add-calendar-event/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-calendars@1.21.0",
@@ -225,7 +261,7 @@
     "version": "1.21.0",
     "repository": "https://github.com/wix/react-native-calendars",
     "licenseUrl": "https://github.com/wix/react-native-calendars/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-camera-roll-multi-picker@1.2.41",
@@ -237,7 +273,7 @@
     "version": "1.2.41",
     "repository": "https://github.com/yehudahkay/react-native-camera-roll-picker",
     "licenseUrl": "https://github.com/yehudahkay/react-native-camera-roll-picker/raw/master/LICENSE.md",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-dotenv@0.2.0",
@@ -248,7 +284,7 @@
     "version": "0.2.0",
     "repository": "https://github.com/zetachang/react-native-dotenv",
     "licenseUrl": "https://github.com/zetachang/react-native-dotenv/raw/master/LICENSE.md",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
   {
     "key": "react-native-permissions@1.1.1",
@@ -260,6 +296,6 @@
     "version": "1.1.1",
     "repository": "https://github.com/yonahforst/react-native-permissions",
     "licenseUrl": "https://github.com/yonahforst/react-native-permissions/raw/master/LICENSE",
-    "parents": "test3"
+    "parents": "nashuanorth"
   },
 ]

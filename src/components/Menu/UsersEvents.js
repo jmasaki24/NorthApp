@@ -4,7 +4,8 @@
 */
 import React, { Component } from 'react';
 import {
-  FlatList, View, Modal, TouchableOpacity, Image, Dimensions, SafeAreaView, StyleSheet, Text
+  Animated, Dimensions, Easing, FlatList, Image, Modal, SafeAreaView,
+  StyleSheet, TouchableOpacity, Text, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import firebase from 'firebase';
@@ -14,7 +15,7 @@ import { Confirm, Card, CardSection } from '../common';
 
 console.disableYellowBox = true;
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 // need algolia for when you edit i think
 const algolia = algoliasearch(
@@ -32,7 +33,16 @@ class UsersEvents extends Component {
       imageUrl: null,
       eventArray: {},
       showModal: false,
-      item: {}
+      item: {
+        inital: {
+        title: 'Not Connected',
+        info: 'Please wait or connect to the Internet',
+        img: '',
+        isDefault: null
+        }
+      },
+      failMsgHeight: new Animated.Value(0),
+      deleteFail: false,
     };
   }
 
@@ -77,22 +87,18 @@ class UsersEvents extends Component {
   }
 
   deleteEvent() {
-    console.log(this.state.item);
     const { item } = this.state.item;
-    console.log(item);
     const { currentUser } = firebase.auth();
     const uid = currentUser.uid;
-    // could probably promise.all() so that we can return an success/fail message
-    firebase.database().ref(`/Users/${uid}/Events/${item.key}`).remove()
-      .then(() => console.log('Remove from user succeeded.'))
-      .catch(() => console.log('Remove fuser failed: '));
-    firebase.database().ref(`/Calendar/${item.date}/${item.key}`).remove()
-      .then(() => console.log('Remove from main succeeded.'))
-      .catch(() => console.log('Remove fmain failed:'));
-    index.deleteObject(item.id, (err) => console.log(err));
-    console.log(item.key);
-    this.getUsersEvents();
-    this.setState({ item: {} });
+    Promise.all([
+      firebase.database().ref(`/Users/${uid}/Events/${item.key}`).remove(),
+      firebase.database().ref(`/Calendar/${item.date}/${item.key}`).remove(),
+      index.deleteObject(item.key)
+    ]).then(() => {
+      this.getUsersEvents();
+      this.setState({ item: {} });
+    })
+    .catch(() => this.setState({ deleteFail: true, item: {} }));
   }
 
   handleRefresh = () => {
@@ -103,7 +109,7 @@ class UsersEvents extends Component {
 
   renderItem({ item }) {
     return (
-      <Card key={item.id}>
+      <Card key={item.key}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.cardTitleText}>{item.title}</Text>
         </CardSection>
@@ -136,9 +142,29 @@ class UsersEvents extends Component {
   }
 
   render() {
+    const { failMsgHeight, deleteFail } = this.state;
+    if (deleteFail) {
+      // animate the showing of the failMSG
+      failMsgHeight.setValue(0); // reset the animated value
+      Animated.spring(failMsgHeight, {
+        toValue: (height / 20), // proportional error msg
+        friction: 4
+      }).start();
+    } else {
+      // animate the hiding of the failMSG
+      Animated.timing(failMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Text style={styles.titleText}>Your Events</Text>
+        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Error: couldn't do it
+          </Text>
+        </Animated.View>
         <FlatList
           style={{ flex: 1 }}
           data={this.state.eventArray}
@@ -194,11 +220,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
   },
-  titleText: {
-    alignSelf: 'center',
-    margin: 10,
-    fontSize: 30,
-  }
 });
 // export default connect(mapStateToProps, { getUsersEvents })(UsersEvents);
 

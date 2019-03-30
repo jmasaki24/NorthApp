@@ -25,7 +25,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(state);
   switch (action.type) {
     case ADD_ID:
       return { ...state, id: action.payload };
@@ -42,11 +41,9 @@ export default (state = INITIAL_STATE, action) => {
     case EDIT_ANNOUNCEMENT:
       return { ...state, ...INITIAL_STATE, isPushingA: false };
     case PUSH_ANNOUNCEMENT:
-      { console.log('push annnou');
-        return { ...state, ...INITIAL_STATE, isPushingA: false, error: false }; }
+        return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
     case PUSH_ANNOUNCEMENT_FAIL:
-      { console.log('push annou fail');
-        return { ...state, error: true, isPushingA: false }; }
+        return { ...state, error: true, isPushingA: false };
     case IS_PUSHING_A:
       return { ...state, isPushingA: action.payload };
     default:

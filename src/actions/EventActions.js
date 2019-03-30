@@ -63,7 +63,7 @@ export const addEventPeriod = (hour) => (
   }
 );
 
-export const editEvent = ({ date, title, location, info, hour, minute, period, id }) => {
+export const editEvent = ({ date, title, location, info, hour, minute, period, key }) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let time;
@@ -72,12 +72,12 @@ export const editEvent = ({ date, title, location, info, hour, minute, period, i
   } else {
     time = `${hour}:${minute} ${period}`;
   }
-  const eventData = { date, title, location, info, uid, time, id };
+  const eventData = { date, title, location, info, uid, time, key };
 
   return (dispatch) => {
     Promise.all([
-      firebase.database().ref(`/Calendar/${date}/${id}`).set(eventData),
-      firebase.database().ref(`/Users/${uid}/Events/${id}`).set(eventData)
+      firebase.database().ref(`/Calendar/${date}/${key}`).set(eventData),
+      firebase.database().ref(`/Users/${uid}/Events/${key}`).set(eventData)
     ]).then(() => dispatch({ type: EDIT_EVENT }))
       .catch(() => dispatch({ type: PUSH_EVENT_FAIL }));
   };
@@ -93,7 +93,7 @@ export const pushEvent = ({ date, title, location, info, hour, minute, period })
     time = `${hour}:${minute} ${period}`;
   }
   const newEventKey = firebase.database().ref().child(`Calendar/${date}`).push().key;
-  const eventData = { date, title, location, info, uid, time, id: newEventKey };
+  const eventData = { date, title, location, info, uid, time, key: newEventKey };
 
   const updates = {};
   updates[`/Users/${uid}/Events/${newEventKey}`] = eventData;
