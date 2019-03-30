@@ -49,7 +49,7 @@ class AnnounceCardAllText extends PureComponent {
           <Text style={styles.titleText}>{this.props.title}</Text>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0 }}>
-          <Text style={styles.descripText}>{this.props.children}</Text>
+          <Text numberOfLines={10} style={styles.descripText}>{this.props.children}</Text>
         </CardSection>
         {renderBottomSection(this.props)}
       </Card>

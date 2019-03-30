@@ -1,4 +1,5 @@
 // uses app-level state (redux) and local state because going through everything is a grind
+// renders the form for an individual poll
 
 import React, { Component } from 'react';
 import { Modal, Picker, Text, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
@@ -84,7 +85,7 @@ class VotingPage extends Component {
     }
     return (
       <Button
-      onPress={() => this.setState({ showModal: true })}
+        onPress={() => this.setState({ showModal: true })}
         buttonStyle={{ padding: 10, margin: 10 }}
         textStyle={{ fontSize: 24 }}
       >

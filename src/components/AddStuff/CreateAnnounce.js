@@ -48,7 +48,8 @@ class CAnnounce extends Component {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
-            style={{ height: height / 4, width: width / 2.5 }}
+            resizeMode="contain"
+            style={{ height: height / 4, flex: 1 }}
             source={{ uri: this.props.img }}
           />
         </CardSection>

@@ -71,12 +71,10 @@ class PLogin extends Component {
 
   renderPoll(polls) {
     return Object.keys(polls).map(key => (
-        <CardSection key={key} style={styles.titleCardStyle}>
-          <TouchableOpacity onPress={() => this.onPollSelect(polls[key])}>
-            <Text style={styles.titleTextStyle}>{polls[key].title}</Text>
-          </TouchableOpacity>
-        </CardSection>
-      ));
+      <TouchableOpacity key={key} onPress={() => this.onPollSelect(polls[key])} style={styles.titleCardStyle}>
+        <Text adjustsFontSizeToFit style={styles.pollTitle}>{polls[key].title}</Text>
+      </TouchableOpacity>
+    ));
   }
 
   renderStuff() {
@@ -100,7 +98,7 @@ class PLogin extends Component {
       return (
         <View style={{ flex: 1 }}>
           <Text style={styles.titleText}>Select a Survey</Text>
-          <ScrollView>
+          <ScrollView style={{ flex: 1 }}>
             {this.renderStuff()}
           </ScrollView>
         </View>
@@ -119,6 +117,7 @@ class PLogin extends Component {
             label='Student ID'
             placeholder='12345789'
             keyboardType='number-pad'
+            multiline
             onChangeText={this.onIDChange.bind(this)}
             value={this.props.id}
           />
@@ -145,24 +144,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center'
   },
-  titleTextStyle: {
+  pollTitle: {
     color: 'black',
     fontSize: 24,
     textAlign: 'center',
+    margin: 5,
   },
   titleCardStyle: {
+    flex: 1,
     margin: 10,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'black',
     backgroundColor: '#FFF',
 
+    elevation: 2,
     shadowColor: 'black',
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
   },
-  titleText: {
+  titleText: { // we should probably put this in the header... "Student Voting"
     fontSize: 30,
     color: 'black',
     alignSelf: 'center',

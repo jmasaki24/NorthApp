@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, View, } from 'react-native';
 import { connect } from 'react-redux';
-import CameraRollPicker from 'react-native-camera-roll-multi-picker';
+import CameraRollSelector from 'react-native-camera-roll-selector';
 import Permissions from 'react-native-permissions';
 import { Button, CardSection, Spinner, } from '../common';
 import { addImage, isDefaultImage } from '../../actions';
@@ -20,13 +20,13 @@ class DevicePhotos extends Component {
   }
 
   onImagePress(image) {
-    //console.log(image);
-    let URI = Object.values(image[0])[5];
+    //console.log(image[0].node.image.uri);
+    let URI = image[0].node.image.uri;
     if (Platform.OS === 'android') {
       URI = image[0].uri;
       // console.log(`URI 4 android: ${URI}`);
     }
-    //console.log(URI);
+    // console.log(URI);
     this.props.isDefaultImage(false);
     this.props.addImage(URI);
     this.props.navigation.navigate('CreateAnnounce');
@@ -42,7 +42,7 @@ class DevicePhotos extends Component {
     const permit = this.state.photoPermission;
     if (permit === 'authorized') {
       return (
-        <CameraRollPicker
+        <CameraRollSelector
           callback={(image) => this.onImagePress(image)}
           assetTypes='Photos'
           groupTypes='SavedPhotos'
