@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     margin: 5,
     color: 'black',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '600',
   },
 });
