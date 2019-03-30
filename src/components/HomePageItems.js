@@ -114,7 +114,7 @@ class HomePageItems extends Component {
       }).start();
     }
     return (
-      <View style={{ flex: 1, paddingBottom: 5, }}>
+      <View style={{ flex: 1 }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
             Error: could not load

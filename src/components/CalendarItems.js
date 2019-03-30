@@ -42,7 +42,7 @@ class CalendarItems extends PureComponent {
     const y = item.date.substring(0, item.date.indexOf('-'));
     const m = item.date.substring(item.date.indexOf('-') + 1, item.date.lastIndexOf('-'));
     const d = item.date.substring(item.date.lastIndexOf('-') + 1);
-    const start = new Date(y, m - 1, d);
+    const start = new Date(y, m - 1, d); // month is 0-11 for Date object
     // don't do const end = start; bc then they're pointing to the same object
     const end = new Date(y, m - 1, d);
 
@@ -69,8 +69,7 @@ class CalendarItems extends PureComponent {
           console.warn(error);
         });
     } else {
-      if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM') {
-        // parseInt(string, 0) the radix param causes a return of NaN... maybe radix should be 10?
+      if (item.time.substring(item.time.indexOf(' ') + 1) === 'PM' && item.time.substring(0, item.time.indexOf(':')) !== '12') {
         start.setHours(parseInt(item.time.substring(0, item.time.indexOf(':')), 10) + 12);
       } else {
          start.setHours(item.time.substring(0, item.time.indexOf(':')));
@@ -78,7 +77,7 @@ class CalendarItems extends PureComponent {
       start.setMinutes(item.time.substring(item.time.indexOf(':') + 1, item.time.indexOf(' ')));
       end.setHours(start.getHours() + 1);
       end.setMinutes(start.getMinutes());
-
+      console.log(eventConfig);
       AddCalendarEvent.presentEventCreatingDialog(eventConfig)
         .then((eventInfo: { calendarItemIdentifier: string, eventIdentifier: string }) => {
         console.warn(JSON.stringify(eventInfo));
