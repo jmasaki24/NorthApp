@@ -5,6 +5,7 @@
 import React from 'react';
 import { Image, TouchableOpacity, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomePageItems from './HomePageItems';
 import LogoTitans from '../images/logoTitans.jpg';
 import Licenses from '../Licenses/Licenses';
@@ -30,7 +31,11 @@ const HomeStack = createStackNavigator({
       </TouchableOpacity>,
     headerStyle: {
       height: 65
-    }
+    },
+    headerBackTitle: null, // for iOS
+    headerBackImage:
+          <Icon name={'arrow-left'} size={25} color={'black'} />,
+    gesturesEnabled: true
   })
 });
 

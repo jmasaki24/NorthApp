@@ -186,6 +186,7 @@ const MenuStack = createStackNavigator({
           <Text style={{ flex: 1, fontSize: 18 }}>itan Menu</Text>
         </View>
       </TouchableHighlight>,
+    headerBackTitle: null, // for iOS
     headerBackImage:
           <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />,
     gesturesEnabled: true

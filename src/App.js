@@ -146,7 +146,7 @@ export default class App extends PureComponent {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <StatusBar backgroundColor='#34658D' barStyle='light-content' />
+          <StatusBar backgroundColor='#34658D' barStyle='default' />
           <AppContainer />
         </View>
       </Provider>
