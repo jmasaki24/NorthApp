@@ -9,16 +9,17 @@ import { StyleSheet, Text, TextInput, } from 'react-native';
 import { CardSection } from '../common';
 
 const Input = ({
-  label,
-  value,
-  onChangeText,
-  placeholder,
-  secureTextEntry,
-  multiline,
   autocorrect,
-  keyboardType,
-  onChange,
   inputFlexNum,
+  keyboardType,
+  label,
+  onChange, // do we actually use this??? -JMmarch29
+  onChangeText,
+  multiline,
+  placeholder,
+  returnKeyType,
+  secureTextEntry,
+  value,
 }) => {
   const { inputStyle, labelStyle } = styles;
   let inputFlex = 2;
@@ -27,65 +28,37 @@ const Input = ({
   }
   if (label !== '') {
     return (
-      // <View style={[containerStyle, viewStyle]}>
-      //   <Text style={labelStyle}>{label}</Text>
-      //   <TextInput
-      //     secureTextEntry={secureTextEntry}
-      //     placeholder={placeholder}
-      //     autocorret={autocorrect || true}
-      //     style={inputStyle}
-      //     value={value}
-      //     onChangeText={onChangeText}
-      //     multiline={multiline || false}
-      //     keyboardType={keyboardType || 'default'}
-      //     underlineColorAndroid={'white'}
-      //     onChange={onChange}
-      //   />
-      // </View>
       <CardSection style={{ alignItems: 'center' }}>
       <Text numberOfLines={1} style={labelStyle}>{label}</Text>
         <TextInput
-          secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
-          autocorret={autocorrect || true}
-          style={[inputStyle, { flex: inputFlex }]}
-          value={value}
+          autocorrect={autocorrect || true}
+          keyboardType={keyboardType || 'default'}
+          onChange={onChange}
           onChangeText={onChangeText}
           multiline={multiline || false}
-          keyboardType={keyboardType || 'default'}
+          placeholder={placeholder}
+          returnKeyType={returnKeyType}
+          secureTextEntry={secureTextEntry}
+          style={[inputStyle, { flex: inputFlex }]}
           underlineColorAndroid={'white'}
-          onChange={onChange}
+          value={value}
         />
       </CardSection>
     );
   }
   return (
-    // <View style={[containerStyle, viewStyle]}>
-    //   <TextInput
-    //     secureTextEntry={secureTextEntry}
-    //     placeholder={placeholder}
-    //     autocorret={autocorrect || true}
-    //     style={inputStyle}
-    //     value={value}
-    //     onChangeText={onChangeText}
-    //     multiline={multiline || false}
-    //     keyboardType={keyboardType || 'default'}
-    //     underlineColorAndroid={'white'}
-    //     onChange={onChange}
-    //   />
-    // </View>
     <CardSection>
       <TextInput
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        autocorret={autocorrect || true}
-        style={inputStyle}
-        value={value}
-        onChangeText={onChangeText}
-        multiline={multiline || false}
+        autocorrect={autocorrect || true}
         keyboardType={keyboardType || 'default'}
-        underlineColorAndroid={'white'}
+        multiline={multiline || false}
         onChange={onChange}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        style={inputStyle}
+        underlineColorAndroid={'white'}
+        value={value}
       />
     </CardSection>
   );

@@ -3,8 +3,9 @@
 */
 
 import React, { Component } from 'react';
-import { Dimensions, FlatList, Image, Linking, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
 import firebase from 'firebase';
+import { web } from 'react-native-communications';
 import { Card } from '../common';
 
 const { height, width } = Dimensions.get('window');
@@ -32,7 +33,7 @@ class StoreItem extends Component {
     const item = this.props.navigation.state.params.item;
     const storage = firebase.storage();
     const array = this.state.data;
-    item.colors.map(color => {
+    item.colors.forEach(color => {
       storage.ref(`/napp_store_images/${item.image}/${color}${item.image}.jpg`)
         .getDownloadURL().then(url => {
           array.push(url);
@@ -72,7 +73,7 @@ class StoreItem extends Component {
             <SizeSquare size='M' />
             <SizeSquare size='L' />
             <SizeSquare size='XL' />
-            <TouchableOpacity onPress={() => Linking.openUrl('https://teespring.com/stores/real-south-boys-merch')}>
+            <TouchableOpacity onPress={() => web('https://teespring.com/stores/real-south-boys-merch')}>
               <Text style={{ textDecorationLine: 'underline', marginLeft: 10 }}>Buy Now</Text>
             </TouchableOpacity>
           </View>

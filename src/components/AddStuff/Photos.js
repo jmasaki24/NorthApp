@@ -45,6 +45,7 @@ class DevicePhotos extends Component {
         <CameraRollPicker
           callback={(image) => this.onImagePress(image)}
           assetTypes='Photos'
+          groupTypes='SavedPhotos'
           selectSingleItem
           backgroundColor='#eee'
           loader=<Spinner size='large' />

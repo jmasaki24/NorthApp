@@ -1,4 +1,6 @@
 // Thanks to @bacon and the guy who wrote the medium article
+// there's code in here that makes the liscenseItems.json but we only need the rendering code
+// at the bottom. fix later? -JMmarch30
 
 import React, { Component } from 'react';
 import { Text, View, FlatList, StyleSheet } from 'react-native';

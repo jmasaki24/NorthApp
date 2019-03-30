@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension'; //remove for Release
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { createBottomTabNavigator, createAppContainer,} from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import * as RNLocalize from 'react-native-localize';
@@ -145,7 +145,7 @@ export default class App extends PureComponent {
    i18n.locale = language;
   };
 
-  render() {
+  render() { //remove composeWithDevTools for Release
     const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(ReduxThunk)));
     return (
       <Provider store={store}>

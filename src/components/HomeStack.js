@@ -34,7 +34,7 @@ const HomeStack = createStackNavigator({
     },
     headerBackTitle: null, // for iOS
     headerBackImage:
-          <Icon name={'arrow-left'} size={25} color={'black'} />,
+          <Icon style={{ paddingLeft: 5 }} name={'arrow-left'} size={25} color={'black'} />,
     gesturesEnabled: true
   })
 });

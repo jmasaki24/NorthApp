@@ -78,7 +78,7 @@ class MenuPage extends Component {
               onPress={() => this.props.navigation.navigate('Contact')}
               style={[styles.bottomCards, { borderRightWidth: 1 }]}
             >
-              <Text style={textStyle}>{i18n.t('CONTACT')}</Text>
+              <Text adjustFontSizeToFit style={textStyle}>{i18n.t('CONTACT')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('AdminHome')}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: 2,
 
     borderRadius: 10,
     // borderTopWidth: 2,
@@ -230,7 +230,7 @@ const MenuStack = createStackNavigator({
       </TouchableHighlight>,
     headerBackTitle: null, // for iOS
     headerBackImage:
-          <FontAwesome5 name={'arrow-left'} size={25} color={'black'} />,
+          <FontAwesome5 style={{ marginLeft: 5 }} name={'arrow-left'} size={25} color={'black'} />,
     gesturesEnabled: true
   })
 });

@@ -164,11 +164,13 @@ const StoreStack = createStackNavigator({
   defaultNavigationOptions: {
     headerTitle:
       <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
+    headerBackTitle: null,
     headerBackImage:
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
         <FontAwesome5 style={{ marginRight: 3 }} name={'caret-left'} color={'black'} size={33} />
         <FontAwesome5 name={'store-alt'} color={'black'} size={20} />
-      </View>
+      </View>,
+    gesturesEnabled: true,
   }
 });
 

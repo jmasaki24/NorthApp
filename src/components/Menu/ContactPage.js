@@ -24,6 +24,7 @@ class ContactPage extends PureComponent {
         <Text style={basicText}> Nashua High School North: </Text>
         <Text style={basicText}> 8 Titan Way, Nashua, NH; 03063 </Text>
         <Text style={basicText}> (603) 966-2500 </Text>
+        <View style={{ flex: 1 }} />
         <Text style={basicText}> Comments? Questions? </Text>
         <Text style={basicText}> Email us at northcodingteam@gmail.com </Text>
         <FontAwesome5.Button
@@ -32,6 +33,7 @@ class ContactPage extends PureComponent {
         >
           Send Email
         </FontAwesome5.Button>
+        <View style={{ flex: 1 }} />
         <Text style={basicText}>Authors:</Text>
         <Text style={basicText}>Jamie Maddock and Matthew Peters</Text>
       </View>
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   }
 });
 

@@ -60,21 +60,25 @@ class LoginForm extends Component {
     return (
       <Card>
         <Input
-            placeholder="user@email.com"
-            label="Email"
-            keyboardType="email-address"
-            autoCorrect={false}
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
+          placeholder="user@email.com"
+          label="Email"
+          autoCorrect={false}
+          inputFlexNum={2} // we gotta do something about this screen for different size devices
+          keyboardType="email-address"
+          multiline
+          onChangeText={email => this.setState({ email })}
+          returnKeyType="next"
+          value={this.state.email}
         />
 
         <Input
-          secureTextEntry
           placeholder="password"
           label="Password"
           autoCorrect={false}
-          value={this.state.password}
           onChangeText={password => this.setState({ password })}
+          returnKeyType="done"
+          secureTextEntry
+          value={this.state.password}
         />
 
         <CardSection style={{ borderBottomWidth: 0 }}>
