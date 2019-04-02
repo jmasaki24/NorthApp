@@ -1,7 +1,7 @@
 // used for the Create_Announcements,
 
 import {
-  ADD_ID,
+  ADD_KEY,
   ADD_IMAGE,
   ADD_INFO,
   ADD_TITLE,
@@ -26,7 +26,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ADD_ID:
+    case ADD_KEY:
       return { ...state, id: action.payload };
     case ADD_IMAGE:
       return { ...state, img: action.payload };
@@ -39,11 +39,11 @@ export default (state = INITIAL_STATE, action) => {
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };
     case EDIT_ANNOUNCEMENT:
-      return { ...state, ...INITIAL_STATE, isPushingA: false };
+      return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
     case PUSH_ANNOUNCEMENT:
-        return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
+      return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
     case PUSH_ANNOUNCEMENT_FAIL:
-        return { ...state, error: true, isPushingA: false };
+      return { ...state, error: true, isPushingA: false };
     case IS_PUSHING_A:
       return { ...state, isPushingA: action.payload };
     default:

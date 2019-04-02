@@ -193,6 +193,7 @@ class CEvent extends Component {
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
           inputFlexNum={4}
+          multiline
         />
         <CardSection style={styles.inputSection}>
           <Text style={styles.labelStyle}>Date:</Text>
@@ -205,13 +206,14 @@ class CEvent extends Component {
           </Button>
         </CardSection>
         {this.selectTime()}
-        <CardSection style={{ justifyContent: 'center' }}>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
             value={this.state.switch}
             style={{ flex: 0 }}
             thumbColor='#02BAFB'
+            trackColor={{ true: '#B9D6F2' }}
           />
         </CardSection>
         <Input
@@ -220,6 +222,7 @@ class CEvent extends Component {
           onChangeText={this.onLocationChange.bind(this)}
           value={this.props.location}
           inputFlexNum={3}
+          multiline
         />
         <Input
           placeholder="Describe this event"
@@ -227,6 +230,7 @@ class CEvent extends Component {
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
           inputFlexNum={3}
+          multiline
         />
         {this.renderButton()}
         <Confirm

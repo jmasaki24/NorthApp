@@ -19,20 +19,24 @@ class EAnnounce extends Component {
     this.state = { showModal: false, failMsgHeight: new Animated.Value(0) };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
+    const id = this.props.navigation.getParam('id', 'Id/key not found');
     this.props.titleAction(item.title);
     this.props.infoAction(item.info);
     this.props.addImage(item.uri);
-    this.props.addKey(item.key);
+    this.props.addKey(id);
     this.props.isDefaultImage(item.isDefault);
+    console.log(this.props);
   }
 
+  /**
   componentWillUnmount() {
+    console.log('um ok');
     this.props.clear();
   }
-
+*/
   onAccept() {
-    const { title, info, img, isDefault, key } = this.props;
-    this.props.editAnnouncement({ title, info, img, isDefault, key });
+    const { title, info, img, isDefault, id } = this.props;
+    this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
     this.props.pushingAnnouncement(true);
     this.props.navigation.pop();
@@ -195,8 +199,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, isPushingA, key, error } = state.announce;
-  return { title, info, img, isDefault, isPushingA, key, error };
+  const { title, info, img, isDefault, isPushingA, id, error } = state.announce;
+  return { title, info, img, isDefault, isPushingA, id, error };
 };
 
 const EditAnnounce = withNavigation(connect(mapStateToProps, {

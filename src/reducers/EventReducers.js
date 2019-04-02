@@ -1,5 +1,5 @@
 import {
-  ADD_ID,
+  ADD_KEY,
   ADD_EVENT_DATE,
   ADD_EVENT_TITLE,
   ADD_EVENT_LOCATION,
@@ -23,13 +23,13 @@ const INITIAL_STATE = {
   minute: '00',
   period: 'AM',
   isPushingE: false,
-  key: '',
+  id: '',
   error: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ADD_ID:
+    case ADD_KEY:
       return { ...state, id: action.payload };
     case ADD_EVENT_DATE:
       return { ...state, date: action.payload };

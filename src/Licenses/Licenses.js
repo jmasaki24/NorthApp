@@ -70,7 +70,7 @@ export default class Licenses extends Component {
     return (
       <View style={styles.container}>
         <Text style={{ marginTop: 10, marginHorizontal: 10 }}>
-          Here are the open-source projects we use!</Text>
+          Here are the open-source packages we use!</Text>
         <Text style={{ marginBotton: 10, marginHorizontal: 10 }}>
           We included this page as a "Thank you" (and for legal reasons)</Text>
         <FlatList
