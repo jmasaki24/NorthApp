@@ -27,7 +27,7 @@ class AcademicsPage extends Component {
           <CardSection>
             <TouchableOpacity
               style={buttonStyle}
-              onPress={() => Linking.openURL('https://www.nashua.edu/contact-us/staff-directory.aspx')}
+              onPress={() => Linking.openURL('http://www.nashua.edu/contact-us/staff-directory')}
             >
               <Text style={textStyle}>{i18n.t('STAFF_DIRECTORY')}</Text>
               <Icon name='link' />
@@ -44,7 +44,7 @@ class AcademicsPage extends Component {
           <CardSection>
             <TouchableOpacity
               style={buttonStyle}
-              onPress={() => Linking.openURL('https://www.nashua.edu/Nashua/Media/PDF-files/For%20Students/Nashua-North-2018-2019-Agenda-Book.pdf')}
+              onPress={() => Linking.openURL('http://www.nashua.edu/Nashua/Media/PDF-files/For%20Students/Nashua-North-2018-2019-Agenda-Book.pdf')}
             >
               <Text style={textStyle}>{i18n.t('STUDENT_HANDBOOK')}</Text>
               <Icon name='link' />
@@ -53,7 +53,7 @@ class AcademicsPage extends Component {
           <CardSection>
             <TouchableOpacity
               style={buttonStyle}
-              onPress={() => Linking.openURL('https://www.nashua.edu/getmedia/02fd65e0-fd7a-45d0-ba05-e996d016c390/2017-POS_MSTR_012916_WEB_1A')}
+              onPress={() => Linking.openURL('http://www.nashua.edu/getmedia/02fd65e0-fd7a-45d0-ba05-e996d016c390/2017-POS_MSTR_012916_WEB_1A')}
             >
               <Text style={textStyle}>{i18n.t('PROGRAM_OF_STUDIES')}</Text>
               <Icon name='link' />

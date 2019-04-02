@@ -57,7 +57,7 @@ class Athletics extends PureComponent {
           <CardSection>
             <TouchableOpacity
               style={buttonStyle}
-              onPress={() => Linking.openURL('https://www.familyid.com/programs/high-school-north-winter-2018-19')}
+              onPress={() => Linking.openURL('https://www.familyid.com/organizations/nashua-school-district-athletics')}
             >
               <Text style={buttonTextStyle}>{i18n.t('REGISTRATION')}</Text>
               <Icon name='link' />
