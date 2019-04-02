@@ -219,6 +219,7 @@ class CEvent extends Component {
           label='Location:'
           onChangeText={this.onLocationChange.bind(this)}
           value={this.props.location}
+          inputFlexNum={3}
         />
         <Input
           placeholder="Describe this event"

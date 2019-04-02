@@ -7,6 +7,7 @@ import {
   Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 import Info from '../../JSON/AnnounceImage.json';
 import { Button, CardSection, } from '../common';
 import { addImage, isDefaultImage } from '../../actions';
@@ -16,6 +17,12 @@ const numColumns = 2;
 const { height, width } = Dimensions.get('window');
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+
+    this.selectDevicePhoto = this.selectDevicePhoto.bind(this);
+  }
+
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
@@ -27,6 +34,35 @@ class List extends Component {
     this.props.addImage('');
     this.props.navigation.goBack();
   }
+
+  selectDevicePhoto() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500, //need to change
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+
+    console.log('selectDevicePhoto');
+
+    ImagePicker.showImagePicker(options, (response) => {
+          console.log('Response = ', response);
+
+          if (response.didCancel) {
+            console.log('User cancelled photo picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else {
+            // You can also display the image using data:
+            // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+            this.props.addImage(response.uri);
+            this.props.navigation.navigate('CreateAnnounce');
+          }
+        });
+      }
 
   renderItem({ item }) {
     const { uri, text } = item;
@@ -60,7 +96,7 @@ class List extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={() => this.props.navigation.navigate('Photos')}
+            onPress={this.selectDevicePhoto.bind(this)}
           >
             Select Image From Camera Roll
           </Button>

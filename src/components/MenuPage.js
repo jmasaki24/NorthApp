@@ -14,10 +14,11 @@ import {
   AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
   PollLogin, PollPage, UsersAnnouncements, UsersEvents
 } from './Menu';
-import StoreStack from './Menu/StorePage';
+import StorePage from './Menu/StorePage';
+import StoreItem from './Menu/StoreItem';
 import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
 import {
-  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, Photos
+  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages,
 } from './AddStuff';
 import i18n from '../utils/i18n';
 import stadiumlights from '../images/fieldlights.jpg';
@@ -155,7 +156,23 @@ const MenuStack = createStackNavigator({
   Academics: AcademicsPage,
   Bells: BellSchedule,
   Clubs,
-  Store: StoreStack,
+  Store: {
+    screen: StorePage,
+    navigationOptions: () => ({
+      headerTitle: <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
+    }),
+  },
+  Item: {
+    screen: StoreItem,
+    navigation: () => ({
+      headerTitle: <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
+      headerBackImage:
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <FontAwesome5 style={{ marginRight: 3 }} name={'caret-left'} color={'black'} size={33} />
+          <FontAwesome5 name={'store-alt'} color={'black'} size={20} />
+        </View>,
+    }),
+  },
   Athletics,
     UpcomingGames,
     IndivSportsPage,
@@ -177,12 +194,6 @@ const MenuStack = createStackNavigator({
         screen: DefaultImages,
         navigationOptions: () => ({
           headerTitle: <Text style={{ fontSize: 20 }}>Select an Image</Text>
-        }),
-      },
-      Photos: {
-        screen: Photos,
-        navigationOptions: () => ({
-          headerTitle: <Text style={{ fontSize: 15 }}>Pick from your camera roll</Text>
         }),
       },
     CreateEvent: {

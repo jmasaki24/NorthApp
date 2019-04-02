@@ -13,6 +13,12 @@ const renderBottomSection = (props) => {
   if (props.button) {
     return (
       <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: -1 }}>
+          <Text style={{ fontSize: 14 }}>
+          {props.time}
+          </Text>
+        </View>
+        <View style={{ flex: 1 }} />
         <View style={{ flex: -1, flexDirection: 'row' }}>
           <Icon.Button
             name="edit" onPress={props.onEditPress}
@@ -23,17 +29,11 @@ const renderBottomSection = (props) => {
             iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
           />
         </View>
-        <View style={{ flex: 1 }} />
-        <View style={{ flex: -1 }}>
-          <Text style={{ fontSize: 14 }}>
-            {props.time}
-          </Text>
-        </View>
       </CardSection>
     );
   }
   return (
-    <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+    <CardSection style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
       <Text style={{ fontSize: 14 }}>
         {props.time}
       </Text>
@@ -46,7 +46,7 @@ class AnnounceCardAllText extends PureComponent {
     return (
       <Card style={{ elevation: 5, marginHorizontal: 10 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={styles.titleText}>{this.props.title}</Text>
+          <Text adjustsFontSizeToFit style={styles.titleText}>{this.props.title}</Text>
         </CardSection>
         <CardSection style={{ borderBottomWidth: 0 }}>
           <Text numberOfLines={10} style={styles.descripText}>{this.props.children}</Text>

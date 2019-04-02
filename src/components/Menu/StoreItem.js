@@ -60,7 +60,7 @@ class StoreItem extends Component {
       <View style={{ flex: 1 }}>
         <FlatList
           horizontal
-          style={{ flex: 1 }}
+          style={{ flex: 3 }}
           data={this.state.data}
           renderItem={uri => this.renderItem(uri)}
         />
