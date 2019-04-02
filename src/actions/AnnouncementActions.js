@@ -61,6 +61,7 @@ export const titleAction = (text) => (
 );
 
 export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
+  const key = id;
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let date = new Date();
@@ -70,10 +71,10 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
     if (img) {
       if (isDefault) {
           const uri = img;
-          const announcementData = { title, info, uri, isDefault, uid, dateString, id };
+          const announcementData = { title, info, uri, isDefault, uid, dateString, key };
           Promise.all([
-            firebase.database().ref(`/Announcements/${id}`).set(announcementData),
-            firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+            firebase.database().ref(`/Announcements/${key}`).set(announcementData),
+            firebase.database().ref(`/Users/${uid}/Announcements/${key}`).set(announcementData)
           ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
             .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
       } else {
@@ -94,10 +95,10 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
                   imageRef.getDownloadURL()
                     .then((uri) => {
                       const announcementData = {
-                        title, info, uri, isDefault, uid, dateString, id };
+                        title, info, uri, isDefault, uid, dateString, key };
                         Promise.all([
-                          firebase.database().ref(`/Announcements/${id}`).set(announcementData),
-                          firebase.database().ref(`/Users/${uid}/Announcements/${id}`)
+                          firebase.database().ref(`/Announcements/${key}`).set(announcementData),
+                          firebase.database().ref(`/Users/${uid}/Announcements/${key}`)
                           .set(announcementData)
                         ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
                           .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
@@ -114,11 +115,10 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
         });
       }
     } else { // for allText announcements
-      const announcementData = { title, info, isDefault, uid, dateString, id };
-
+      const announcementData = { title, info, isDefault: null, uid, dateString, key };
       Promise.all([
-        firebase.database().ref(`/Announcements/${id}`).set(announcementData),
-        firebase.database().ref(`/Users/${uid}/Announcements/${id}`).set(announcementData)
+        firebase.database().ref(`/Announcements/${key}`).set(announcementData),
+        firebase.database().ref(`/Users/${uid}/Announcements/${key}`).set(announcementData)
       ]).then(() => dispatch({ type: EDIT_ANNOUNCEMENT }))
       .catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
     }

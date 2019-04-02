@@ -80,17 +80,17 @@ class UsersAnnouncements extends Component {
         .on('value', snapshot => {
           firebaseData = snapshot.val();
           // firebaseData.keys().map() or .forEach()
-          for (const key in firebaseData) {
+          Object.keys(firebaseData).forEach(key => {
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
               firebaseData[key].key = key; // named key for FlatList
               array[i] = firebaseData[key];
               i++;
             }
-          }
+
           this.setState({ announcementArray: array.reverse() });
-        })
-    );
+        });
+      }));
   }
 
   deleteAnnouncement() {
@@ -102,10 +102,12 @@ class UsersAnnouncements extends Component {
       firebase.database().ref(`/Announcements/${item.key}`).remove(),
       index.deleteObject(item.key)
     ]).then(() => {
-      this.getUsersEvents();
-      this.setState({ item: {}, deleteFail: false });
+      this.setState({ item: {}, deleteFail: false, announcementArray: {} });
+      this.getUsersAnnouncements();
     })
-    .catch(() => this.setState({ deleteFail: true, item: {} }));
+    .catch(() => {
+      this.setState({ deleteFail: true, item: {} });
+    });
   }
 
   handleRefresh = () => {
@@ -135,7 +137,7 @@ class UsersAnnouncements extends Component {
         button info={item.info} title={item.title} time={item.dateString}
         // onEditPress needs the fat arrow else it gets called but for some reason onDelPress can't
         onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
-        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
+        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
       >
         {item.info}
       </AnnounceCardAllText>

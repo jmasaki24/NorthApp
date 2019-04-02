@@ -63,7 +63,8 @@ export const addEventPeriod = (hour) => (
   }
 );
 
-export const editEvent = ({ date, title, location, info, hour, minute, period, key }) => {
+export const editEvent = ({ date, title, location, info, hour, minute, period, id }) => {
+  const key = id;
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
   let time;

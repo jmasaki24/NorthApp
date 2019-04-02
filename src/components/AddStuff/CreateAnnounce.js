@@ -145,7 +145,7 @@ class CAnnounce extends Component {
           </Confirm>
         </Card>
         <Modal
-          visible={this.props.isPushingA}
+          visible={false} // this.props.isPushingA
           transparent
           onRequestClose={() => this.props.pushingAnnouncement(false)}
         >

@@ -31,11 +31,12 @@ class EEvent extends Component {
     };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
+    const id = this.props.navigation.getParam('id', 'Id/key not found');
     this.props.addEventDate(item.date);
     this.props.addEventTitle(item.title);
     this.props.addEventLocation(item.location);
     this.props.addEventInfo(item.info);
-    this.props.addKey(item.key);
+    this.props.addKey(id);
   }
 
   componentDidMount() {
@@ -57,9 +58,9 @@ class EEvent extends Component {
   }
 
   onAccept() {
-    const { date, title, location, info, hour, minute, period, key } = this.props;
+    const { date, title, location, info, hour, minute, period, id } = this.props;
     this.props.pushingEvent(true);
-    this.props.editEvent({ date, title, location, info, hour, minute, period, key });
+    this.props.editEvent({ date, title, location, info, hour, minute, period, id });
     this.setState({ showModal: false });
   }
 
@@ -216,6 +217,7 @@ class EEvent extends Component {
           label='Title:'
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
+          multiline
         />
         <CardSection style={styles.inputSection}>
           <Text style={styles.labelStyle}>Date:</Text>
@@ -228,13 +230,14 @@ class EEvent extends Component {
           </Button>
         </CardSection>
         {this.selectTime()}
-        <CardSection style={{ justifyContent: 'center' }}>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
             onValueChange={this.onSwitchChange.bind(this)}
             value={this.state.switch}
             style={{ flex: 0 }}
             thumbColor='#02BAFB'
+            trackColor={{ true: '#B9D6F2' }}
           />
         </CardSection>
         <Input
@@ -242,12 +245,14 @@ class EEvent extends Component {
           label='Location:'
           onChangeText={this.onLocationChange.bind(this)}
           value={this.props.location}
+          multiline
         />
         <Input
           placeholder="Describe this event"
           label='Desciption:'
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
+          multiline
         />
         {this.renderButton()}
         <Confirm
@@ -258,7 +263,7 @@ class EEvent extends Component {
           Are you sure you would like to change this event?
         </Confirm>
         <Modal
-          visible={this.props.isPushingE}
+          visible={false}
           transparent
           onRequestClose={() => this.props.pushingEvent(false)}
         >
@@ -329,8 +334,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, isPushingE, hour, minute, period, key, error } = state.event;
-  return { date, title, location, info, isPushingE, hour, minute, period, key, error };
+  const { date, title, location, info, isPushingE, hour, minute, period, id, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, id, error };
 };
 
 const EditEvent = withNavigation(connect(mapStateToProps, {

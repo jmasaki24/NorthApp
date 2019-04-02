@@ -108,7 +108,7 @@ class CalendarItems extends PureComponent {
 
   renderItem(item) {
     return (
-      <View key={item.id} style={[styles.item]}>
+      <View key={item.key} style={[styles.item]}>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Text style={styles.itemTitleStyle}>{item.title}</Text>
           <Icon.Button
@@ -135,6 +135,7 @@ class CalendarItems extends PureComponent {
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyData.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
+        theme={{ agendaKnobColor: 'blue' }}
       />
     );
   }
