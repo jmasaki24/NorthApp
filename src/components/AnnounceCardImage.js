@@ -34,7 +34,7 @@ const renderBottomSection = (props) => {
   );
   }
   return (
-    <CardSection style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+    <CardSection style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
       <Text style={{ fontSize: 14 }}>
         {props.time}
       </Text>
