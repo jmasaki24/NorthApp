@@ -28,12 +28,11 @@ class EAnnounce extends Component {
     console.log(this.props);
   }
 
-  /**
+
   componentWillUnmount() {
-    console.log('um ok');
     this.props.clear();
   }
-*/
+
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;
     this.props.editAnnouncement({ title, info, img, isDefault, id });
@@ -63,7 +62,8 @@ class EAnnounce extends Component {
       return (
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
-            style={{ height: height / 4, width: width / 2.5 }}
+            resozeMode="contain"
+            style={{ height: height / 4, flex: 1 }}
             source={{ uri: this.props.img }}
           />
         </CardSection>
@@ -121,6 +121,7 @@ class EAnnounce extends Component {
             multiline
             onChangeText={this.onTitleChange.bind(this)}
             value={this.props.title}
+            returnKeyType="done"
           />
           <Input
             label="Text"

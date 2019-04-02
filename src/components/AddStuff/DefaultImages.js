@@ -52,7 +52,7 @@ class List extends Component {
 
         this.props.addImage(response.uri);
         this.props.isDefaultImage(false);
-        this.props.navigation.navigate('CreateAnnounce');
+        this.props.navigation.goBack();
       }
     });
   }
