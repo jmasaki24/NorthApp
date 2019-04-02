@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import {
-  Animated, Dimensions, Easing, Modal, Picker, SafeAreaView,
+  Animated, Dimensions, Easing, KeyboardAvoidingView, Modal, Picker, SafeAreaView,
   ScrollView, StyleSheet, Switch, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -210,7 +210,7 @@ class EEvent extends Component {
       }).start();
     }
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} scrollEnabled={false} >
         {this.renderCalendar()}
         <Input
           placeholder="Event Name"
@@ -218,6 +218,7 @@ class EEvent extends Component {
           onChangeText={this.onTitleChange.bind(this)}
           value={this.props.title}
           multiline
+          returnKeyType='done'
         />
         <CardSection style={styles.inputSection}>
           <Text style={styles.labelStyle}>Date:</Text>
@@ -246,6 +247,7 @@ class EEvent extends Component {
           onChangeText={this.onLocationChange.bind(this)}
           value={this.props.location}
           multiline
+          returnKeyType="done"
         />
         <Input
           placeholder="Describe this event"
@@ -253,6 +255,7 @@ class EEvent extends Component {
           onChangeText={this.onInfoChange.bind(this)}
           value={this.props.info}
           multiline
+          returnKeyType="done"
         />
         {this.renderButton()}
         <Confirm

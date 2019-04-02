@@ -54,7 +54,7 @@ class List extends Component {
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
         this.props.addImage(response.uri);
-        this.props.navigation.navigate('CreateAnnounce');
+        this.props.navigation.goBack();
       }
     });
   }

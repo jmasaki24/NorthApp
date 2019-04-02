@@ -120,7 +120,13 @@ class UsersEvents extends Component {
           <Text style={{ fontSize: 18, flex: 1, color: 'black' }}>{item.info}</Text>
         </CardSection>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around' }}>
+          <View style={{ flex: -1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+            <View style={{ flex: -1 }}>
+              <Text style={{ fontSize: 14 }}>
+                {item.date} {item.time}
+              </Text>
+            </View>
+            <View style={{ flex: 1 }} />
             <Icon.Button
               name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
               onPress={() => this.props.navigation.navigate('EditEvent', { item, id: item.key })}
@@ -130,12 +136,7 @@ class UsersEvents extends Component {
               onPress={() => this.setState({ showModal: true, item: { item } })}
             />
           </View>
-          <View style={{ flex: 1 }} />
-          <View style={{ flex: -1 }}>
-            <Text style={{ fontSize: 14 }}>
-              {item.date} {item.time}
-            </Text>
-          </View>
+
         </CardSection>
       </Card>
     );

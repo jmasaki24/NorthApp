@@ -123,7 +123,7 @@ class UsersAnnouncements extends Component {
         <AnnounceCardImage
           button info={item.info} title={item.title} time={item.dateString}
           onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
-          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item })}
+          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
         >
           <Image
             style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}

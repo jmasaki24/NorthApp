@@ -61,6 +61,8 @@ export const titleAction = (text) => (
 );
 
 export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
+  console.log('edit');
+  console.log(id);
   const key = id;
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
@@ -218,7 +220,7 @@ export const pushingAnnouncement = (bool) => (
 
 // the following goes to HPannouncement reducer
 
-// don't try to fix the únexpected block statement' action must not return a promise
+// don't try to fix the 'unexpected block statement' as action must not return a promise
 //  (.once() returns a promise)
 export const getAnnouncements = () => {
   return (dispatch) => {
