@@ -50,6 +50,11 @@ export const isLoading = (bool) => ({
   });
 
 export const pollAuth = (input) => {
+  if (input === '') {
+    return (dispatch) => {
+      dispatch({ type: POLL_LOGIN, payload: { auth: false } });
+    };
+  }
   let exists = false;
   let voterObj = {};
   return (dispatch) => {

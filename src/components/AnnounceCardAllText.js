@@ -13,7 +13,7 @@ import { Card, CardSection } from './common';
 class AnnounceCardAllText extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { expand: 'More', numLinesDescrip: 10 };
+    this.state = { expand: 'More', numLinesDescrip: 8 };
     this.expander = this.expander.bind(this);
   }
 
@@ -21,7 +21,7 @@ class AnnounceCardAllText extends PureComponent {
     if (this.state.expand === 'More') {
       this.setState({ expand: 'Less', numLinesDescrip: 50 }); //arbitrary number
     } else {
-      this.setState({ expand: 'More', numLinesDescrip: 10 });
+      this.setState({ expand: 'More', numLinesDescrip: 8 });
     }
   }
 

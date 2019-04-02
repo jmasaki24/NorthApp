@@ -34,11 +34,11 @@ class PLogin extends Component {
 
   errorMes() {
     const { errorText } = styles;
-    if (this.props.voter && this.props.auth !== true) {
+    if (this.props.auth === false) {
         return (
           <View>
             <Text style={errorText}>
-              Sorry, couldn't login for reasons
+              Sorry, couldn't login
             </Text>
           </View>
         );

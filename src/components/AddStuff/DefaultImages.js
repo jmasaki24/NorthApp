@@ -38,31 +38,26 @@ class List extends Component {
   selectDevicePhoto() {
     const options = {
       quality: 1.0,
-      maxWidth: 500, //need to change
-      maxHeight: 500,
       storageOptions: {
         skipBackup: true,
       },
     };
-
-    console.log('selectDevicePhoto');
-
     ImagePicker.showImagePicker(options, (response) => {
-          console.log('Response = ', response);
+      // console.log('Response = ', response);
 
-          if (response.didCancel) {
-            console.log('User cancelled photo picker');
-          } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-          } else {
-            // You can also display the image using data:
-            // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-            this.props.addImage(response.uri);
-            this.props.navigation.navigate('CreateAnnounce');
-          }
-        });
+        this.props.addImage(response.uri);
+        this.props.navigation.navigate('CreateAnnounce');
       }
+    });
+  }
 
   renderItem({ item }) {
     const { uri, text } = item;

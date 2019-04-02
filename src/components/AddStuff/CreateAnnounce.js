@@ -113,6 +113,7 @@ class CAnnounce extends Component {
             onChangeText={this.onTitleChange.bind(this)}
             value={this.props.title}
             inputFlexNum={4}
+            returnKeyType="done"
           />
           <Input
             label="Text"
@@ -121,6 +122,7 @@ class CAnnounce extends Component {
             onChangeText={this.onInfoChange.bind(this)}
             value={this.props.info}
             inputFlexNum={4}
+            returnKeyType="done"
           />
           {this.selectedImageDisplay()}
           <CardSection>
