@@ -44,16 +44,14 @@ class List extends Component {
     };
     ImagePicker.showImagePicker(options, (response) => {
       // console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+      if (response.error) {
+        this.props.navigation.navigate('CreateAnnounce');
       } else {
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
         this.props.addImage(response.uri);
+        this.props.isDefaultImage(false);
         this.props.navigation.navigate('CreateAnnounce');
       }
     });

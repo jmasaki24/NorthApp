@@ -77,7 +77,7 @@ class UsersAnnouncements extends Component {
     let i = 0;
     return (
       firebase.database().ref(`/Users/${uid}/Announcements`)
-        .on('value', snapshot => {
+        .once('value', snapshot => {
           firebaseData = snapshot.val();
           // firebaseData.keys().map() or .forEach()
           Object.keys(firebaseData).forEach(key => {
@@ -118,6 +118,7 @@ class UsersAnnouncements extends Component {
   }
 
   renderItem({ item }) {
+    console.log(item);
     if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
