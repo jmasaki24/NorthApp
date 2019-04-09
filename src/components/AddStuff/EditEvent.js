@@ -27,7 +27,8 @@ class EEvent extends Component {
       showModal: false,
       showCalendar: false,
       switch: false,
-      failMsgHeight: new Animated.Value(0)
+      failMsgHeight: new Animated.Value(0),
+      waitModalVisible: this.props.isPushingE,
     };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
@@ -266,11 +267,11 @@ class EEvent extends Component {
           Are you sure you would like to change this event?
         </Confirm>
         <Modal
-          visible={false}
+          visible={this.state.waitModalVisible}
           transparent
           onRequestClose={() => this.props.pushingEvent(false)}
         >
-          <SafeAreaView style={styles.pushingViewStyle}>
+          <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
               <Spinner style={{ flex: -1 }} />
               <View style={{ flex: -1 }}>
@@ -313,13 +314,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     flex: 1,
   },
-  pushingViewStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.55)',
-    position: 'relative',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   textStyle: {
     color: 'gray',
     alignSelf: 'center',
@@ -333,6 +327,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     flex: 1,
+  },
+  waitModalViewStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
+    position: 'relative',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

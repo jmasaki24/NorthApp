@@ -16,7 +16,11 @@ const { height, width } = Dimensions.get('window');
 class EAnnounce extends Component {
   constructor(props) {
     super(props);
-    this.state = { showModal: false, failMsgHeight: new Animated.Value(0) };
+    this.state = {
+      showModal: false,
+      failMsgHeight: new Animated.Value(0),
+      waitModalVisible: this.props.isPushingA
+    };
 
     const item = this.props.navigation.getParam('item', 'Item Not Found');
     const id = this.props.navigation.getParam('id', 'Id/key not found');
@@ -25,7 +29,6 @@ class EAnnounce extends Component {
     this.props.addImage(item.uri);
     this.props.addKey(id);
     this.props.isDefaultImage(item.isDefault);
-    console.log(this.props);
   }
 
 
@@ -151,11 +154,11 @@ class EAnnounce extends Component {
           </Confirm>
         </Card>
         <Modal
-          visible={this.props.isPushingA}
+          visible={this.state.waitModalVisible}
           transparent
           onRequestClose={() => this.props.pushingAnnouncement(false)}
         >
-          <SafeAreaView style={styles.pushingViewStyle}>
+          <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
               <Spinner style={{ flex: -1 }} />
               <View style={{ flex: -1 }}>
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
-  pushingViewStyle: {
+  waitModalViewStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,

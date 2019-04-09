@@ -44,6 +44,9 @@ class UsersEvents extends Component {
       failMsgHeight: new Animated.Value(0),
       deleteFail: false,
     };
+    this.setModalVisible = this.setModalVisible.bind(this);
+    this.onAccept = this.onAccept.bind(this);
+    this.onDecline = this.onDecline.bind(this);
   }
 
   componentWillMount() {
@@ -163,7 +166,7 @@ class UsersEvents extends Component {
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Error: couldn't do it
+            Error
           </Text>
         </Animated.View>
         <FlatList
@@ -175,14 +178,14 @@ class UsersEvents extends Component {
         />
         <Confirm
           visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
+          onAccept={this.onAccept}
+          onDecline={this.onDecline}
         >
           Are you sure you would like to delete this content? This is permanent.
         </Confirm>
         <Modal
           visible={this.state.imageModal}
-          onRequestClose={() => this.setModalVisible}
+          onRequestClose={this.setModalVisible}
         >
           <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
             <TouchableOpacity

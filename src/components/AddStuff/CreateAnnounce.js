@@ -18,7 +18,9 @@ const { width, height } = Dimensions.get('window');
 
 // named CAnnounce because have to use another name in the export. yes, it's weird.
 class CAnnounce extends Component {
-  state = { showModal: false, failMsgHeight: new Animated.Value(0) };
+  state = {
+    showModal: false, failMsgHeight: new Animated.Value(0), waitModalVisible: this.props.isPushingA
+  };
 
   onAccept() {
     const { title, info, img, isDefault } = this.props;
@@ -82,6 +84,8 @@ class CAnnounce extends Component {
   }
 
   render() {
+    console.log(this.props);
+    console.log(this.state);
     const { failMsgHeight } = this.state;
     if (this.props.error) {
       // animate the showing of the failMSG
@@ -145,11 +149,11 @@ class CAnnounce extends Component {
           </Confirm>
         </Card>
         <Modal
-          visible={false} // this.props.isPushingA
+          visible={this.state.waitModalVisible}
           transparent
           onRequestClose={() => this.props.pushingAnnouncement(false)}
         >
-          <SafeAreaView style={styles.pushingViewStyle}>
+          <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
               <Spinner style={{ flex: -1 }} />
               <View style={{ flex: -1 }}>
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
-  pushingViewStyle: {
+  waitModalViewStyle: {
     backgroundColor: 'rgba(0, 0, 0, 0.55)',
     position: 'relative',
     flex: 1,

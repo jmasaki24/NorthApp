@@ -45,7 +45,8 @@ class UsersAnnouncements extends Component {
       failMsgHeight: new Animated.Value(0),
       deleteFail: false,
     };
-    // this.setModalVisible = this.setModalVisible.bind(this);
+    this.setImageModalVisible = this.setImageModalVisible.bind(this);
+    this.setDeleteModalVisible = this.setDeleteModalVisible.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,7 @@ class UsersAnnouncements extends Component {
   }
 
   setDeleteModalVisible(bool, item) {
+    console.log('smv');
     this.setState({ showModal: bool, item });
   }
 
@@ -79,11 +81,10 @@ class UsersAnnouncements extends Component {
       firebase.database().ref(`/Users/${uid}/Announcements`)
         .once('value', snapshot => {
           firebaseData = snapshot.val();
-          // firebaseData.keys().map() or .forEach()
           Object.keys(firebaseData).forEach(key => {
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
-              firebaseData[key].key = key; // named key for FlatList
+              firebaseData[key].key = key; // named "key" for FlatList
               array[i] = firebaseData[key];
               i++;
             }
@@ -118,12 +119,11 @@ class UsersAnnouncements extends Component {
   }
 
   renderItem({ item }) {
-    console.log(item);
     if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
           button info={item.info} title={item.title} time={item.dateString}
-          onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+          onDelPress={() => this.setDeleteModalVisible(true, item)}
           onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
         >
           <Image
@@ -137,7 +137,7 @@ class UsersAnnouncements extends Component {
       <AnnounceCardAllText
         button info={item.info} title={item.title} time={item.dateString}
         // onEditPress needs the fat arrow else it gets called but for some reason onDelPress can't
-        onDelPress={this.setDeleteModalVisible.bind(this, true, item)}
+        onDelPress={() => this.setDeleteModalVisible(true, item)}
         onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
       >
         {item.info}
@@ -166,7 +166,7 @@ class UsersAnnouncements extends Component {
       <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#FFF' }}>
       <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
         <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-          Error: couldn't do it
+          Error
         </Text>
       </Animated.View>
         <FlatList
