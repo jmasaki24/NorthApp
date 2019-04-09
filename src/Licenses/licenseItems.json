@@ -20,7 +20,7 @@
     "licenses": "MIT",
     "version": "5.3.2",
     "repository": "https://github.com/algolia/react-instantsearch",
-    "licenseUrl": "https://github.com/algolia/react-instantsearch",
+    "licenseUrl": "https://github.com/algolia/react-instantsearch/raw/master/LICENSE",
     "parents": "nashuanorth"
   },
   {
@@ -104,7 +104,7 @@
     "licenses": "Apache-2.0",
     "version": "5.0.3",
     "repository": "https://github.com/firebase/firebase-js-sdk",
-    "licenseUrl": "https://github.com/firebase/firebase-js-sdk",
+    "licenseUrl": "https://github.com/firebase/firebase-js-sdk/raw/master/LICENSE",
     "parents": "nashuanorth"
   },
   {

@@ -46,7 +46,7 @@ export default class LicensesListItem extends Component {
             </TouchableOpacity>}
             <TouchableOpacity
               underlayColor={'#eeeeee'}
-              onPress={() => Linking.openURL(repository)}
+              onPress={() => Linking.openURL(licenseUrl)}
               style={styles.item}
             >
               <View style={{ maxWidth: '90%' }}>
