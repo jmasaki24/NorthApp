@@ -31,16 +31,12 @@ class UsersEvents extends Component {
       refreshing: false,
       imageModal: false,
       imageUrl: null,
-      eventArray: {},
-      showModal: false,
-      item: {
-        inital: {
+      eventArray: [{
         title: 'Not Connected',
         info: 'Please wait or connect to the Internet',
-        img: '',
-        isDefault: null
-        }
-      },
+      }],
+      showModal: false,
+
       failMsgHeight: new Animated.Value(0),
       deleteFail: false,
     };

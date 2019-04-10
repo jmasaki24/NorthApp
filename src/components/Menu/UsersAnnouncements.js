@@ -32,16 +32,13 @@ class UsersAnnouncements extends Component {
       refreshing: false,
       imageModal: false,
       imageUrl: null,
-      announcementArray: {},
+      announcementArray: [{
+        title: 'Not Connected',
+        info: 'Please wait or connect to the Internet',
+        img: '',
+        isDefault: null,
+      }],
       showModal: false,
-      item: {
-        inital: {
-          title: 'Not Connected',
-          info: 'Please wait or connect to the Internet',
-          img: '',
-          isDefault: null
-        }
-      },
       failMsgHeight: new Animated.Value(0),
       deleteFail: false,
     };
@@ -63,7 +60,6 @@ class UsersAnnouncements extends Component {
   }
 
   setDeleteModalVisible(bool, item) {
-    console.log('smv');
     this.setState({ showModal: bool, item });
   }
 
@@ -81,6 +77,7 @@ class UsersAnnouncements extends Component {
       firebase.database().ref(`/Users/${uid}/Announcements`)
         .once('value', snapshot => {
           firebaseData = snapshot.val();
+          console.log(firebaseData);
           Object.keys(firebaseData).forEach(key => {
             const has = firebaseData[key].hasOwnProperty;
             if (has) {
@@ -88,7 +85,6 @@ class UsersAnnouncements extends Component {
               array[i] = firebaseData[key];
               i++;
             }
-
           this.setState({ announcementArray: array.reverse() });
         });
       }));
@@ -146,6 +142,7 @@ class UsersAnnouncements extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { failMsgHeight, deleteFail } = this.state;
     if (deleteFail) {
       // animate the showing of the failMSG
