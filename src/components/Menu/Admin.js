@@ -75,6 +75,12 @@ class Admin extends PureComponent {
         return this.renderHome();
       case false:
         return <LoginForm />;
+      case null:
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Sorry, could not connect</Text>
+          </View>
+      );
       default:
         return <Spinner />;
     }
