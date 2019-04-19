@@ -84,15 +84,14 @@ class CAnnounce extends Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.state);
     const { failMsgHeight } = this.state;
     if (this.props.error) {
       // animate the showing of the failMSG
       failMsgHeight.setValue(0); // reset the animated value
-      Animated.spring(failMsgHeight, {
+      Animated.timing(failMsgHeight, {
         toValue: (height / 20), // proportional error msg
-        friction: 4
+        duration: 1000,
+        easing: Easing.cubic,
       }).start();
     } else {
       // animate the hiding of the failMSG
