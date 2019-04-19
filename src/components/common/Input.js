@@ -32,6 +32,7 @@ const Input = ({
       <Text numberOfLines={1} style={labelStyle}>{label}</Text>
         <TextInput
           autocorrect={autocorrect || true}
+          blurOnSubmit
           keyboardType={keyboardType || 'default'}
           onChange={onChange}
           onChangeText={onChangeText}

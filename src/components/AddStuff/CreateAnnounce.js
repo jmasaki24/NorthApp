@@ -61,7 +61,7 @@ class CAnnounce extends Component {
 
   renderButton() {
     //USE react native API NetInfo in conditional to determine if push should be done
-    if ((this.props.title === '') && (this.props.info === '')) {
+    if ((this.props.title.trim() === '')) {
       return (
         <CardSection>
           <View style={styles.viewStyle}>
@@ -113,20 +113,22 @@ class CAnnounce extends Component {
           <Input
             label="Title"
             placeholder="Title"
+            blurOnSubmit
+            inputFlexNum={4}
             multiline
             onChangeText={this.onTitleChange.bind(this)}
-            value={this.props.title}
-            inputFlexNum={4}
             returnKeyType="done"
+            value={this.props.title}
           />
           <Input
             label="Text"
             placeholder="Info Goes Here"
+            blurOnSubmit
+            inputFlexNum={4}
             multiline
             onChangeText={this.onInfoChange.bind(this)}
-            value={this.props.info}
-            inputFlexNum={4}
             returnKeyType="done"
+            value={this.props.info}
           />
           {this.selectedImageDisplay()}
           <CardSection>
@@ -137,7 +139,7 @@ class CAnnounce extends Component {
             >
               Select An Image
             </Button>
-          </CardSection>
+            </CardSection>
           {this.renderButton()}
 
           <Confirm

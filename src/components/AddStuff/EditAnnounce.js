@@ -121,16 +121,21 @@ class EAnnounce extends Component {
           <Input
             label="Title"
             placeholder="Title"
+            blurOnSubmit
+            inputFlexNum={4}
             multiline
             onChangeText={this.onTitleChange.bind(this)}
-            value={this.props.title}
             returnKeyType="done"
+            value={this.props.title}
           />
           <Input
             label="Text"
             placeholder="Info Goes Here"
+            blurOnSubmit
+            inputFlexNum={4}
             multiline
             onChangeText={this.onInfoChange.bind(this)}
+            returnKeyType="done"
             value={this.props.info}
           />
           {this.selectedImageDisplay()}

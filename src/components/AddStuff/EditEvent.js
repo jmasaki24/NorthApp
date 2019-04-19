@@ -211,15 +211,17 @@ class EEvent extends Component {
       }).start();
     }
     return (
-      <ScrollView style={{ flex: 1 }} scrollEnabled={false} >
+      <ScrollView style={{ flex: 1 }}>
         {this.renderCalendar()}
         <Input
-          placeholder="Event Name"
           label='Title:'
-          onChangeText={this.onTitleChange.bind(this)}
-          value={this.props.title}
+          placeholder="Event Name"
+          blurOnSubmit
+          inputFlexNum={4}
           multiline
-          returnKeyType='done'
+          onChangeText={this.onTitleChange.bind(this)}
+          returnKeyType="done"
+          value={this.props.title}
         />
         <CardSection style={styles.inputSection}>
           <Text style={styles.labelStyle}>Date:</Text>
@@ -245,18 +247,22 @@ class EEvent extends Component {
         <Input
           placeholder="e.g. B130, Auditorium"
           label='Location:'
-          onChangeText={this.onLocationChange.bind(this)}
-          value={this.props.location}
+          blurOnSubmit
+          inputFlexNum={3}
           multiline
+          onChangeText={this.onLocationChange.bind(this)}
           returnKeyType="done"
+          value={this.props.location}
         />
         <Input
           placeholder="Describe this event"
           label='Desciption:'
-          onChangeText={this.onInfoChange.bind(this)}
-          value={this.props.info}
+          blurOnSubmit
+          inputFlexNum={3}
           multiline
+          onChangeText={this.onInfoChange.bind(this)}
           returnKeyType="done"
+          value={this.props.info}
         />
         {this.renderButton()}
         <Confirm

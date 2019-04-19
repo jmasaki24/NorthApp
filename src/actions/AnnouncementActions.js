@@ -191,7 +191,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
           .catch((error) => {
             reject(error);
           });
-        });
+        }).catch((err) => console.log(err));
       }
     } else {
       const newAnnouncementKey =

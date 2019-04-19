@@ -43,7 +43,7 @@ class List extends Component {
       },
     };
     ImagePicker.showImagePicker(options, (response) => {
-      // console.log('Response = ', response);
+      console.log('Response = ', response);
       if (response.error) {
         this.props.navigation.navigate('CreateAnnounce');
       } else {
@@ -89,7 +89,7 @@ class List extends Component {
           <Button
             buttonStyle={styles.buttonStyle}
             textStyle={{ color: 'black' }}
-            onPress={this.selectDevicePhoto.bind(this)}
+            onPress={this.selectDevicePhoto}
           >
             Select Image From Camera Roll
           </Button>
