@@ -61,8 +61,6 @@ export const titleAction = (text) => (
 );
 
 export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
-  console.log('edit');
-  console.log(id);
   const key = id;
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
@@ -87,7 +85,7 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
         const mime = 'image/jpeg';
         const name = `${+new Date()}-${img}`;
         return new Promise((resolve, reject) => {
-          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file://', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
             .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
@@ -159,7 +157,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
         const mime = 'image/jpeg';
         const name = `${+new Date()}-${img}`;
         return new Promise((resolve, reject) => {
-          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file://', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
           .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
@@ -210,13 +208,12 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   };
 };
 
-export const pushingAnnouncement = (bool) => (
+export const isPushing = (bool) => (
   {
     type: IS_PUSHING_A,
     payload: bool
   }
 );
-
 
 // the following goes to HPannouncement reducer
 

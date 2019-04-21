@@ -21,7 +21,8 @@ const INITIAL_STATE = {
   photoKey: null,
   isPushingA: false,
   id: '',
-  error: false,
+  isError: false,
+  isSuccess: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -39,11 +40,11 @@ export default (state = INITIAL_STATE, action) => {
     case DEFAULT_IMAGE_BOOL:
       return { ...state, isDefault: action.payload };
     case EDIT_ANNOUNCEMENT:
-      return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
+      return { ...state, ...INITIAL_STATE, isPushingA: false, isError: false, isSuccess: true };
     case PUSH_ANNOUNCEMENT:
-      return { ...state, ...INITIAL_STATE, isPushingA: false, error: false };
+      return { ...state, ...INITIAL_STATE, isPushingA: false, isError: false, isSuccess: true };
     case PUSH_ANNOUNCEMENT_FAIL:
-      return { ...state, error: true, isPushingA: false };
+      return { ...state, isError: true, isPushingA: false };
     case IS_PUSHING_A:
       return { ...state, isPushingA: action.payload };
     default:
