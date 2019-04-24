@@ -13,7 +13,7 @@ import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo, addKey, clear,
-  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingEvent,
+  addEventHour, addEventMinute, addEventPeriod, editEvent, isEventPushing,
 } from '../../actions';
 
 import { Button, CardSection, Confirm, Input, Spinner } from '../common';
@@ -69,7 +69,7 @@ class EEvent extends Component {
 
   onAccept() {
     const { date, title, location, info, hour, minute, period, id } = this.props;
-    this.props.pushingEvent(true);
+    this.props.isEventPushing(true);
     this.props.editEvent({ date, title, location, info, hour, minute, period, id });
     this.setState({ showModal: false });
   }
@@ -274,7 +274,7 @@ class EEvent extends Component {
         <Modal
           visible={this.state.waitModalVisible}
           transparent
-          onRequestClose={() => this.props.pushingEvent(false)}
+          onRequestClose={() => this.props.isEventPushing(false)}
         >
           <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -356,7 +356,7 @@ const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   editEvent,
-  pushingEvent,
+  isEventPushing,
   addKey,
   clear
 })(EEvent));

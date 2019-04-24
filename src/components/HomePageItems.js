@@ -64,30 +64,19 @@ class HomePageItems extends Component {
   }
 
   renderItem({ item }) {
-    if (item.uri !== '') {
-      if (item.isDefault === false) {
-        return (
-          <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
-            <TouchableOpacity
-              onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
-            >
-              <Image
-                style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-                source={{ uri: item.uri }}
-              />
-            </TouchableOpacity>
-          </AnnounceCardImage>
-        );
-      } else if (item.isDefault === true) {
-        return (
-          <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
+    if (item.uri) {
+      return (
+        <AnnounceCardImage title={item.title} time={item.dateString} info={item.info}>
+          <TouchableOpacity
+            onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
+          >
             <Image
               style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
               source={{ uri: item.uri }}
             />
-          </AnnounceCardImage>
-        );
-      }
+          </TouchableOpacity>
+        </AnnounceCardImage>
+      );
     }
     return (
       <AnnounceCardAllText title={item.title} time={item.dateString}>

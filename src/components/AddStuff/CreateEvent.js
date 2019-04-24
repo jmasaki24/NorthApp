@@ -13,7 +13,7 @@ import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent, pushingEvent,
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, isEventPushing,
 } from '../../actions';
 import { Button, CardSection, Confirm, Input, Spinner } from '../common';
 
@@ -42,7 +42,7 @@ class CEvent extends Component {
 
   onAccept() {
     const { date, title, location, info, hour, minute, period } = this.props;
-    this.props.pushingEvent(true);
+    this.props.isEventPushing(true);
     this.props.pushEvent({ date, title, location, info, hour, minute, period });
     this.setState({ showModal: false });
   }
@@ -247,7 +247,7 @@ class CEvent extends Component {
         <Modal
           visible={this.state.waitModalVisible}
           transparent
-          onRequestClose={() => this.props.pushingEvent(false)}
+          onRequestClose={() => this.props.isEventPushing(false)}
         >
           <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -329,7 +329,7 @@ const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   pushEvent,
-  pushingEvent,
+  isEventPushing,
 })(CEvent));
 
 export { CreateEvent };

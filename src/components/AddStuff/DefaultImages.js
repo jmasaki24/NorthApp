@@ -45,9 +45,9 @@ class List extends Component {
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
       if (response.error) {
-        this.props.navigation.navigate('CreateAnnounce');
+        this.props.navigation.goBack();
       } else {
-        // You can also display the image using data:
+        // You can also display the image using data, although need createObjectURL() to work
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
         this.props.addImage(response.uri);

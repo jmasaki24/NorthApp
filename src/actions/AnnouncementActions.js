@@ -28,7 +28,7 @@ export const clear = () => (
 export const addImage = (uri) => (
   {
     type: ADD_IMAGE,
-    payload: uri,
+    payload: uri,isAnnouncePushing
   }
 );
 
@@ -208,7 +208,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   };
 };
 
-export const isPushing = (bool) => (
+export const isAnnouncePushing = (bool) => (
   {
     type: IS_PUSHING_A,
     payload: bool

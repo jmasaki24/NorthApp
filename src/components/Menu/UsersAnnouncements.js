@@ -46,26 +46,18 @@ class UsersAnnouncements extends Component {
     this.setDeleteModalVisible = this.setDeleteModalVisible.bind(this);
   }
 
-  componentDidMount() {
-    this.getUsersAnnouncements();
-  }
+  componentDidMount() { this.getUsersAnnouncements(); }
 
   onAccept() {
     this.deleteAnnouncement();
     this.setState({ showModal: false });
   }
 
-  onDecline() {
-    this.setState({ showModal: false, item: {} });
-  }
+  onDecline() { this.setState({ showModal: false, item: {} }); }
 
-  setDeleteModalVisible(bool, item) {
-    this.setState({ showModal: bool, item });
-  }
+  setDeleteModalVisible(bool, item) { this.setState({ showModal: bool, item }); }
 
-  setImageModalVisible(modal, url) {
-    this.setState({ imageModal: modal, imageUrl: url });
-  }
+  setImageModalVisible(modal, url) { this.setState({ imageModal: modal, imageUrl: url }); }
 
   getUsersAnnouncements() {
     const { currentUser } = firebase.auth();
@@ -120,7 +112,8 @@ class UsersAnnouncements extends Component {
         <AnnounceCardImage
           button info={item.info} title={item.title} time={item.dateString}
           onDelPress={() => this.setDeleteModalVisible(true, item)}
-          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
+          onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
+            //() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
         >
           <Image
             style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
@@ -142,7 +135,6 @@ class UsersAnnouncements extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { failMsgHeight, deleteFail } = this.state;
     if (deleteFail) {
       // animate the showing of the failMSG

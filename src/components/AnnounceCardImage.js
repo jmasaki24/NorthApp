@@ -5,7 +5,7 @@
 */
 
 import React, { PureComponent } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
@@ -41,8 +41,11 @@ const renderBottomSection = (props) => {
     </CardSection>
   );
 };
-// title, uri, children, tags ; are props
+// title, uri, children, ; are props
 class AnnounceCardImage extends PureComponent {
+  componentWillMount() {
+    Image.getSize(this.props.uri)
+  }
   render() {
     return (
       <Card style={{ elevation: 5, marginHorizontal: 10 }}>
@@ -51,9 +54,16 @@ class AnnounceCardImage extends PureComponent {
             {this.props.title}
           </Text>
         </CardSection>
-        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
+        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0, flexDirection: fd }}>
           <View style={{ flex: 1 }}>
-            {this.props.children}
+            <TouchableOpacity
+              onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
+            >
+              <Image
+                style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+                source={{ uri: this.props.item.uri }}
+              />
+            </TouchableOpacity>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>

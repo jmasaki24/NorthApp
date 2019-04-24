@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, editAnnouncement, pushAnnouncement, isPushing,
+  infoAction, titleAction, editAnnouncement, pushAnnouncement, isAnnouncePushing,
   addKey, addImage, clear, isDefaultImage
 } from '../../actions';
 
@@ -31,9 +31,9 @@ class AnnounceF extends Component {
       successMsgHeight: new Animated.Value(0),
       waitModalVisible: this.props.isPushingA,
       // should be a bool, makes Create default
-      isEdit: this.props.navigation.getParam('type', false)
+      isEdit: this.props.navigation.getParam('isEdit', false)
     };
-    if (this.state.type === 'edit') {
+    if (this.state.isEdit === 'edit') {
       const item = this.props.navigation.getParam('item', 'Item Not Found');
       const id = this.props.navigation.getParam('id', 'Id/key not found');
       this.props.titleAction(item.title);
@@ -47,11 +47,11 @@ class AnnounceF extends Component {
     this.onDecline = this.onDecline.bind(this);
     this.onSubmitPress = this.onSubmitPress.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
-    this.onInfoChange = this.onTitleChange.bind(this);
+    this.onInfoChange = this.onInfoChange.bind(this);
   }
 
   componentWillUnmount() {
-    if (this.state.type === 'edit') {
+    if (this.state.isEdit) {
       this.props.clear();
     }
   }
@@ -115,7 +115,7 @@ class AnnounceF extends Component {
   }
 
   render() {
-    const { failMsgHeight } = this.state;
+    const { failMsgHeight, successMsgHeight } = this.state;
     if (this.props.isError) {
       // animate the showing of the failMSG
       failMsgHeight.setValue(0); // reset the animated value
@@ -131,92 +131,93 @@ class AnnounceF extends Component {
         duration: 1000,
         easing: Easing.linear
       }).start();
-      if (this.props.isSuccess) {
-        successMsgHeight.setValue(0);
-        Animated.timing(successMsgHeight, {
-          toValue: (height / 20),
-          duration: 1000,
-          easing: Easing.cubic,
-        }).start();
-      } else {
-        Animated.timing(successMsgHeight, {
-          toValue: 0,
-          duration: 1000,
-          easing: Easing.linear
-        }).start();
     }
+    if (this.props.isSuccess) {
+      successMsgHeight.setValue(0);
+      Animated.timing(successMsgHeight, {
+        toValue: (height / 20),
+        duration: 1000,
+        easing: Easing.cubic,
+      }).start();
+    } else {
+      Animated.timing(successMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+  }
     return (
-      <ScrollView style={{ flex: 1 }}>
-        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
-          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Error: could not send to server
-          </Text>
-        </Animated.View>
-        <Animated.View style={{ backgroundColor: '#0fff0f', height: successMsgHeight }}>
-          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Success!
-          </Text>
-        </Animated.View>
-        <Card>
-          <Input
-            label="Title"
-            placeholder="Title"
-            blurOnSubmit
-            inputFlexNum={4}
-            multiline
-            onChangeText={this.onTitleChange}
-            returnKeyType="done"
-            value={this.props.title}
-          />
-          <Input
-            label="Text"
-            placeholder="Info Goes Here"
-            blurOnSubmit
-            inputFlexNum={4}
-            multiline
-            onChangeText={this.onInfoChange}
-            returnKeyType="done"
-            value={this.props.info}
-          />
-          {this.selectedImageDisplay()}
-          <CardSection>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              textStyle={{ color: 'black' }}
-              onPress={() => this.props.navigation.navigate('DefaultImages')}
-            >
-              Select An Image
-            </Button>
-            </CardSection>
-          {this.renderButton()}
-
-          <Confirm
-            visible={this.state.showModal}
-            onAccept={this.onAccept}
-            onDecline={this.onDecline}
+    <ScrollView style={{ flex: 1 }}>
+      <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+        <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+          Error: could not send to server
+        </Text>
+      </Animated.View>
+      <Animated.View style={{ backgroundColor: '#0fff0f', height: successMsgHeight }}>
+        <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+          Success!
+        </Text>
+      </Animated.View>
+      <Card>
+        <Input
+          label="Title"
+          placeholder="Title"
+          blurOnSubmit
+          inputFlexNum={4}
+          multiline
+          onChangeText={this.onTitleChange}
+          returnKeyType="done"
+          value={this.props.title}
+        />
+        <Input
+          label="Text"
+          placeholder="Info Goes Here"
+          blurOnSubmit
+          inputFlexNum={4}
+          multiline
+          onChangeText={this.onInfoChange}
+          returnKeyType="done"
+          value={this.props.info}
+        />
+        {this.selectedImageDisplay()}
+        <CardSection>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            textStyle={{ color: 'black' }}
+            onPress={() => this.props.navigation.navigate('DefaultImages')}
           >
-            {
-              this.props.isEdit ? 'Are you sure you would like to add this announcement?'
-              : 'Are you sure you would like to change this announcement'
-            }
-          </Confirm>
-        </Card>
-        <Modal
-          visible={this.state.waitModalVisible}
-          transparent
-          onRequestClose={() => this.props.isPushing(false)}
+            Select An Image
+          </Button>
+          </CardSection>
+        {this.renderButton()}
+
+        <Confirm
+          visible={this.state.showModal}
+          onAccept={this.onAccept}
+          onDecline={this.onDecline}
         >
-          <SafeAreaView style={styles.waitModalViewStyle}>
-            <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
-              <Spinner style={{ flex: -1 }} />
-              <View style={{ flex: -1 }}>
-                <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
-              </View>
+          {
+            this.props.isEdit ? 'Are you sure you would like to add this announcement?'
+            : 'Are you sure you would like to change this announcement'
+          }
+        </Confirm>
+      </Card>
+      <Modal
+        visible={this.state.waitModalVisible}
+        transparent
+        onRequestClose={() => this.props.isAnnouncePushing(false)}
+      >
+        <SafeAreaView style={styles.waitModalViewStyle}>
+          <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
+            <Spinner style={{ flex: -1 }} />
+            <View style={{ flex: -1 }}>
+              <Text style={{ fontSize: 20, color: 'lightgrey' }}>Please Wait...</Text>
             </View>
-          </SafeAreaView>
-        </Modal>
-      </ScrollView>
-    );
+          </View>
+        </SafeAreaView>
+      </Modal>
+    </ScrollView>
+  );
   }
 }
 
@@ -259,7 +260,7 @@ const AnnounceForm = withNavigation(connect(mapStateToProps, {
   titleAction,
   editAnnouncement,
   pushAnnouncement,
-  isPushing,
+  isAnnouncePushing,
   addKey,
   addImage,
   clear,

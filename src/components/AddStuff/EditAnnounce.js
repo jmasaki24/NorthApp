@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, editAnnouncement, isPushing, addKey, addImage,
+  infoAction, titleAction, editAnnouncement, isAnnouncePushing, addKey, addImage,
   clear, isDefaultImage
 } from '../../actions';
 
@@ -35,14 +35,14 @@ class EAnnounce extends Component {
     this.onDecline = this.onDecline.bind(this);
     this.onSubmitPress = this.onSubmitPress.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
-    this.onInfoChange = this.onTitleChange.bind(this);
+    this.onInfoChange = this.onInfoChange.bind(this);
   }
 
   componentWillUnmount() { this.props.clear(); }
 
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;
-    this.props.pushingAnnouncement(true);
+    this.props.isAnnouncePushing(true);
     this.props.editAnnouncement({ title, info, img, isDefault, id });
     this.setState({ showModal: false });
     // this.props.navigation.pop(); // should not do this is error = true;
@@ -162,7 +162,7 @@ class EAnnounce extends Component {
         <Modal
           visible={this.state.waitModalVisible}
           transparent
-          onRequestClose={() => this.props.isPushing(false)}
+          onRequestClose={() => this.props.isAnnouncePushing(false)}
         >
           <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -217,7 +217,7 @@ const EditAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   editAnnouncement,
-  isPushing,
+  isAnnouncePushing,
   addKey,
   addImage,
   clear,

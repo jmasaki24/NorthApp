@@ -7,7 +7,6 @@ import { Image, TouchableOpacity, } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomePageItems from './HomePageItems';
-import LogoTitans from '../images/logoTitans.jpg';
 import Licenses from '../Licenses/Licenses';
 
 const HomePage = () => (
@@ -26,7 +25,7 @@ const HomeStack = createStackNavigator({
       >
         <Image
           style={{ resizeMode: 'contain', height: 60, width: 110 }}
-          source={LogoTitans}
+          source={require('../images/logoTitans.jpg')}
         />
       </TouchableOpacity>,
     headerStyle: {

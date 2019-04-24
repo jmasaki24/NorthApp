@@ -11,10 +11,10 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
-  infoAction, titleAction, pushAnnouncement, isPushing
+  infoAction, titleAction, pushAnnouncement, isAnnouncePushing
 } from '../../actions';
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 // named CAnnounce because have to use another name in the export. yes, it's weird.
 class CAnnounce extends Component {
@@ -27,13 +27,13 @@ class CAnnounce extends Component {
     this.onDecline = this.onDecline.bind(this);
     this.onSubmitPress = this.onSubmitPress.bind(this);
     this.onTitleChange = this.onTitleChange.bind(this);
-    this.onInfoChange = this.onTitleChange.bind(this);
+    this.onInfoChange = this.onInfoChange.bind(this);
   }
 
 
   onAccept() {
     const { title, info, img, isDefault } = this.props;
-    this.props.pushingAnnouncement(true);
+    this.props.isAnnouncePushing(true);
     this.props.pushAnnouncement({ title, info, img, isDefault });
     this.setState({ showModal: false });
   }
@@ -153,7 +153,7 @@ class CAnnounce extends Component {
         <Modal
           visible={this.state.waitModalVisible}
           transparent
-          onRequestClose={() => this.props.isPushing(false)}
+          onRequestClose={() => this.props.isAnnouncePushing(false)}
         >
           <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -207,7 +207,7 @@ const CreateAnnounce = withNavigation(connect(mapStateToProps, {
   infoAction,
   titleAction,
   pushAnnouncement,
-  isPushing,
+  isAnnouncePushing,
 })(CAnnounce));
 
 export { CreateAnnounce };
