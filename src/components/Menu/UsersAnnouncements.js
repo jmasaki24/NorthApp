@@ -111,15 +111,9 @@ class UsersAnnouncements extends Component {
       return (
         <AnnounceCardImage
           button info={item.info} title={item.title} time={item.dateString}
-          onDelPress={() => this.setDeleteModalVisible(true, item)}
+          onDelPress={() => this.setDeleteModalVisible(true, item)} uri={item.uri}
           onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
-            //() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
-        >
-          <Image
-            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-            source={{ uri: item.uri }}
-          />
-        </AnnounceCardImage>
+        />
       );
     }
     return (

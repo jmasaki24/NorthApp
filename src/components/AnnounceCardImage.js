@@ -5,10 +5,11 @@
 */
 
 import React, { PureComponent } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Card, CardSection } from './common';
 
+const { width, height } = Dimensions.get('window');
 
 const renderBottomSection = (props) => {
   if (props.button) {
@@ -43,9 +44,54 @@ const renderBottomSection = (props) => {
 };
 // title, uri, children, ; are props
 class AnnounceCardImage extends PureComponent {
-  componentWillMount() {
-    // Image.getSize(this.props.uri)
+  constructor(props) {
+    super(props);
+    this.state = { isExpanded: false };
+    this.setExpanded = this.setExpanded.bind(this);
   }
+
+  setExpanded() {
+    this.setState({ isExpanded: !this.state.isExpanded });
+  }
+
+  renderCenterSection() {
+    if (this.state.isExpanded) {
+      return (
+        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0, flexDirection: 'column' }}>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              onPress={this.setExpanded} style={{ flex: 1 }}
+            >
+              <Image
+                resizeMode="contain"
+                style={{ width: width - 20, height: height / 2 }}
+                source={{ uri: this.props.uri }}
+              />
+            </TouchableOpacity>
+            </View>
+            <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>
+        </CardSection>
+      );
+    }
+    return (
+      <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={this.setExpanded}
+          >
+            <Image
+              style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
+              source={{ uri: this.props.uri }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>
+        </View>
+      </CardSection>
+    );
+  }
+
   render() {
     return (
       <Card style={{ elevation: 5, marginHorizontal: 10 }}>
@@ -54,14 +100,7 @@ class AnnounceCardImage extends PureComponent {
             {this.props.title}
           </Text>
         </CardSection>
-        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
-          <View style={{ flex: 1 }}>
-            {this.props.children}
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>
-          </View>
-        </CardSection>
+        {this.renderCenterSection()}
         {renderBottomSection(this.props)}
       </Card>
     );
