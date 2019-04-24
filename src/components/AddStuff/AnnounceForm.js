@@ -58,7 +58,7 @@ class AnnounceF extends Component {
 
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;
-    this.props.pushingAnnouncement(true);
+    this.props.isAnnouncePushing(true);
     if (this.state.isEdit) {
       this.props.editAnnouncement({ title, info, img, isDefault, id });
     } else {

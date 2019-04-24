@@ -44,7 +44,7 @@ const renderBottomSection = (props) => {
 // title, uri, children, ; are props
 class AnnounceCardImage extends PureComponent {
   componentWillMount() {
-    Image.getSize(this.props.uri)
+    // Image.getSize(this.props.uri)
   }
   render() {
     return (
@@ -54,16 +54,9 @@ class AnnounceCardImage extends PureComponent {
             {this.props.title}
           </Text>
         </CardSection>
-        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0, flexDirection: fd }}>
+        <CardSection style={{ alignItems: 'center', borderBottomWidth: 0 }}>
           <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              onPress={() => this.setState({ imageModal: true, imageUri: item.uri })}
-            >
-              <Image
-                style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-                source={{ uri: this.props.item.uri }}
-              />
-            </TouchableOpacity>
+            {this.props.children}
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 18, color: 'black' }}>{this.props.info}</Text>
