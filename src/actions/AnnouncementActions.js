@@ -159,7 +159,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
         const mime = 'image/jpeg';
         const name = `${+new Date()}-${img}`;
         return new Promise((resolve, reject) => {
-          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file://', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
           .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
