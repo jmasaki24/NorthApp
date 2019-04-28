@@ -116,7 +116,7 @@ export const getCalendar = () => {
   };
 };
 
-export const pushingEvent = (bool) => (
+export const isEventPushing = (bool) => (
   {
     type: IS_PUSHING_E,
     payload: bool
