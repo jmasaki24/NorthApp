@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension'; //remove for Release
+// import { composeWithDevTools } from 'redux-devtools-extension'; //remove for Release
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { createAppContainer } from 'react-navigation';
@@ -146,7 +146,7 @@ export default class App extends PureComponent {
   };
 
   render() { //remove composeWithDevTools for Release
-    const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(ReduxThunk)));
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>

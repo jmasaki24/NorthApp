@@ -71,12 +71,9 @@ class UsersAnnouncements extends Component {
           firebaseData = snapshot.val();
           console.log(firebaseData);
           Object.keys(firebaseData).forEach(key => {
-            const has = firebaseData[key].hasOwnProperty;
-            if (has) {
-              firebaseData[key].key = key; // named "key" for FlatList
-              array[i] = firebaseData[key];
-              i++;
-            }
+            // firebaseData[key].key = key; don't need bc its storedas key? (for flatlist)
+            array[i] = firebaseData[key];
+            i++;
           this.setState({ announcementArray: array.reverse() });
         });
       }));
@@ -110,8 +107,8 @@ class UsersAnnouncements extends Component {
     if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
-          button info={item.info} title={item.title} time={item.dateString}
-          onDelPress={() => this.setDeleteModalVisible(true, item)} uri={item.uri}
+          button info={item.info} title={item.title} time={item.dateString} uri={item.uri}
+          onDelPress={() => this.setDeleteModalVisible(true, item)}
           onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
         />
       );
@@ -121,7 +118,7 @@ class UsersAnnouncements extends Component {
         button info={item.info} title={item.title} time={item.dateString}
         // onEditPress needs the fat arrow else it gets called but for some reason onDelPress can't
         onDelPress={() => this.setDeleteModalVisible(true, item)}
-        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
+        onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
       >
         {item.info}
       </AnnounceCardAllText>

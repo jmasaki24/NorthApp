@@ -12,14 +12,14 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
-  addEventDate, addEventTitle, addEventLocation, addEventInfo, addKey, clear,
-  addEventHour, addEventMinute, addEventPeriod, editEvent, isEventPushing,
+  addEventDate, addEventTitle, addEventLocation, addEventInfo,
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, isEventPushing,
 } from '../../actions';
 import { Button, CardSection, Confirm, Input, Spinner } from '../common';
 
 const { height } = Dimensions.get('window');
 
-class EEvent extends Component {
+class CEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,16 +29,6 @@ class EEvent extends Component {
       failMsgHeight: new Animated.Value(0),
       waitModalVisible: this.props.isPushingE,
     };
-
-    const item = this.props.navigation.getParam('item', 'Item Not Found');
-    const id = this.props.navigation.getParam('id', 'Id/key not found');
-    this.props.addEventDate(item.date);
-    this.props.addEventTitle(item.title);
-    this.props.addEventLocation(item.location);
-    this.props.addEventInfo(item.info);
-    this.props.addKey(id);
-
-
     this.onAccept = this.onAccept.bind(this);
     this.onDecline = this.onDecline.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
@@ -50,26 +40,10 @@ class EEvent extends Component {
     this.onPeriodChange = this.onPeriodChange.bind(this);
   }
 
-  componentDidMount() {
-    const item = this.props.navigation.getParam('item', 'Item Not Found');
-    if (item.time === 'All Day') {
-      this.setState({ switch: true });
-    } else if (item.time) {
-      const colonPos = item.time.indexOf(':');
-      const spacePos = item.time.indexOf(' ');
-      const time = item.time;
-      this.props.addEventHour(time.substring(0, colonPos));
-      this.props.addEventMinute(time.substring(colonPos + 1, spacePos));
-      this.props.addEventPeriod(time.substring(spacePos + 1));
-    }
-  }
-
-  componentWillUnmount() { this.props.clear(); }
-
   onAccept() {
-    const { date, title, location, info, hour, minute, period, id } = this.props;
+    const { date, title, location, info, hour, minute, period } = this.props;
     this.props.isEventPushing(true);
-    this.props.editEvent({ date, title, location, info, hour, minute, period, id });
+    this.props.pushEvent({ date, title, location, info, hour, minute, period });
     this.setState({ showModal: false });
   }
 
@@ -171,7 +145,7 @@ class EEvent extends Component {
             textStyle={{ color: 'black', alignSelf: 'center' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
-            Change Event
+            Create Event
           </Button>
         </CardSection>
       );
@@ -179,7 +153,7 @@ class EEvent extends Component {
     return (
       <CardSection>
         <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>Change Event</Text>
+          <Text style={styles.textStyle}>Create Event</Text>
         </View>
       </CardSection>
     );
@@ -200,7 +174,7 @@ class EEvent extends Component {
       Animated.timing(failMsgHeight, {
         toValue: 0,
         duration: 1000,
-        easing: Easing.linear
+        easing: Easing.linear,
       }).start();
     }
     return (
@@ -268,7 +242,7 @@ class EEvent extends Component {
           onAccept={this.onAccept}
           onDecline={this.onDecline}
         >
-          Are you sure you would like to change this event?
+          Are you sure you would like to add this event?
         </Confirm>
         <Modal
           visible={this.state.waitModalVisible}
@@ -290,16 +264,6 @@ class EEvent extends Component {
 }
 
 const styles = StyleSheet.create({
-  buttonStyle: {
-    flex: 1,
-    borderWidth: null,
-    backgroundColor: 'white',
-    borderRadius: 0,
-    paddingLeft: 10,
-    margin: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   dateText: {
     flex: 1,
     marginLeft: 20,
@@ -312,11 +276,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  labelStyle: {
-    fontSize: 18,
-    color: 'black',
-    paddingLeft: 20,
+  buttonStyle: {
     flex: 1,
+    borderWidth: null,
+    backgroundColor: 'white',
+    borderRadius: 0,
+    paddingLeft: 10,
+    margin: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textStyle: {
     color: 'gray',
@@ -339,14 +307,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  labelStyle: {
+    fontSize: 18,
+    color: 'black',
+    paddingLeft: 20,
+    flex: 1,
+  }
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, isPushingE, hour, minute, period, id, error } = state.event;
-  return { date, title, location, info, isPushingE, hour, minute, period, id, error };
+  const { date, title, location, info, isPushingE, hour, minute, period, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, error };
 };
 
-const EditEvent = withNavigation(connect(mapStateToProps, {
+const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventHour,
@@ -354,10 +328,8 @@ const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventPeriod,
   addEventLocation,
   addEventInfo,
-  editEvent,
+  pushEvent,
   isEventPushing,
-  addKey,
-  clear
-})(EEvent));
+})(CEvent));
 
-export { EditEvent };
+export { CreateEvent };

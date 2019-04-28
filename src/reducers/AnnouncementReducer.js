@@ -11,6 +11,7 @@ import {
   PUSH_ANNOUNCEMENT,
   PUSH_ANNOUNCEMENT_FAIL,
   IS_PUSHING_A,
+  IS_SUCCESS_A,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -47,6 +48,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isError: true, isPushingA: false };
     case IS_PUSHING_A:
       return { ...state, isPushingA: action.payload };
+    case IS_SUCCESS_A:
+      return { ...state, isSuccess: action.payload };
     default:
       return state;
   }

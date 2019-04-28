@@ -17,6 +17,7 @@ import {
   PUSH_ANNOUNCEMENT,
   PUSH_ANNOUNCEMENT_FAIL,
   IS_PUSHING_A,
+  IS_SUCCESS_A,
 } from './types';
 
 export const clear = () => (
@@ -28,7 +29,7 @@ export const clear = () => (
 export const addImage = (uri) => (
   {
     type: ADD_IMAGE,
-    payload: uri,isAnnouncePushing
+    payload: uri,
   }
 );
 
@@ -112,7 +113,7 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
             .catch((error) => {
               reject(error);
             });
-        });
+        }).catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
       }
     } else { // for allText announcements
       const announcementData = { title, info, isDefault: null, uid, dateString, key };
@@ -211,7 +212,14 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
 export const isAnnouncePushing = (bool) => (
   {
     type: IS_PUSHING_A,
-    payload: bool
+    payload: bool,
+  }
+);
+
+export const announceSuccess = (bool) => (
+  {
+    type: IS_SUCCESS_A,
+    payload: bool,
   }
 );
 

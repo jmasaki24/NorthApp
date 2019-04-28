@@ -16,7 +16,7 @@ import { withNavigation } from 'react-navigation';
 import { Button, Card, CardSection, Confirm, Input, Spinner, } from '../common';
 import {
   infoAction, titleAction, editAnnouncement, pushAnnouncement, isAnnouncePushing,
-  addKey, addImage, clear, isDefaultImage
+  addKey, addImage, clear, isDefaultImage, announceSuccess,
 } from '../../actions';
 
 const { height } = Dimensions.get('window');
@@ -33,16 +33,16 @@ class AnnounceF extends Component {
       // should be a bool, makes Create default
       isEdit: this.props.navigation.getParam('isEdit', false)
     };
-    if (this.state.isEdit === 'edit') {
+    if (this.state.isEdit) {
       const item = this.props.navigation.getParam('item', 'Item Not Found');
       const id = this.props.navigation.getParam('id', 'Id/key not found');
       this.props.titleAction(item.title);
       this.props.infoAction(item.info);
       this.props.addImage(item.uri);
       this.props.addKey(id);
-      this.props.isDefaultImage(item.isDefault);
+      this.props.isDefaultImage(true); // isDefault treats image as if its in FB storage
     }
-
+    this.props.announceSuccess(false);
     this.onAccept = this.onAccept.bind(this);
     this.onDecline = this.onDecline.bind(this);
     this.onSubmitPress = this.onSubmitPress.bind(this);
@@ -50,11 +50,7 @@ class AnnounceF extends Component {
     this.onInfoChange = this.onInfoChange.bind(this);
   }
 
-  componentWillUnmount() {
-    if (this.state.isEdit) {
-      this.props.clear();
-    }
-  }
+  componentWillUnmount() { if (this.state.isEdit) this.props.clear(); }
 
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;
@@ -153,7 +149,7 @@ class AnnounceF extends Component {
           Error: could not send to server
         </Text>
       </Animated.View>
-      <Animated.View style={{ backgroundColor: '#0fff0f', height: successMsgHeight }}>
+      <Animated.View style={{ backgroundColor: '#228B22', height: successMsgHeight }}>
         <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
           Success!
         </Text>
@@ -203,7 +199,7 @@ class AnnounceF extends Component {
         </Confirm>
       </Card>
       <Modal
-        visible={this.state.waitModalVisible}
+        visible={this.props.isPushingA}
         transparent
         onRequestClose={() => this.props.isAnnouncePushing(false)}
       >
@@ -251,8 +247,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { title, info, img, isDefault, isPushingA, id, isError } = state.announce;
-  return { title, info, img, isDefault, isPushingA, id, isError };
+  const { title, info, img, isDefault, isPushingA, isSuccess, id, isError } = state.announce;
+  return { title, info, img, isDefault, isPushingA, isSuccess, id, isError };
 };
 
 const AnnounceForm = withNavigation(connect(mapStateToProps, {
@@ -265,6 +261,7 @@ const AnnounceForm = withNavigation(connect(mapStateToProps, {
   addImage,
   clear,
   isDefaultImage,
+  announceSuccess,
 })(AnnounceF));
 
 export { AnnounceForm };

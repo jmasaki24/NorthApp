@@ -1,20 +1,21 @@
 /**
-* Author: Matt Peters
-* FIXME: something is causing this to re-render event tho it's a PureComponent
-* ALLText doesn't re-render, perhaps it has something to do with the image?
+ * Author: Matt Peters
+ * FIXME: something is causing this to re-render event tho it's a PureComponent
+ * ALLText doesn't re-render, perhaps it has something to do with the image?
+ * used by UsersAnnouncements, HomePageItems
 */
 
 import React, { PureComponent } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { Card, CardSection } from './common';
+import { CardSection } from './common';
 
 const { width, height } = Dimensions.get('window');
 
 const renderBottomSection = (props) => {
   if (props.button) {
     return (
-      <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <CardSection style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}>
         <View style={{ flex: -1 }}>
           <Text style={{ fontSize: 14 }}>
           {props.time}
@@ -35,7 +36,7 @@ const renderBottomSection = (props) => {
   );
   }
   return (
-    <CardSection style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+    <CardSection style={{ justifyContent: 'flex-start', alignItems: 'center', paddingBottom: 20 }}>
       <Text style={{ fontSize: 14 }}>
         {props.time}
       </Text>
@@ -64,7 +65,7 @@ class AnnounceCardImage extends PureComponent {
             >
               <Image
                 resizeMode="contain"
-                style={{ width: width - 20, height: height / 2 }}
+                style={{ width, height: height / 2 }}
                 source={{ uri: this.props.uri }}
               />
             </TouchableOpacity>
@@ -94,7 +95,7 @@ class AnnounceCardImage extends PureComponent {
 
   render() {
     return (
-      <Card style={{ elevation: 5, marginHorizontal: 10 }}>
+      <View style={{ marginBottom: 5 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>
             {this.props.title}
@@ -102,7 +103,7 @@ class AnnounceCardImage extends PureComponent {
         </CardSection>
         {this.renderCenterSection()}
         {renderBottomSection(this.props)}
-      </Card>
+      </View>
     );
   }
 }

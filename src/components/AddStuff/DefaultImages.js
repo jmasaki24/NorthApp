@@ -26,6 +26,7 @@ class List extends Component {
   onImagePress(uri) {
     this.props.isDefaultImage(true);
     this.props.addImage(uri);
+    this.props.isDefaultImage(true);
     this.props.navigation.goBack();
   }
 
