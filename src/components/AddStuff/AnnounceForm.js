@@ -111,6 +111,7 @@ class AnnounceF extends Component {
   }
 
   render() {
+    console.log(this.state.waitModalVisible);
     const { failMsgHeight, successMsgHeight } = this.state;
     if (this.props.isError) {
       // animate the showing of the failMSG
