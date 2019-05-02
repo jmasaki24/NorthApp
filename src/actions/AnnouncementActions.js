@@ -17,6 +17,7 @@ import {
   PUSH_ANNOUNCEMENT,
   PUSH_ANNOUNCEMENT_FAIL,
   IS_PUSHING_A,
+  IS_SUCCESS_A,
 } from './types';
 
 export const clear = () => (
@@ -61,8 +62,6 @@ export const titleAction = (text) => (
 );
 
 export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
-  console.log('edit');
-  console.log(id);
   const key = id;
   const { currentUser } = firebase.auth();
   const uid = currentUser.uid;
@@ -87,7 +86,7 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
         const mime = 'image/jpeg';
         const name = `${+new Date()}-${img}`;
         return new Promise((resolve, reject) => {
-          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file://', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
             .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
@@ -114,7 +113,7 @@ export const editAnnouncement = ({ title, info, img, isDefault, id }) => {
             .catch((error) => {
               reject(error);
             });
-        });
+        }).catch(() => dispatch({ type: PUSH_ANNOUNCEMENT_FAIL }));
       }
     } else { // for allText announcements
       const announcementData = { title, info, isDefault: null, uid, dateString, key };
@@ -159,7 +158,7 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
         const mime = 'image/jpeg';
         const name = `${+new Date()}-${img}`;
         return new Promise((resolve, reject) => {
-          const uploadUri = Platform.OS === 'ios' ? img.replace('file.//', '') : img;
+          const uploadUri = Platform.OS === 'ios' ? img.replace('file://', '') : img;
           const imageRef = firebase.storage().ref('napp_user_images').child(name);
           fs.readFile(uploadUri, 'base64')
           .then((data) => Blob.build(data, { type: `${mime};BASE64` }))
@@ -210,13 +209,19 @@ export const pushAnnouncement = ({ title, info, img, isDefault }) => {
   };
 };
 
-export const pushingAnnouncement = (bool) => (
+export const isAnnouncePushing = (bool) => (
   {
     type: IS_PUSHING_A,
-    payload: bool
+    payload: bool,
   }
 );
 
+export const announceSuccess = (bool) => (
+  {
+    type: IS_SUCCESS_A,
+    payload: bool,
+  }
+);
 
 // the following goes to HPannouncement reducer
 

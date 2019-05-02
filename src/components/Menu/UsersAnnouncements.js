@@ -46,26 +46,18 @@ class UsersAnnouncements extends Component {
     this.setDeleteModalVisible = this.setDeleteModalVisible.bind(this);
   }
 
-  componentDidMount() {
-    this.getUsersAnnouncements();
-  }
+  componentDidMount() { this.getUsersAnnouncements(); }
 
   onAccept() {
     this.deleteAnnouncement();
     this.setState({ showModal: false });
   }
 
-  onDecline() {
-    this.setState({ showModal: false, item: {} });
-  }
+  onDecline() { this.setState({ showModal: false, item: {} }); }
 
-  setDeleteModalVisible(bool, item) {
-    this.setState({ showModal: bool, item });
-  }
+  setDeleteModalVisible(bool, item) { this.setState({ showModal: bool, item }); }
 
-  setImageModalVisible(modal, url) {
-    this.setState({ imageModal: modal, imageUrl: url });
-  }
+  setImageModalVisible(modal, url) { this.setState({ imageModal: modal, imageUrl: url }); }
 
   getUsersAnnouncements() {
     const { currentUser } = firebase.auth();
@@ -79,12 +71,9 @@ class UsersAnnouncements extends Component {
           firebaseData = snapshot.val();
           console.log(firebaseData);
           Object.keys(firebaseData).forEach(key => {
-            const has = firebaseData[key].hasOwnProperty;
-            if (has) {
-              firebaseData[key].key = key; // named "key" for FlatList
-              array[i] = firebaseData[key];
-              i++;
-            }
+            // firebaseData[key].key = key; don't need bc its storedas key? (for flatlist)
+            array[i] = firebaseData[key];
+            i++;
           this.setState({ announcementArray: array.reverse() });
         });
       }));
@@ -118,15 +107,10 @@ class UsersAnnouncements extends Component {
     if (item.hasOwnProperty('uri')) {
       return (
         <AnnounceCardImage
-          button info={item.info} title={item.title} time={item.dateString}
+          button info={item.info} title={item.title} time={item.dateString} uri={item.uri}
           onDelPress={() => this.setDeleteModalVisible(true, item)}
-          onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
-        >
-          <Image
-            style={{ width: 150, height: 150, flex: 1, alignSelf: 'center' }}
-            source={{ uri: item.uri }}
-          />
-        </AnnounceCardImage>
+          onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
+        />
       );
     }
     return (
@@ -134,7 +118,7 @@ class UsersAnnouncements extends Component {
         button info={item.info} title={item.title} time={item.dateString}
         // onEditPress needs the fat arrow else it gets called but for some reason onDelPress can't
         onDelPress={() => this.setDeleteModalVisible(true, item)}
-        onEditPress={() => this.props.navigation.navigate('EditAnnounce', { item, id: item.key })}
+        onEditPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: true, item, id: item.key })}
       >
         {item.info}
       </AnnounceCardAllText>
@@ -142,7 +126,6 @@ class UsersAnnouncements extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { failMsgHeight, deleteFail } = this.state;
     if (deleteFail) {
       // animate the showing of the failMSG

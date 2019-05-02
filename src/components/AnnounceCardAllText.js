@@ -28,7 +28,7 @@ class AnnounceCardAllText extends PureComponent {
   renderBottomSection(props) {
     if (props.button) {
       return (
-        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 20 }}>
           <View style={{ flex: -1 }}>
             <Text style={{ fontSize: 14 }}>
             {props.time}
@@ -49,7 +49,7 @@ class AnnounceCardAllText extends PureComponent {
       );
     }
     return (
-      <CardSection style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+      <CardSection style={{ justifyContent: 'space-between', alignItems: 'center', paddingBottom: 20 }}>
         <Text style={{ fontSize: 14 }}>
           {props.time}
         </Text>
@@ -64,7 +64,7 @@ class AnnounceCardAllText extends PureComponent {
 
   render() {
     return (
-      <Card style={{ elevation: 5, marginHorizontal: 10 }}>
+      <View>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text adjustsFontSizeToFit style={styles.titleText}>{this.props.title}</Text>
         </CardSection>
@@ -73,7 +73,7 @@ class AnnounceCardAllText extends PureComponent {
             {this.props.children}</Text>
         </CardSection>
         {this.renderBottomSection(this.props)}
-      </Card>
+      </View>
     );
   }
 }

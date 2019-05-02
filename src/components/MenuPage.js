@@ -18,7 +18,7 @@ import StorePage from './Menu/StorePage';
 import StoreItem from './Menu/StoreItem';
 import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
 import {
-  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages,
+  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, AnnounceForm
 } from './AddStuff';
 import i18n from '../utils/i18n';
 import stadiumlights from '../images/fieldlights.jpg';
@@ -224,6 +224,12 @@ const MenuStack = createStackNavigator({
       screen: EditEvent,
       navigationOptions: () => ({
         headerTitle: <Text style={{ fontSize: 20 }}>Edit Your Event</Text>
+      }),
+    },
+    AnnounceForm: {
+      screen: AnnounceForm,
+      navigationOptions: () => ({
+        headerTitle: <Text style={{ fontSize: 20 }}>Create/Edit an Announcement</Text>
       }),
     },
   Polls: PollLogin,

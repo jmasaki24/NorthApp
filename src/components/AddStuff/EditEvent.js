@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import {
-  Animated, Dimensions, Easing, KeyboardAvoidingView, Modal, Picker, SafeAreaView,
+  Animated, Dimensions, Easing, Modal, Picker, SafeAreaView,
   ScrollView, StyleSheet, Switch, Text, View,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,9 +13,8 @@ import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
   addEventDate, addEventTitle, addEventLocation, addEventInfo, addKey, clear,
-  addEventHour, addEventMinute, addEventPeriod, editEvent, pushingEvent,
+  addEventHour, addEventMinute, addEventPeriod, editEvent, isEventPushing,
 } from '../../actions';
-
 import { Button, CardSection, Confirm, Input, Spinner } from '../common';
 
 const { height } = Dimensions.get('window');
@@ -38,6 +37,17 @@ class EEvent extends Component {
     this.props.addEventLocation(item.location);
     this.props.addEventInfo(item.info);
     this.props.addKey(id);
+
+
+    this.onAccept = this.onAccept.bind(this);
+    this.onDecline = this.onDecline.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
+    this.onInfoChange = this.onInfoChange.bind(this);
+    this.onHourChange = this.onHourChange.bind(this);
+    this.onMinuteChange = this.onMinuteChange.bind(this);
+    this.onPeriodChange = this.onPeriodChange.bind(this);
   }
 
   componentDidMount() {
@@ -54,48 +64,30 @@ class EEvent extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.clear();
-  }
+  componentWillUnmount() { this.props.clear(); }
 
   onAccept() {
     const { date, title, location, info, hour, minute, period, id } = this.props;
-    this.props.pushingEvent(true);
+    this.props.isEventPushing(true);
     this.props.editEvent({ date, title, location, info, hour, minute, period, id });
     this.setState({ showModal: false });
   }
 
-  onDecline() {
-    this.setState({ showModal: false });
-  }
+  onDecline() { this.setState({ showModal: false }); }
 
-  onDateChange(day) {
-    this.props.addEventDate(day.dateString);
-  }
+  onDateChange(day) { this.props.addEventDate(day.dateString); }
 
-  onTitleChange(text) {
-    this.props.addEventTitle(text);
-  }
+  onTitleChange(text) { this.props.addEventTitle(text); }
 
-  onLocationChange(text) {
-    this.props.addEventLocation(text);
-  }
+  onLocationChange(text) { this.props.addEventLocation(text); }
 
-  onInfoChange(text) {
-    this.props.addEventInfo(text);
-  }
+  onInfoChange(text) { this.props.addEventInfo(text); }
 
-  onHourChange(hour) {
-    this.props.addEventHour(hour);
-  }
+  onHourChange(hour) { this.props.addEventHour(hour); }
 
-  onMinuteChange(minute) {
-    this.props.addEventMinute(minute);
-  }
+  onMinuteChange(minute) { this.props.addEventMinute(minute); }
 
-  onPeriodChange(p) {
-    this.props.addEventPeriod(p);
-  }
+  onPeriodChange(p) { this.props.addEventPeriod(p); }
 
   onSwitchChange(bool) {
     // temp for when you switch off All Day it remembers where you were
@@ -118,7 +110,7 @@ class EEvent extends Component {
       return (
         <View style={{ flex: 2, flexDirection: 'row' }}>
           <Picker
-            onValueChange={this.onHourChange.bind(this)}
+            onValueChange={this.onHourChange}
             selectedValue={this.props.hour}
             style={{ flex: 1, marginLeft: 30 }}
             enabled={!this.state.switch}
@@ -131,7 +123,7 @@ class EEvent extends Component {
             <Picker.Item label="11" value="11" /><Picker.Item label="12" value="12" />
           </Picker>
           <Picker
-            onValueChange={this.onMinuteChange.bind(this)}
+            onValueChange={this.onMinuteChange}
             selectedValue={this.props.minute}
             style={{ flex: 1 }}
             enabled={!this.state.switch}
@@ -144,7 +136,7 @@ class EEvent extends Component {
             <Picker.Item label="50" value="50" /><Picker.Item label="55" value="55" />
           </Picker>
           <Picker
-            onValueChange={this.onPeriodChange.bind(this)}
+            onValueChange={this.onPeriodChange}
             selectedValue={this.props.period}
             style={{ flex: 1 }}
             enabled={!this.state.switch}
@@ -213,6 +205,11 @@ class EEvent extends Component {
     }
     return (
       <ScrollView style={{ flex: 1 }}>
+        <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Error: Could not push
+          </Text>
+        </Animated.View>
         {this.renderCalendar()}
         <Input
           label='Title:'
@@ -220,7 +217,7 @@ class EEvent extends Component {
           blurOnSubmit
           inputFlexNum={4}
           multiline
-          onChangeText={this.onTitleChange.bind(this)}
+          onChangeText={this.onTitleChange}
           returnKeyType="done"
           value={this.props.title}
         />
@@ -238,7 +235,7 @@ class EEvent extends Component {
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={{ flex: 0, paddingLeft: 10 }}>All Day?</Text>
           <Switch
-            onValueChange={this.onSwitchChange.bind(this)}
+            onValueChange={this.onSwitchChange}
             value={this.state.switch}
             style={{ flex: 0 }}
             thumbColor='#02BAFB'
@@ -251,7 +248,7 @@ class EEvent extends Component {
           blurOnSubmit
           inputFlexNum={3}
           multiline
-          onChangeText={this.onLocationChange.bind(this)}
+          onChangeText={this.onLocationChange}
           returnKeyType="done"
           value={this.props.location}
         />
@@ -261,22 +258,22 @@ class EEvent extends Component {
           blurOnSubmit
           inputFlexNum={3}
           multiline
-          onChangeText={this.onInfoChange.bind(this)}
+          onChangeText={this.onInfoChange}
           returnKeyType="done"
           value={this.props.info}
         />
         {this.renderButton()}
         <Confirm
           visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
+          onAccept={this.onAccept}
+          onDecline={this.onDecline}
         >
           Are you sure you would like to change this event?
         </Confirm>
         <Modal
           visible={this.state.waitModalVisible}
           transparent
-          onRequestClose={() => this.props.pushingEvent(false)}
+          onRequestClose={() => this.props.isEventPushing(false)}
         >
           <SafeAreaView style={styles.waitModalViewStyle}>
             <View style={{ alignSelf: 'center', alignContent: 'center', height: 100 }}>
@@ -358,7 +355,7 @@ const EditEvent = withNavigation(connect(mapStateToProps, {
   addEventLocation,
   addEventInfo,
   editEvent,
-  pushingEvent,
+  isEventPushing,
   addKey,
   clear
 })(EEvent));

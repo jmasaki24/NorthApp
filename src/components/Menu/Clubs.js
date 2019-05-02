@@ -9,24 +9,18 @@ import {
   FlatList, Modal, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { connect } from 'react-redux';
-import clubList from '../../JSON/clubList.json';
-import { openClub } from '../../actions';
+import data from '../../JSON/clubList.json';
 import { Button, CardSection } from '../common';
 
-const data = clubList;
-
-class ClubList extends Component {
-  state = { showModal: false, key: '001' }
+class Clubs extends Component {
+  state = { showModal: false, club: { name: 'error', description: 'something went wrong' } }
 
   setModalVisible(visible) {
     this.setState({ showModal: visible });
   }
 
   modalHandler(item) {
-    this.setState({ showModal: true });
-    this.props.openClub(item);
-    // console.log(item);
+    this.setState({ showModal: true, club: item });
   }
 
   renderItem({ item }) {
@@ -128,12 +122,5 @@ const styles = StyleSheet.create({
     borderColor: 'white',
   }
 });
-
-const mapStateToProps = (state) => {
-  const { item } = state.club;
-  return { item };
-};
-
-const Clubs = connect(mapStateToProps, { openClub })(ClubList);
 
 export { Clubs };
