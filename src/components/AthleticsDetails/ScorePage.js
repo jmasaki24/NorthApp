@@ -19,15 +19,17 @@ class ScorePg extends Component {
     let loses = 0;
     let ties = 0;
     const scoreArray = this.props.scores;
-
     for (let i = 0; i < scoreArray.length; i++) {
-      const WLT = scoreArray[i].score.split(' ')[3];
-
-      if (WLT === 'W') {
+      const ourScore = scoreArray[i].score.split(' ')[0];
+      const theirScore = scoreArray[i].score.split(' ')[2];
+      console.log(`ourScore${i}: ${ourScore}`);
+      console.log(`theirScore${i}: ${theirScore}`);
+      console.log(`${i} ${ourScore > theirScore} ${4 > 11}`);
+      if (ourScore > theirScore) {
         wins += 1;
-      } else if (WLT === 'L') {
+      } else if (ourScore < theirScore) {
         loses += 1;
-      } else if (WLT === 'T') {
+      } else if (ourScore === theirScore) {
         ties += 1;
       }
     }
@@ -75,6 +77,7 @@ class ScorePg extends Component {
 
   render() {
     const sportName = this.props.navigation.state.params.sport;
+    console.log(this.props.scores);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Card>
