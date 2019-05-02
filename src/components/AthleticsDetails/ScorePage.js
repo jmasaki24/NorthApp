@@ -15,6 +15,7 @@ class ScorePg extends Component {
   }
 
   record() {
+    const sportName = this.props.navigation.state.params.sport;
     let wins = 0;
     let loses = 0;
     let ties = 0;
@@ -23,16 +24,22 @@ class ScorePg extends Component {
       const ourScore = scoreArray[i].score.split(' ')[0];
       const theirScore = scoreArray[i].score.split(' ')[2];
 
-      console.log(`ourScore:${ourScore}theirScore:${theirScore}win?:${ourScore > theirScore}`);
-
-      //Problem is that they are being compared as Strings in the conditionals
-
-      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
-        wins += 1;
-      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
-        loses += 1;
-      } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
-        ties += 1;
+      if (!sportName.includes('Golf')) {
+        if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+          wins += 1;
+        } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+          loses += 1;
+        } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
+          ties += 1;
+        }
+      } else if (sportName.includes('Golf')) {
+        if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+          loses += 1;
+        } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+          wins += 1;
+        } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
+          ties += 1;
+        }
       }
     }
 
@@ -44,14 +51,23 @@ class ScorePg extends Component {
   }
 
   renderItem({ item }) {
+    const sportName = this.props.navigation.state.params.sport;
     const ourScore = item.score.split(' ')[0];
     const theirScore = item.score.split(' ')[2];
     let WLT = 'T';
 
-    if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
-      WLT = 'W';
-    } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
-      WLT = 'L';
+    if (!sportName.includes('Golf')) {
+      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+        WLT = 'W';
+      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+        WLT = 'L';
+      }
+    } else if (sportName.includes('Golf')) {
+      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+        WLT = 'L';
+      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+        WLT = 'W';
+      }
     }
 
     return (
@@ -85,6 +101,7 @@ class ScorePg extends Component {
 
   render() {
     const sportName = this.props.navigation.state.params.sport;
+
     console.log(this.props.scores);
     return (
       <SafeAreaView style={{ flex: 1 }}>
