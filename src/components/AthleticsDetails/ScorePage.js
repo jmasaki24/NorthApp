@@ -44,7 +44,13 @@ class ScorePg extends Component {
   renderItem({ item }) {
     const ourScore = item.score.split(' ')[0];
     const theirScore = item.score.split(' ')[2];
-    const WLT = item.score.split(' ')[3];
+    let WLT = 'T';
+
+    if (ourScore > theirScore) {
+      WLT = 'W';
+    } else if (ourScore < theirScore) {
+      WLT = 'L';
+    }
 
     return (
       <ScoreCard
