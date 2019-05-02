@@ -15,20 +15,31 @@ class ScorePg extends Component {
   }
 
   record() {
+    const sportName = this.props.navigation.state.params.sport;
     let wins = 0;
     let loses = 0;
     let ties = 0;
     const scoreArray = this.props.scores;
-
     for (let i = 0; i < scoreArray.length; i++) {
-      const WLT = scoreArray[i].score.split(' ')[3];
+      const ourScore = scoreArray[i].score.split(' ')[0];
+      const theirScore = scoreArray[i].score.split(' ')[2];
 
-      if (WLT === 'W') {
-        wins += 1;
-      } else if (WLT === 'L') {
-        loses += 1;
-      } else if (WLT === 'T') {
-        ties += 1;
+      if (!sportName.includes('Golf')) {
+        if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+          wins += 1;
+        } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+          loses += 1;
+        } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
+          ties += 1;
+        }
+      } else if (sportName.includes('Golf')) {
+        if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+          loses += 1;
+        } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+          wins += 1;
+        } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
+          ties += 1;
+        }
       }
     }
 
@@ -40,9 +51,24 @@ class ScorePg extends Component {
   }
 
   renderItem({ item }) {
+    const sportName = this.props.navigation.state.params.sport;
     const ourScore = item.score.split(' ')[0];
     const theirScore = item.score.split(' ')[2];
-    const WLT = item.score.split(' ')[3];
+    let WLT = 'T';
+
+    if (!sportName.includes('Golf')) {
+      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+        WLT = 'W';
+      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+        WLT = 'L';
+      }
+    } else if (sportName.includes('Golf')) {
+      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
+        WLT = 'L';
+      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
+        WLT = 'W';
+      }
+    }
 
     return (
       <ScoreCard
@@ -75,6 +101,8 @@ class ScorePg extends Component {
 
   render() {
     const sportName = this.props.navigation.state.params.sport;
+
+    console.log(this.props.scores);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Card>
