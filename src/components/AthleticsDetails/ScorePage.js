@@ -22,14 +22,16 @@ class ScorePg extends Component {
     for (let i = 0; i < scoreArray.length; i++) {
       const ourScore = scoreArray[i].score.split(' ')[0];
       const theirScore = scoreArray[i].score.split(' ')[2];
-      console.log(`ourScore${i}: ${ourScore}`);
-      console.log(`theirScore${i}: ${theirScore}`);
-      console.log(`${i} ${ourScore > theirScore} ${4 > 11}`);
-      if (ourScore > theirScore) {
+
+      console.log(`ourScore:${ourScore}theirScore:${theirScore}win?:${ourScore > theirScore}`);
+
+      //Problem is that they are being compared as Strings in the conditionals
+
+      if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
         wins += 1;
-      } else if (ourScore < theirScore) {
+      } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
         loses += 1;
-      } else if (ourScore === theirScore) {
+      } else if (parseInt(ourScore, 10) === parseInt(theirScore, 10)) {
         ties += 1;
       }
     }
@@ -46,9 +48,9 @@ class ScorePg extends Component {
     const theirScore = item.score.split(' ')[2];
     let WLT = 'T';
 
-    if (ourScore > theirScore) {
+    if (parseInt(ourScore, 10) > parseInt(theirScore, 10)) {
       WLT = 'W';
-    } else if (ourScore < theirScore) {
+    } else if (parseInt(ourScore, 10) < parseInt(theirScore, 10)) {
       WLT = 'L';
     }
 
