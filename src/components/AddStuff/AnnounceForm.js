@@ -29,7 +29,7 @@ class AnnounceF extends Component {
       showModal: false,
       failMsgHeight: new Animated.Value(0),
       successMsgHeight: new Animated.Value(0),
-      waitModalVisible: this.props.isPushingA,
+      waitModalVisible: this.props.isPushingA, // doesn't do anything, but somehow triggers refresh???
       // should be a bool, makes Create default
       isEdit: this.props.navigation.getParam('isEdit', false)
     };
@@ -111,7 +111,7 @@ class AnnounceF extends Component {
   }
 
   render() {
-    console.log(this.state.waitModalVisible);
+    console.log(this.props.isPushingA);
     const { failMsgHeight, successMsgHeight } = this.state;
     if (this.props.isError) {
       // animate the showing of the failMSG
@@ -200,7 +200,7 @@ class AnnounceF extends Component {
         </Confirm>
       </Card>
       <Modal
-        visible={this.props.isPushingA}
+        visible={false}
         transparent
         onRequestClose={() => this.props.isAnnouncePushing(false)}
       >

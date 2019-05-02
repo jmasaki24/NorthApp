@@ -1,7 +1,5 @@
 /**
-* I was thinking this page could use a redesign with rectangle buttons,
-* since there are 7 buttons it'd be a 2-3-2 or something that had more color
-* colored rectangles with icons or backgroundimage?
+* WARNING: THIS FILE EXPORT 'MenuStack'
 */
 import React, { Component } from 'react';
 import {
@@ -18,7 +16,7 @@ import StorePage from './Menu/StorePage';
 import StoreItem from './Menu/StoreItem';
 import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
 import {
-  CreateAnnounce, EditAnnounce, CreateEvent, EditEvent, DefaultImages, AnnounceForm
+   AnnounceForm, EventForm, CreateEvent, EditEvent, DefaultImages,
 } from './AddStuff';
 import i18n from '../utils/i18n';
 import stadiumlights from '../images/fieldlights.jpg';
@@ -184,12 +182,18 @@ const MenuStack = createStackNavigator({
       headerTitle: <Text style={{ fontSize: 30, }}>Admin</Text>
     }),
   },
-    CreateAnnounce: {
-      screen: CreateAnnounce,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Create an Announcement</Text>
-      }),
-    },
+      AnnounceForm: {
+        screen: AnnounceForm,
+        navigationOptions: () => ({
+          headerTitle: <Text style={{ fontSize: 20 }}>Create/Edit an Announcement</Text>
+        }),
+      },
+      EventForm: {
+        screen: EventForm,
+        navigationOptions: () => ({
+          headerTitle: <Text style={{ fontSize: 20 }}>Create/Edit an Event</Text>
+        }),
+      },
       DefaultImages: {
         screen: DefaultImages,
         navigationOptions: () => ({
@@ -208,12 +212,6 @@ const MenuStack = createStackNavigator({
         headerTitle: <Text style={{ fontSize: 20 }}>Your Announcements</Text>
       }),
     },
-    EditAnnounce: {
-      screen: EditAnnounce,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Edit Your Announcement</Text>
-      }),
-    },
     UsersEvents: {
       screen: UsersEvents,
       navigationOptions: () => ({
@@ -224,12 +222,6 @@ const MenuStack = createStackNavigator({
       screen: EditEvent,
       navigationOptions: () => ({
         headerTitle: <Text style={{ fontSize: 20 }}>Edit Your Event</Text>
-      }),
-    },
-    AnnounceForm: {
-      screen: AnnounceForm,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Create/Edit an Announcement</Text>
       }),
     },
   Polls: PollLogin,

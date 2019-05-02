@@ -128,7 +128,7 @@ class UsersEvents extends Component {
             <View style={{ flex: 1 }} />
             <Icon.Button
               name="edit" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'
-              onPress={() => this.props.navigation.navigate('EditEvent', { item, id: item.key })}
+              onPress={() => this.props.navigation.navigate('EventForm', { isEdit: true, item, id: item.key })}
             />
             <Icon.Button
               name="trash-alt" iconStyle={{ marginRight: 0, color: '#999' }} backgroundColor='#fff'

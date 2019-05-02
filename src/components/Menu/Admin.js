@@ -32,14 +32,14 @@ class Admin extends PureComponent {
             <Button
               buttonStyle={[styles.buttonStyle, { borderTopWidth: 1 }]}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('AnnounceForm', { isEdit: false })}
+              onPress={() => this.props.navigation.navigate('AnnounceForm')}
             >
               Create Announcement
             </Button>
             <Button
               buttonStyle={styles.buttonStyle}
               textStyle={styles.textStyle}
-              onPress={() => this.props.navigation.navigate('CreateEvent')}
+              onPress={() => this.props.navigation.navigate('EventForm')}
             >
               Create Event
             </Button>

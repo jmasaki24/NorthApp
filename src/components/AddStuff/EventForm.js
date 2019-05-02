@@ -12,14 +12,14 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { Calendar } from 'react-native-calendars';
 import {
-  addEventDate, addEventTitle, addEventLocation, addEventInfo,
-  addEventHour, addEventMinute, addEventPeriod, pushEvent, isEventPushing,
+  addEventDate, addEventTitle, addEventLocation, addEventInfo, addKey, clear,
+  addEventHour, addEventMinute, addEventPeriod, pushEvent, editEvent, isEventPushing,
 } from '../../actions';
 import { Button, CardSection, Confirm, Input, Spinner } from '../common';
 
 const { height } = Dimensions.get('window');
 
-class CEvent extends Component {
+class EventF extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,8 +27,22 @@ class CEvent extends Component {
       showCalendar: false,
       switch: false,
       failMsgHeight: new Animated.Value(0),
-      waitModalVisible: this.props.isPushingE,
+      successMsgHeight: new Animated.Value(0),
+      waitModalVisible: this.props.isPushingE, // doesn't do anything, but somehow triggers refresh????
+      // should be a bool, false makes Create default so if error user can just delete old one
+      isEdit: this.props.navigation.getParam('isEdit', false)
     };
+
+    if (this.state.isEdit) {
+      const item = this.props.navigation.getParam('item', 'Item Not Found');
+      const id = this.props.navigation.getParam('id', 'Id/key not found');
+      this.props.addEventDate(item.date);
+      this.props.addEventTitle(item.title);
+      this.props.addEventLocation(item.location);
+      this.props.addEventInfo(item.info);
+      this.props.addKey(id);
+    }
+
     this.onAccept = this.onAccept.bind(this);
     this.onDecline = this.onDecline.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
@@ -38,12 +52,35 @@ class CEvent extends Component {
     this.onHourChange = this.onHourChange.bind(this);
     this.onMinuteChange = this.onMinuteChange.bind(this);
     this.onPeriodChange = this.onPeriodChange.bind(this);
+    this.onSwitchChange = this.onSwitchChange.bind(this);
   }
 
+  componentDidMount() {
+    if (this.state.isEdit) {
+      const item = this.props.navigation.getParam('item', 'Item Not Found');
+      if (item.time === 'All Day') {
+        this.setState({ switch: true });
+      } else if (item.time) {
+        const colonPos = item.time.indexOf(':');
+        const spacePos = item.time.indexOf(' ');
+        const time = item.time;
+        this.props.addEventHour(time.substring(0, colonPos));
+        this.props.addEventMinute(time.substring(colonPos + 1, spacePos));
+        this.props.addEventPeriod(time.substring(spacePos + 1));
+      }
+    }
+  }
+
+  componentWillUnmount() { if (this.state.isEdit) this.props.clear(); }
+
   onAccept() {
-    const { date, title, location, info, hour, minute, period } = this.props;
+    const { date, title, location, info, hour, minute, period, id } = this.props;
     this.props.isEventPushing(true);
-    this.props.pushEvent({ date, title, location, info, hour, minute, period });
+    if (this.state.isEdit) {
+      this.props.editEvent({ date, title, location, info, hour, minute, period, id });
+    } else {
+      this.props.pushEvent({ date, title, location, info, hour, minute, period });
+    }
     this.setState({ showModal: false });
   }
 
@@ -137,6 +174,7 @@ class CEvent extends Component {
   }
 
   renderButton() {
+    const msg = this.state.isEdit ? 'Change Announcement' : 'Submit Announcement';
     if (this.props.title && this.props.date) {
       return (
         <CardSection>
@@ -145,7 +183,7 @@ class CEvent extends Component {
             textStyle={{ color: 'black', alignSelf: 'center' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
           >
-            Create Event
+            {msg}
           </Button>
         </CardSection>
       );
@@ -153,14 +191,16 @@ class CEvent extends Component {
     return (
       <CardSection>
         <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>Create Event</Text>
+          <Text style={styles.textStyle}>{msg}</Text>
         </View>
       </CardSection>
     );
   }
 
   render() {
-    const { failMsgHeight } = this.state;
+    console.log(this.props);
+    // does the hiding (Easing.linear) happen every render???
+    const { failMsgHeight, successMsgHeight } = this.state;
     if (this.props.error) {
       // animate the showing of the failMSG
       failMsgHeight.setValue(0); // reset the animated value
@@ -177,16 +217,35 @@ class CEvent extends Component {
         easing: Easing.linear,
       }).start();
     }
+    if (this.props.isSuccess) {
+      successMsgHeight.setValue(0);
+      Animated.timing(successMsgHeight, {
+        toValue: (height / 20),
+        duration: 1000,
+        easing: Easing.cubic,
+      }).start();
+    } else {
+      Animated.timing(successMsgHeight, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.linear
+      }).start();
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
         <Animated.View style={{ backgroundColor: '#ff0f0f', height: failMsgHeight }}>
           <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
-            Error: Could not push
+            Error: Could not connect to server
+          </Text>
+        </Animated.View>
+        <Animated.View style={{ backgroundColor: '#228B22', height: successMsgHeight }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 5, alignSelf: 'center' }}>
+            Success!
           </Text>
         </Animated.View>
         {this.renderCalendar()}
         <Input
-          label='Title:'
+          label="Title:"
           placeholder="Event Name"
           blurOnSubmit
           inputFlexNum={4}
@@ -228,7 +287,7 @@ class CEvent extends Component {
         />
         <Input
           placeholder="Describe this event"
-          label='Desciption:'
+          label="Desciption:"
           blurOnSubmit
           inputFlexNum={3}
           multiline
@@ -242,10 +301,13 @@ class CEvent extends Component {
           onAccept={this.onAccept}
           onDecline={this.onDecline}
         >
-          Are you sure you would like to add this event?
+          {
+            this.props.isEdit ? 'Are you sure you would like to add this event?'
+            : 'Are you sure you would like to change this event'
+          }
         </Confirm>
         <Modal
-          visible={this.state.waitModalVisible}
+          visible={false}
           transparent
           onRequestClose={() => this.props.isEventPushing(false)}
         >
@@ -316,11 +378,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const { date, title, location, info, isPushingE, hour, minute, period, error } = state.event;
-  return { date, title, location, info, isPushingE, hour, minute, period, error };
+  const { date, title, location, info, isPushingE, hour, minute, period, id, error } = state.event;
+  return { date, title, location, info, isPushingE, hour, minute, period, id, error };
 };
 
-const CreateEvent = withNavigation(connect(mapStateToProps, {
+const EventForm = withNavigation(connect(mapStateToProps, {
   addEventDate,
   addEventTitle,
   addEventHour,
@@ -328,8 +390,11 @@ const CreateEvent = withNavigation(connect(mapStateToProps, {
   addEventPeriod,
   addEventLocation,
   addEventInfo,
+  editEvent,
   pushEvent,
   isEventPushing,
-})(CEvent));
+  addKey,
+  clear,
+})(EventF));
 
-export { CreateEvent };
+export { EventForm };
