@@ -64,7 +64,7 @@ class AnnounceCardAllText extends PureComponent {
 
   render() {
     return (
-      <View>
+      <Card style={{ elevation: 5 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text adjustsFontSizeToFit style={styles.titleText}>{this.props.title}</Text>
         </CardSection>
@@ -73,7 +73,7 @@ class AnnounceCardAllText extends PureComponent {
             {this.props.children}</Text>
         </CardSection>
         {this.renderBottomSection(this.props)}
-      </View>
+      </Card>
     );
   }
 }
