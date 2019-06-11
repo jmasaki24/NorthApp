@@ -24,10 +24,11 @@ import chalkboard from '../images/chalkboard.jpg';
 import vote from '../images/checkbox.png';
 import store from '../images/storebutton.png';
 import clubs from '../images/clubicons.png';
+import Icon from '../images/icon';
 
 class MenuPage extends Component {
   render() {
-    const { imageStyle, textStyle, middleImage } = styles;
+    const { imageStyle, textStyle, middleImage, icon, middleTouch, bottomCards } = styles;
     return (
       <View style={styles.pageStyle}>
         <View style={{ flexDirection: 'row', flex: 2 }}>
@@ -39,52 +40,34 @@ class MenuPage extends Component {
               <Text style={textStyle}>{i18n.t('CLUBS')}</Text>
             </ImageBackground>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Polls')}
-            style={[styles.middleTouch, { borderLeftWidth: 0 }]}
-          >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Polls')} style={[middleTouch, { borderLeftWidth: 0 }]}>
             <ImageBackground source={vote} style={middleImage} imageStyle={imageStyle}>
               <Text style={textStyle}>{i18n.t('VOTING')}</Text>
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Academics')}
-          style={[styles.middleTouch, { borderTopWidth: 0 }]}
-        >
-          <ImageBackground source={chalkboard} style={middleImage} imageStyle={imageStyle}>
-              <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ACADEMICS')}</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')} style={[middleTouch, { borderTopWidth: 0 }]}>
+          <ImageBackground source={chalkboard} style={middleImage} imageStyle={imageStyle} >
+            <Icon src={'menu-academics'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => this.props.navigation.navigate('Store')}
-        style={[styles.middleTouch, { borderTopWidth: 0 }]}
-        >
-        <ImageBackground source={store} style={middleImage} imageStyle={imageStyle} >
-        <Text style={[textStyle]}>{i18n.t('STORE')}</Text>
-        </ImageBackground>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')} style={[middleTouch, { borderTopWidth: 0 }]}>
+          <ImageBackground source={store} style={middleImage} imageStyle={imageStyle} >
+            <Text style={[textStyle]}>{i18n.t('STORE')}</Text>
+          </ImageBackground>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Athletics')}
-          style={[styles.middleTouch, { borderTopWidth: 0 }]}
-        >
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Athletics')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={stadiumlights} style={middleImage} imageStyle={imageStyle}>
-              <Text style={[textStyle, { color: 'white' }]}>{i18n.t('ATHLETICS')}</Text>
+          <Icon src={'menu-athletics'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Contact')}
-              style={[styles.bottomCards, { borderRightWidth: 1 }]}
-            >
-              <Text adjustFontSizeToFit style={textStyle}>{i18n.t('CONTACT')}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('AdminHome')}
-              style={[styles.bottomCards, { borderLeftWidth: 1 }]}
-            >
-              <Text style={textStyle}>{i18n.t('ADMINISTRATION')}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Contact')} style={[bottomCards, { borderRightWidth: 1 }]}>
+            <Text adjustFontSizeToFit style={textStyle}>{i18n.t('CONTACT')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('AdminHome')} style={[bottomCards, { borderLeftWidth: 1 }]}>
+            <Text style={textStyle}>{i18n.t('ADMINISTRATION')}</Text>
+          </TouchableOpacity>
         </View>
         <Text style={{ alignSelf: 'center', margin: 5 }}>Copyright NHSN 2018</Text>
       </View>
@@ -111,6 +94,9 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.5,
     // elevation: 1,
+  },
+  icon: {
+    alignSelf: 'center',
   },
   imageStyle: {
     resizeMode: 'cover',

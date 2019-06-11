@@ -8,7 +8,7 @@
 import React, { PureComponent } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { CardSection } from './common';
+import { Card, CardSection } from './common';
 
 const { width, height } = Dimensions.get('window');
 
@@ -95,7 +95,7 @@ class AnnounceCardImage extends PureComponent {
 
   render() {
     return (
-      <View style={{ marginBottom: 5 }}>
+      <Card style={{ marginBottom: 5, elevation: 5 }}>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.titleText}>
             {this.props.title}
@@ -103,7 +103,7 @@ class AnnounceCardImage extends PureComponent {
         </CardSection>
         {this.renderCenterSection()}
         {renderBottomSection(this.props)}
-      </View>
+      </Card>
     );
   }
 }
