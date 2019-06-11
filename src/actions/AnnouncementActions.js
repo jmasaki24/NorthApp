@@ -18,6 +18,7 @@ import {
   PUSH_ANNOUNCEMENT_FAIL,
   IS_PUSHING_A,
   IS_SUCCESS_A,
+  REFRESH_BOOL,
 } from './types';
 
 export const clear = () => (
@@ -229,11 +230,14 @@ export const announceSuccess = (bool) => (
 //  (.once() returns a promise)
 export const getAnnouncements = () => {
   return (dispatch) => {
+    dispatch({ type: REFRESH_BOOL, payload: true });
     firebase.database().ref('/Announcements')
-    .once('value', snapshot => {
-      dispatch({ type: GET_SUCCESS, payload: snapshot.val() });
-    }, () => {
-      dispatch({ type: GET_FAIL, payload: true });
-    });
+      .once('value').then(snapshot => {
+        dispatch({ type: GET_SUCCESS, payload: snapshot.val() });
+      })
+      .catch(() => {
+        console.log('fail');
+        dispatch({ type: GET_FAIL, payload: true });
+      });
   };
 };

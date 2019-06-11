@@ -1,6 +1,7 @@
 import {
   GET_SUCCESS,
   GET_FAIL,
+  REFRESH_BOOL,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,14 +15,17 @@ const INITIAL_STATE = {
     },
   },
   error: false,
+  isRefresh: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_SUCCESS:
-      return { data: action.payload, error: false };
+      return { data: action.payload, error: false, isRefresh: false };
     case GET_FAIL:
-      return { error: action.payload };
+      return { error: action.payload, isRefresh: false };
+    case REFRESH_BOOL:
+      return { ...state, isRefresh: action.payload };
     default:
       return state;
   }

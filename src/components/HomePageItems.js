@@ -23,7 +23,7 @@ class HomePageItems extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refreshing: false, imageModal: false, imageUri: null, failMsgHeight: new Animated.Value(0),
+      refreshing: this.props.isRefresh, imageModal: false, imageUri: null, failMsgHeight: new Animated.Value(0),
     };
   }
 
@@ -56,6 +56,8 @@ class HomePageItems extends Component {
   }
 
   render() {
+    console.log(this.props);
+    console.log(this.state);
     const { failMsgHeight } = this.state;
     if (this.props.error) {
       // animate the showing of the failMSG
@@ -83,7 +85,7 @@ class HomePageItems extends Component {
           style={{ flex: 1 }}
           data={this.props.data}
           renderItem={item => this.renderItem(item)}
-          refreshing={this.state.refreshing}
+          refreshing={this.props.isRefresh} // UNSURE IF THIS WORKS ON ANDROID
           onRefresh={this.handleRefresh}
         />
         <Modal
@@ -129,8 +131,8 @@ const mapStateToProps = (state) => {
   if (state.HPannouncements.data) { // data may be null/undefined, which leads to error for .values
    data = Object.values(state.HPannouncements.data).reverse();
   }
-  const error = state.HPannouncements.error;
-  return { data, error };
+  const { error, isRefresh } = state.HPannouncements;
+  return { data, error, isRefresh };
 };
 
 export default connect(mapStateToProps, { getAnnouncements })(HomePageItems);

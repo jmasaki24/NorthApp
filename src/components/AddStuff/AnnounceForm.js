@@ -50,7 +50,7 @@ class AnnounceF extends Component {
     this.onInfoChange = this.onInfoChange.bind(this);
   }
 
-  componentWillUnmount() { if (this.state.isEdit) this.props.clear(); }
+  componentWillUnmount() { if (this.state.isEdit) this.props.clear(); } // could use Navigation onWillBlur?
 
   onAccept() {
     const { title, info, img, isDefault, id } = this.props;

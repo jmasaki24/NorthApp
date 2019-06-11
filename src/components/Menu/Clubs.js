@@ -43,6 +43,7 @@ class Clubs extends Component {
   }
 
   render() {
+    console.log(data);
     return (
       <View style={{ flex: 1 }}>
         <Text style={styles.titleText}>NHSN Clubs</Text>
@@ -55,13 +56,13 @@ class Clubs extends Component {
         >
           <SafeAreaView style={styles.modalContainer}>
             <Text style={{ fontSize: 40, textAlign: 'center' }}>
-              {this.props.item.name}
+              {this.state.club.name}
             </Text>
             <Text style={{ textAlign: 'center', fontSize: 22, padding: 5 }}>
-              Contact {this.props.item.teacher} at {this.props.item.contact}
+              Contact {this.state.club.teacher} at {this.state.club.contact}
             </Text>
             <Text style={{ fontSize: 18 }}>
-              {this.props.item.description}
+              {this.state.club.description}
             </Text>
             <CardSection style={styles.closeButtonStyle}>
               <Button

@@ -12,6 +12,7 @@ export const PUSH_ANNOUNCEMENT = 'push_announcement';
 export const PUSH_ANNOUNCEMENT_FAIL = 'push_announcement_fail';
 export const IS_PUSHING_A = 'is_pushing_announcement';
 export const IS_SUCCESS_A = 'is_success_announcement';
+export const REFRESH_BOOL = 'refresh_bool_home';
 
 export const GET_SPORT_SCHEDULE = 'get_sport_schedule';
 export const GET_SPORT_SCORES = 'get_sport_scores';
