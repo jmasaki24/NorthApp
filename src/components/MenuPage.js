@@ -12,12 +12,9 @@ import {
   AcademicsPage, Admin, Athletics, BellSchedule, Clubs, ContactPage,
   PollLogin, PollPage, UsersAnnouncements, UsersEvents
 } from './Menu';
-import StorePage from './Menu/StorePage';
-import StoreItem from './Menu/StoreItem';
+import ComingSoon from './Menu/ComingSoon';
 import { UpcomingGames, IndivSportsPage, ScorePage, SchedulePage } from './AthleticsDetails';
-import {
-   AnnounceForm, EventForm, CreateEvent, EditEvent, DefaultImages,
-} from './AddStuff';
+import { AnnounceForm, EventForm, DefaultImages } from './AddStuff';
 import i18n from '../utils/i18n';
 import stadiumlights from '../images/fieldlights.jpg';
 import chalkboard from '../images/chalkboard.jpg';
@@ -36,29 +33,29 @@ class MenuPage extends Component {
             onPress={() => this.props.navigation.navigate('Clubs')}
             style={[styles.middleTouch, { borderRightWidth: 0 }]}
           >
-            <ImageBackground source={clubs} style={middleImage} imageStyle={imageStyle}>
+            <ImageBackground source={clubs} style={middleImage} imageStyle={[imageStyle, { opacity: 1 }]}>
               <Text style={textStyle}>{i18n.t('CLUBS')}</Text>
             </ImageBackground>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Polls')} style={[middleTouch, { borderLeftWidth: 0 }]}>
-            <ImageBackground source={vote} style={middleImage} imageStyle={imageStyle}>
+            <ImageBackground source={vote} style={middleImage} imageStyle={[imageStyle, { opacity: 1 }]}>
               <Text style={textStyle}>{i18n.t('VOTING')}</Text>
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')} style={[middleTouch, { borderTopWidth: 0 }]}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Academics')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={chalkboard} style={middleImage} imageStyle={imageStyle} >
-            <Icon src={'menu-academics'} size={50} style={icon} color={'#F7F7F7'} />
+            <Icon src={'academicsbutton'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')} style={[middleTouch, { borderTopWidth: 0 }]}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('ComingSoon')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={store} style={middleImage} imageStyle={imageStyle} >
-            <Text style={[textStyle]}>{i18n.t('STORE')}</Text>
+            <Icon src={'comingsoon'} size={40} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Athletics')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={stadiumlights} style={middleImage} imageStyle={imageStyle}>
-          <Icon src={'menu-athletics'} size={50} style={icon} color={'#F7F7F7'} />
+            <Icon src={'athleticsbutton'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
         <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -103,6 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderColor: '#CCC',
     borderRadius: 10,
+    opacity: 0.5,
   },
   middleImage: {
     flex: 1,
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 2,
     borderRadius: 10,
     margin: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
 
     elevation: 5,
     shadowColor: '#000',
@@ -140,21 +138,10 @@ const MenuStack = createStackNavigator({
   Academics: AcademicsPage,
   Bells: BellSchedule,
   Clubs,
-  Store: {
-    screen: StorePage,
+  ComingSoon: {
+    screen: ComingSoon,
     navigationOptions: () => ({
-      headerTitle: <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
-    }),
-  },
-  Item: {
-    screen: StoreItem,
-    navigation: () => ({
-      headerTitle: <Text style={{ fontSize: 18, alignSelf: 'center', }}>Gediyon Merch Store</Text>,
-      headerBackImage:
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-          <FontAwesome5 style={{ marginRight: 3 }} name={'caret-left'} color={'black'} size={33} />
-          <FontAwesome5 name={'store-alt'} color={'black'} size={20} />
-        </View>,
+      headerTitle: <Text style={{ fontSize: 30, }}>Coming Soon</Text>
     }),
   },
   Athletics,
@@ -186,30 +173,18 @@ const MenuStack = createStackNavigator({
           headerTitle: <Text style={{ fontSize: 20 }}>Select an Image</Text>
         }),
       },
-    CreateEvent: {
-      screen: CreateEvent,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Create an Event</Text>
-      }),
-    },
-    UsersAnnouncements: {
-      screen: UsersAnnouncements,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Your Announcements</Text>
-      }),
-    },
-    UsersEvents: {
-      screen: UsersEvents,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Your Events</Text>
-      }),
-    },
-    EditEvent: {
-      screen: EditEvent,
-      navigationOptions: () => ({
-        headerTitle: <Text style={{ fontSize: 20 }}>Edit Your Event</Text>
-      }),
-    },
+      UsersAnnouncements: {
+        screen: UsersAnnouncements,
+        navigationOptions: () => ({
+          headerTitle: <Text style={{ fontSize: 20 }}>Your Announcements</Text>
+        }),
+      },
+      UsersEvents: {
+        screen: UsersEvents,
+        navigationOptions: () => ({
+          headerTitle: <Text style={{ fontSize: 20 }}>Your Events</Text>
+        }),
+      },
   Polls: PollLogin,
   PollPage
 }, {
