@@ -229,6 +229,7 @@ export const announceSuccess = (bool) => (
 // don't try to fix the 'unexpected block statement' as action must not return a promise
 //  (.once() returns a promise)
 export const getAnnouncements = () => {
+  console.log('Get');
   return (dispatch) => {
     dispatch({ type: REFRESH_BOOL, payload: true });
     firebase.database().ref('/Announcements')

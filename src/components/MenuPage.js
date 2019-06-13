@@ -46,7 +46,7 @@ class MenuPage extends Component {
             </ImageBackground>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Store')} style={[middleTouch, { borderTopWidth: 0 }]}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Academics')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={chalkboard} style={middleImage} imageStyle={imageStyle} >
             <Icon src={'menu-academics'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
@@ -58,7 +58,7 @@ class MenuPage extends Component {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Athletics')} style={[middleTouch, { borderTopWidth: 0 }]}>
           <ImageBackground source={stadiumlights} style={middleImage} imageStyle={imageStyle}>
-          <Icon src={'menu-athletics'} size={50} style={icon} color={'#F7F7F7'} />
+            <Icon src={'menu-athletics'} size={50} style={icon} color={'#F7F7F7'} />
           </ImageBackground>
         </TouchableOpacity>
         <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderColor: '#CCC',
     borderRadius: 10,
+    opacity: 0.4,
   },
   middleImage: {
     flex: 1,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 2,
     borderRadius: 10,
     margin: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#555',
 
     elevation: 5,
     shadowColor: '#000',
